@@ -1,12 +1,14 @@
 /*    /lib/npc.c
- *    from the Dead Souls LPC Library http://dead-souls.net
+ *    from the Dead Souls LPC Library
  *    the standard non-player character object
  *    created by Descartes of Borg 950323
  *    Version: @(#) npc.c 1.11@(#)
  *    Last Modified: 96/12/21
- *    modified 15/12/02 by Lash (ccoker)
- *    for use in The Brass Ring
- *    - added inherit LIB_FACTIONS
+ *    Modified by Lash 11/10/31 (10/31/11) 
+ *      addition of ActionsMap for npc's
+ *      code copy and pasted from Dead Souls
+ *      mudlib LIB_ROOM file
+ *      2015/12/10 - added inherit LIB_FACTIONS
  */
 
 #include <lib.h>
@@ -46,6 +48,8 @@ private static string MountStyle = "ridden";
 private int VisibleRiders = 1;
 private int actions_enabled = 1;
 mapping Equipped = ([]);
+private mapping ActionsMap = ([]); /* added by Lash */
+private int tick_resolution = 5; /* added by Lash */
 
 int eventExtraAction(){ return 1; }
 
@@ -120,7 +124,13 @@ void CheckEncounter(){
 static void init(){
     guard::init();
     CheckEncounter();
+    /* added by Lash */
+    if((Action && (sizeof(Action) || functionp(Action)))
+            || sizeof(ActionsMap)){
+        set_heart_beat(tick_resolution);
+    }
 }
+/* end add */
 
 static void heart_beat(){
     int position;
@@ -140,6 +150,18 @@ static void heart_beat(){
                 !RACES_D->GetLimblessRace(this_object()->GetRace()) ) 
             eventForce("stand up");
     }
+
+    /* added by lash */
+    if( !GetInCombat() && sizeof(ActionsMap)){
+        foreach(mixed key, mixed val in ActionsMap){
+            if( val > random(100) ){
+                if(functionp(key)) evaluate(key);
+                else eventPrint(key);
+            }
+        }
+    }
+    /* end add */
+
     if( !GetInCombat() && actions_enabled && ActionChance > random(100) ){
         int x;
 
@@ -242,7 +264,6 @@ int eventCompleteMove(mixed dest){
 
 int eventDestruct(){
     mixed array worn = ({});
-    if(!valid_event(previous_object(), this_object())) return 0;
     if(room_environment() && room_environment()->GetPersistent()){
         if(!Equipped) Equipped = ([]);
         worn = this_object()->GetWorn();
@@ -252,7 +273,7 @@ int eventDestruct(){
             if(!thing || !objectp(thing)) continue;
             if(Equipped[file_name(thing)]) continue;
             Equipped[file_name(thing)] =
-                ([ "object" : thing, "where" : thing->GetWorn() ]);
+              ([ "object" : thing, "where" : thing->GetWorn() ]);
         }
     }
     chat::eventDestruct();
@@ -482,24 +503,24 @@ int GetCustomXP(){
     return CustomXP;
 }
 
-int SetMagicPoints(int x){
-    if( x > GetMaxMagicPoints() )
-        SetStat("intelligence", (x-50)/10, GetStatClass("intelligence"));
-    AddMagicPoints( x - GetMagicPoints() );
-    return GetMagicPoints();
-}
+    int SetMagicPoints(int x){
+        if( x > GetMaxMagicPoints() )
+            SetStat("intelligence", (x-50)/10, GetStatClass("intelligence"));
+        AddMagicPoints( x - GetMagicPoints() );
+        return GetMagicPoints();
+    }
 
 int SetMaxMagicPoints(int x){
     SetStat("intelligence", (x-50)/10, GetStatClass("intelligence"));
     return GetMaxMagicPoints();
 }
 
-float SetStaminaPoints(float x){
-    if( x > GetMaxStaminaPoints() )
-        SetStat("agility", to_int((x-50.0)/10.0), GetStatClass("agility"));
-    AddStaminaPoints( x - GetStaminaPoints() );
-    return to_float(GetStaminaPoints());
-}
+    float SetStaminaPoints(float x){
+        if( x > GetMaxStaminaPoints() )
+            SetStat("agility", to_int((x-50.0)/10.0), GetStatClass("agility"));
+        AddStaminaPoints( x - GetStaminaPoints() );
+        return to_float(GetStaminaPoints());
+    }
 
 float SetMaxStaminaPoints(float x){
     SetStat("agility", (x-50.0)/10.0, GetStatClass("agility"));
@@ -634,6 +655,17 @@ void SetAction(int chance, mixed val){
 }
 
 mixed GetAction(){ return Action; }
+
+/* added by Lash */
+mapping SetActionsMap(mapping ActMap){
+    if(ActMap && sizeof(ActMap)) ActionsMap = ActMap;
+    return copy(ActionsMap);
+}
+
+mapping GetActionsMap(){
+    return copy(ActionsMap);
+}
+/* end add */
 
 void SetCombatAction(int chance, mixed val){
     CombatActionChance = chance;
