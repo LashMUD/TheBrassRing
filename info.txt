@@ -1,8 +1,0 @@
-The repository holds directories based on the Dead Souls mudlib. The directory
-structure has been kept intact and contains files from the mudlib that are 
-modified in creating The Brass Ring mud. See file headers for notes and 
-modifications.
-
-Note that the Dead Souls License applies to these files.
-
-See http://www.dead-souls.net for more information.
