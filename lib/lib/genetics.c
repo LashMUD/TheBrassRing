@@ -15,7 +15,7 @@
 #include <damage_types.h>
 #include <daemons.h>
 #include "include/genetics.h"
-inherit "/domains/diku-alfa/etc/curse.c";
+inherit "powers/npc/curse.c";
 
 class blindness {
     int count;
