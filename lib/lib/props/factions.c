@@ -21,13 +21,12 @@ mixed AddFaction(string fac, int lev, string faclev, string levtime,
     if(!rlev) rlev =0;
     if(!rtime) rtime =0;
     if( !stringp(fac) ) return 0;
-    
     if( Factions[fac] ){
-        lev += Factions[fac]["faction level"];
+        lev += Factions[fac];
         ltime = SEASONS_D->GetTime();
     }
     else {
-        Factions[fac]["faction level"] = lev;
+        Factions[fac] = lev;
         ltime = SEASONS_D->GetTime();
     }
     Factions[fac] = (["faction level":lev,"level_timer":ltime,"reputation":rlev,
