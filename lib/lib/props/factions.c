@@ -5,9 +5,8 @@
  *    Created by Descartes of Borg 961222
  *    Version: @(#) properties.c 1.1@(#)
  *    Last modified: 96/12/22
+ *    ccoker modified for factions: 2015/12/08
  *
- *    2015/12/08 modified by Lash (ccoker)
- *    for factions inclusion for The Brass Ring
  */
 
 #include <lib.h>
@@ -15,21 +14,24 @@
 
 mapping Factions    = ([]);
 
-mixed AddFaction(string fac, int val, string ftime, int time, string rep, int amnt, string reptime, int rtime){
-    if(!time) time = 0;
-    if(!val) val = 0;
-    if(!amnt) amnt =0;
+mixed AddFaction(string fac, int lev, string faclev, string levtime, 
+                 string rep, string reptime, int ltime, int rlev, int rtime){
+    if(!lev) lev = 0;
+    if(!ltime) ltime = 0;
+    if(!rlev) rlev =0;
     if(!rtime) rtime =0;
     if( !stringp(fac) ) return 0;
+    
     if( Factions[fac] ){
-        val += Factions[fac]["level"];
-        time = SEASONS_D->GetTime();
+        lev += Factions[fac]["faction level"];
+        ltime = SEASONS_D->GetTime();
     }
     else {
-        Factions[fac] = val;
-        time = SEASONS_D->GetTime();
+        Factions[fac]["faction level"] = lev;
+        ltime = SEASONS_D->GetTime();
     }
-    Factions[fac] = (["faction level":val,"level_timer":time,"reputation":amnt, "reputation_timer": rtime ]);
+    Factions[fac] = (["faction level":lev,"level_timer":ltime,"reputation":rlev,
+                      "reputation_timer": rtime ]);
     return Factions[fac];
 }
 
