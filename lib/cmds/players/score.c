@@ -6,6 +6,8 @@
  *  /lib/cmds/players
  *  2014/11/07 modified by Lash (ccoker)
  *  for The Brass Ring
+ *  Output modification to look differently
+ *  than the original
  *  
  */
 

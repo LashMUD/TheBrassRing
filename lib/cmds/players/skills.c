@@ -4,7 +4,7 @@
  *    created by Descartes of Borg 950409
  *    - Moved map function to GetLine for readability, added a max skill
  *      level display for each skill, grouped in classes. (Blitz 960122/0404)
- *    - modified by Lash (ccoker) so player sees skills as they are
+ *    - modified by Lash (ccoker) so player  can see skills as they are
  *      affected by bonuses - for use in The Brass Ring
  */
 

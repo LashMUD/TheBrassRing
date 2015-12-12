@@ -5,9 +5,9 @@
  *    Version: @(#) npc.c 1.11@(#)
  *    Last Modified: 96/12/21
  *    Modified by Lash 11/10/31 (10/31/11) 
- *      addition of ActionsMap for npc's
- *      code copy and pasted from Dead Souls
- *      mudlib LIB_ROOM file
+ *      - addition of ActionsMap for npc's
+ *      - code copy and pasted from Dead Souls
+ *        mudlib LIB_ROOM file
  *      2015/12/10 - added inherit LIB_FACTIONS
  */
 
