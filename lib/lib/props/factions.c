@@ -14,22 +14,22 @@
 
 mapping Factions    = ([]);
 
-mixed AddFaction(string fac, int lev, string faclev, string levtime, 
+mixed AddFaction(string fac, int flev, string faclev, string levtime, 
                  string rep, string reptime, int ltime, int rlev, int rtime){
-    if(!lev) lev = 0;
+    if(!flev) flev = 0;
     if(!ltime) ltime = 0;
     if(!rlev) rlev =0;
     if(!rtime) rtime =0;
     if( !stringp(fac) ) return 0;
     if( Factions[fac] ){
-        lev += Factions[fac];
+        flev += Factions[fac];
         ltime = SEASONS_D->GetTime();
     }
     else {
-        Factions[fac] = lev;
+        Factions[fac] = flev;
         ltime = SEASONS_D->GetTime();
     }
-    Factions[fac] = (["faction level":lev,"level_timer":ltime,"reputation":rlev,
+    Factions[fac] = (["faction level":flev,"level_timer":ltime,"reputation":rlev,
                       "reputation_timer": rtime ]);
     return Factions[fac];
 }
