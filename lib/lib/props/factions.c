@@ -89,33 +89,6 @@ mixed GetReputationTimer(string fac){
     if( !stringp(fac) || !Factions || !Factions[fac]) return 0;
     return Factions[fac]["reputation_timer"];
 }
-/*
-mapping GetReputations(){
-    if(!Reputations) Reputations = ([]);
-    return Reputations;
-}
-
-int RemoveReputation(string fac){
-    if( !stringp(fac) ) error("Bad argument 1 to RemoveReputation().");
-    if( undefinedp(Reputations[fac]) ){
-        return 1;
-    }
-    else {
-        map_delete(Reputations, fac);
-    }
-    return !Reputations[fac];
-}
-
-mixed SetReputation(string fac, int val){
-    if( !stringp(fac) ) error("Bad argument 1 to SetReputation().");
-    if(!Reputations) Reputations = ([]);
-    return (Reputations[fac] = val);
-}
-
-mapping SetReputations(mapping facs){
-    if(sizeof(Reputations)) return (Reputations += facs);
-    else return (Reputations = facs);
-}*/
 
 /*function below mainly for NPC use*/
 mapping SetFactions(mapping facs){
