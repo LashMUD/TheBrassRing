@@ -368,7 +368,7 @@ static void heart_beat(){
         }
     }
     /* added by Lash - this is for tracking duration of the npc 'curse' spell in
-       /domains/diku-alfa/etc/magic_user.c file and counting down the effects 
+       /lib/powers/npc/magic_user.c file and counting down the effects 
        of the 'sanctuary' spell
      */
     if(Cursed){
