@@ -57,6 +57,19 @@ mapping GetFactions(){
     return Factions;
 }
 
+mixed AddFactionLevel(string fac, int val){
+    if( !stringp(fac) || !Factions[fac] ) return 0;
+     if( Factions[fac] ){
+        val +=Factions[fac]["faction level"];
+    }
+    else {
+        Factions[fac]["faction level"] = val;
+    }
+    Factions[fac]["faction level"] = val;
+    Factions[fac]["level_timer"] = SEASONS_D->GetTime();
+    return Factions[fac];
+}
+
 mixed GetFactionLevel(string fac){
     if( !stringp(fac) || !Factions || !Factions[fac]) return 0;
     return Factions[fac]["faction level"];
@@ -122,22 +135,20 @@ string *GetFacs(){
 int RepCountDown(){
     string *str = keys(Factions);
     int x;
-
     for(x=0; x<sizeof(str); x++){
         if(this_player()->GetReputationLevel(str[x]) <= 0
-        && this_player()->GetFactionLevel(str[x])  >= 0
-        && SEASONS_D->GetTime() >= this_player()->GetReputationTimer(str[x])+864000 ){
-            this_player()->AddReputation(str[x], 0);
-        }
-        else{
-            if (SEASONS_D->GetTime() >= this_player()->GetReputationTimer(str[x])+864000){
-                this_player()->AddReputation(str[x], -1); 
-            if (SEASONS_D->GetTime() >= this_player()->GetFactionTimer(str[x])+9216000)
-                this_player()->AddFaction(str[x], -1);
-            }  
-        }
-    }
-}   
+           && this_player()->GetFactionLevel(str[x])  >= 0
+           && SEASONS_D->GetTime() >= this_player()->GetReputationTimer(str[x])+864000 )
+           this_player()->AddReputation(str[x], 0);
+        if (SEASONS_D->GetTime() >= this_player()->GetReputationTimer(str[x])+864000)
+           this_player()->AddReputation(str[x], -1);
+        if (this_player()->GetFactionLevel(str[x])  >= 0
+            && SEASONS_D->GetTime() >= this_player()->GetFactionTimer(str[x])+9216000)
+            this_player()->AddFactionLevel(str[x], -1);
+            
+    }  
+}
+
 
 /*function below mainly for NPC use*/
 mapping SetFactions(mapping facs){
