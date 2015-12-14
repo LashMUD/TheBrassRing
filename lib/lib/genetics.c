@@ -1,13 +1,9 @@
 /*    /lib/genetics.c
- *    from the Dead Souls LPC Library http://dead-souls.net
+ *    from the Dead Souls LPC Library
  *    handles genetic characteristics
  *    created by Descartes of Borg 950122
  *    Version: @(#) genetics.c 1.4@(#)
  *    Last Modified: 96/11/11
- *    2014/11/26 modified by Lash (ccoker)
- *    for use in The Brass Ring
- *    - added SetBlind() function
- *    - added spell timer trackers
  */
 
 #include <vision.h>
@@ -15,7 +11,7 @@
 #include <damage_types.h>
 #include <daemons.h>
 #include "include/genetics.h"
-inherit "powers/npc/curse.c";
+inherit "/powers/npc/curse.c";
 
 class blindness {
     int count;
@@ -364,6 +360,7 @@ int GetVisionBonus(){
 }
 
 static void heart_beat(){
+
     if( Blind ){
         Blind->count--;
         if( Blind->count < 1 ){
@@ -373,7 +370,7 @@ static void heart_beat(){
     /* added by Lash - this is for tracking duration of the npc 'curse' spell in
        /domains/diku-alfa/etc/magic_user.c file and counting down the effects 
        of the 'sanctuary' spell
-    */
+     */
     if(Cursed){
         Cursed->duration--;
         if(Cursed->duration < 1){
@@ -388,5 +385,8 @@ static void heart_beat(){
         this_player()->SetProperty("sanctuary", x);
         if(x == 0)this_player()->RemoveProperty("sanctuary");
     }
+    /* added by Lash for counting down the faction reputation timer in /lib/props/factions.c
+     */
+    this_player()->RepCountDown();
 }
 /* end add */
