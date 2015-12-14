@@ -6,10 +6,13 @@ by the files /lib/interactive.c and /lib/npc.c.
 The file /lib/secure/include/props.h was modfied so that factions.c could be 
 inherited properly by the required files. 
 
+Also, the file /lib/genetics was modified to make a call to factions.c in
+order to countdown the reputation levels every 30 days mudtime.
+
 The factions code is based on the properties.c code in Dead Souls - the
 function names and elements of the mapping have been changed. Factions are
-added to the player file using AddFaction() and timers are stamped when the
-faction is created or modified.
+added to the player file using AddFaction() and reputation and faction level
+timers are stamped when the faction is created or modified.
 
 The function to add/create a faction:
 
@@ -64,12 +67,19 @@ would add the faction "Knights of the Round Table" with a faction level of 1.
 The level_timer would be set to whatever time in the mud it is when the 
 function gets called. 
 
-[IDEA] not programmed yet - needs a daemon
-The level timer is compared to mudtime. If the player
+Factions consist of:
+1. A faction name
+2. Faction level
+3. Faction level timer
+4. Reputation (level)
+5. Reputation timer
+
+The level and reputation timers are compared to mudtime. If the player
 has no interactions with the faction during one year of mudtime the faction 
 level will be reduced by one. If a player interacts with a faction member NPC 
 in some way during the mudtime year, the level timer is reset to the time of
-interaction.
+interaction. The same works for reputations, except the reputation timer is 
+set for 30 days.
 
 How do factions work in The Brass Ring?
 
@@ -83,8 +93,29 @@ have with the player.
 
 For example: a player known to be associated with the "Orcs of the Bloody
 Moon", and having a high reputation with that faction, may have trouble getting
-quests from an NPC belonging to the faction of "The Knights of Ambrial", for
-example.
+quests from an NPC belonging to the faction of "The Knights of Ambrial".
+
+Reputation levels in the faction will vary. Quests are good ways to increase 
+or decrease the players reputation with various factions. Let's say the player,
+Quixotic the Abnormal, belongs to "the Orcs of the Bloody Moon" faction and 
+goes on a quest for Snotbreath, the Orc Warlord, to retrieve the mighty dingus
+held by Sir Rottingham of the "Knights of Ambrial". Upon retrieval and 
+presentation of the dingus to Snotbreath, the players reputation increases
+with "the Orcs of the Bloody Moon" and drastically decreases with "the Knights
+of Ambrial".  This can be acheived by using the functions:
+
+this_player()->AddReputation("the Orcs of the Bloody Moon",1)
+this_player()->AddReputation("the Knights of Ambrial",-5)
+
+Each reputation is changed and timestamped with a reputation timer. Every 30
+days mudtime the reputation will fall by 1 unless Quixotic interacts with
+another member of "the Orcs of the Bloody Moon", at which time the reputation
+is changed and a new timestamp set.
+
+Note that the way the reputation timer is coded in factions.c that the players
+reputation will not drop below 0 due to time alone if that player is a member
+of the faction (has a faction level greater than 0).
+   
 
 Setting NPC Factions
 
