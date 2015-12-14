@@ -41,11 +41,6 @@ mixed GetFaction(string fac){
     else return 0;
 }
 
-mapping GetFactions(){
-    if(!Factions) Factions = ([]);
-    return Factions;
-}
-
 int RemoveFaction(string fac){
     if( !stringp(fac) ) return 0;
     if(undefinedp(Factions[fac]) ){
@@ -57,6 +52,11 @@ int RemoveFaction(string fac){
     return !Factions[fac];
 }
 
+mapping GetFactions(){
+    if(!Factions) Factions = ([]);
+    return Factions;
+}
+
 mixed GetFactionLevel(string fac){
     if( !stringp(fac) || !Factions || !Factions[fac]) return 0;
     return Factions[fac]["faction level"];
@@ -65,6 +65,18 @@ mixed GetFactionLevel(string fac){
 mixed GetFactionTimer(string fac){
     if( !stringp(fac) || !Factions || !Factions[fac]) return 0;
     return Factions[fac]["level_timer"];
+}
+
+mixed AddFactionTimer(string fac, int val){
+    if( !stringp(fac) || !Factions[fac] ) return 0;
+     if( Factions[fac] ){
+        val +=Factions[fac]["level_timer"];
+    }
+    else {
+        Factions[fac]["level_timer"] = val;
+    }
+    Factions[fac]["level_timer"] = val;
+    return Factions[fac];
 }
 
 mixed AddReputation(string fac, int val){
@@ -89,6 +101,41 @@ mixed GetReputationTimer(string fac){
     if( !stringp(fac) || !Factions || !Factions[fac]) return 0;
     return Factions[fac]["reputation_timer"];
 }
+
+mixed AddReputationTimer(string fac, int val){
+    if( !stringp(fac) || !Factions[fac] ) return 0;
+     if( Factions[fac] ){
+        val +=Factions[fac]["reputation_timer"];
+    }
+    else {
+        Factions[fac]["reputation_timer"] = val;
+    }
+    Factions[fac]["reputation_timer"] = val;
+    return Factions[fac];
+}
+
+string *GetFacs(){
+    return keys(Factions);
+}
+
+/*called from /lib/genetics.c*/
+int RepCountDown(){
+    string *str = keys(Factions);
+    int x;
+
+    for(x=0; x<sizeof(str); x++){
+        if(this_player()->GetReputationLevel(str[x]) <= 0
+        && this_player()->GetFactionLevel(str[x])  >= 0
+        && SEASONS_D->GetTime() >= this_player()->GetReputationTimer(str[x])+864000 ){
+            this_player()->AddReputation(str[x], 0);
+        }
+        else{
+            if (SEASONS_D->GetTime() >= this_player()->GetReputationTimer(str[x])+864000){
+                this_player()->AddReputation(str[x], -1); 
+            }  
+        }
+    }
+}   
 
 /*function below mainly for NPC use*/
 mapping SetFactions(mapping facs){
