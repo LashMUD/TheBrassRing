@@ -132,6 +132,8 @@ int RepCountDown(){
         else{
             if (SEASONS_D->GetTime() >= this_player()->GetReputationTimer(str[x])+864000){
                 this_player()->AddReputation(str[x], -1); 
+            if (SEASONS_D->GetTime() >= this_player()->GetFactionTimer(str[x])+9216000)
+                this_player()->AddFaction(str[x], -1);
             }  
         }
     }
