@@ -29,7 +29,7 @@ varargs mixed cmd(string args) {
             str += ({ sprintf("%d. %:-26s Level %d\n",z,fac,x) });
         }
         else{
-            str += ({ sprintf("%d. %:-26s Level %d   Reputation  %d%% \n",z,fac,x,y) });
+            str += ({ sprintf("%d. %:-26s Level %d   Reputation  %d\n",z,fac,x,y) });
         }
         z++;
     }
