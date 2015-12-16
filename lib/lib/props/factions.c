@@ -14,21 +14,15 @@
 
 mapping Factions    = ([]);
 
-mixed AddFaction(string fac, int flev, string faclev, string levtime, 
-                 string rep, string reptime, int ltime, int rlev, int rtime){
-    if(!flev) flev = 0;
-    if(!ltime) ltime = 0;
-    if(!rlev) rlev =0;
-    if(!rtime) rtime =0;
+mixed AddFaction(string fac){
+
+    int flev = 1;
+    int ltime = SEASONS_D->GetTime();
+    int rlev = 1;
+    int rtime = SEASONS_D->GetTime();
+    
     if( !stringp(fac) ) return 0;
-    if( Factions[fac] ){
-        flev += Factions[fac]["faction level"];
-        ltime = SEASONS_D->GetTime();
-    }
-    else {
-        Factions[fac] = flev;
-        ltime = SEASONS_D->GetTime();
-    }
+    if( Factions[fac] ) return 0;
     Factions[fac] = (["faction level":flev,"level_timer":ltime,"reputation":rlev,
                       "reputation_timer": rtime ]);
     return Factions[fac];
@@ -50,11 +44,6 @@ int RemoveFaction(string fac){
         map_delete(Factions, fac);
     }
     return !Factions[fac];
-}
-
-mapping GetFactions(){
-    if(!Factions) Factions = ([]);
-    return Factions;
 }
 
 mixed AddFactionLevel(string fac, int val){
@@ -127,8 +116,19 @@ mixed AddReputationTimer(string fac, int val){
     return Factions[fac];
 }
 
+mapping GetFactions(){
+    if(!Factions) Factions = ([]);
+    return Factions;
+}
+
 string *GetFacs(){
     return keys(Factions);
+}
+
+/*function below mainly for NPC use*/
+mapping SetFactions(mapping facs){
+    if(sizeof(Factions)) return (Factions[facs] += facs);
+    else return (Factions = facs);
 }
 
 /*called from /lib/genetics.c*/
@@ -147,11 +147,4 @@ int RepCountDown(){
             this_player()->AddFactionLevel(str[x], -1);
             
     }  
-}
-
-
-/*function below mainly for NPC use*/
-mapping SetFactions(mapping facs){
-    if(sizeof(Factions)) return (Factions[facs] += facs);
-    else return (Factions = facs);
 }
