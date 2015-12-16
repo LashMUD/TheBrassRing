@@ -16,21 +16,15 @@ timers are stamped when the faction is created or modified.
 
 The function to add/create a faction:
 
-mixed AddFaction(string fac, int flev, string faclev, string levtime, 
-                 string rep, string reptime, int ltime, int rlev, int rtime){
-    if(!flev) flev = 0;
-    if(!ltime) ltime = 0;
-    if(!rlev) rlev =0;
-    if(!rtime) rtime =0;
+mixed AddFaction(string fac){
+
+    int flev = 1;
+    int ltime = SEASONS_D->GetTime();
+    int rlev = 1;
+    int rtime = SEASONS_D->GetTime();
+    
     if( !stringp(fac) ) return 0;
-    if( Factions[fac] ){
-        flev += Factions[fac];
-        ltime = SEASONS_D->GetTime();
-    }
-    else {
-        Factions[fac] = flev;
-        ltime = SEASONS_D->GetTime();
-    }
+    if( Factions[fac] ) return 0;
     Factions[fac] = (["faction level":flev,"level_timer":ltime,"reputation":rlev,
                       "reputation_timer": rtime ]);
     return Factions[fac];
@@ -40,32 +34,16 @@ mixed AddFaction(string fac, int flev, string faclev, string levtime,
 Variables used in the AddFaction() function:
 
 1. string fac = Faction name (user designated)
-2. int flev = faction level (user designated) 
-3. string faclev = "faction level" (assigned in the function)
-4. string levtime = "level_timer" (assigned in the function)
-5. string rep = "reputation" (assigned in the function)
-6. string reptime = "reputation_timer" (assigned in the function)
-7. int ltime = level timer (assigned in the function)
-8. int rlev = reputation level (assigned in the function)
-9. int rtime = reputation timer (assigned in the function) 
+2. int flev   = faction level (user designated)
+3. int ltime  = level timer (assigned in the function)
+4. int rlev   = reputation level (assigned in the function)
+5. int rtime  = reputation timer (assigned in the function) 
 
 A sample factions mapping as saved in the player file:
 
 Factions ([ "Orcs of the Bloody Moon" : (["reputation" : 20, "level_timer" : 
             729384181, "faction level" : 10, "reputation_timer" :
             729384219 ]) ])
-
-Using the function:
-
-AddFaction("<faction_name>", integer);
-
-Example:
-
-AddFaction("Knights of the Round Table",1);
-
-would add the faction "Knights of the Round Table" with a faction level of 1.
-The level_timer would be set to whatever time in the mud it is when the 
-function gets called. 
 
 Factions consist of:
 1. A faction name
@@ -79,7 +57,10 @@ has no interactions with the faction during one year of mudtime the faction
 level will be reduced by one. If a player interacts with a faction member NPC 
 in some way during the mudtime year, the level timer is reset to the time of
 interaction. The same works for reputations, except the reputation timer is 
-set for 30 days.
+set for 30 days, where the reputation would decrease by one. Note that the way
+the reputation timer is coded in factions.c that the players reputation will 
+not drop below 0 due to time alone if that player is a member of the faction
+(has a faction level greater than 0).
 
 How do factions work in The Brass Ring?
 
@@ -87,9 +68,14 @@ Factions are used for player-npc interactions. A faction is just a name and can
 be represented by a group or a single NPC.
 
 NPC interaction determines if the player can join a faction. NPC trainers, 
-quest givers, shop owners, etc. are used to set factions in the player object. 
+quest givers, shop owners, etc. are used to add factions in the player object. 
 Faction level and reputation determine the degree of interaction an NPC will 
-have with the player. 
+have with the player. A NPC may not offer the player membership in the faction
+unless the player fulfills a request by the NPC in the form of a quest. 
+
+Furthermore, reputation levels determine the increase in faction level. Once a
+player reaches a certain reputation level with the faction then their faction 
+level increases.
 
 For example: a player known to be associated with the "Orcs of the Bloody
 Moon", and having a high reputation with that faction, may have trouble getting
@@ -107,15 +93,11 @@ of Ambrial".  This can be acheived by using the functions:
 this_player()->AddReputation("the Orcs of the Bloody Moon",1)
 this_player()->AddReputation("the Knights of Ambrial",-5)
 
-Each reputation is changed and timestamped with a reputation timer. Every 30
-days mudtime the reputation will fall by 1 unless Quixotic interacts with
-another member of "the Orcs of the Bloody Moon", at which time the reputation
-is changed and a new timestamp set.
-
-Note that the way the reputation timer is coded in factions.c that the players
-reputation will not drop below 0 due to time alone if that player is a member
-of the faction (has a faction level greater than 0).
-   
+Every time there is a change in reputation a new reputation timestamp is added.
+As noted before, if Quixotic does not interact with another member of "the 
+Orcs of the Bloody Moon" within 30 days of the timestamp his reputation with 
+that faction will decrease by one and a new timestamp set.
+  
 
 Setting NPC Factions
 
