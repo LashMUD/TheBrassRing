@@ -131,20 +131,21 @@ mapping SetFactions(mapping facs){
     else return (Factions = facs);
 }
 
-/*called from /lib/genetics.c*/
-int RepCountDown(){
+void heart_beat(){
     string *str = keys(Factions);
-    int x;
+    int x, y;
+    y = HOUR_LENGTH * DAY_LENGTH * 30;
+    
     for(x=0; x<sizeof(str); x++){
         if(this_player()->GetReputationLevel(str[x]) <= 0
            && this_player()->GetFactionLevel(str[x])  >= 0
-           && SEASONS_D->GetTime() >= this_player()->GetReputationTimer(str[x])+864000 )
+           && SEASONS_D->GetTime() >= this_player()->GetReputationTimer(str[x])+y)
            this_player()->AddReputation(str[x], 0);
-        if (SEASONS_D->GetTime() >= this_player()->GetReputationTimer(str[x])+864000)
+        if (SEASONS_D->GetTime() >= this_player()->GetReputationTimer(str[x])+y)
            this_player()->AddReputation(str[x], -1);
         if (this_player()->GetFactionLevel(str[x])  >= 0
-            && SEASONS_D->GetTime() >= this_player()->GetFactionTimer(str[x])+9216000)
+            && SEASONS_D->GetTime() >= this_player()->GetFactionTimer(str[x])+SEASONS_D->GetYearLength());
             this_player()->AddFactionLevel(str[x], -1);
             
-    }  
+    }
 }
