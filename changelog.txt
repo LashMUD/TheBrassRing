@@ -6,6 +6,8 @@ Changelog (year-month-day)
  - gets time constants from the native mud for time checking factions variables
 *added more variable info to /lib/secure/cmds/creators/timeinfo.c
 *removed timecheck function for faction.c from genetics.c
+*modified player command 'factions' factions.c file and renamed to
+ listfactions.c
 
 2015-12-15
 *added inherit LIB_FACTIONS to /lib/living.c removed from /lib/interactve.c
