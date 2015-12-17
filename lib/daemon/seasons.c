@@ -1,12 +1,11 @@
 /*    /daemon/seasons.c
- *    from the Dead Souls LPC Library http://www.dead-souls.net
+ *    from the Dead Souls LPC Library
  *    handles game-based time
  *    created by Descartes of Borg 950508
  *    Version: @(#) seasons.c 1.7@(#)
  *    Last modified: 96/10/27
- *
- *    2015/12/02 modified moon functions
- *    by Lash (ccoker) for The Brass Ring
+ *    modified moon functions by Lash (ccoker) 2012/12/02
+ *    added function GetYearLength() 2015/12/17
  */
 
 #include <lib.h>
@@ -395,6 +394,17 @@ mapping GetTimeEvents() {
             "noon" : NoonCalls + ({}), "twilight" : TwilightCalls + ({}),
             "night" : NightCalls + ({}), "midnight" : MidnightCalls + ({}) ]);
 }
+
+/*added by lash*/
+varargs int GetYearLength(int x) {
+    int i, tot;
+
+    i = sizeof(Months);
+    while(i--) tot += ((class month)Months[i])->Days;
+    i = DAY_LENGTH * HOUR_LENGTH * tot;
+    return i;
+}
+/* end add */
 
 varargs int GetYear(int x) {
     int i, tot;
