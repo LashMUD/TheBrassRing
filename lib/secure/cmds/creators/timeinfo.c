@@ -1,11 +1,9 @@
 /*
- *  /lib/secure/cmds/creators
- *  Some info about some variables associated
- *  with timekeeping in the Mud
- *  version 1.0 2011/10/13
- *  Added by Lash (ccoker) and modified 2015/12/03
- *  for use in The Brass Ring
- */
+* Some info about some variables associated
+* with timekeeping in the Mud
+* version 1.0 2011/10/13
+* Added by Lash (ccoker) and modified 2015/12/03
+*/
 
 
 #include <lib.h>
@@ -33,6 +31,8 @@ mixed cmd() {
     write("GetMinutes(time()) is "+SEASONS_D->GetMinutes(time())+"\n");
     write("DAY_LENGTH is "+DAY_LENGTH+" and HOUR_LENGTH is "+HOUR_LENGTH+"\n");
     write("DAY_LENGTH * HOUR_LENGTH is "+DAY_LENGTH * HOUR_LENGTH+"\n");
+    write("GetYear() is "+SEASONS_D->GetYear()+"\n");
+    write("GetYearString is "+SEASONS_D->GetYearString()+"\n"); 
         
     mudtime = SEASONS_D->GetMudTime();
     hours = mudtime[0];
