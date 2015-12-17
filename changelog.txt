@@ -4,6 +4,7 @@ Changelog (year-month-day)
 *added function GetYearLength() to /lib/daemons/seasons.c
 *added heart beat checking for faction level manipulation to factions.c
  - gets time constants from the native mud for time checking factions variables
+ - added check for NPC so level timer only works on players
 *added more variable info to /lib/secure/cmds/creators/timeinfo.c
 *removed timecheck function for faction.c from genetics.c
 *modified player command 'factions' factions.c file and renamed to
