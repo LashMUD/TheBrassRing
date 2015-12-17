@@ -2,7 +2,7 @@
 
 inherit LIB_DAEMON;
 
-varargs mixed cmd(string args) {
+varargs mixed cmd() {
     string *str;
     string fac;
     int x, y;
@@ -13,7 +13,6 @@ varargs mixed cmd(string args) {
         write("You belong to no factions.");
         return 1;
     }
-
     str = ({"\nYou have been noted by the following factions:\n"});
     foreach(string key in ob->GetFacs()){
         fac = capitalize(key);
