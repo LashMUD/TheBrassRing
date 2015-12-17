@@ -6,7 +6,7 @@ varargs mixed cmd(string args) {
     string *str;
     string fac;
     int x, y;
-    int z = 1;
+    int z = 0;
     object ob = this_player();
 
     if(!sizeof(ob->GetFacs())){
@@ -20,19 +20,20 @@ varargs mixed cmd(string args) {
         x = ob->GetFactionLevel(key);
         y = ob->GetReputationLevel(key);
         if(!x){
-            str += ({ sprintf("%d. %:-35s  Reputation %d\n",z,fac,y) });
+            str += ({ sprintf("%s\n   Reputation %d\n",fac,y) });
         }else
         if(!x  && y<=0){
-            str += ({ sprintf("%d. %:-26s Level %d\n",z,fac,x) });
+            str += ({ sprintf("%s\n   Level %d\n",fac,x) });
         }else
         if(x>=1 && y<=0){
-            str += ({ sprintf("%d. %:-26s Level %d\n",z,fac,x) });
+            str += ({ sprintf("%s\n   Level %d\n",fac,x) });
         }
         else{
-            str += ({ sprintf("%d. %:-26s Level %d   Reputation  %d\n",z,fac,x,y) });
+            str += ({ sprintf("%s\n   Level %d\n   Reputation  %d \n",fac,x,y) });
         }
         z++;
     }
+    str += ({"A total of "+z+" factions have interest in you\n"});
     this_player()->eventPage(str, "factions");
     return 1;
 }
