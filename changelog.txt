@@ -1,0 +1,42 @@
+Changelog (year-month-day)
+
+2015-12-17
+*added function GetYearLength() to /lib/daemons/seasons.c
+*added heart beat checking for faction level manipulation to factions.c
+ - gets time constants from the native mud for time checking factions variables
+*added more variable info to /lib/secure/cmds/creators/timeinfo.c
+*removed timecheck function for faction.c from genetics.c
+
+2015-12-15
+*added inherit LIB_FACTIONS to /lib/living.c removed from /lib/interactve.c
+ and /lib/npc.c
+*added command 'factions' to /lib/cmds/players - lists faction associations
+ for players 
+
+2015-12-08
+* added Factions functionality
+  -created factions.c in /lib/props based on /lib/properties
+  -added #define LIB_FACTIONS DIR_PROPS "/factions" to /secure/include/props.h
+  -added inherit LIB_FACTIONS; to /lib/interactive.c and /lib/npc.c
+* added /lib/powers/npc directory
+  -this directory contains spell functions for npc's only
+  -added magic_user.c and curse.c files
+  -added include directory and file magic_user.h 
+  
+2015-12-07
+* added lines to /secure/daemon/autoexec.c to load diku-alfa and Wyr
+  rooms
+
+2015-12-05
+* renamed all room files and exits in room files to rm_xxx.c format
+
+2015-12-03
+* redid /secure/cmds/creators/timeinfo.c
+* redid /secure/cmds/creators/mudtime.c to show season and year
+
+2015-12-02
+* modified days, months, time, and moon files in /cfg
+* added diku-alfa area and connected Wyr
+* redid /daemon/seasons.c moon function
+
+
