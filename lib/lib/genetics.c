@@ -368,7 +368,7 @@ static void heart_beat(){
         }
     }
     /* added by Lash - this is for tracking duration of the npc 'curse' spell in
-       /lib/powers/npc/magic_user.c file and counting down the effects 
+       /domains/diku-alfa/etc/magic_user.c file and counting down the effects 
        of the 'sanctuary' spell
      */
     if(Cursed){
@@ -385,8 +385,5 @@ static void heart_beat(){
         this_player()->SetProperty("sanctuary", x);
         if(x == 0)this_player()->RemoveProperty("sanctuary");
     }
-    /* added by Lash for counting down the faction reputation timer in /lib/props/factions.c
-     */
-    this_player()->RepCountDown();
 }
 /* end add */
