@@ -40,7 +40,8 @@ static void create() {
                 "Leo thinks.", "Leo thinks carefully.",
                 "Leo says, \"Where in blazes did I put that Orcslayer?\"",
                 "Leo says, \"I just hope those pesky orcs didn't find it.\"",
-                "Leo says, \"I just don't have time to fight those orcs.\""
+                "Leo says, \"I just don't have time to fight those orcs.\"",
+                "Leo says, \"The Order of the Arcane Sciences could use more members...\"",
                 }));
     SetCombatAction(100, (: WieldStaff :));
     SetPolyglot(1);
