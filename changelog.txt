@@ -1,5 +1,10 @@
 Changelog (year-month-day)
 
+2015-12-18
+*added function yo /domains/town/npc/leo.c to add the faction
+ "order of the Arcane Sciences" to the player upon completion of the
+  Orc Slayer quest.
+
 2015-12-17
 *added function GetYearLength() to /lib/daemons/seasons.c
 *added heart beat checking for faction level manipulation to factions.c
