@@ -112,4 +112,11 @@ SetFactions( (["Merchants" : (["faction level" : 8, "reputation" :5]),
               ]) );
 
 The NPC belongs to the Merchants faction (faction level = 8; reputation = 5)
-and Thief Guild faction (faction level = 14; reputation = 12)
+and Thief Guild faction (faction level = 14; reputation = 12). As specified in
+factions.c there is a check to make sure that the reputations for NPC's doesn't 
+change based on time in the heart_beat() function:
+
+void heart_beat(){
+if(!inherits(LIB_NPC, this_object())) CheckTimer();
+else return;
+}
