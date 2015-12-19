@@ -1,4 +1,6 @@
 Changelog (year-month-day)
+2015-12-19
+*changed addition in factions.txt do actual addition instead of string addition
 
 2015-12-18
 *added function to /domains/town/npc/leo.c to add the faction
