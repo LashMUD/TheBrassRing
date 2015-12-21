@@ -4,6 +4,7 @@
  *    created by Descartes of Borg 950321
  *    Version: @(#) player.c 1.26@(#)
  *    Last Modified: 97/01/03
+ *
  */
 
 #include <lib.h>
