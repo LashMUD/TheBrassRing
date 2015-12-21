@@ -132,15 +132,13 @@ mapping SetFactions(mapping facs){
     else return (Factions = facs);
 }
 
-void heart_beat(){
-if(!inherits(LIB_NPC, this_object())) CheckTimer();
-else return;
-}
-
-CheckTimer(){
+void CheckTimer(){
     string *str = keys(Factions);
     int x, y;
     y = HOUR_LENGTH * DAY_LENGTH * 30;
+
+    if(inherits(LIB_NPC, this_object())) return;
+    if(!str) return;
         
     for(x=0; x<sizeof(str); x++){
         if(this_player()->GetReputationLevel(str[x]) <= 0
@@ -155,4 +153,3 @@ CheckTimer(){
             
     }
 }
-
