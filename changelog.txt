@@ -1,6 +1,16 @@
 Changelog (year-month-day)
+
 2015-12-19
-*changed addition in factions.txt do actual addition instead of string addition
+*got rid of heart_beat function in factions: replaced with CheckTimer()
+ - added inherit LIB_FACTIONS to player.c and /lib/npc.c. and removed from 
+   /lib/living.c
+ - called Checktimer() from player.c  with factions::CheckTimer(); in 
+   player.c static void heart_beat() function
+
+
+2015-12-19
+*changed addition in factions.txt to do actual addition instead of string
+ addition
 
 2015-12-18
 *added function to /domains/town/npc/leo.c to add the faction
