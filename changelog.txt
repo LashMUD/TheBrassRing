@@ -1,7 +1,7 @@
 Changelog (year-month-day)
 
 2015-12-19
-*got rid of heart_beat function in factions: replaced with CheckTimer()
+*got rid of heart_beat function in factions.c: replaced with CheckTimer()
  - added inherit LIB_FACTIONS to player.c and /lib/npc.c. and removed from 
    /lib/living.c
  - called Checktimer() from player.c  with factions::CheckTimer(); in 
