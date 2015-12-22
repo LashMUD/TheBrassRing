@@ -9,7 +9,7 @@ Changelog (year-month-day)
 
 
 2015-12-19
-*changed addition in factions.txt to do actual addition instead of string
+*changed addition in factions.c to do actual addition instead of string
  addition
 
 2015-12-18
