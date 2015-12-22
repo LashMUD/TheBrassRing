@@ -181,102 +181,34 @@ void curse(object ob){
         target->eventTrainSkill("magic defense",save,s_throw,1);
         return;
     }
-    /* Note: Set up curse effects for individual classes. Primary skills and the luck stat
-       will be targeted by the 'curse'
-    */
-    if(target->GetClass() == "mage"){
-        target->eventCurse(target, 100, -1, 
-                          ({"magic attack",
-                            "magic defense",
-                            "blunt defense", 
-                            "blunt attack",
-                            "melee attack",
-                            "knife attack",
-                            "knife defense",
-                            "melee stack",
-                            "melee defense",
-                            "conjuring",
-                          }),
-                          ({"luck"}), 
-                          "\nYou feel very uncomfortable.\n", 
-                          "\nYou feel well again.\n");
-        tell_room(env, capitalize(target->GetShort())+" briefly reveals a red aura!", ({ob, target}));
-    }
-    if(target->GetClass() == "fighter"){
-        target->eventCurse(target, 100, -10, 
-                          ({"blade attack",
-                            "blade defense",
-                            "blunt attack",
-                            "blunt defense",
-                            "multi-hand",
-                            "multi-weapon",
-                            "melee attack",
-                            "melee defense",
-                            "knife attack",
-                            "knife defense"
-                            "projectile attack"
-                            "projectile defense",
+    target->eventCurse(target, 100, -10, 
+                      ({"blade attack",
+                        "blade defense",
+                        "blunt attack",
+                        "blunt defense",
+                        "multi-hand",
+                        "multi-weapon",
+                        "melee attack",
+                        "melee defense",
+                        "knife attack",
+                        "knife defense"
+                        "projectile attack"
+                        "projectile defense",
+                        "magic attack",
+                        "magic defense",
+                        "conjuring",
+                        "stealth",
+                        "faith",
+                        "healing",
+                        "stealing",
+                        "detection",
+                        "concealment",
+                        "murder",
                            }),
                            ({"luck"}),
                            "\nYou feel very uncomfortable.\n",
                            "\nYou feel well again.\n");
         tell_room(env, capitalize(target->GetShort())+" briefly reveals a red aura!", ({ob, target}));
-    }
-    if(target->GetClass() == "cleric"){
-        target->eventCurse(target, 100, -10,
-                          ({"melee attack",
-                            "blunt attack",
-                            "projectile attack",
-                            "magic attack",
-                            "melee defense",
-                            "blade defense",
-                            "knife defense",
-                            "projectile defense",
-                            "conjuring",
-                            "stealth",
-                            "blunt defense",
-                            "magic defense",
-                            "faith",
-                            "healing",
-                          }),
-                          ({"luck"}),
-                          "\nYou feel very uncomfortable.\n",
-                          "\nYou feel well again.\n");
-        tell_room(env, capitalize(target->GetShort())+" briefly reveals a red aura!", ({ob, target}));
-    }
-    if(target->GetClass() == "thief"){
-        target->eventCurse(target, 100, -10,
-                          ({"knife attack",
-                            "projectile attack",
-                            "stealth",
-                            "stealing",
-                            "detection",
-                            "concealment",
-                            "murder"
-                            "melee defense",
-                            "blade defense",
-                            "knife defense"
-                            "projectile defense",
-                          }),
-                          ({"luck"}),
-                          "\nYou feel very uncomfortable.\n",
-                          "\nYou feel well again.\n");
-        tell_room(env, capitalize(target->GetShort())+" briefly reveals a red aura!", ({ob, target}));
-    }
-    if(!target->GetClass() || target->GetClass() == "explorer"){
-        //tell_room(env, "\nTrying to execute curse...\n");
-        target->eventCurse(target, 100, -10,
-                          ({"blunt attack",
-                            "knife attack",
-                            "projectile attack",
-                            "blunt defense",
-                            "knife defense",
-                          }),
-                          ({"luck"}),
-                          "\nYou feel very uncomfortable.\n",
-                          "\nYou feel well again.\n");
-        tell_room(env, capitalize(target->GetShort())+" briefly reveals a red aura!", ({ob, target}));
-    }
 }
     
 void blindness(object ob){
@@ -301,8 +233,8 @@ void blindness(object ob){
         return;
     }
     else{
-    target->eventBlind(target, 300, ({"Where does this go?","\nYou feel a cloak of blindness disolve.\n"}));
-    tell_player(target, "\nYou have been blinded!\n");
+    target->eventBlind(target, 300, ({"You have been blinded!","\nYou have been blinded!\n"}));
+    //tell_player(target, "\nYou have been blinded!\n");
     tell_room(env, "\n"+capitalize(target->GetShort())+" seems to be blinded!\n", ({ob, target}));
     }
 }
