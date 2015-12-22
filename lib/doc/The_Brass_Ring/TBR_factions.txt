@@ -1,7 +1,7 @@
 Factions
 
 Factions are a mapping. The mapping code (/lib/props/factions.c) is inherited
-by the file /lib/living.c 
+by the file /lib/player.c 
 
 The file /lib/secure/include/props.h was modfied so that factions.c could be 
 inherited properly by the required files. 
