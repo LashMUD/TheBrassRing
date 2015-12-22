@@ -11,7 +11,6 @@
 #include <damage_types.h>
 #include <daemons.h>
 #include "include/genetics.h"
-inherit "/powers/npc/curse.c";
 
 class blindness {
     int count;
@@ -54,7 +53,8 @@ int GetBlind(){
   Added to change a players 'blind' status
 */
 int SetBlind(int x){
-    return (Blind = x);
+    this_player()->eventBlind(this_player(),x,"\nYou have been blinded!\n", "\nYou can see again.\n");
+    return 1;
 }
 /* end add */
 
@@ -77,6 +77,9 @@ varargs mixed eventBlind(object who, int amt, mixed end){
     Blind = new(class blindness);
     Blind->count = amt;
     Blind->end = end;
+    if( arrayp(end) ){
+        send_messages(end[0], end[1], this_object());        
+    }
     return 1;
 }
 
@@ -367,23 +370,5 @@ static void heart_beat(){
             RemoveBlindness();
         }
     }
-    /* added by Lash - this is for tracking duration of the npc 'curse' spell in
-       /domains/diku-alfa/etc/magic_user.c file and counting down the effects 
-       of the 'sanctuary' spell
-     */
-    if(Cursed){
-        Cursed->duration--;
-        if(Cursed->duration < 1){
-            RemoveCurse();
-        }
-    }
-
-    if(this_player()->GetProperty("sanctuary")){
-        int x = this_player()->GetProperty("sanctuary");
-
-        x--;
-        this_player()->SetProperty("sanctuary", x);
-        if(x == 0)this_player()->RemoveProperty("sanctuary");
-    }
 }
-/* end add */
+
