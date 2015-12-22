@@ -7,12 +7,14 @@ int SpellCombat(object ob){
 
     object env = environment(ob);
     object array *targets;
-    
+
     int chance1, chance2, level;
     int q;
 
     chance1 = random(2);
     level = ob->GetLevel();
+
+    //tell_room(env, "in magic_user.c\n", ({ ob}));
     
     //tell_room(env, "\nchance1 is "+chance1+"\n", ({ ob}));
     
@@ -164,11 +166,11 @@ void curse(object ob){
     //tell_room(env, "\ntarget is "+target->GetShort()+"\n", ({ ob}));
     //tell_room(env, "\nsave is "+save+" and s_throw is "+s_throw+"\n", ({ ob}));
 
-    /*if(target->GetCursed()){
-        tell_room(env, "\nTarget is Cursed already!\n");
+    if(target->GetCursed()){
+        //tell_room(env, "\nTarget is Cursed already!\n");
         return;
     }
-    if(!target->GetCursed()){
+   /* if(!target->GetCursed()){
            tell_room(env, "\nTarget is NOT Cursed...\n");
     }
     tell_room(env, "\nsave = "+save+" and s_throw = "+s_throw+"\n");
