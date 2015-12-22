@@ -1,5 +1,16 @@
 Changelog (year-month-day)
 
+2015-12-22
+*genetics.c
+ -moved counters for sanctuary spell affects and cursed affect to /lib/body.c
+ -redid SetBlind() function so it works correctly
+ -the mixed 'end' variable for class Blind isn't being called correctly for 
+  spitting back the first string if specified. Have to work on this.
+*magic user.c
+ -redid curse function
+*curse.c
+ -removed static void heart_beat and put countdown for curse in /lib/body.c
+
 2015-12-19
 *got rid of heart_beat function in factions.c: replaced with CheckTimer()
  - added inherit LIB_FACTIONS to player.c and /lib/npc.c. and removed from 
