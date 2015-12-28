@@ -322,12 +322,6 @@ static void heart_beat(){
                 if( Protection[i]->time && (--Protection[i]->time < 1) )
                     RemoveMagicProtection(i);
         }
-        if(this_player()->GetProperty("sanctuary")){
-            i = this_player()->GetProperty("sanctuary");
-            i--;
-            this_player()->SetProperty("sanctuary", i);
-            if(i == 0)this_player()->RemoveProperty("sanctuary");
-        }
         if(Cursed){
             Cursed->duration--;
             if(Cursed->duration < 1){
