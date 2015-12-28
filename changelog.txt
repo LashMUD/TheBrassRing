@@ -1,5 +1,14 @@
 Changelog (year-month-day)
 
+2015-12-28
+*genetics.c
+ - added function string GetResistanceKey(string key); spits back resistance
+   bitvector for 'key'
+*bonus.c added functionality for setting resistance type
+*potion.c added functionality for setting resistance type in meals
+*added file 4050_purple_potion to /lib/domains/Etnar/Wyr/meals as an example
+ for setting resistance to ALL_EXTERNAL_DAMAGE for 300 heart_beats
+
 2015-12-22
 *genetics.c
  -moved counters for sanctuary spell affects and cursed affect to /lib/body.c
