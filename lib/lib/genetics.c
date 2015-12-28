@@ -274,6 +274,10 @@ mapping GetResistanceMap(){
     return copy(Resistance);
 }
 
+string GetResistanceKey(string key){
+    if(Resistance[key]) return Resistance[key];
+}
+
 int GetCustomStats(){ return Custom["stats"]; }
 int GetCustomDeviations(){ return Custom["deviations"]; }
 int GetDeviating(){ return Custom["deviating"]; }
