@@ -92,7 +92,6 @@ int GetBonusDuration(){
 int SetBonuses(){
     object env = environment();
     if(!env || ! living(env)) return 0;
-    tell_player("lash","In SetBonuses I\n");
     if(sizeof(Stats))
         foreach(string key, int val in Stats){
             env->AddStatBonus(key, val);
@@ -116,8 +115,7 @@ int SetBonuses(){
             }
         }
     env->SetResistance(brt,brl);
-    tell_player("lash","In SetBonuses Resistance\n");
-     
+         
     return 1;
 }
 
@@ -141,7 +139,6 @@ int eventDestruct(){
     if(!valid_event(previous_object(), this_object())) return 0;
     RemoveBonuses();
     this_object()->eventMove(ROOM_FURNACE);
-    tell_player("lash","Bonus destructed\n");
     return ::eventDestruct();
 }
 
@@ -156,7 +153,6 @@ string SetBonusName(string name){
 varargs string SetBonusResistance(int type, string level){
     brt = type;
     brl = level;
-    tell_player("lash", "mrt is "+brt+" mrl is "+brl+" in bonus\n");
 }
 
 mixed CanGet(object who){ return 0; }
