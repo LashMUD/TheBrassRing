@@ -8,7 +8,7 @@
  * The Dead Souls Mud Library version 2
  * developed by Cratylus
  * http://www.dead-souls.net
-/*
+ */
 
 #include <lib.h>
 #include <meal_types.h>
