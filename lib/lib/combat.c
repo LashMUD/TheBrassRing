@@ -1078,6 +1078,7 @@ varargs int eventReceiveDamage(mixed agent, int type, int x, int internal,
     if(encumbrance > 200){
         if(GetInCombat()) tell_object(this_object(),"You try to dodge while weighed down.");
     }
+    
     x = race::eventReceiveDamage(agent, type, x, internal, limbs);
     if( !Wimpy ) return x;
     if( (hp = GetHealthPoints()) < 1 ) return x;
