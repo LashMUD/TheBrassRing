@@ -8,6 +8,8 @@ Changelog (year-month-day)
 *potion.c added functionality for setting resistance type in meals
 *added file 4050_purple_potion to /lib/domains/Etnar/Wyr/meals as an example
  for setting resistance to ALL_EXTERNAL_DAMAGE for 300 heart_beats
+*removed call to player->GetProperties("sanctuary") in combat.c - added
+ resistance to bonus.c and potion.c files instead
 
 2015-12-22
 *genetics.c
