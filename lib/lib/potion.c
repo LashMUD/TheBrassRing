@@ -54,7 +54,6 @@ int GetDuration(){
 varargs string SetBonusResistance(int type, string level){
     brt = type;
     brl = level;
-    tell_player("lash", "brt is "+brt+" brl is "+brl+" in potion\n");
 }
 
 mixed eventDrink(object who){
