@@ -1078,13 +1078,6 @@ varargs int eventReceiveDamage(mixed agent, int type, int x, int internal,
     if(encumbrance > 200){
         if(GetInCombat()) tell_object(this_object(),"You try to dodge while weighed down.");
     }
-    //tell_player("lash", "\nx = "+x);
-    /* added by Lash for potion conferring 'sanctuary' effect - damage reduced in half */
-    if(GetProperty("sanctuary")){
-        x=x/2; 
-        //tell_player("lash", "\n NOW x = "+x);
-    }
-    /* end add */
     x = race::eventReceiveDamage(agent, type, x, internal, limbs);
     if( !Wimpy ) return x;
     if( (hp = GetHealthPoints()) < 1 ) return x;
