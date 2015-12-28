@@ -1,11 +1,14 @@
 /* /lib/bonus.c
  * from the dead souls mudlib http://www.dead-souls.net
+ *
  * modified by Lash (ccoker) for use in The Brass Ring
  * bug fix: bonus object wasn't being destructed
+ * 2015-12-28 added functionality for setting resistance
  */
 
 #include <lib.h>
 #include ROOMS_H
+#include <damage_types.h>
 
 inherit LIB_ITEM;
 
@@ -14,8 +17,11 @@ int SetBonuses();
 mapping Skills = ([]);
 mapping Stats = ([]);
 mapping Points = ([]);
+
 int Duration = 15;
 string bonusname;
+string brl = " ";
+int brt = 0;
 
 void create(){
     item::create();
@@ -86,6 +92,7 @@ int GetBonusDuration(){
 int SetBonuses(){
     object env = environment();
     if(!env || ! living(env)) return 0;
+    tell_player("lash","In SetBonuses I\n");
     if(sizeof(Stats))
         foreach(string key, int val in Stats){
             env->AddStatBonus(key, val);
@@ -108,6 +115,9 @@ int SetBonuses(){
                 default : break;
             }
         }
+    env->SetResistance(brt,brl);
+    tell_player("lash","In SetBonuses Resistance\n");
+     
     return 1;
 }
 
@@ -122,6 +132,8 @@ int RemoveBonuses(){
         foreach(string key, int val in Skills){
             env->RemoveSkillBonus(key);
         }
+    env->SetResistance(brt,"none");
+        
     return 1;
 }
 
@@ -129,6 +141,7 @@ int eventDestruct(){
     if(!valid_event(previous_object(), this_object())) return 0;
     RemoveBonuses();
     this_object()->eventMove(ROOM_FURNACE);
+    tell_player("lash","Bonus destructed\n");
     return ::eventDestruct();
 }
 
@@ -138,6 +151,12 @@ string GetBonusName(){
 
 string SetBonusName(string name){
     return bonusname = name;
+}
+
+varargs string SetBonusResistance(int type, string level){
+    brt = type;
+    brl = level;
+    tell_player("lash", "mrt is "+brt+" mrl is "+brl+" in bonus\n");
 }
 
 mixed CanGet(object who){ return 0; }
