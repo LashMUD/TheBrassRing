@@ -114,7 +114,7 @@ int SetBonuses(){
                 default : break;
             }
         }
-    env->SetResistance(brt,brl);
+    if(sizeof(brt) && sizeof(brl)) env->SetResistance(brt,brl);
          
     return 1;
 }
@@ -130,7 +130,7 @@ int RemoveBonuses(){
         foreach(string key, int val in Skills){
             env->RemoveSkillBonus(key);
         }
-    env->SetResistance(brt,"none");
+    if(sizeof(brt) && sizeof(brl)) env->SetResistance(brt,"none");
         
     return 1;
 }
