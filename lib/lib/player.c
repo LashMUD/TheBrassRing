@@ -129,7 +129,6 @@ varargs mixed eventDisplayStatus(int simple){
     max_mp = GetMaxMagicPoints();
     sp = GetStaminaPoints();
     max_sp = GetMaxStaminaPoints();
-    xp = GetExperiencePoints();
     qp = GetQuestPoints();
 
     if( percent(hp, max_hp) < 20.0 )
@@ -224,11 +223,6 @@ varargs void eventRevive(int nopenalty){
     if(this_player()->GetPoison() > 0){
         this_player()->AddPoison(0 - this_player()->GetPoison());
     }
-    if(!nopenalty && newbiep(this_object())) {
-        nopenalty = 1;
-        write("As a newbie you don't incur an experience penalty"
-                " for this death.\n");
-    }
     if(!nopenalty){
         int expee, subexpee;
 #ifdef LIB_PLAYER_SKILL_LOSS
@@ -254,9 +248,6 @@ varargs void eventRevive(int nopenalty){
             }
         }
 #endif
-        expee = this_object()->GetExperiencePoints();
-        subexpee = to_int(expee * PERCENT_XP);
-        this_object()->AddExperienceDebt(subexpee);
     }
     NewBody(GetRace());
     eventCompleteHeal(GetMaxHealthPoints());
@@ -319,7 +310,7 @@ int Setup(){
     string classes;
     string oldparties = PARTY_D->GetOldParties();
     if( !interactive::Setup() ) return 0;
-    if( !GetClass() ) SetClass("explorer");
+    if( !GetClass() && CLASS_SELECTION ) SetClass("explorer");
     RemoveExtraChannels(oldparties);
     foreach(string oldparty in oldparties){
         RemoveChannel(oldparty);
@@ -358,7 +349,7 @@ int Setup(){
         }
         AddChannel( ({ "gossip" }) );
         if( councilp() ) AddChannel( ({ "council" }) );
-        AddChannel(GetClass());
+        if( GetClass() ) AddChannel(GetClass());
 
         jeans = new("/domains/default/armor/jeans");
         shirt = new("/domains/default/armor/shirt");
