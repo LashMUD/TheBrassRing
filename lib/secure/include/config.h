@@ -3,14 +3,14 @@
 #define DEFAULT_PROMPT           "> "
 #define HOST_IP                  "127.0.0.1"
 #define MUD_STATUS               "mudlib development"
-#define ADMIN_EMAIL              "admin@here"
-#define DEBUGGER                 "DEBUG_NAME"
+#define ADMIN_EMAIL              "n@n"
+#define DEBUGGER                 "lash"
 #define LOCAL_NEWS_PREFIX        "nm"
-#define MUD_IS_LOCKED            0
+#define MUD_IS_LOCKED            1
 #define AUTO_WIZ                 0
 #define RESTRICTED_INTERMUD      0
 #define DISABLE_INTERMUD         0
-#define DISABLE_IMC2             0
+#define DISABLE_IMC2             1
 #define MINUTES_REBOOT_WARNING   20
 #define TIME_TO_RESET            3600
 #define RESET_ALL                0
@@ -40,14 +40,17 @@
 #define RESET_INTERMUD           0
 #define ENGLISH_ONLY             0
 #define HUMANS_ONLY              0
-#define SEVERABLE_LIMBS          1
+#define SEVERABLE_LIMBS          0
 #define CLASS_SELECTION          0
+#define SKILL_SELECTION          1
+#define XP_ADVANCE               0
+#define SKILL_ADVANCE            1
 #define PINGING_MUDS             ({})
 #define PING_INTERVAL            290
 #define ENABLE_ENCUMBRANCE       0
 #define GLOBAL_MONITOR           0
 #define PLAYER_KILL              0
-#define NPC_CATCH_TELL_DEBUG     0
+#define NPC_CATCH_TELL_DEBUG     1
 #define SAME_IP_MAX              4
 #define COMPAT_MODE              1
 #define RETAIN_ON_QUIT           1
@@ -56,7 +59,7 @@
 #define DEFAULT_PARSING          0
 #define CALL_OUT_LOGGING         0
 #define EVENTS_LOGGING           0
-#define DISABLE_REBOOTS          0
+#define DISABLE_REBOOTS          1
 #define BARE_EXITS               1
 #define COMMAND_MATCHING         1
 #define OBJECT_MATCHING          1
@@ -96,5 +99,4 @@
 #define CED_DISABLED             1
 #define GUEST_ALLOWED            1
 #define PLAYER_INTERTELL_ALLOWED 0
-
 #endif /* s_config_h */
