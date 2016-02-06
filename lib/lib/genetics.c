@@ -40,6 +40,25 @@ static void create(){
     Resistance["none"] = ALL_DAMAGE;
 }
 
+void AddCustomizationPoints(){
+     int x, y, z;
+     string *stats;
+     string str;
+        
+     stats = this_player()->GetStats();
+        foreach(str in stats){
+            x += this_player()->GetBaseStatLevel(str);
+            y++;
+        }
+        //write("x is "+x+" y is "+y+"\n");
+        if(x <= ((y*100)-15)){
+            z = random(15)+1;
+            //write("z is "+z+"\n");
+        }else{ z = random(x)+1;
+        }
+     Custom = ([ "stats" : z, "deviations" : 0, "deviating" : 0, ]);
+}
+
 int GetBlind(){
     if( Blind ){
         return 1;
@@ -53,6 +72,7 @@ int GetBlind(){
   Added to change a players 'blind' status
 */
 int SetBlind(int x){
+    object ob;
     this_player()->eventBlind(this_player(),x,"\nYou have been blinded!\n", "\nYou can see again.\n");
     return 1;
 }
