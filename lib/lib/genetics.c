@@ -41,9 +41,11 @@ static void create(){
 }
 
 void AddCustomizationPoints(){
-     int x, y, z;
+     int w, x, y, z;
      string *stats;
      string str;
+
+     w = this_player()->GetCustomStats(); //don't blow away players custom stat points if not used
         
      stats = this_player()->GetStats();
         foreach(str in stats){
@@ -52,7 +54,7 @@ void AddCustomizationPoints(){
         }
         //write("x is "+x+" y is "+y+"\n");
         if(x <= ((y*100)-15)){
-            z = random(15)+1;
+            z = random(15)+1+w;
             //write("z is "+z+"\n");
         }else{ z = random(x)+1;
         }
