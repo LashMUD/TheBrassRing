@@ -438,7 +438,7 @@ int CanWeapon(object target, string type, int hands, int num){
             3*GetStatLevel("coordination"))/10;
     int div = 2;
     int x, y;
-
+    //tell_player("lash", "In CanWeapon\n");
     if(hands > 1){  
         if(GetSkillLevel("multi-hand")){
             chance = (chance/2) + 
@@ -473,6 +473,7 @@ int CanWeapon(object target, string type, int hands, int num){
     else {
         TargetLimb = limb;
     }
+    //tell_player("lash", "chance is "+chance);
     return chance;
 }
 
@@ -480,6 +481,7 @@ int CanWeapon(object target, string type, int hands, int num){
 int CanMelee(object target){
     //if(environment(target) == this_object() ||
     //environment(this_object()) == target) return 100;
+    //tell_player("lash", "In CanMelee\n");
     if(!this_object()->GetMelee() && 
             this_object()->GetClass() != "fighter"){
         string limb = target->GetRandomLimb(TargetLimb);
@@ -501,6 +503,7 @@ int CanMelee(object target){
         else {
             TargetLimb = limb;
         }
+        //tell_player("lash", "chance is "+chance);
         return chance;
     }
     else {
@@ -523,6 +526,7 @@ int CanMelee(object target){
         else {
             TargetLimb = limb;
         }
+        //tell_player("lash", "chance is "+chance);
         return chance;
     }
 }
@@ -945,7 +949,7 @@ int eventPreAttack(object agent){
 
 varargs int eventReceiveAttack(int speed, string def, object agent){
     int fail, x, pro, level, bonus, ret;
-    
+
     if(AttacksPerHB > MAX_ATTACKS_PER_HB) return 0;
     if(Dead) return 0;
     if(GetPenalty() > random(11)) fail = 1;
@@ -1003,14 +1007,6 @@ void eventKillEnemy(object ob){
     if(ob->GetCustomXP()) reward = ob->GetCustomXP();
     else reward = (level * 99);
 
-    /*added by Lash for delta morality based on killed NPC's morality */
-    y = ob->GetMorality();
-    SetMorality(GetMorality()-y);
-    if (GetMorality()>2500) SetMorality(2500);
-    if (GetMorality()<-2500) SetMorality(-2500);
-    /* end add */
-    
-        
     if(this_object()->GetParty()){
         int spoils;
         object *loot_sharers = ({ this_object() });
@@ -1030,16 +1026,24 @@ void eventKillEnemy(object ob){
         this_object()->AddExperiencePoints(reward);
     }
 
-   if( member_array(ob, GetHostiles()) == -1 ){
+    /*added by Lash for delta morality based on killed NPC's morality*/ 
+    y = (ob->GetMorality()/10);
+    SetMorality(GetMorality()-y);
+    if (GetMorality()>2500) SetMorality(2500);
+    if (GetMorality()<-2500) SetMorality(-2500);
+    /*end add*/ 
+    
+        
+    /*if( member_array(ob, GetHostiles()) == -1 ){
         int x;
 
         if(!estatep(ob)) eventTrainSkill("murder", GetLevel(), level, 1,GetCombatBonus(level)); 
-        x = ob->GetMorality();
+        /*x = ob->GetMorality();
         if( x > 0 ) x = -x;
         else if( GetMorality() > 200 ) x = 100;
         else x = 0;
         eventMoralAct(x);
-    }
+        }*/
 }
 
 void eventDestroyEnemy(object ob){
@@ -1078,8 +1082,8 @@ varargs int eventReceiveDamage(mixed agent, int type, int x, int internal,
     if(encumbrance > 200){
         if(GetInCombat()) tell_object(this_object(),"You try to dodge while weighed down.");
     }
-    
     x = race::eventReceiveDamage(agent, type, x, internal, limbs);
+    //tell_player("lash","FROM COMBAT agent is "+agent->GetName()+" x is "+x);
     if( !Wimpy ) return x;
     if( (hp = GetHealthPoints()) < 1 ) return x;
     if( Wimpy < percent(hp, GetMaxHealthPoints()) )
