@@ -28,9 +28,9 @@ static void create() {
 }
 
 static string *FoodDegree =
-({ "starving!", "very hungry.",
- "hungry.", " partially hungry.",
- "feeling full.", "quite full." });
+({ "starving!", "very hungry",
+ "hungry", "partially hungry",
+ "feeling full", "quite full" });
 
 static string *DrunkDegree =
 ({ "sober", "tipsy", "drunk", "blitzed",
@@ -104,7 +104,7 @@ varargs mixed eventScore(string arg) {
     if(z) z = (z/17) + 1;
     if( z > sizeof(DrunkDegree) - 1 ) z = (sizeof(DrunkDegree) - 1);
     str += ({ "Hunger            "+FoodDegree[x] });
-    str += ({ sprintf("Thirst            %s and %s\n", DrinkDegree[y], DrunkDegree[z]) });
+    str += ({ sprintf("Thirst            %s and %s", DrinkDegree[y], DrunkDegree[z]) });
     x = who->GetCustomStats();
 
     tmp = ({});
@@ -123,15 +123,15 @@ varargs mixed eventScore(string arg) {
             if(qp > 0) tmp += ({"Quest Points      "+capitalize(prn)+" require"+cnj+" "+
                     comma(qp)+" more quest points to advance."});
         }
-    
-        xp = lev["xp"] - xp;
-        if(xp > 0) tmp += ({"Advancement       "+capitalize(prn)+" require"+cnj+" "+
-                comma(xp)+" more experience points to advance."});
-        if(!sizeof(tmp)) tmp = ({"Advancement       "+capitalize(prn)+" "+qual+
-                " to advance a level."});
-        str += tmp; 
-        }    
-
+        if(XP_ADVANCE){
+            xp = lev["xp"] - xp;
+            if(xp > 0) tmp += ({"Advancement       "+capitalize(prn)+" require"+cnj+" "+
+                    comma(xp)+" more experience points to advance."});
+            if(!sizeof(tmp)) tmp = ({"Advancement       "+capitalize(prn)+" "+qual+
+                    " to advance a level."});
+            str += tmp; 
+            }    
+        }
     if( x = who->GetTrainingPoints() < 1 ) {
         y = who->GetLevel() + 1 + (x / -4);
         str += ({ "Training points   "+(who == this_player() ? "Available" :
