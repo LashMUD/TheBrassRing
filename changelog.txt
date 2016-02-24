@@ -1,5 +1,31 @@
 Changelog (year-month-day)
 
+2016-2-24
+*/lib/lib/combatmsg.c - made a little simpler
+
+2016-2-21
+*added code for skill based leveling and advancement
+ -affected files:
+  -config.h in /lib/secure/include
+  -cfg.h in lib/secure/include
+  -skills.cfg (new file) in /lib/secure/cfg
+  -mudconfig.c in lib/secure/cmds/admin
+  -connect.c and connect.real in /lib/secure/lib
+  -abilities.c in /lib/lib/lvs
+  -players.c in /lib/secure/daemon
+  -player.c in /lib/lib/
+  -genetics.c in /lib/lib
+  -level.c in /lib/lib/lvs
+*/lib/lib/props/deterioration.c 
+ - initialized the DamagePoints variable to 0. This allows for correctly
+   saving the amount of DamagePoints remaining for items.
+*/lib/lib/std/base_armor.c
+ - included the Protection variable in the my_save array so the armor
+   ProtectionMap is saved with the item. Otherwise the player can log out
+   and back in again and get all new armor.
+ -added GetItemCondition() to external description. I mean, players should 
+  be able to tell when their equipment is messed up, right?
+
 2015-12-28
 *genetics.c
  - added function string GetResistanceKey(string key); spits back resistance
