@@ -2,6 +2,8 @@ Changelog (year-month-day)
 
 2016-2-24
 */lib/lib/combatmsg.c - made a little simpler
+*/lib/lib/lvs/abilities.c
+ - changed variables in GetMaxSkillPoints() so skill based leveling is easier
 
 2016-2-21
 *added code for skill based leveling and advancement
