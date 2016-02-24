@@ -1224,7 +1224,7 @@ void eventCompleteChar(){
         receive("PRIMARY Skills picked:\n");
         foreach(str in ptmp){
             receive("'"+str+"' ");
-            Player->AddSkill(str,1,1);
+            Player->AddSkill(str,1,6);
         }
         receive("\n");
     }
@@ -1233,7 +1233,7 @@ void eventCompleteChar(){
         receive("\nSECONDARY Skills picked:\n");
         foreach(str in stmp){
             receive("'"+str+"' ");
-            Player->AddSkill(str,2,1);
+            Player->AddSkill(str,2,4);
         }
         receive("\n");
     }
@@ -1242,7 +1242,7 @@ void eventCompleteChar(){
         receive("\nMINOR Skills picked:\n");
         foreach(str in mtmp){
             receive("'"+str+"' ");
-            Player->AddSkill(str,3,1);
+            Player->AddSkill(str,3,2);
         }
         receive("\n");
     }
