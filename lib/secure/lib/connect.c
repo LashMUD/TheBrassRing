@@ -1200,7 +1200,8 @@ void eventCompleteChar(){
     Player->SetGender(Gendre);
     Player->SetCapName(CapNamen);
     Player->SetEmail(E_Mail);
-    Player->SetRealName(TrueName);    
+    Player->SetRealName(TrueName);
+    Player->SetCanBite(0);    
     if(lower_case(raza) != "poleepkwa"){
         Player->SetLanguage("Common",100);    
         Player->SetDefaultLanguage("Common");
