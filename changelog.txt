@@ -6,7 +6,7 @@ Changelog (year-month-day)
  - altered EventMeleeAttack so only one damage value is returned 
  - removed check for alignment ->npc interactions based on Faction associations
 */lib/secure/lib/connect.c and connect.real
- -in eventCompleteChar: Player->SetCanBite(0); no biting please
+ -in eventCompleteChar(): Player->SetCanBite(0); no biting please
 */lib/lib/props/deterioration.c
  - added GetMaxDamagePoints() function
 
