@@ -1,13 +1,9 @@
 /*    /lib/combat.c
- *    from the Dead Souls LPC Library http://dead-souls.net
+ *    from the Dead Souls LPC Library
  *    combat events and data
  *    created by Descartes of Borg 950124
  *    Version: @(#) combat.c 1.40@(#)
  *    Last modified: 96/11/17
- *    modified by Lash (ccoker) for use in the Brass Ring
- *    - bug fix per Nilrin
- *    - delta morality
- *    - sanctuary effect
  */
 
 #include <lib.h>
@@ -316,12 +312,12 @@ int GetLevel(){
     return classes::GetLevel();
 }
 
-    int GetInCombat(){
-        return sizeof(filter(GetEnemies(),
-                    (: $1 && ( (environment($1) == environment()) 
-                               || environment() == $1 || environment($1) ==
-                               this_object()) :)));
-    }
+int GetInCombat(){
+    return sizeof(filter(GetEnemies(),
+                (: $1 && ( (environment($1) == environment()) 
+                           || environment() == $1 || environment($1) ==
+                           this_object()) :)));
+}
 
 int GetBaseStatLevel(string stat){
     return race::GetBaseStatLevel(stat);
@@ -434,11 +430,13 @@ static int GetDamage(int power, string skill){
 
 int CanWeapon(object target, string type, int hands, int num){
     string limb = target->GetRandomLimb(TargetLimb);
-    int chance = (7*GetSkillLevel(type+" attack") + 
-            3*GetStatLevel("coordination"))/10;
+    int chance = ( 7*GetSkillLevel("melee attack") +
+                   3*GetStatLevel("coordination") +
+                   3*GetStatLevel("agility") +
+                   GetStatLevel("speed") )/16;
     int div = 2;
     int x, y;
-    //tell_player("lash", "In CanWeapon\n");
+
     if(hands > 1){  
         if(GetSkillLevel("multi-hand")){
             chance = (chance/2) + 
@@ -473,62 +471,32 @@ int CanWeapon(object target, string type, int hands, int num){
     else {
         TargetLimb = limb;
     }
-    //tell_player("lash", "chance is "+chance);
     return chance;
 }
 
 
 int CanMelee(object target){
-    //if(environment(target) == this_object() ||
-    //environment(this_object()) == target) return 100;
-    //tell_player("lash", "In CanMelee\n");
-    if(!this_object()->GetMelee() && 
-            this_object()->GetClass() != "fighter"){
-        string limb = target->GetRandomLimb(TargetLimb);
-        int chance = ( 6*this_object()->GetSkillLevel("melee attack") +
-                2*GetStatLevel("coordination") )/20;
-        int y = random(10);
-        int x;
-
-        chance = GetCombatChance(chance/3);
-        x = random(chance);
-        if( x <= y ){
-            if( x > y/2 ){
-                TargetLimb = target->GetRandomLimb(0);
-            }
-            else {
-                TargetLimb = 0;
-            }
-        }
-        else {
-            TargetLimb = limb;
-        }
-        //tell_player("lash", "chance is "+chance);
-        return chance;
+    string limb = target->GetRandomLimb(TargetLimb);
+    int chance = ( 7*GetSkillLevel("melee attack") +
+                   3*GetStatLevel("coordination") +
+                   3*GetStatLevel("agility") +
+                   GetStatLevel("speed") )/16;
+    int y = random(10);
+    int x;
+    chance = GetCombatChance(chance/2);
+    x = random(chance);
+    if( x <= y ) {
+	if( x > y/2 ) {
+	    TargetLimb = target->GetRandomLimb(0);
+	}
+	else {
+	    TargetLimb = 0;
+	}
     }
     else {
-        string limb = target->GetRandomLimb(TargetLimb);
-        int chance = ( 7*this_object()->GetSkillLevel("melee attack") +
-                3*GetStatLevel("coordination") )/10;
-        int y = random(10);
-        int x;
-
-        chance = GetCombatChance(chance/2);
-        x = random(chance);
-        if( x <= y ){
-            if( x > y/2 ){
-                TargetLimb = target->GetRandomLimb(0);
-            }
-            else {
-                TargetLimb = 0;
-            }
-        }
-        else {
-            TargetLimb = limb;
-        }
-        //tell_player("lash", "chance is "+chance);
-        return chance;
+	TargetLimb = limb;
     }
+    return chance;
 }
 
 static int Destruct(){
@@ -584,8 +552,7 @@ int eventExecuteAttack(mixed target){
         return 0;
     }
 
-    /* parentheseses as per Nilrin 6/25/13 on Dead Souls message board in Bug Central */
-    if( (position == POSITION_LYING || position == POSITION_SITTING) &&
+    if( position == POSITION_LYING || position == POSITION_SITTING &&
             RACES_D->GetLimblessCombatRace(this_object()->GetRace()) != 1){
         if(this_object()->CanFly()){
             this_object()->eventFly();
@@ -618,7 +585,9 @@ int eventExecuteAttack(mixed target){
     else if( !target->eventPreAttack(this_object()) ){
         return 0;
     }
-    this_object()->AddStaminaPoints(-1);
+    if(this_object()->GetClass() != "fighter"){
+        this_object()->AddStaminaPoints(-1);
+    }  
     switch(type){
         case ROUND_UNDEFINED: case ROUND_EXTERNAL:
             if( functionp(f) && !(functionp(f) & FP_OWNER_DESTED) ){
@@ -796,9 +765,7 @@ int eventMeleeRound(mixed target, function f){
 void eventMeleeAttack(object target, string limb){
     int pro, con, autohit;
     int chance, fail;
-    int canmelee = (this_object()->GetMelee() ||
-            this_object()->GetClass() == "fighter");
-
+    
     if(AttacksPerHB > MAX_ATTACKS_PER_HB) return;
     if( target->GetDead() || Dead || target->GetDying() ){
         return;
@@ -842,8 +809,7 @@ void eventMeleeAttack(object target, string limb){
         }
         if(!estatep(target)) eventTrainSkill("melee attack", pro, con, 1,
                 GetCombatBonus(target->GetLevel()));
-        if(canmelee) x = GetDamage(3*chance/4, "melee attack");
-        else x = GetDamage(3*chance/20, "melee attack");
+        x = GetDamage(3*chance/4, "melee attack");
         x -= encumbrance;
         if(x < 0) x = 0;
         x = target->eventReceiveDamage(this_object(), BLUNT, x, 0,
@@ -949,7 +915,6 @@ int eventPreAttack(object agent){
 
 varargs int eventReceiveAttack(int speed, string def, object agent){
     int fail, x, pro, level, bonus, ret;
-
     if(AttacksPerHB > MAX_ATTACKS_PER_HB) return 0;
     if(Dead) return 0;
     if(GetPenalty() > random(11)) fail = 1;
@@ -1000,7 +965,6 @@ varargs int eventReceiveAttack(int speed, string def, object agent){
 void eventKillEnemy(object ob){
     int level;
     int reward;
-    int y;
 
     if( !ob ) return;
     level = ob->GetLevel();
@@ -1026,24 +990,9 @@ void eventKillEnemy(object ob){
         this_object()->AddExperiencePoints(reward);
     }
 
-    /*added by Lash for delta morality based on killed NPC's morality*/ 
-    y = (ob->GetMorality()/10);
-    SetMorality(GetMorality()-y);
-    if (GetMorality()>2500) SetMorality(2500);
-    if (GetMorality()<-2500) SetMorality(-2500);
-    /*end add*/ 
-    
-        
-    /*if( member_array(ob, GetHostiles()) == -1 ){
-        int x;
-
+    if( member_array(ob, GetHostiles()) == -1 ){
         if(!estatep(ob)) eventTrainSkill("murder", GetLevel(), level, 1,GetCombatBonus(level)); 
-        /*x = ob->GetMorality();
-        if( x > 0 ) x = -x;
-        else if( GetMorality() > 200 ) x = 100;
-        else x = 0;
-        eventMoralAct(x);
-        }*/
+    }
 }
 
 void eventDestroyEnemy(object ob){
@@ -1057,14 +1006,11 @@ void eventDestroyEnemy(object ob){
 }
 
 void eventEnemyDied(object ob){
-    int x;
-    x = ob->GetMorality();
     if( !ob ) return;
     Enemies -= ({ ob });
     Hostiles -= ({ ob });
     if(!sizeof(SpecialTargets) || (!sizeof(Enemies) || !sizeof(Hostiles))) 
         NonTargets = ({});
-    
 }
 
 varargs int eventReceiveDamage(mixed agent, int type, int x, int internal,
@@ -1083,13 +1029,11 @@ varargs int eventReceiveDamage(mixed agent, int type, int x, int internal,
         if(GetInCombat()) tell_object(this_object(),"You try to dodge while weighed down.");
     }
     x = race::eventReceiveDamage(agent, type, x, internal, limbs);
-    //tell_player("lash","FROM COMBAT agent is "+agent->GetName()+" x is "+x);
     if( !Wimpy ) return x;
     if( (hp = GetHealthPoints()) < 1 ) return x;
     if( Wimpy < percent(hp, GetMaxHealthPoints()) )
         return x;
     call_out((: eventWimpy :), 0);
-    
     return x;
 }
 
