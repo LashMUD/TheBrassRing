@@ -45,6 +45,10 @@ string GetItemCondition(){
     }
 }
 
+int GetMaxDamagePoints(){
+    return MaxDamagePoints;
+}
+
 string array GetSave(){
     if(undefinedp(DamagePoints)) return ({ "Broken", "Deterioration" });
     else return ({ "Broken", "DamagePoints", "Deterioration" });
