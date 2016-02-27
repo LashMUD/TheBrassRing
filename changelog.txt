@@ -1,5 +1,15 @@
 Changelog (year-month-day)
 
+2016-2-28
+*/lib/lib/combat.c
+ - altered Canmelee and CanWeapon functions
+ - altered EventMeleeAttack so only one damage value is returned 
+ - removed check for alignment ->npc interactions based on Faction associations
+*/lib/secure/lib/connect.c and connect.real
+ -in eventCompleteChar: Player->SetCanBite(0); no biting please
+*/lib/lib/props/deterioration.c
+ - added GetMaxDamagePoints() function
+
 2016-2-24
 */lib/lib/combatmsg.c - made a little simpler
 */lib/lib/lvs/abilities.c
