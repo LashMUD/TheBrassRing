@@ -94,34 +94,47 @@ int GetMaxSkillLevel(string skill){
 }
 
 int GetMaxSkillPoints(string skill, int level){
+    //tell_player("lash", "Skill is "+skill+" and level is "+level);
     if( !Skills[skill] ){
         return 0;
     }
     else if( level == 0 ){
         if(SKILL_ADVANCE){
-        return 50;
-        }else{ return 200; }
+            return 50;
+        }
+        else{ return 200;
+        }
     }
     else {
         int cl, x;
+        
+        //tell_player("lash", "cl1 is "+cl); 
         if( !(cl = Skills[skill]["class"]) ){
-            return level * 300;
+            if(SKILL_ADVANCE) return level * 200;
+            else return level * 600;
         }
         if( cl > 4 ){
             cl = 4;
+            //tell_player("lash", "cl>4 is "+cl);
         }
         if( cl < 1 ){
             cl = 4;
+            //tell_player("lash", "cl<1 is "+cl);
         }
+        //tell_player("lash", "cl is "+cl);
         x = level;
-        while( cl-- ){
-            x *= level;
-        }
         if(SKILL_ADVANCE){
-        return (x * 100);
-        }else{
-             return x * 400;
+            //tell_player("lash", "final x is "+x * 200);
+            return level * cl * 500;
         }
+        else{
+            while( cl-- ){
+            x *= level;
+            //tell_player("lash", "cl-- and x is "+x);
+            }
+       //tell_player("lash", "final x is "+x * 400);
+        return x * 400;
+       }
     }
 }
 
@@ -380,6 +393,7 @@ varargs void  eventTrainSkill(string skill, int pro, int con, int array a...){
     }
     val = (con - pro + (200*success) + 100)/8;
     AddSkillPoints(skill, (bonus * val * level * level) + 1);
+    //tell_player("lash","Skill is "+skill+" and points are "+(bonus * val * level * level) + 1);
 }
 
 /* ****************** abilities.c driver applies **************** */
