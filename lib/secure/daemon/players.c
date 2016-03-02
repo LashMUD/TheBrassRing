@@ -158,6 +158,31 @@ mapping CompileLevelList(){
     }
     return copy(Levels);
 }
+/* The Following List is Returned:
+([ 
+21 : ([                                                                     "xp" : 476400 ]), 
+20 : ([ "title" : "the Caesar/the Caesara",                      "qp" : 60, "xp" : 397000 ]), 
+19 : ([ "title" : "the Quaestor/the Quaestrix",                             "xp" : 330900 ]), 
+18 : ([ "title" : "the Praetor/the Praetrix",                    "qp" : 45, "xp" : 275800 ]), 
+17 : ([ "title" : "the Archduke/the Archduchess",                           "xp" : 229900 ]), 
+16 : ([ "title" : "the Duke/the Duchess",                        "qp" : 32, "xp" : 191600 ]), 
+15 : ([ "title" : "the Marquis/the Marquise",                               "xp" : 147400 ]), 
+14 : ([ "title" : "the Earl/the Countess",                       "qp" : 21, "xp" : 113400 ]), 
+13 : ([ "title" : "the Count/the Viscountess",                              "xp" : 87300 ]), 
+12 : ([ "title" : "the Baron/the Baroness",                      "qp" : 12, "xp" : 67200 ]), 
+11 : ([ "title" : "the Knight",                                             "xp" : 48000 ]), 
+10 : ([ "title" : "the Citizen",                                 "qp" : 5,  "xp" : 34300 ]), 
+9  : ([ "title" : "the Freeman/the Freewoman",                              "xp" : 22900 ]), 
+8  : ([ "title" : "the master adventurer/the master adventuress",           "xp" : 15300 ]), 
+7  : ([ "title" : "the great adventurer/the great adventuress",             "xp" : 9600 ]), 
+6  : ([ "title" : "the expert adventurer/the expert adventuress",           "xp" : 5700 ]), 
+5  : ([ "title" : "the experienced adventurer/the experienced adventuress", "xp" : 3200 ]), 
+4  : ([ "title" : "the adventurer/the adventuress",                         "xp" : 1700 ]), 
+3  : ([ "title" : "the beginner",                                           "xp" : 900 ]), 
+2  : ([ "title" : "the simple novice",                                      "xp" : 500 ]), 
+1  : ([ "title" : "the utter novice ",                            "qp" : 0, "xp" : 0 ]), 
+0  : ([                                                           "qp" : 0, "xp" : 0 ]) 
+])*/
 
 static void ScheduledPlayerAdd(string *plays){
     foreach(string play in plays){
@@ -308,74 +333,50 @@ int CheckAdvance(object ob){
     string *ptmp = ({});
     string *stmp = ({});
     string *mtmp = ({});
-    int dlev, x ,y ,z, xp, qp;
+    int level, dlev, x ,y ,z, xp, qp;
     int *plevels = ({});
     int *slevels = ({});
     int *mlevels = ({});
     int *psorted, *ssorted, *msorted;
+
+    level = this_player()->GetLevel() * 12;
     
-    //write("\nIn CheckAdvance()\n"); 
+    //tell_player("lash","\nIn CheckAdvance()\n"); 
     dlev = (ob->GetLevel())+1;
     //write("\ndlev is "+dlev+"\n"); 
     /* get and sort primary skills and levels */
     if(SKILL_ADVANCE){
-        //write("\nSKILL_ADVANCE\n"); 
         ptmp = this_player()->GetPrimarySkills();
-        //write("sizeof ptmp is "+sizeof(ptmp)+"\n");
-        //write("ptmp[0] is "+ptmp[0]+"\n");
         foreach(str in ptmp){
             plevels += ({this_player()->GetSkillLevel(str)});
-            //write("str is "+str);
         }
         plevels = sort_array(plevels,-1);
-        foreach(x in plevels){
-            //write("plevel is "+x);
-        }
+        //write("plevels[0] is "+plevels[0]);
         x = this_player()->GetMaxSkillLevel(ptmp[0]);
         /* get and sort secondary skills and levels */
         stmp = this_player()->GetSecondarySkills();
         foreach(str in stmp){
             slevels += ({this_player()->GetSkillLevel(str)});
-            //write("str is "+str);
         }    
         slevels = sort_array(slevels,-1);
-        foreach(y in slevels){
-            //write("slevel is "+y);
-        }
         y = this_player()->GetMaxSkillLevel(stmp[0]);
         /* get and sort minor skills and levels */
         mtmp = this_player()->GetMinorSkills();
         foreach(str in mtmp){
             mlevels += ({this_player()->GetSkillLevel(str)});
-            //write("str is "+str);
         }
         mlevels = sort_array(mlevels,-1);
-        foreach(z in mlevels){
-            //write("mlevel is "+z);
-        }
         z = this_player()->GetMaxSkillLevel(mtmp[0]);
-        //write("plevels[0] is "+plevels[0]+"\n");
-        //write("plevels[1] is "+plevels[1]+"\n");
-        //write("plevels[2] is "+plevels[2]+"\n");
-        //write("slevels[0] is "+slevels[0]+"\n");
-        //write("slevels[1] is "+slevels[1]+"\n");
-        //write("mlevels[0] is "+mlevels[0]+"\n");
-        //write("x is "+x+"\n");
-        //write("y is "+y+"\n");
-        //write("z is "+z+"\n");
-        //write("char level is "+this_player()->GetLevel()+"\n");
-        //write("dlev is "+dlev+"\n");
-        if(plevels[0] >= x && plevels[1] >= x && plevels[2] >=x
-           && slevels[0] >=y && slevels[1] >= y
-           && mlevels[0] >= z){
+        /*tell_player("lash", "\ntotal of levels is "+(plevels[0] + 
+                    plevels[1] + plevels[2] + slevels[0] +
+                    slevels[1] + mlevels[0]) +"\n");*/
+        if((plevels[0] + plevels[1] + plevels[2] + slevels[0] + slevels[1] + mlevels[0]) >= level){
             if(AUTO_ADVANCE) AutoAdvance(ob, dlev);
             return 1;
         }
     return 0;
     }
-    //return 0;
     if(XP_ADVANCE){
-        //write("\nXP_ADVANCE\n"); 
         if(!ob || !playerp(ob)) return 0;
         if(!sizeof(Levels)) CompileLevelList();
         if(!Levels[dlev]) return 0;
