@@ -38,6 +38,11 @@ static private int *Screen;
 static private int rescue, yescre, anyterm;
 static private string *ip_permitted = ({}), instname, telopt_user;
 static private string array anyterms = ({"97.107.133.86", "127.0.0.1"});
+static private string *Skills;
+static private string *tskills = ({});
+static private string *ptmp = ({});
+static private string *stmp = ({});
+static private string *mtmp = ({});
 
 //Change this to 0 to disable color codes in /news/welcome
 //then update the connect.c file.
@@ -55,6 +60,19 @@ static void cmdListClasses();
 static void cmdHelpClass(string args);
 static void InputClass(string str);
 static void eventSelectClass();
+
+static void eventSkillSelectionInstructions();
+static void eventSelectPrimarySkills();
+static void InputPrimarySkills(string str);
+static void cmdPickPrimarySkills(string args);
+static void eventSelectSecondarySkills();
+static void InputSecondarySkills(string str);
+static void cmdPickSecondarySkills(string args);
+static void eventSelectMinorSkills();
+static void InputMinorSkills(string str);
+static void cmdPickMinorSkills(string args);
+static void cmdHelpSkills(string args);
+static private string *GetSkills();
 
 int CheckIp(){
     int ips = 0;
@@ -103,6 +121,8 @@ static void create(int binary) {
     Name = "";
     Player = 0;
     NetDead = 0;
+    Skills = filter(explode(read_file(CFG_SKILLS), "\n"),
+             (: $1 && $1 != "" && $1[0] != '#' :));
     if(ENABLE_INSTANCES){
         instname = INSTANCES_D->GetMyInstanceName();
     }
@@ -699,6 +719,11 @@ static void cmdPick(string args) {
         if(CLASS_SELECTION){
             eventSelectClass();
             return;
+        }            
+        if(SKILL_SELECTION){
+            eventSkillSelectionInstructions();
+            //eventSelectPrimarySkills();
+            return;
         }
         eventCompleteChar();
     }
@@ -816,6 +841,297 @@ static void cmdPickClass(string args) {
     eventCompleteChar();
 }
 
+static void eventSkillSelectionInstructions(){
+    receive("\n\nYou must now choose the skill sets that will define your character.\n"
+            "Available are:\n"
+            "    5 PRIMARY skill slots\n"
+            "    3 SECONDARY skill slots\n"
+            "    5 MINOR skill slots\n\n"
+            "The more you use a skill the faster your level will increase.\n"
+            "Think about your character concept and choose wisely.\n");
+    receive("\nDuring skill selection you will be presented with a list of available\n"
+            "skills, as well as a list of skills you have already chosen. The\n"
+            "following commands will be available to you:\n\n");
+    receive("\thelp - shows the help file for SKILLS\n"
+            "\tpick SKILL - pick a particular SKILL for yourself\n\n"
+            "Press return to begin skill selection.");
+    input_to((: eventSelectPrimarySkills :), I_NOESC);
+}
+
+static void eventSelectPrimarySkills(){
+    int x = sizeof(ptmp);
+    string rskills = format_page(sort_array(Skills, 1), 4);
+    //string cpskills = format_page(sort_array(ptmp, 1), 1);
+    string cpskills = format_page(sort_array(ptmp, 1), 3);
+               
+    receive("\n\nYou must now pick "+(5-x)+" PRIMARY Skills.\n");
+    receive("\nYou have chosen the following PRIMARY Skills:\n");
+    receive(cpskills);
+    receive("\nValid skills to choose from:\n\n");
+    receive(rskills);
+    receive("\nSkill: \n");
+    input_to((: InputPrimarySkills :), I_NOESC);
+}
+
+static void InputPrimarySkills(string str){
+    string cmd, args, argse;
+    string *tmp = Skills;
+    string rskills = format_page(sort_array(Skills, 1), 4);
+
+    if( str == "" || !str ) {
+        receive("\nYou must pick a Skill: ");
+        input_to((: InputPrimarySkills :), I_NOESC);
+        return;
+    }
+    if( sscanf(str, "%s %s", cmd, args) != 2){ 
+        cmd = str;
+        args = 0;
+    }
+    if( sscanf(str, "%s %s", cmd, args) == 2){
+        if(cmd != "pick"){
+            cmd = str;
+            args = 0;
+        }
+    }
+    if(member_array(cmd, tmp) != -1){
+        args = cmd;
+        cmd = "pick";
+    }
+    switch(cmd) {
+        /*case "help":
+            cmdHelpSkills(args);
+        return;*/
+
+        case "pick":
+            cmdPickPrimarySkills(args);
+        return;
+
+        default:
+        receive("Invalid command or no such skill. Valid skills to choose from:\n");
+        receive(rskills);
+        receive("\nSkill: \n");
+        input_to((: InputPrimarySkills :), I_NOESC);
+        return;
+    }
+}
+
+static void cmdPickPrimarySkills(string args) {
+    string *tmp = Skills;
+    string str;
+    string rskills = format_page(sort_array(Skills, 1), 4);
+        
+    if( !args || args == "" ) {
+        receive("You must specify a skill to pick. Valid skills to choose from:\n");
+        receive(rskills);
+        receive("\nSkill: \n");
+        input_to((: InputPrimarySkills :), I_NOESC);
+        return;
+    }
+    if( member_array(args, tmp)  == -1 ) {
+        receive("No such Skill. Valid skills to choose from:\n");
+        receive(rskills);
+        receive("\nSkill: \n");
+        input_to((: InputPrimarySkills :), I_NOESC);
+        return;
+    }
+    if(sizeof(ptmp) < 5){
+        ptmp+=({args});
+        Skills -=({args});
+        if(sizeof(ptmp) == 5){
+            eventSelectSecondarySkills();
+        }else{ eventSelectPrimarySkills();
+        }
+    }
+}
+
+static void eventSelectSecondarySkills(){
+    int x = sizeof(stmp);
+    string rskills = format_page(sort_array(Skills, 1), 4);
+    string cpskills = format_page(sort_array(ptmp, 1), 3);
+    string csskills = format_page(sort_array(stmp, 1), 3); 
+          
+    receive("\nYou must now pick "+(3-x)+" SECONDARY Skills.\n");
+    receive("\nYou have chosen the following PRIMARY Skills:\n");
+    receive(cpskills);
+    receive("\nYou have chosen the following SECONDARY Skills:\n");
+    receive(csskills);
+    receive("\nValid skills to choose from:\n\n");
+    receive(rskills);
+    receive("\nSkill: \n");
+    input_to((: InputSecondarySkills :), I_NOESC);
+}
+
+static void InputSecondarySkills(string str){
+    string cmd, args, argse;
+    string *tmp = Skills;
+    string rskills = format_page(sort_array(Skills, 1), 4);
+
+    if( str == "" || !str ) {
+        receive("\nYou must pick a Skill: ");
+        input_to((: InputSecondarySkills :), I_NOESC);
+        return;
+    }
+    if( sscanf(str, "%s %s", cmd, args) != 2){ 
+        cmd = str;
+        args = 0;
+    }
+    if( sscanf(str, "%s %s", cmd, args) == 2){
+        if(cmd != "pick"){
+            cmd = str;
+            args = 0;
+        }
+    }
+    if(member_array(cmd, tmp) != -1){
+        args = cmd;
+        cmd = "pick";
+    }
+    switch(cmd) {
+        /*case "help":
+            cmdHelpSkills(args);
+        return;*/
+
+        case "pick":
+            cmdPickSecondarySkills(args);
+        return;
+
+        default:
+        receive("Invalid command or no such skill. Valid skills to choose from:\n");
+        receive(rskills);
+        receive("\nSkill: \n");
+        input_to((: InputSecondarySkills :), I_NOESC);
+        return;
+    }
+}
+
+static void cmdPickSecondarySkills(string args) {
+    string *tmp = Skills;
+    string str;
+    string rskills = format_page(sort_array(Skills, 1), 4);
+
+    if( !args || args == "" ) {
+        receive("You must specify a skill to pick. Valid skills to choose from:\n");
+        receive(rskills);
+        receive("\nSkill: \n");
+        input_to((: InputSecondarySkills :), I_NOESC);
+        return;
+    }
+    if( member_array(args, tmp)  == -1 ) {
+        receive("No such Skill. Valid skills to choose from:\n");
+        receive(rskills);
+        receive("\nSkill: \n");
+        input_to((: InputSecondarySkills :), I_NOESC);
+        return;
+    }
+    if(sizeof(stmp) < 3){
+        stmp+=({args});
+        Skills -=({args});
+        if(sizeof(stmp) == 3){
+            eventSelectMinorSkills();
+        }else{ eventSelectSecondarySkills();
+        }
+    }
+}
+
+static void eventSelectMinorSkills(){
+    int x = sizeof(mtmp);
+    string rskills = format_page(sort_array(Skills, 1), 4);
+    string cpskills = format_page(sort_array(ptmp, 1), 3);
+    string csskills = format_page(sort_array(stmp, 1), 3); 
+    string cmskills = format_page(sort_array(mtmp, 1), 3);    
+
+    receive("\n\nYou must now pick "+(5-x)+" MINOR Skills.\n");
+    receive("\nYou have chosen the following PRIMARY Skills:\n");
+    receive(cpskills);
+    receive("\nYou have chosen the following SECONDARY Skills:\n");
+    receive(csskills);
+    receive("\nYou have chosen the following MINOR Skills:\n");
+    receive(cmskills);
+    receive("\nValid skills to choose from:\n\n");
+    receive(rskills);
+    receive("\nSkill: \n");
+    input_to((: InputMinorSkills :), I_NOESC);
+}
+
+static void InputMinorSkills(string str){
+    string cmd, args, argse;
+    string *tmp = Skills;
+    string rskills = format_page(sort_array(Skills, 1), 4);
+    
+    if( str == "" || !str ) {
+        receive("\nYou must pick a Skill: ");
+        input_to((: InputSecondarySkills :), I_NOESC);
+        return;
+    }
+    if( sscanf(str, "%s %s", cmd, args) != 2){ 
+        cmd = str;
+        args = 0;
+    }
+    if( sscanf(str, "%s %s", cmd, args) == 2){
+        if(cmd != "pick"){
+            cmd = str;
+            args = 0;
+        }
+    }
+    if(member_array(cmd, tmp) != -1){
+        args = cmd;
+        cmd = "pick";
+    }
+    switch(cmd) {
+        /*case "help":
+            cmdHelpSkills(args);
+        return;*/
+
+        case "pick":
+            cmdPickMinorSkills(args);
+        return;
+
+        default:
+        receive("Invalid command or no such skill. Valid skills to choose from:\n");
+        receive(rskills);
+        receive("\nSkill: \n");
+        input_to((: InputMinorSkills :), I_NOESC);
+        return;
+    }
+}
+
+static void cmdPickMinorSkills(string args) {
+    string *tmp = Skills;
+    string str;
+    string rskills = format_page(sort_array(Skills, 1), 4);
+        
+    if( !args || args == "" ) {
+        receive("You must specify a skill to pick. Valid skills to choose from:\n");
+        receive(rskills);
+        receive("\nSkill: \n");
+        input_to((: InputMinorSkills :), I_NOESC);
+        return;
+    }
+    if( member_array(args, tmp)  == -1 ) {
+        receive("No such Skill. Valid skills to choose from:\n");
+        receive(rskills);
+        receive("\nSkill: \n");
+        input_to((: InputMinorSkills :), I_NOESC);
+        return;
+    }
+    if(sizeof(mtmp) < 5){
+        mtmp+=({args});
+        Skills -=({args});
+        if(sizeof(mtmp) == 5){
+            eventCompleteChar();
+        }else{ eventSelectMinorSkills();
+        }
+    }
+}  
+
+/*static void cmdHelpSkills(){
+}*/
+
+static private string *GetSkills(){
+    string *ret;
+    ret = Skills;
+    return ret;
+}
+
 int eventCre(string str){
     mixed mixt;
     if(yescre && AUTO_WIZ > 0){
@@ -867,6 +1183,10 @@ void InputCre(string str){
         eventSelectClass();
         return;
     }
+    if(!CLASS_SELECTION){
+        eventSelectPrimarySkills();
+        return;
+    }
     else {
         eventCompleteChar();
     }
@@ -875,7 +1195,7 @@ void InputCre(string str){
 void eventCompleteChar(){
     Player->SetRace(raza);
     Player->SetProperty("brand_spanking_new",1);
-    Player->AddCurrency("silver",random(100)+57);
+    Player->AddCurrency("gold",random(100)+57);
     Player->SetPassword(Passwort);
     Player->SetGender(Gendre);
     Player->SetCapName(CapNamen);
@@ -898,10 +1218,43 @@ void eventCompleteChar(){
     if(yescre) Player->SetPrompt("cwd");
     else Player->SetPrompt("status");
     if(trabajo) Player->ChangeClass(trabajo);
+    if(ptmp){
+        string str;
+        receive("\nCharacter Summary\n");
+        receive("-------------------------\n");
+        receive("PRIMARY Skills picked:\n");
+        foreach(str in ptmp){
+            receive("'"+str+"' ");
+            Player->AddSkill(str,1,1);
+        }
+        receive("\n");
+    }
+    if(stmp){
+        string str;
+        receive("\nSECONDARY Skills picked:\n");
+        foreach(str in stmp){
+            receive("'"+str+"' ");
+            Player->AddSkill(str,2,1);
+        }
+        receive("\n");
+    }
+    if(mtmp){
+        string str;
+        receive("\nMINOR Skills picked:\n");
+        foreach(str in mtmp){
+            receive("'"+str+"' ");
+            Player->AddSkill(str,3,1);
+        }
+        receive("\n");
+    }
     this_player()->SetTerminal("ansi");
     PLAYERS_D->AddPlayerInfo(Name);
-    call_out( (: eventCre, Name :), 3);
-    eventEnterGame();
+    call_out( (: eventCre, Name :), 60);
+    receive("\nIf you wish to create a different character,\n"
+            "use the 'suicide' command after logging in and\n"
+            "start over. Have FUN!\n"
+            "Press <return> within 60 seconds to continue.");     
+    input_to((: eventEnterGame :), I_NOESC);
 } 
 
 static void eventTimeout() {
