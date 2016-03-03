@@ -1,5 +1,24 @@
 Changelog (year-month-day)
 
+2016-03-02
+*/lib/secure/daemon/players in CheckAdvance(object ob)
+ -changed leveling requirements
+  level is dependent on gaining skill levels: 12 points x character level
+  advancement depends on addition of highest 3 primary, 2 secondary and 
+  1 minor skill. 12 additional points required to advance to level 2, 
+  24 for level 3 and so on
+*/lib/lib/combat.c
+ - altered Canmelee and CanWeapon functions
+ - altered EventMeleeAttack so only one damage value is returned
+ - removed check for alignment ->npc interactions based on Faction associations
+*/lib/secure/lib/connect.c and connect.real
+ -in eventCompleteChar(): Player->SetCanBite(0); no biting please
+ -skills start at level 1
+*/lib/lib/lvs/abilities.c
+  - altered GetMaxSkillPoints
+  -ratcheted down amount of skill points necessary to advance a level for the skill
+   used the if(SKILL_ADVANCE) check
+
 2016-2-28
 */lib/lib/combat.c
  - altered Canmelee and CanWeapon functions
