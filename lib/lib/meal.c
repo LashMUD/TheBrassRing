@@ -6,6 +6,7 @@
  *    Last modified: 97/01/03
  *    modified by Lash (ccoker) for use in The Brass Ring
  *    - added functionality in eventDrink (possible bugfix)
+ *    2014-12-13
  */
 
 #include <lib.h>
