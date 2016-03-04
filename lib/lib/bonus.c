@@ -3,7 +3,9 @@
  *
  * modified by Lash (ccoker) for use in The Brass Ring
  * bug fix: bonus object wasn't being destructed
- * 2015-12-28 added functionality for setting resistance
+ * 2014-12-12
+ * added functionality for setting resistance
+ * 2015-12-28
  */
 
 #include <lib.h>
