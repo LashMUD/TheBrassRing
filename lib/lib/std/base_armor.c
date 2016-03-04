@@ -4,6 +4,11 @@
  *    Created by Descartes of Borg 950408
  *    Version: @(#) armor.c 1.9@(#)
  *    Last modified: 97/01/01
+ *
+ *    bug fix to save armor conditions
+ *    added variable ({Protection}) to my_save array
+ *    ccoker (Lash)
+ *    2016-02-24
  */
 
 #include <lib.h>
