@@ -4,6 +4,12 @@
  *    Created by Descartes of Borg 970101
  *    Version: @(#) deterioration.c 1.1@(#)
  *    Last modified: 97/01/01
+ *
+ *    Bug fix for saving armor conditions:
+ *    initialized DamagePoints variable to 0
+ *    added GetMaxDamagePoints()
+ *    ccoker (lash)
+ *    2016-02-24
  */
 #include <daemons.h>
 
