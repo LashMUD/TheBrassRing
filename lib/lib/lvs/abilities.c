@@ -94,7 +94,6 @@ int GetMaxSkillLevel(string skill){
 }
 
 int GetMaxSkillPoints(string skill, int level){
-    //tell_player("lash", "Skill is "+skill+" and level is "+level);
     if( !Skills[skill] ){
         return 0;
     }
@@ -108,31 +107,24 @@ int GetMaxSkillPoints(string skill, int level){
     else {
         int cl, x;
         
-        //tell_player("lash", "cl1 is "+cl); 
         if( !(cl = Skills[skill]["class"]) ){
             if(SKILL_ADVANCE) return level * 200;
             else return level * 600;
         }
         if( cl > 4 ){
             cl = 4;
-            //tell_player("lash", "cl>4 is "+cl);
         }
         if( cl < 1 ){
             cl = 4;
-            //tell_player("lash", "cl<1 is "+cl);
         }
-        //tell_player("lash", "cl is "+cl);
         x = level;
         if(SKILL_ADVANCE){
-            //tell_player("lash", "final x is "+x * 200);
             return level * cl * 500;
         }
         else{
             while( cl-- ){
             x *= level;
-            //tell_player("lash", "cl-- and x is "+x);
             }
-       //tell_player("lash", "final x is "+x * 400);
         return x * 400;
        }
     }
