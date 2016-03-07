@@ -313,7 +313,6 @@ string *eventDecre(string str){
 
 static int AutoAdvance(object ob, int level){
     int ret;
-    //write("\nIn AutoAdvance\n"); 
     ob->ChangeLevel(level);
     ret = ob->GetLevel();
     if(ret >= level){
@@ -333,44 +332,36 @@ int CheckAdvance(object ob){
     string *ptmp = ({});
     string *stmp = ({});
     string *mtmp = ({});
-    int level, dlev, x ,y ,z, xp, qp;
+    int level, dlev, xp, qp;
     int *plevels = ({});
     int *slevels = ({});
     int *mlevels = ({});
     int *psorted, *ssorted, *msorted;
 
     level = this_player()->GetLevel() * 12;
-    
-    //tell_player("lash","\nIn CheckAdvance()\n"); 
     dlev = (ob->GetLevel())+1;
-    //write("\ndlev is "+dlev+"\n"); 
-    /* get and sort primary skills and levels */
+    
     if(SKILL_ADVANCE){
+        /* get and sort primary skills and levels */
         ptmp = this_player()->GetPrimarySkills();
         foreach(str in ptmp){
-            plevels += ({this_player()->GetSkillLevel(str)});
+            plevels += ({this_player()->GetBaseSkillLevel(str)});
         }
         plevels = sort_array(plevels,-1);
-        //write("plevels[0] is "+plevels[0]);
-        x = this_player()->GetMaxSkillLevel(ptmp[0]);
         /* get and sort secondary skills and levels */
         stmp = this_player()->GetSecondarySkills();
         foreach(str in stmp){
-            slevels += ({this_player()->GetSkillLevel(str)});
+            slevels += ({this_player()->GetBaseSkillLevel(str)});
         }    
         slevels = sort_array(slevels,-1);
-        y = this_player()->GetMaxSkillLevel(stmp[0]);
         /* get and sort minor skills and levels */
         mtmp = this_player()->GetMinorSkills();
         foreach(str in mtmp){
-            mlevels += ({this_player()->GetSkillLevel(str)});
+            mlevels += ({this_player()->GetBaseSkillLevel(str)});
         }
         mlevels = sort_array(mlevels,-1);
-        z = this_player()->GetMaxSkillLevel(mtmp[0]);
-        /*tell_player("lash", "\ntotal of levels is "+(plevels[0] + 
-                    plevels[1] + plevels[2] + slevels[0] +
-                    slevels[1] + mlevels[0]) +"\n");*/
-        if((plevels[0] + plevels[1] + plevels[2] + slevels[0] + slevels[1] + mlevels[0]) >= level){
+        if((plevels[0] + plevels[1] + plevels[2] + slevels[0] + slevels[1] + 
+            mlevels[0]) >= level){
             if(AUTO_ADVANCE) AutoAdvance(ob, dlev);
             return 1;
         }
