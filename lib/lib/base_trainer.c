@@ -265,3 +265,4 @@ int eventComplete(object who, string skill){
             who->GetName() + ".");
     return 1;
 }
+
