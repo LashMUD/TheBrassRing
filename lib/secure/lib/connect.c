@@ -1217,8 +1217,8 @@ void eventCompleteChar(){
     }
     if(yescre) Player->SetPrompt("cwd");
     else Player->SetPrompt("status");
-    if(trabajo) Player->ChangeClass(trabajo);
-    if(ptmp){
+    if(trabajo && !ptmp) Player->ChangeClass(trabajo);
+    if(ptmp && !trabajo){
         string str;
         receive("\nCharacter Summary\n");
         receive("-------------------------\n");
@@ -1229,7 +1229,7 @@ void eventCompleteChar(){
         }
         receive("\n");
     }
-    if(stmp){
+    if(stmp && !trabajo){
         string str;
         receive("\nSECONDARY Skills picked:\n");
         foreach(str in stmp){
@@ -1238,7 +1238,7 @@ void eventCompleteChar(){
         }
         receive("\n");
     }
-    if(mtmp){
+    if(mtmp && !trabajo){
         string str;
         receive("\nMINOR Skills picked:\n");
         foreach(str in mtmp){
@@ -1249,11 +1249,16 @@ void eventCompleteChar(){
     }
     this_player()->SetTerminal("ansi");
     PLAYERS_D->AddPlayerInfo(Name);
-    call_out( (: eventCre, Name :), 60);
+    if(yescre){
+        receive("\nAs a creator you will be booted out and have to\n"
+                "log back in in order to complete the creator process\n");     
+        call_out( (: eventCre, Name :), 3);
+        input_to((: eventEnterGame :), I_NOESC);
+    }
     receive("\nIf you wish to create a different character,\n"
-            "use the 'suicide' command after logging in and\n"
-            "start over. Have FUN!\n"
-            "Press <return> within 60 seconds to continue.");     
+              "use the 'suicide' command after logging in and\n"
+              "start over. Have FUN!\n"
+              "Press <return> to continue.");     
     input_to((: eventEnterGame :), I_NOESC);
 } 
 
