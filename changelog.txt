@@ -1,5 +1,13 @@
 Changelog (year-month-day)
 
+2016-03-15
+*/lib/secure/lib/connect.c and connect.real
+ -added checks to eventCompleteChar(). Get different ending output for player
+  characters or creator characters if AUTO_WIZ is enabled
+
+2016-03-12
+*/lib/powers/npc - cleaned up magic_user.c
+
 2016-03-07
 */lib/secure/daemon/players.c
  -changed levelling requirements using the GetBaseSkillLevel() function
