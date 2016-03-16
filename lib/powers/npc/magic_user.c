@@ -1,6 +1,7 @@
 #include <lib.h>
 #include <damage_types.h>
 #include "/powers/npc/include/magic_user.h"
+#include "/lib/include/genetics.h"
 
 
 int SpellCombat(object ob){
@@ -93,12 +94,12 @@ void sleep(object ob, object array targets){
             
         if (s_throw <= save){
             tell_room(env, "\n"+capitalize(victim->GetShort())+" resists "+ob->GetKeyName()+"'s magic attack!\n", ({ ob, victim }));
-            tell_object(victim, "\nYou resist "+ob->GetKeyName()+"'s magic attack!\n");
+            tell_object(victim, "\n%^BOLD%^%^YELLOW%^You resist being put to sleep by "+ob->GetKeyName()+"!%^RESET%^\n");
             victim->eventTrainSkill("magic defense",save,s_throw,1);
             return;
         }
         else{
-            tell_player(victim, "\nYou feel very sleepy ..... zzzzzz\n");
+            tell_player(victim, "\n%^BOLD%^%^GREEN%^You feel very sleepy ..... zzzzzz%^RESET%^\n");
             tell_room(env, "\n"+capitalize(victim->GetKeyName())+" goes to sleep.\n", ({ob, victim}));
             victim->eventForce("sleep");
         }
@@ -117,7 +118,7 @@ void curse(object ob){
     }
     if(s_throw <= save){
         tell_room(env, "\n"+capitalize(target->GetShort())+" resists "+ob->GetKeyName()+"'s magic attack!\n", ({ ob, target }));
-        tell_object(target, "\nYou resist "+ob->GetKeyName()+"'s magic attack!\n");
+        tell_object(target, "\n%^BOLD%^%^YELLOW%^You resist the curse from "+ob->GetKeyName()+"!%^RESET%^\n");
         target->eventTrainSkill("magic defense",save,s_throw,1);
         return;
     }
@@ -130,8 +131,8 @@ void curse(object ob){
                         "concealment",  "murder",
                            }),
                            ({"luck"}),
-                           "\nYou feel very uncomfortable.\n",
-                           "\nYou feel well again.\n");
+                           "\n%^BOLD%^%^GREEN%^You feel very uncomfortable.%^RESET%^\n",
+                           "\n%^BOLD%^%^YELLOW%^You feel well again.%^RESET%^\n");
         tell_room(env, capitalize(target->GetShort())+" briefly reveals a red aura!", ({ob, target}));
 }
     
@@ -147,12 +148,12 @@ void blindness(object ob){
     }
     if (s_throw <= save){
         tell_room(env, "\n"+capitalize(target->GetShort())+" resists "+ob->GetKeyName()+"'s magic attack!\n", ({ ob, target }));
-        tell_object(target, "\nYou resist "+ob->GetKeyName()+"'s magic attack!\n");
+        tell_object(target, "\n%^BOLD%^%^YELLOW%^You resist being blinded by "+ob->GetKeyName()+"!%^RESET%^\n");
         target->eventTrainSkill("magic defense",save,s_throw,1);
         return;
     }
     else{
-    target->eventBlind(target, 300, ({"You have been blinded!","\nYou can see again!\n"}));
+    target->eventBlind(target, 100, ({"\n%^BOLD%^%^GREEN%^You have been blinded!%^RESET%^\n","\n%^BOLD%^%^YELLOW%^You can see again!%^RESET%^\n"}) );
     tell_room(env, "\n"+capitalize(target->GetShort())+" seems to be blinded!\n", ({ob, target}));
     }
 }
@@ -167,7 +168,7 @@ void energy_drain(object ob){
 
     if (s_throw <= save){
         tell_room(env, "\n"+capitalize(target->GetShort())+" resists "+ob->GetKeyName()+"'s magic attack!\n", ({ ob, target }));
-        tell_object(target, "\nYou resist "+ob->GetKeyName()+"'s magic attack!\n");
+        tell_object(target, "\n%^BOLD%^%^YELLOW%^You resist being drained by "+ob->GetKeyName()+"!%^RESET%^\n");
         target->eventTrainSkill("magic defense",save,s_throw,1);
         return;
     }
@@ -179,8 +180,9 @@ void energy_drain(object ob){
         target->AddMagicPoints(-(target->GetMagicPoints()/10));
         target->AddStaminaPoints(-(target->GetStaminaPoints()/10));
         target->eventReceiveDamage(ob, MAGIC, dam, 1,);
-        tell_player(target, "\nYour life energy is drained!\n");
-        tell_room(env, "\n"+capitalize(ob->GetShort())+" drains "+target->GetKeyname()+" - what a waste of energy !\n", ({ob, target})); 
+        tell_player(target, "\n%^BOLD%^%^GREEN%^Your life energy is drained!%^RESET%^\n");
+        tell_room(env, "\n"+capitalize(ob->GetShort())+" drains "+target->GetKeyname()+" - what a waste of energy !\n", ({ob, target}));
+        
     }
 }
 
@@ -203,11 +205,11 @@ void magic_missile(object ob){
     range = dam_each[level] - dam_each[level]/2;
     roll = random(range);
     dam = dam_each[level]/2 + roll;
-    tell_player(target, "\nYou stagger as a magic missile from "+capitalize(ob->GetKeyName())+" hits you.\n");
+    tell_player(target, "\n%^BOLD%^%^GREEN%^You stagger as a magic missile from "+capitalize(ob->GetKeyName())+" hits you.%^RESET%%^\n");
     tell_room(env, "\n"+capitalize(ob->GetKeyName())+" throws a magic missile at "+target->GetKeyName()+" who staggers under the blow\n", ({ob, target}));
     if (s_throw <= save){
         tell_room(env, "\n"+capitalize(target->GetShort())+" partially resists "+ob->GetKeyName()+"'s magic attack!\n", ({ ob, target }));
-        tell_object(target, "\nYou partially resist "+ob->GetKeyName()+"'s magic attack!\n");
+        tell_object(target, "\n%^BOLD%^%^YELLOW%^You partially resist the missile thrown by "+ob->GetKeyName()+"!%^RESET%^\n");
         dam = dam/2;
         target->eventTrainSkill("magic defense",save,s_throw,1);
     }
@@ -233,11 +235,11 @@ void burning_hands(object ob){
     range = dam_each[level] - dam_each[level]/2;
     roll = random(range);
     dam = dam_each[level]/2 + roll;
-    tell_player(target, "\nYou cry out in pain as "+capitalize(ob->GetKeyName())+" burns you.\n");
+    tell_player(target, "\n%^BOLD%^%^GREEN%^You cry out in pain as "+capitalize(ob->GetKeyName())+" burns you.%^RESET%^\n");
     tell_room(env, "\n"+capitalize(target->GetKeyName())+" cries out as "+capitalize(ob->GetKeyName())+" burns "+nominative(target)+".\n", ({ob, target}));
     if (s_throw <= save){
         tell_room(env, "\n"+capitalize(target->GetShort())+" partially resists "+ob->GetKeyName()+"'s magic attack!\n", ({ ob, target }));
-        tell_object(target, "\nYou partially resist "+ob->GetKeyName()+"'s magic attack!\n");
+        tell_object(target, "\n%^BOLD%^%^YELLOW%^You partially resist being burnt by "+ob->GetKeyName()+"'s hands!%^RESET%^\n");
         dam = dam/2;
         target->eventTrainSkill("magic defense",save,s_throw,1);
     }
@@ -263,12 +265,12 @@ void lightning_bolt (object ob){
     range = dam_each[level] - dam_each[level]/2;
     roll = random(range);
     dam = dam_each[level]/2 + roll;
-    tell_player(target, "\nYou are hit by lightning by "+capitalize(ob->GetKeyName())+", ouch.\n");
+    tell_player(target, "\n%^BOLD%^%^GREEN%^You are hit by lightning by "+capitalize(ob->GetKeyName())+", ouch.%^RESET%^\n");
     tell_room(env, "\n"+capitalize(target->GetKeyName())+" screams in pain as lightning from "+
                    capitalize(ob->GetKeyName())+" penetrates "+nominative(target)+".\n", ({ob, target}));
     if (s_throw <= save){
         tell_room(env, "\n"+capitalize(target->GetShort())+" partially resists "+ob->GetKeyName()+"'s magic attack!\n", ({ ob, target }));
-        tell_object(target, "\nYou partially resist "+ob->GetKeyName()+"'s magic attack!\n");
+        tell_object(target, "\n%^BOLD%^YELLOW%^You partially resist the lightning bolt conjured by "+ob->GetKeyName()+"!%^RESET%^\n");
         dam = dam/2;
         target->eventTrainSkill("magic defense",save,s_throw,1);
     }
@@ -294,12 +296,12 @@ void colour_spray (object ob){
     range = (dam_each[level]+20) - (dam_each[level]-20);
     roll = random(range);
     dam = dam_each[level]-20 + roll;
-    tell_player(target, "\nA sudden burst of colours sends you reeling.\n");
+    tell_player(target, "\n%^BOLD%^%^GREEN%^A sudden burst of colours sends you reeling.%^RESET%^\n");
     tell_room(env, "\n"+capitalize(ob->GetKeyName())+" throws colours at "+capitalize(target->GetKeyName())+
                    " who in vain tries to escape.\n", ({ob, target}));
     if (s_throw <= save){
         tell_room(env, "\n"+capitalize(target->GetShort())+" partially resists "+ob->GetKeyName()+"'s magic attack!\n", ({ ob, target }));
-        tell_object(target, "\nYou partially resist "+ob->GetKeyName()+"'s magic attack!\n");
+        tell_object(target, "\n%^BOLD%^YELLOW%^You partially resist being coulour sprayed by "+ob->GetKeyName()+"!%^RESET%^\n");
         dam = dam/2;
         target->eventTrainSkill("magic defense",save,s_throw,1);
     }
@@ -326,12 +328,12 @@ void fireball(object ob){
     roll = random(range);
     dam = dam_each[level]-20 + roll;
     dam = dam_each[level]/2 + roll;
-    tell_player(target, "\nYou are enveloped in flames from a fireball sent by "+capitalize(ob->GetKeyName())+" - OUCH\n");
+    tell_player(target, "\n%^BOLD%^%^GREEN%^You are enveloped in flames from a fireball sent by "+capitalize(ob->GetKeyName())+" - OUCH%^RESET%^\n");
     tell_room(env, "\n"+capitalize(ob->GetKeyName())+" smirks as "+possessive(ob)+
                    " fireball explodes into the face of "+capitalize(target->GetKeyName())+".\n", ({ob, target}));
     if (s_throw <= save){
         tell_room(env, "\n"+capitalize(target->GetShort())+" partially resists "+ob->GetKeyName()+"'s magic attack!\n", ({ ob, target }));
-        tell_object(target, "\nYou partially resist "+ob->GetKeyName()+"'s magic attack!\n");
+        tell_object(target, "\n%^BOLD%^%^YELLOW%^You partially resist being fireballed by "+ob->GetKeyName()+"!%^RESET%^\n");
         dam = dam/2;
         target->eventTrainSkill("magic defense",save,s_throw,1);
     }
