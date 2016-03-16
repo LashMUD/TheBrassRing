@@ -52,10 +52,8 @@ void AddCustomizationPoints(){
             x += this_player()->GetBaseStatLevel(str);
             y++;
         }
-        //write("x is "+x+" y is "+y+"\n");
         if(x <= ((y*100)-15)){
             z = random(15)+1+w;
-            //write("z is "+z+"\n");
         }else{ z = random(x)+1;
         }
      Custom = ([ "stats" : z, "deviations" : 0, "deviating" : 0, ]);
@@ -70,22 +68,12 @@ int GetBlind(){
     }
 }
 
-/*added by Lash 11-26-14
-  Added to change a players 'blind' status
-*/
-int SetBlind(int x){
-    object ob;
-    this_player()->eventBlind(this_player(),x,"\nYou have been blinded!\n", "\nYou can see again.\n");
-    return 1;
-}
-/* end add */
-
-static void RemoveBlindness(){
+void RemoveBlindness(){
     mixed val = Blind->end;
 
     Blind = 0;
     if( arrayp(val) ){
-        send_messages(val[0], val[1], this_object());        
+        send_messages(val[0], val[1], this_object());
     }
     else if( functionp(val) && !(functionp(val) & FP_OWNER_DESTED) ){
         evaluate(val, this_object());
@@ -100,7 +88,13 @@ varargs mixed eventBlind(object who, int amt, mixed end){
     Blind->count = amt;
     Blind->end = end;
     if( arrayp(end) ){
-        send_messages(end[0], end[1], this_object());        
+        send_messages(end[1], end[0], this_object());
+    }
+    else if( functionp(end) && !(functionp(end) & FP_OWNER_DESTED) ){
+        evaluate(end, this_object());
+    }
+    else{
+    tell_player(who,"You have been blinded!");
     }
     return 1;
 }
@@ -192,7 +186,11 @@ int GetStatLevel(string stat){
     x = (GetBaseStatLevel(stat) + GetStatBonus(stat));
     switch(stat){
         case "coordination": case "wisdom":
-            x -= GetAlcohol();
+            x -= this_object()->GetAlcohol();break;
+        case "strength": case "durability" : case "agility":
+            x -= this_object()->GetPoison();break;
+        case "intelligence": case "speed": case "coordination":
+            x += (this_object()->GetCaffeine() / 10);break;
     }
     return x;
 }
@@ -389,7 +387,6 @@ int GetVisionBonus(){
 }
 
 static void heart_beat(){
-
     if( Blind ){
         Blind->count--;
         if( Blind->count < 1 ){
@@ -397,4 +394,3 @@ static void heart_beat(){
         }
     }
 }
-
