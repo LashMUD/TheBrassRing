@@ -1,6 +1,6 @@
 Changelog (year-month-day)
 
-2016-03-15
+2016-03-16
 */lib/lib/genetics.c
  -removed stupid SetBlind() function because:
  -removed static type from RemoveBlindness() function: now it can be called
@@ -11,6 +11,9 @@ Changelog (year-month-day)
   interestingly, the message output has to be coded in reverse of what I thought
   was intuitive - the end[1] message is returned when blinded and the end[0]
   message is returned after the timer for blindness expires. wtf?
+*/lib/damon/seasons.c
+ -changed varargs int GetYearLength(int x) to int GetYearLength(). I don't know
+  what I was thinking, if at all.
 
 2016-03-15
 */lib/secure/lib/connect.c and connect.real
