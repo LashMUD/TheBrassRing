@@ -396,7 +396,7 @@ mapping GetTimeEvents() {
 }
 
 /*added by lash*/
-varargs int GetYearLength(int x) {
+int GetYearLength() {
     int i, tot;
 
     i = sizeof(Months);
