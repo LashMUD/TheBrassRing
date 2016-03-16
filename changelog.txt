@@ -1,6 +1,18 @@
 Changelog (year-month-day)
 
 2016-03-15
+*/lib/lib/genetics.c
+ -removed stupid SetBlind() function because:
+ -removed static type from RemoveBlindness() function: now it can be called
+  by an admin to remove blindness if character is blinded
+ -added functionality to eventBlind() function so it returns the messages coded
+  when using the eventBlind() function like so: 
+  target->eventBlind( target, 20, ({"Suddenly you can't see a damn thing!", "Your sight returns!"}) );
+  interestingly, the message output has to be coded in reverse of what I thought
+  was intuitive - the end[1] message is returned when blinded and the end[0]
+  message is returned after the timer for blindness expires. wtf?
+
+2016-03-15
 */lib/secure/lib/connect.c and connect.real
  -added checks to eventCompleteChar(). Get different ending output for player
   characters or creator characters if AUTO_WIZ is enabled
