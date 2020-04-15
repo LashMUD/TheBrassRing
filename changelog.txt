@@ -1,5 +1,8 @@
 Changelog (year-month-day)
 
+2020-04-15
+*/lib/lib/potion.c clean up coding a bit and added comments
+
 2016-03-16
 */lib/lib/genetics.c
  -removed stupid SetBlind() function because:
