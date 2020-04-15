@@ -4,16 +4,17 @@ Changelog (year-month-day)
 */lib/lib/genetics.c
  -removed stupid SetBlind() function because:
  -removed static type from RemoveBlindness() function: now it can be called
-  by an admin to remove blindness if character is blinded
+   by an admin to remove blindness if character is blinded
  -added functionality to eventBlind() function so it returns the messages coded
-  when using the eventBlind() function like so: 
-  target->eventBlind( target, 20, ({"Suddenly you can't see a damn thing!", "Your sight returns!"}) );
-  interestingly, the message output has to be coded in reverse of what I thought
-  was intuitive - the end[1] message is returned when blinded and the end[0]
-  message is returned after the timer for blindness expires. wtf?
+   when using the eventBlind() function like so: 
+   target->eventBlind( target, 20, ({"Suddenly you can't see a damn thing!", "Your sight
+   returns!"}) );
+   interestingly, the message output has to be coded in reverse of what I thought
+   was intuitive - the end[1] message is returned when blinded and the end[0]
+   message is returned after the timer for blindness expires. wtf?
 */lib/damon/seasons.c
  -changed varargs int GetYearLength(int x) to int GetYearLength(). I don't know
-  what I was thinking, if at all.
+   what I was thinking, if at all.
 
 2016-03-15
 */lib/secure/lib/connect.c and connect.real
@@ -26,11 +27,11 @@ Changelog (year-month-day)
 2016-03-07
 */lib/secure/daemon/players.c
  -changed levelling requirements using the GetBaseSkillLevel() function
-  so that leveling does not take into account skill bonuses if present
+   so that leveling does not take into account skill bonuses if present
  -In /lib/lib/lvs/abilities.c the GetSkillLevel() function is set up to
-  return base and bonus skill levels
+   return base and bonus skill levels
 *removed changes that I added to /lib/lib/sentient.c and /lib/lib/std/vendor.c
- weren't quite working the way I thought they would
+  weren't quite working the way I thought they would
 
 2016-03-02
 */lib/secure/daemon/players in CheckAdvance(object ob)
@@ -49,7 +50,7 @@ Changelog (year-month-day)
 */lib/lib/lvs/abilities.c
  -altered GetMaxSkillPoints
  -ratcheted down amount of skill points necessary to advance a level for the skill.
-  Also, added the if(SKILL_ADVANCE) check
+   Also, added the if(SKILL_ADVANCE) check
 
 2016-2-28
 */lib/lib/combat.c
@@ -81,13 +82,13 @@ Changelog (year-month-day)
   -level.c in /lib/lib/lvs
 */lib/lib/props/deterioration.c 
  -initialized the DamagePoints variable to 0. This allows for correctly
-  saving the amount of DamagePoints remaining for items.
+   saving the amount of DamagePoints remaining for items.
 */lib/lib/std/base_armor.c
  -included the Protection variable in the my_save array so the armor
-  ProtectionMap is saved with the item. Otherwise the player can log out
-  and back in again and get all new armor.
+   ProtectionMap is saved with the item. Otherwise the player can log out
+   and back in again and get all new armor.
  -added GetItemCondition() to external description. I mean, players should 
-  be able to tell when their equipment is messed up, right?
+   be able to tell when their equipment is messed up, right?
 
 2015-12-28
 *genetics.c
@@ -96,16 +97,16 @@ Changelog (year-month-day)
 *bonus.c added functionality for setting resistance type
 *potion.c added functionality for setting resistance type in meals
 *added file 4050_purple_potion to /lib/domains/Etnar/Wyr/meals as an example
- for setting resistance to ALL_EXTERNAL_DAMAGE for 300 heart_beats
+  for setting resistance to ALL_EXTERNAL_DAMAGE for 300 heart_beats
 *removed call to player->GetProperties("sanctuary") in combat.c - added
- resistance to bonus.c and potion.c files instead
+  resistance to bonus.c and potion.c files instead
 
 2015-12-22
 *genetics.c
  -moved counters for sanctuary spell affects and cursed affect to /lib/body.c
  -redid SetBlind() function so it works correctly
  -the mixed 'end' variable for class Blind isn't being called correctly for 
-  spitting back the first string if specified. Have to work on this.
+   spitting back the first string if specified. Have to work on this.
 *magic user.c
  -redid curse function
 *curse.c
@@ -114,19 +115,19 @@ Changelog (year-month-day)
 2015-12-19
 *got rid of heart_beat function in factions.c: replaced with CheckTimer()
  -added inherit LIB_FACTIONS to player.c and /lib/npc.c. and removed from 
-  /lib/living.c
+   /lib/living.c
  -called Checktimer() from player.c  with factions::CheckTimer(); in 
-  player.c static void heart_beat() function
+   player.c static void heart_beat() function
 
 
 2015-12-19
 *changed addition in factions.c to do actual addition instead of string
- addition
+  addition
 
 2015-12-18
 *added function to /domains/town/npc/leo.c to add the faction
  "order of the Arcane Sciences" to the player upon completion of the
-  Orc Slayer quest.
+ Orc Slayer quest.
 
 2015-12-17
 *added function GetYearLength() to /lib/daemons/seasons.c
@@ -140,9 +141,9 @@ Changelog (year-month-day)
 
 2015-12-15
 *added inherit LIB_FACTIONS to /lib/living.c removed from /lib/interactve.c
- and /lib/npc.c
+  and /lib/npc.c
 *added command 'factions' to /lib/cmds/players - lists faction associations
- for players 
+  for players 
 
 2015-12-08
 *added Factions functionality
@@ -156,7 +157,7 @@ Changelog (year-month-day)
   
 2015-12-07
 *added lines to /secure/daemon/autoexec.c to load diku-alfa and Wyr
- rooms
+  rooms
 
 2015-12-05
 *renamed all room files and exits in room files to rm_xxx.c format
