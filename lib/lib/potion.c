@@ -6,9 +6,8 @@ inherit LIB_MEAL;
 mapping Skills = ([]);
 mapping Stats = ([]);
 mapping Points = ([]);
-string brl = " ";
-int brt = 0;
-
+string Level = " ";
+int Type = 0;
 int Duration;
 
 void create(){
@@ -51,10 +50,21 @@ int GetDuration(){
     return Duration;
 }
 
-varargs string SetBonusResistance(int type, string level){
-    brt = type;
-    brl = level;
+// brt = bonus resistance type
+// brl = bonus resistance level
+mixed SetBonusResistance(int brt, string brl){
+    Type = brt;
+    Level = brl;
 }
+
+int GetBonusResistanceType(){
+    return Type;
+}
+
+string GetBonusResistanceLevel(){
+    return Level;
+}
+
 
 mixed eventDrink(object who){
     object ob=new(LIB_BONUS);
@@ -62,7 +72,7 @@ mixed eventDrink(object who){
     ob->SetStats(Stats); 
     ob->SetSkills(Skills); 
     ob->SetBonusDuration(Duration);
-    ob->SetBonusResistance(brt,brl);
+    ob->SetBonusResistance(Type, Level);
     ob->eventMove(who);
     return meal::eventDrink(who);
 }
@@ -73,7 +83,7 @@ mixed eventEat(object who){
     ob->SetStats(Stats);
     ob->SetSkills(Skills);
     ob->SetBonusDuration(Duration);
-    ob->SetBonusResistance(brt,brl);
+    ob->SetBonusResistance(Type, Level);
     ob->eventMove(who);
     return meal::eventEat(who);
 }
