@@ -6,6 +6,7 @@
  * 2014-12-12
  * added functionality for setting resistance
  * 2015-12-28
+ *
  */
 
 #include <lib.h>
