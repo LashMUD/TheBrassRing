@@ -4,6 +4,9 @@
  *    affect them
  *    created by Descartes of Borg 950121
  *    Version: @(#) body.c 1.24@(#)
+ *
+ *    modified by lash (ccoker) for use in The Brass Ring mud
+ *    added code for npc curse spell
  */
 
 #include <lib.h>
@@ -314,7 +317,6 @@ void eventCheckEnvironment(){
 
 static void heart_beat(){
     int i;
-    
     undead::heart_beat();
     if(!GetDying()){
         if( i = sizeof(Protection) ){
