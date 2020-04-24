@@ -1,5 +1,8 @@
 Changelog (year-month-day)
 
+2020-04-24
+Migrating files to ds3.9 mudlib as required
+
 2020-04-15
 */lib/lib/potion.c clean up coding a bit and added comments
 
