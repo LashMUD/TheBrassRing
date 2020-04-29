@@ -633,8 +633,9 @@ static int ProcessModal(string which, string arg){
     if(which == "CLASS_SELECTION" || which == "SKILL_SELECTION"
        || which =="XP_ADVANCE" || which == "SKILL_ADVANCE") 
         write("To make this configuration take effect, reboot the mud.\n"+
-                "It might be a good idea to disable the other SELECTION and/or\n"+
-                "ADVANCE options before reboot.");
+                "If switching between xpadvancement and skilladvancement it is suggested\n"+
+                "to enable one and disable the other before reboot or both advancement\n"+
+                "strategies will be in effect.");
     if(which == "LOG_LOCAL_CHANS" || which == "LOG_REMOTE_CHANS"){
         reload(CHAT_D,1,1);
     }
