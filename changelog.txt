@@ -1,5 +1,12 @@
 Changelog (year-month-day)
 
+2020-04-30
+*/lib/lib/bonus.c and /lib/lib/potion.c recoding to make potions work
+ with SetResistance() function in body.c and genetics.c 
+*/lib/secure/cmds/admins/mudconfig.c - redid comments for switching between
+ skilladvancement and xpadvancement
+ 
+
 2020-04-24
 Migrating files to ds3.9 mudlib as required
 
