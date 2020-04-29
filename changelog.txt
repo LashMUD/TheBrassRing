@@ -1,11 +1,12 @@
 Changelog (year-month-day)
 
 2020-04-30
-*/lib/lib/bonus.c and /lib/lib/potion.c recoding to make potions work
- with SetResistance() function in body.c and genetics.c 
-*/lib/secure/cmds/admins/mudconfig.c - redid comments for switching between
- skilladvancement and xpadvancement
- 
+*/lib/lib/bonus.c, /lib/lib/potion.c, and
+ /lib/domains/Etnar/Wyr/meals/4050_purple_potion
+ -recoding to make potions work with SetResistance() function in body.c and 
+  genetics.c 
+*/lib/secure/cmds/admins/mudconfig.c
+ -redid comments for switching between skilladvancement and xpadvancement
 
 2020-04-24
 Migrating files to ds3.9 mudlib as required
@@ -20,8 +21,8 @@ Migrating files to ds3.9 mudlib as required
    by an admin to remove blindness if character is blinded
  -added functionality to eventBlind() function so it returns the messages coded
    when using the eventBlind() function like so: 
-   target->eventBlind( target, 20, ({"Suddenly you can't see a damn thing!", "Your sight
-   returns!"}) );
+   target->eventBlind( target, 20, ({"Suddenly you can't see a damn thing!", "Your
+   sight returns!"}) );
    interestingly, the message output has to be coded in reverse of what I thought
    was intuitive - the end[1] message is returned when blinded and the end[0]
    message is returned after the timer for blindness expires. wtf?
