@@ -30,9 +30,9 @@ static void create() {
     SetMealAction((: potionfunc :));
     SetBaseCost("gold",500);
     SetNoCondition(1);
-    SetBonusResistance(ALL_EXTERNAL_DAMAGE,"medium");
+    SetResistance(ALL_EXTERNAL_DAMAGE,"medium");
     SetDuration(300);
-    SetProperty("magic", "This potion cures blindnes and confers sanctuary. It is also poisoned!");
+    SetProperty("magic", "This potion cures blindnes and confers sanctuary.");
 }
 
 void init(){
