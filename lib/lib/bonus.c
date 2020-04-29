@@ -23,8 +23,8 @@ mapping Points = ([]);
 int Duration = 15;
 string bonusname;
 object whom;
-string brl = " ";
-int brt = 0;
+string brl = " "; //bonus resistance level
+int brt = 0; //bonus resistance level
 
 void create(){
     item::create();
@@ -122,8 +122,9 @@ int SetBonuses(){
                 default : break;
             }
         }
-    if(sizeof(brt) && sizeof(brl)) whom->SetResistance(brt,brl);
-    return 1;
+    whom->SetResistance(brt,brl);
+    
+    return 1;    
 }
 
 int RemoveBonuses(){
@@ -137,7 +138,8 @@ int RemoveBonuses(){
         foreach(string key, int val in Skills){
             whom->RemoveSkillBonus(key);
         }
-    if(sizeof(brt) && sizeof(brl)) whom->SetResistance(brt,"none");
+    whom->SetResistance(brt,"none");
+    
     return 1;
 }
 
@@ -166,7 +168,8 @@ string SetBonusName(string name){
     return bonusname = name;
 }
 
-varargs string SetBonusResistance(int type, string level){
+//reference lib/body.c and genetics.c
+varargs string SetResistance(int type, string level){
     brt = type;
     brl = level;
 }
