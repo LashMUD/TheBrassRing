@@ -1,5 +1,9 @@
 Changelog (year-month-day)
 
+2020-05-02
+/lib/cfg/months changed daylight hours for months
+/lib/secure/cmds/admins/ticktock.c updated output info
+
 2020-04-30
 */lib/lib/bonus.c, /lib/lib/potion.c, and
  /lib/domains/Etnar/Wyr/meals/4050_purple_potion
