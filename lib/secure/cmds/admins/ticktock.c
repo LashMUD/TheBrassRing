@@ -19,6 +19,7 @@ mixed cmd(mixed args) {
     int integer, hours, minutes, ret;
     string meridiem = " am";
     string nulle = "";
+    int daynum = query_date();
 
     if(!archp(previous_object())) return 0;
     if(!args) args = 0;
@@ -49,7 +50,9 @@ mixed cmd(mixed args) {
 
     if(minutes < 10) nulle = "0";
 
-    write("In the MUD, the time is "+hours+":"+nulle+minutes+meridiem+"."); 
+    write("In the MUD, the time is "+hours+":"+nulle+minutes+meridiem+".");
+    write("It is "+query_day_name()+", "+daynum+ordinal(daynum)+" day of "+
+            query_month()+", in "+query_season()+" in the year "+query_year()+".\n"); 
 
     return 1;
 
