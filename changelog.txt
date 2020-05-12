@@ -11,7 +11,7 @@ Changelog (year-month-day)
 */lib/lib/lvs/abilities.c
   -added comments and GetOtherSkills() function
    ResetLevel() used in player.c during player loading
-   if commented out throwws an error when player logging in
+   if commented out throws an error when player logging in
 
 2020-05-07
 */lib/secure/include/global.h and /lib/secure/cfg/global_template.cfg 
