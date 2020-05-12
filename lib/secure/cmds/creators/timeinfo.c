@@ -17,10 +17,13 @@ mixed cmd() {
     string meridiem = " am";
     string nulle = "";
     int daynum = query_date();
-
+  
     if(!archp(previous_object())) return 0;
-    write("\ntime() is "+time()+"\n");
+    write("\nctime(0) is "+ctime(0)+"\n");
     write("ctime() is "+ctime()+"\n");
+    write("time() is "+time()+" seconds since "+ctime(0)+"\n");
+    write("DAY_ONE of "+mud_name()+" is "+DAY_ONE+" ; "+ctime(DAY_ONE)+"\n");
+    write("DAY_ONE of Dead Souls is 720550800"+" ; "+ctime(720550800)+"\n");
     write("GetTickTock() is "+SEASONS_D->GetTickTock()+"\n");
     //write("GetPhaseName() of the moon is "+SEASONS_D->GetPhaseName()+"\n");
     write("GetTime(time()) is "+SEASONS_D->GetTime(time())+"\n");
@@ -49,10 +52,8 @@ mixed cmd() {
 
     write("In the MUD, the time is "+hours+":"+nulle+minutes+meridiem+".\n");
     write("It is "+query_day_name()+", "+daynum+ordinal(daynum)+" day of "+
-            query_month()+", in "+query_season()+" in the year "+query_year()+".\n"); 
-
+            query_month()+", in "+query_season()+" in the year "+query_year()+".\n");
     return 1;
-
 }
 
 string GetHelp(){
