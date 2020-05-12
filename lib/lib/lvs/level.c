@@ -64,7 +64,12 @@ varargs int ChangeLevel(int i){
             INSTANCES_D->SendWhoUpdate(this_object()->GetKeyName());
         }
     }
-    
+    /* added by lash for skill advancement system
+     * note - skills only increase with player usage
+     * so no skill advancement as for XP_ADVANCE
+     * above. Instead they get customization points
+     * to increase stats (see /lib/lib/genetics.c file)
+     */
     if(SKILL_ADVANCE){
         subject->AddCustomizationPoints();
         subject->SetLevel(desired_level);
@@ -76,4 +81,4 @@ varargs int ChangeLevel(int i){
 
     return 1;
 }
-
+/* end add */
