@@ -4,6 +4,12 @@
  *    created by Descartes of Borg 950122
  *    Version: @(#) genetics.c 1.4@(#)
  *    Last Modified: 96/11/11
+ *
+ *    Modified by Lash (ccoker)
+ *    20/05/12
+ *    -rearranged file so related
+ *     functions flow together
+ *    -added comments
  */
 
 #include <vision.h>
@@ -12,6 +18,13 @@
 #include <daemons.h>
 #include "include/genetics.h"
 
+// abstract methods
+string GetName();
+varargs void eventPrint(string message, mixed args...);
+// end abstract methods
+
+
+/* blindness functions */
 class blindness {
     int count;
     mixed end;
@@ -24,40 +37,6 @@ private mapping         Resistance       = ([]);
 private mapping         Stats            = ([]);
 private static mapping  StatsBonus       = ([]);
 private static int      VisionBonus      = 0;
-
-// abstract methods
-string GetName();
-varargs void eventPrint(string message, mixed args...);
-// end abstract methods
-
-static void create(){
-    Custom = ([
-            "stats" : 15,
-            "deviations" : 4,
-            "deviating" : 0,
-            ]);
-    Resistance = ([ "low" : 0, "medium" : 0, "high" : 0, "immune" : 0 ]);
-    Resistance["none"] = ALL_DAMAGE;
-}
-
-void AddCustomizationPoints(){
-     int w, x, y, z;
-     string *stats;
-     string str;
-
-     w = this_player()->GetCustomStats(); //don't blow away players custom stat points if not used
-        
-     stats = this_player()->GetStats();
-        foreach(str in stats){
-            x += this_player()->GetBaseStatLevel(str);
-            y++;
-        }
-        if(x <= ((y*100)-15)){
-            z = random(15)+1+w;
-        }else{ z = random(x)+1;
-        }
-     Custom = ([ "stats" : z, "deviations" : 0, "deviating" : 0, ]);
-}
 
 int GetBlind(){
     if( Blind ){
@@ -87,6 +66,7 @@ varargs mixed eventBlind(object who, int amt, mixed end){
     Blind = new(class blindness);
     Blind->count = amt;
     Blind->end = end;
+    /* lash -for custom messages instead of default messages */
     if( arrayp(end) ){
         send_messages(end[1], end[0], this_object());
     }
@@ -94,10 +74,153 @@ varargs mixed eventBlind(object who, int amt, mixed end){
         evaluate(end, this_object());
     }
     else{
+    /* lash -let the player know they have been blinded */
     tell_player(who,"You have been blinded!");
     }
     return 1;
 }
+
+mixed eventRestoreSight(object who, int amt){
+    if( !Blind ){
+        return GetName() + " is not blind!";
+    }
+    Blind->count -= amt;
+    if( Blind->count < 1 ){
+        RemoveBlindness();
+        return 1;
+    }
+    return 0;
+}
+/* end blindness functions */
+
+/* vision functions */
+
+varargs mixed GetEffectiveVision(mixed location, int raw_score){
+    int array l;
+    object env, rider, where;
+    int bonus = GetVisionBonus();
+    int a, y, x = 0;
+
+    env = environment();
+
+    if(raw_score && !intp(raw_score)){
+        location = raw_score;
+        raw_score = 0;
+    }
+
+    //fixme
+    if(!location && sizeof(get_livings(this_object())) && 
+            rider = get_random_living(this_object())){
+        if(rider->GetProperty("mount") == this_object() && env){
+            return rider->GetEffectiveVision(env);
+        }
+    }
+
+    if(location){
+        if(objectp(location)) where = location;
+        else if(stringp(location)){
+            int err;
+            err = catch( where = load_object(location) );
+            if(err || !where) return 0;
+        }
+    }
+    if( Blind && !raw_score){
+        return VISION_BLIND;
+    }
+    if( !where && !location ){
+        where = env;
+    }
+    if(!where) return 0;
+    x = (env == where ? GetRadiantLight(0) : 0);
+    a = where->GetAmbientLight();
+    if(x){
+        x = x/2;
+        x += GetRadiantLight(a) + a;
+    }
+    else x = a * 2;
+    l = GetLightSensitivity();
+    l[0] -= bonus;
+    l[1] += bonus;
+
+    if(raw_score && !location){
+        return "Low: "+l[0]+", High: "+l[1];
+    } 
+    if( x >= l[0] && x <= l[1] ) return VISION_CLEAR;
+    y = l[0]/3;
+    if( x < y ) return VISION_TOO_DARK;
+    if( x < (2*y) ) return VISION_DARK;
+    if( x < l[0] ) return VISION_DIM;
+    y = l[1]/3;
+    if( x < (l[1] + y) ) return VISION_LIGHT;
+    if( x < (l[1] + (2*y)) ) return VISION_BRIGHT;
+    return VISION_TOO_BRIGHT;
+}
+
+int array GetLightSensitivity(){
+    if( !LightSensitivity ) return ({ 25, 75 });
+    else return LightSensitivity;
+}
+
+varargs static int array SetLightSensitivity(mixed array val...){
+    if( !val ) error("Null argument to SetLightSensitivity().\n");
+    if( sizeof(val) == 1 ) val = val[0];
+    if( sizeof(val) != 2 )
+        error(sprintf("Invalid arguments to SetLightSensitivity(): %O\n",  val));
+    return (LightSensitivity = val);
+}
+
+int AddVisionBonus(int x){
+    VisionBonus += x;
+    return VisionBonus;
+}
+
+int GetVisionBonus(){
+    return VisionBonus;
+}
+/* end vision functions */
+
+/* stat funtions */
+
+static void create(){
+    Custom = ([
+            "stats" : 15,
+            "deviations" : 4,
+            "deviating" : 0,
+            ]);
+    Resistance = ([ "low" : 0, "medium" : 0, "high" : 0, "immune" : 0 ]);
+    Resistance["none"] = ALL_DAMAGE;
+}
+
+int GetCustomStats(){ return Custom["stats"]; }
+int GetCustomDeviations(){ return Custom["deviations"]; }
+int GetDeviating(){ return Custom["deviating"]; }
+int SetDeviating(int x){ return (Custom["deviating"] = (x ? 1 : 0)); }
+mapping GetStatsMap(){ return copy(Stats); }
+string *GetStats(){ return keys(Stats); }
+
+/* added by lash for skill based levelling system
+ * players get additional customization points
+ * upon levelling to boost stats */
+
+void AddCustomizationPoints(){
+     int w, x, y, z;
+     string *stats;
+     string str;
+
+     w = this_player()->GetCustomStats(); //don't blow away players custom stat points if not used
+        
+     stats = this_player()->GetStats();
+        foreach(str in stats){
+            x += this_player()->GetBaseStatLevel(str);
+            y++;
+        }
+        if(x <= ((y*100)-15)){
+            z = random(15)+1+w;
+        }else{ z = random(x)+1;
+        }
+     Custom = ([ "stats" : z, "deviations" : 0, "deviating" : 0, ]);
+}
+/* end add */
 
 mixed eventCustomizeStat(string stat, int amount){
     if( amount < 1 ) return "That is not a valid amount.";
@@ -122,18 +245,6 @@ mixed eventDeviateStat(string stat, int amount){
     Stats[stat]["class"] -= amount;
     Custom["deviations"] -= amount;
     return Stats[stat]["class"];
-}
-
-mixed eventRestoreSight(object who, int amt){
-    if( !Blind ){
-        return GetName() + " is not blind!";
-    }
-    Blind->count -= amt;
-    if( Blind->count < 1 ){
-        RemoveBlindness();
-        return 1;
-    }
-    return 0;
 }
 
 varargs void SetStat(string stat, int level, int classes){
@@ -220,9 +331,6 @@ int AddStatPoints(string stat, int x){
     return Stats[stat]["level"];
 }
 
-string *GetStats(){ return keys(Stats); }
-mapping GetStatsMap(){ return copy(Stats); }
-
 int GetMaxStatPoints(string stat, int level){
     if( !Stats[stat] ) return 0;
     else {
@@ -260,6 +368,10 @@ int GetStatBonus(string stat){
     return x;
 }
 
+/* end stat functions */
+
+/* resistance functions */
+ 
 /* string SetResistance(int type, string level) 
  * int type - the type being set (you can do a bitwise | on them)
  * string level "none", "low", "medium", "high", and "immune"
@@ -268,6 +380,17 @@ int GetStatBonus(string stat){
  * you can have a several levels of resistence for given types of damage
  * setting a resistence level here unsets any other levels of resistence
  */
+
+mapping GetResistanceMap(){
+    return copy(Resistance);
+}
+
+/* added by lash for testing purposes
+ * may have a use elsewhere */
+string GetResistanceKey(string key){
+    if(Resistance[key]) return Resistance[key];
+}
+/* end add */
 
 varargs string SetResistance(int type, string level){
     if(level == "none") Resistance["none"] |= type;
@@ -290,101 +413,7 @@ string GetResistance(int type){
     else return "none";
 }
 
-mapping GetResistanceMap(){
-    return copy(Resistance);
-}
-
-string GetResistanceKey(string key){
-    if(Resistance[key]) return Resistance[key];
-}
-
-int GetCustomStats(){ return Custom["stats"]; }
-int GetCustomDeviations(){ return Custom["deviations"]; }
-int GetDeviating(){ return Custom["deviating"]; }
-int SetDeviating(int x){ return (Custom["deviating"] = (x ? 1 : 0)); }
-
-varargs mixed GetEffectiveVision(mixed location, int raw_score){
-    int array l;
-    object env, rider, where;
-    int bonus = GetVisionBonus();
-    int a, y, x = 0;
-
-    env = environment();
-
-    if(raw_score && !intp(raw_score)){
-        location = raw_score;
-        raw_score = 0;
-    }
-
-    //fixme
-    if(!location && sizeof(get_livings(this_object())) && 
-            rider = get_random_living(this_object())){
-        if(rider->GetProperty("mount") == this_object() && env){
-            return rider->GetEffectiveVision(env);
-        }
-    }
-
-    if(location){
-        if(objectp(location)) where = location;
-        else if(stringp(location)){
-            int err;
-            err = catch( where = load_object(location) );
-            if(err || !where) return 0;
-        }
-    }
-    if( Blind && !raw_score){
-        return VISION_BLIND;
-    }
-    if( !where && !location ){
-        where = env;
-    }
-    if(!where) return 0;
-    x = (env == where ? GetRadiantLight(0) : 0);
-    a = where->GetAmbientLight();
-    if(x){
-        x = x/2;
-        x += GetRadiantLight(a) + a;
-    }
-    else x = a * 2;
-    l = GetLightSensitivity();
-    l[0] -= bonus;
-    l[1] += bonus;
-
-    if(raw_score && !location){
-        return "Low: "+l[0]+", High: "+l[1];
-    } 
-    if( x >= l[0] && x <= l[1] ) return VISION_CLEAR;
-    y = l[0]/3;
-    if( x < y ) return VISION_TOO_DARK;
-    if( x < (2*y) ) return VISION_DARK;
-    if( x < l[0] ) return VISION_DIM;
-    y = l[1]/3;
-    if( x < (l[1] + y) ) return VISION_LIGHT;
-    if( x < (l[1] + (2*y)) ) return VISION_BRIGHT;
-    return VISION_TOO_BRIGHT;
-}
-
-int array GetLightSensitivity(){
-    if( !LightSensitivity ) return ({ 25, 75 });
-    else return LightSensitivity;
-}
-
-varargs static int array SetLightSensitivity(mixed array val...){
-    if( !val ) error("Null argument to SetLightSensitivity().\n");
-    if( sizeof(val) == 1 ) val = val[0];
-    if( sizeof(val) != 2 )
-        error(sprintf("Invalid arguments to SetLightSensitivity(): %O\n",  val));
-    return (LightSensitivity = val);
-}
-
-int AddVisionBonus(int x){
-    VisionBonus += x;
-    return VisionBonus;
-}
-
-int GetVisionBonus(){
-    return VisionBonus;
-}
+/* end resistance functions */
 
 static void heart_beat(){
     if( Blind ){
