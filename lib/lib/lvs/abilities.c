@@ -137,7 +137,7 @@ int GetMaxSkillPoints(string skill, int level){
          */
         int cl, x;
         
-        /* for no tiered skill class system (Primary, Secondary, and Other skills
+        /* for no tiered skill class system (Primary, Secondary, and Other skills)
          * if set up that way in the mud
          * -lash 
          */
