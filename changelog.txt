@@ -1,8 +1,32 @@
 Changelog (year-month-day)
 
+2020-05-12
+*/lib/lib/genetics.c
+ -rearranged file contents so function structures flow together
+ -added comments about changes
+*/lib/secure/sefun/light.c
+ -added line to mixed_check_light function to let player know if
+  they can't see due to being blinded
+*/lib//lib/lvs/level.c added comments
+*/lib/lib/lvs/abilities.c
+  -added comments and GetOtherSkills() function
+   ResetLevel() used in player.c during player loading
+   if commented out throwws an error when player logging in
+
+2020-05-07
+*/lib/secure/include/global.h and /lib/secure/cfg/global_template.cfg 
+ -changed DAY_ONE to 1449853200 Dec. 11, 2015 12:00:00
+   date The Brass Ring was uploaded to GitHub (Fri Dec 11 12:00:00 2015)
+*/lib/secure/cmds/creators
+ -updated timeinfo command:
+   reports ctime(0) value (Wed Dec 31 19:00:00 1969)
+   reports elpsed time in seconds of current mud since time(0)
+   reports DAY_ONE value of current mud
+   reports DAY_ONE value of Dead Souls mud (original global.h file)
+
 2020-05-02
-/lib/cfg/months changed daylight hours for months
-/lib/secure/cmds/admins/ticktock.c updated output info
+*/lib/cfg/months changed daylight hours for months
+*/lib/secure/cmds/admins/ticktock.c updated output info
 
 2020-04-30
 */lib/lib/bonus.c, /lib/lib/potion.c, and
