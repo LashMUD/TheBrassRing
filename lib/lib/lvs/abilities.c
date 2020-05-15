@@ -160,11 +160,10 @@ int GetMaxSkillPoints(string skill, int level){
             x *= level;
             }
         return x * 400;
-        /* Note that a Level 20 player would have max Primary skill points of (20+3) * 2 = 46
-         * To gain a primary skill level (from 1/46 levels to 2/46 levels) a player would need
-         * to accumulate 23,000 Primary skill points to advance to the next Primary skill level
+        /* For example, a player with a primary skill level of 20 needs to accumulate
+         * 10,000 primary skill points to advance to the next primary skill level
          * with SKILL_ADVANCE enabled.
-         * Otherwise 846,400 Primary skill points would need to be accumulated.
+         * Otherwise 160,000 primary skill points would need to be accumulated.
          * -lash
          */
        }
