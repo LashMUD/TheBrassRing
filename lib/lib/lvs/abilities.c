@@ -105,10 +105,10 @@ int GetMaxSkillLevel(string skill){
     cls -= (Skills[skill]["class"] || 4);
     if(cls < 0) cls = 0;
     /* sets max skill level to be reached before change in actual skill level:
-     * Primary Skills   cls = (4-1) = 3 (level 1 player = (1+3) * 2 = 8)
-     * Secondary Skills cls = (4-2) = 2 (level 1 player = (1+2) * 2 = 6)
-     * Other Skills     cls = (4-3) = 1 (level 1 player = (1+1) * 2 = 4)
-     * Other Skills     cls = (4-4) = 0 (level 1 player = (1+0) * 2 = 2)
+     * Primary Skills   cls = (4-1) = 3; (level 1 player = (1+3) * 2 = 8)
+     * Secondary Skills cls = (4-2) = 2; (level 1 player = (1+2) * 2 = 6)
+     * Other Skills     cls = (4-3) = 1; (level 1 player = (1+1) * 2 = 4)
+     * Other Skills     cls = (4-4) = 0; (level 1 player = (1+0) * 2 = 2)
      * N.B Both cls=1 and cls=0 skills show up in "Other Skills"
      * output of "skills" command 
      * - lash
@@ -160,12 +160,11 @@ int GetMaxSkillPoints(string skill, int level){
             x *= level;
             }
         return x * 400;
-        /* note that in the above calculations a Level 20 player
-         * would need to accumulate:
-         * 10,000 Primary skill points to advance to the next Primary skill level
-         * with SKILL_ADVANCE enabled
-         * 160,000 Primary skill points to advance to the next Primary skill level
-         * otherwise
+        /* Note that a Level 20 player would have max Primary skill points of (20+3) * 2 = 46
+         * To gain a primary skill level (from 1/46 levels to 2/46 levels) a player would need
+         * to accumulate 23,000 Primary skill points to advance to the next Primary skill level
+         * with SKILL_ADVANCE enabled.
+         * Otherwise 846,400 Primary skill points would need to be accumulated.
          * -lash
          */
        }
