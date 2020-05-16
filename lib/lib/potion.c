@@ -52,7 +52,7 @@ int GetDuration(){
 
 /* brt = bonus resistance type
  * brl = bonus resistance level
- *reference lib/body.c and genetics.c
+ * reference lib/body.c, genetics.c, bonus.c
  */
 varargs string SetResistance(int type, string level){
     brt = type;
