@@ -4,7 +4,7 @@
  * modified by Lash (ccoker) for use in The Brass Ring
  * bug fix: bonus object wasn't being destructed
  * 2014-12-12
- * added functionality for setting resistance
+ * added functionality for setting resistances
  * 2015-12-28
  *
  */
@@ -24,7 +24,7 @@ int Duration = 15;
 string bonusname;
 object whom;
 string brl = " "; //bonus resistance level
-int brt = 0; //bonus resistance level
+int brt = 0; //bonus resistance type
 
 void create(){
     item::create();
@@ -122,6 +122,10 @@ int SetBonuses(){
                 default : break;
             }
         }
+    /* see /lib/lib/genetics.c for definition
+     * of the following function 
+     * -lash (ccoker)
+     */
     whom->SetResistance(brt,brl);
     
     return 1;    
@@ -168,10 +172,22 @@ string SetBonusName(string name){
     return bonusname = name;
 }
 
-//reference lib/body.c and genetics.c
+/* reference lib/body.c and genetics.c 
+ * resistance to damage types (/lib/lib/body.c) in
+ * varargs int eventReceiveDamage(mixed agent, int type,
+ *      int x, int internal, mixed limbs)
+ * resistance to damage (x) is defined by level: 
+ * low - damage x = (3*x)/4
+ * medium - damage x /= 2
+ * high - damage x /= 4
+ * immune - damage x = 0
+ * types are defined in /lib/include/damage_types.h
+ * -lash (ccoker)
+ */
+
 varargs string SetResistance(int type, string level){
     brt = type;
-    brl = level;
+    brl = level;    
 }
 
 mixed CanGet(object who){ return 0; }
