@@ -126,6 +126,7 @@ int SetBonuses(){
      * of the following function 
      * -lash (ccoker)
      */
+    if(brt !=0 && brl !=0)
     whom->SetResistance(brt,brl);
     
     return 1;    
