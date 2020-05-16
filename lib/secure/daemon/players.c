@@ -1,3 +1,13 @@
+/* from the Dead Souls mudlib
+ * maintained by Cratylus
+ * www.dead-souls.net
+ *
+ * modified by lash (ccoker)
+ * for use of skill advancement system
+ * in The Brass Ring Mud
+ * 20/05/16
+ */
+
 #include <objects.h>
 #include <privs.h>
 #include <rooms.h>
@@ -327,6 +337,7 @@ static int AutoAdvance(object ob, int level){
     return ret;
 }
 
+/* added by lash (ccoker) for skill advancement system */
 int CheckAdvance(object ob){
     string str;
     string *ptmp = ({});
@@ -367,6 +378,8 @@ int CheckAdvance(object ob){
         }
     return 0;
     }
+/* end add */
+
     if(XP_ADVANCE){
         if(!ob || !playerp(ob)) return 0;
         if(!sizeof(Levels)) CompileLevelList();
@@ -377,8 +390,8 @@ int CheckAdvance(object ob){
             if(AUTO_ADVANCE) AutoAdvance(ob, dlev);
             return 1;
         }
+        return 0;
     }
-    return 0;
 }
 
 void AddPlayerInfo(mixed arg){
