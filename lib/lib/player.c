@@ -4,7 +4,11 @@
  *    created by Descartes of Borg 950321
  *    Version: @(#) player.c 1.26@(#)
  *    Last Modified: 97/01/03
- *
+ *    
+ *    added code for factions used in TBR and
+ *    deleted some code relating to experience points
+ *    not used in TBR -lash (ccoker)
+ *    20/05/16
  */
 
 #include <lib.h>
@@ -46,7 +50,7 @@ static void create(){
 static void heart_beat(){
     mixed heartping;
     int idle;
-    
+
     if(!interactive(this_object())) return;
 
     heartping = GetProperty("keepalive");
@@ -63,7 +67,7 @@ static void heart_beat(){
     interactive::heart_beat();
     factions::CheckTimer();
     living::heart_beat();
-    
+
     if( IDLE_TIMEOUT && idle >= IDLE_TIMEOUT 
             && !builderp(this_object()) 
             && !present("testchar badge",this_object()) 
@@ -72,7 +76,6 @@ static void heart_beat(){
         cmdQuit();
         return;
     }
-   
 #ifdef __DSLIB__
     if(heartping){
         send_nullbyte(this_object());
@@ -129,6 +132,7 @@ varargs mixed eventDisplayStatus(int simple){
     max_mp = GetMaxMagicPoints();
     sp = GetStaminaPoints();
     max_sp = GetMaxStaminaPoints();
+    /* deleted experience point code - not used in TBR */
     qp = GetQuestPoints();
 
     if( percent(hp, max_hp) < 20.0 )
@@ -223,6 +227,7 @@ varargs void eventRevive(int nopenalty){
     if(this_player()->GetPoison() > 0){
         this_player()->AddPoison(0 - this_player()->GetPoison());
     }
+    /* deleted experience point code - not used in TBR */
     if(!nopenalty){
         int expee, subexpee;
 #ifdef LIB_PLAYER_SKILL_LOSS
@@ -248,6 +253,7 @@ varargs void eventRevive(int nopenalty){
             }
         }
 #endif
+    /* deleted experience point code - not used in TBR */
     }
     NewBody(GetRace());
     eventCompleteHeal(GetMaxHealthPoints());
@@ -310,6 +316,7 @@ int Setup(){
     string classes;
     string oldparties = PARTY_D->GetOldParties();
     if( !interactive::Setup() ) return 0;
+    /* changed by lash (ccoker) for skill_advance option */
     if( !GetClass() && CLASS_SELECTION ) SetClass("explorer");
     RemoveExtraChannels(oldparties);
     foreach(string oldparty in oldparties){
@@ -349,6 +356,7 @@ int Setup(){
         }
         AddChannel( ({ "gossip" }) );
         if( councilp() ) AddChannel( ({ "council" }) );
+        /* changed by lash or error thrown */
         if( GetClass() ) AddChannel(GetClass());
 
         jeans = new("/domains/default/armor/jeans");
