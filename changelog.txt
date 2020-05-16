@@ -1,5 +1,9 @@
 Changelog (year-month-day)
 
+2020-05-16
+-added comments to some files for information
+ and coding clarifications/explanations
+
 2020-05-12
 */lib/lib/genetics.c
  -rearranged file contents so function structures flow together
