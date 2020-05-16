@@ -4,6 +4,11 @@
  *    created by Descartes of Borg 951103
  *    Version: @(#) connect.c 1.2@(#)
  *    Last Modified: 96/05/28
+ *
+ *    modified by lash (ccoker)
+ *    for skill advancemnet system
+ *    used in The Brass Ring Mud
+ *    20/05/16
  */
 
 #include <lib.h>
