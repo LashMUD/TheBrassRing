@@ -11,8 +11,8 @@ class curse{
 class curse Cursed = 0;
 
 varargs mixed eventCurse(object who, int time, int howmuch, string *skaffected,
-  string *staffected, string textin, string textout){ 
-
+  string *staffected, string textin, string textout)
+{ 
     Cursed = new(class curse);
       Cursed->who = who;
       Cursed->duration = time;
@@ -22,17 +22,23 @@ varargs mixed eventCurse(object who, int time, int howmuch, string *skaffected,
       Cursed->amessage = textin;
       Cursed->emessage = textout;
     
-
-    foreach(string sktype in skaffected){
-        who->AddSkillBonus(sktype, howmuch);
+    if(!arrayp(skaffected) || !arrayp(staffected)){
+        write("No argument to skills or stats affected");
+        return 0;
+     }
+        else{     
+            foreach(string sktype in skaffected){
+            who->AddSkillBonus(sktype, howmuch);
+            foreach(string sttype in staffected)
+            who->AddStatBonus(sttype, howmuch);
+        }
     }
-    foreach(string sttype in staffected){
-        who->AddStatBonus(sttype, howmuch);
-    }
-    if(stringp(textin)){
+    if(stringp(textin))
+    {
         tell_player(who, textin);
     }
-    else{
+    else
+    {
         who->eventPrint("\nYou feel very uncomfortable.\n");
     }
     return 1; 
