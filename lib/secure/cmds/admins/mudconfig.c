@@ -630,12 +630,18 @@ static int ProcessModal(string which, string arg){
     }
     if(which == "RETAIN_ON_QUIT" || which == "OBJECT_MATCHING") 
         write("To make this configuration take effect, reboot the mud.");
-    if(which == "CLASS_SELECTION" || which == "SKILL_SELECTION"
-       || which =="XP_ADVANCE" || which == "SKILL_ADVANCE") 
+    if(which == "CLASS_SELECTION" || which == "SKILL_SELECTION"){
+        write("To make this configuration take effect, reboot the mud.\n"+
+                "If switching between selectclass and selectskills is suggested\n"+
+                "to enable one and disable the other before reboot or both selection\n"+
+                "strategies will be in effect.");
+    }
+    if(which =="XP_ADVANCE" || which == "SKILL_ADVANCE"){ 
         write("To make this configuration take effect, reboot the mud.\n"+
                 "If switching between xpadvancement and skilladvancement it is suggested\n"+
                 "to enable one and disable the other before reboot or both advancement\n"+
-                "strategies will be in effect.");
+               "strategies will be in effect.");
+    }    
     if(which == "LOG_LOCAL_CHANS" || which == "LOG_REMOTE_CHANS"){
         reload(CHAT_D,1,1);
     }
