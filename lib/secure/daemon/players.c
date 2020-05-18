@@ -163,36 +163,12 @@ mapping CompileLevelList(){
             LevelList += ( Levels[i]["title"] || "Untitled" );
             LevelList += ", exp: "+seed;
             LevelList += ( Levels[i]["qp"] ? ", qp: "+Levels[i]["qp"] : "");
+            LevelList += "\n";
         }
-        if(seed >= /*2146000000*/476400) break; //highest xp to calculate for level 476400 = level 21
+        if(seed >= 2146000000) break;
     }
     return copy(Levels);
 }
-/* The Following List is Returned:
-([ 
-21 : ([                                                                     "xp" : 476400 ]), 
-20 : ([ "title" : "the Caesar/the Caesara",                      "qp" : 60, "xp" : 397000 ]), 
-19 : ([ "title" : "the Quaestor/the Quaestrix",                             "xp" : 330900 ]), 
-18 : ([ "title" : "the Praetor/the Praetrix",                    "qp" : 45, "xp" : 275800 ]), 
-17 : ([ "title" : "the Archduke/the Archduchess",                           "xp" : 229900 ]), 
-16 : ([ "title" : "the Duke/the Duchess",                        "qp" : 32, "xp" : 191600 ]), 
-15 : ([ "title" : "the Marquis/the Marquise",                               "xp" : 147400 ]), 
-14 : ([ "title" : "the Earl/the Countess",                       "qp" : 21, "xp" : 113400 ]), 
-13 : ([ "title" : "the Count/the Viscountess",                              "xp" : 87300 ]), 
-12 : ([ "title" : "the Baron/the Baroness",                      "qp" : 12, "xp" : 67200 ]), 
-11 : ([ "title" : "the Knight",                                             "xp" : 48000 ]), 
-10 : ([ "title" : "the Citizen",                                 "qp" : 5,  "xp" : 34300 ]), 
-9  : ([ "title" : "the Freeman/the Freewoman",                              "xp" : 22900 ]), 
-8  : ([ "title" : "the master adventurer/the master adventuress",           "xp" : 15300 ]), 
-7  : ([ "title" : "the great adventurer/the great adventuress",             "xp" : 9600 ]), 
-6  : ([ "title" : "the expert adventurer/the expert adventuress",           "xp" : 5700 ]), 
-5  : ([ "title" : "the experienced adventurer/the experienced adventuress", "xp" : 3200 ]), 
-4  : ([ "title" : "the adventurer/the adventuress",                         "xp" : 1700 ]), 
-3  : ([ "title" : "the beginner",                                           "xp" : 900 ]), 
-2  : ([ "title" : "the simple novice",                                      "xp" : 500 ]), 
-1  : ([ "title" : "the utter novice ",                            "qp" : 0, "xp" : 0 ]), 
-0  : ([                                                           "qp" : 0, "xp" : 0 ]) 
-])*/
 
 static void ScheduledPlayerAdd(string *plays){
     foreach(string play in plays){
