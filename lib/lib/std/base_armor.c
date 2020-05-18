@@ -60,7 +60,6 @@ int SetRetainOnDeath(int x ){ return (RetainOnDeath = x); }
 int GetRetainOnDeath(){ return RetainOnDeath; }
 
 /*  ***************  /lib/armor.c data functions  ***************  */
-
 varargs string GetEquippedDescription(object who){
     if(!who) who = this_player();
     if( GetWorn() ){
@@ -194,19 +193,19 @@ string GetItemCondition(){
     string *a_dam;
     cuts = dents = -1;
 
-    write("\nIN GETITEM CONDITION");
+    //write("\nIN GETITEM CONDITION");
 
     foreach(int type, int val in Protection){
         int x;
         if( BLADE & type || KNIFE & type ){
             x = to_float(val) / GetMaxProtection(type) * 100;
             if( cuts == -1 || x < cuts ) cuts = x;
-            write("cuts is "+cuts);
+            //write("cuts is "+cuts);
         }
         else if( BLUNT & type ){
             x = to_float(val) / GetMaxProtection(type) * 100;
             if( dents == -1 || x > dents ) dents = x;
-            write("dents is "+dents);
+            //write("dents is "+dents);
         }
     }
     if( cuts == -1 && dents == -1 ) return 0;
@@ -288,7 +287,7 @@ string array GetSave(){
 
 static mixed array AddSave(mixed array vars){
     if(!vars) vars = ({});
-    my_save = distinct_array( my_save + vars);
+    my_save = distinct_array( my_save + vars );
     return persist::AddSave(my_save);
 }
 
