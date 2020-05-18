@@ -634,11 +634,11 @@ varargs int eventReceiveDamage(mixed agent, int type, int x, int internal,
         if(estatep(agent) && !estatep(this_object())) return 0;
         if(!estatep(agent) && estatep(this_object())) return 0;
     }
-    
+
     basedam = x;
 
     if(godmode) x = 0;
-       
+
     switch(tmp){
         case "low": x = (3*x)/4; break;
         case "medium": x /= 2; break;
@@ -755,8 +755,14 @@ int eventCheckProtection(object agent, int type, int damage){
                 RemoveMagicProtection(i);
                 continue;
             }
-            else x = evaluate(Protection[i]->hit, this_object(),
-                    agent, x, Protection[i]);
+            else {
+                if(Protection && 
+                        Protection[i] && 
+                        Protection[i]->hit){
+                    x = evaluate(Protection[i]->hit, this_object(),
+                            agent, x, Protection[i]);
+                }
+            }
         }
         damage -= x;
         if( damage < 1 ) return 0;
