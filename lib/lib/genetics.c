@@ -62,9 +62,9 @@ void RemoveBlindness(){
     }
 }
 
-varargs mixed eventBlind(object who, int amt, mixed end){
+varargs mixed eventBlind(object who, int time, mixed end){
     Blind = new(class blindness);
-    Blind->count = amt;
+    Blind->count = time;
     Blind->end = end;
     /* lash -for custom messages instead of default messages */
     if( arrayp(end) ){
