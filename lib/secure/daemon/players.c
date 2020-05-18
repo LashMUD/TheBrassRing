@@ -329,6 +329,7 @@ int CheckAdvance(object ob){
     dlev = (ob->GetLevel())+1;
     
     if(SKILL_ADVANCE){
+        if(!ob || !playerp(ob) || !this_player()->GetSkills()) return 0;
         /* get and sort primary skills and levels */
         ptmp = this_player()->GetPrimarySkills();
         foreach(str in ptmp){
