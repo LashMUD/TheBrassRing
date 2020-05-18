@@ -159,7 +159,7 @@ int GetMaxSkillPoints(string skill, int level){
             while( cl-- ){
             x *= level;
             }
-        return x * 400;
+        return (x * 400);
         /* For example, a player with a primary skill level of 20 needs to accumulate
          * 10,000 primary skill points to advance to the next primary skill level
          * with SKILL_ADVANCE enabled.
