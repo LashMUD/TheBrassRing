@@ -44,7 +44,7 @@ int GetDeterioration(){
 
 string GetItemCondition(){
     if( Deterioration ){
-        return " It has worn down completely.";
+        return "It has worn down completely.";
     }
     else {
         return 0;
@@ -87,6 +87,7 @@ int eventReceiveDamage(mixed agent, int type, int amt, int i, mixed array l){
         DamagePoints = MaxDamagePoints;
         eventDeteriorate(type);
     }
+    //tell_player("lash","Item got "+x+" amount of damage in deterioration.c");
     return x;
 }
 
