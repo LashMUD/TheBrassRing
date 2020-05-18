@@ -21,6 +21,7 @@ int collect_moduli(int mod, int *range){
     if(neg){
         ret = ret - (ret*2);
     }
+    //write("ret is "+ret);
     return ret;
 }
 
@@ -32,12 +33,18 @@ varargs int ChangeLevel(int i){
 
     current_level = subject->GetLevel();
 
-    if(!i || i < 1) 
+    if(!i || i < 1){ 
         desired_level = current_level + 1;
-    else desired_level = i;
+        //write("i is "+i);
+    }
+    else{
+    //write("else i is "+i);
+    desired_level = i;
+    }
 
     for(i = 1; i < 5; i++){
         moduli[i] = collect_moduli(i, ({ current_level, desired_level }) );
+        //write("moduli[i] is "+moduli[i]);
     }
 
     skills = subject->GetSkillsMap();
