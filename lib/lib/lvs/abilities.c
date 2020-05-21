@@ -5,10 +5,10 @@
  *    Version: @(#) abilities.c 1.22@(#)
  *    Last modified: 97/01/03
  *
- *    Modified by lash (ccoker)
- *    for skill advancement system
- *    added comments
- *    20/05/12
+ *    Modified by lash (ccoker) for use in 
+ *    The Brass Ring mud
+ *     - added functions for skill advancement system
+ *    last modifed: 20/05/12
  */
 
 #include <daemons.h>
@@ -39,7 +39,7 @@ int GetBaseSkillLevel(string skill){
         return Skills[skill]["level"];
     }
 }
-/* Get object level */
+
 int GetLevel(){
     return Level;
 }
@@ -54,11 +54,6 @@ int GetLevel(){
  */
 /*
  * Excuse me, wtf is the point of this?
- */
-/* lash - if commented out the mud craps out
- * due to error thrown from  /lib/lib/player.c
- * log/errors:
- * /lib/player.c line 565: No such inherited function living::ResetLevel 
  */
 
 int ResetLevel(){
@@ -98,21 +93,9 @@ int GetMaxSkillLevel(string skill){
     return ret;
 #endif
 #endif
-    /* since cls was set to equal 4 above (int cls = 4;)
-     * reset cls to equal 4 - (class of skill) to determine max level
-     * -lash
-     */
+
     cls -= (Skills[skill]["class"] || 4);
     if(cls < 0) cls = 0;
-    /* sets max skill level to be reached before change in actual skill level:
-     * Primary Skills   cls = (4-1) = 3; (level 1 player = (1+3) * 2 = 8)
-     * Secondary Skills cls = (4-2) = 2; (level 1 player = (1+2) * 2 = 6)
-     * Other Skills     cls = (4-3) = 1; (level 1 player = (1+1) * 2 = 4)
-     * Other Skills     cls = (4-4) = 0; (level 1 player = (1+0) * 2 = 2)
-     * N.B Both cls=1 and cls=0 skills show up in "Other Skills"
-     * output of "skills" command 
-     * - lash
-     */    
     ret = ((GetLevel()+cls) *2);
     return ret;
 }
@@ -122,25 +105,15 @@ int GetMaxSkillPoints(string skill, int level){
         return 0;
     }
     else if( level == 0 ){
-        /* lash - give newbies some points to start out with */
         if(SKILL_ADVANCE){
-            return 50;
+        return 50;
         }
         else{ return 200;
         }
     }
     else {
-        /* why use cl here instead of cls as used elsewhere?
-         * cl refers to skill class here as cls does elsewhere
-         * kind of confusing (?)
-         * -lash
-         */
         int cl, x;
         
-        /* for no tiered skill class system (Primary, Secondary, and Other skills)
-         * if set up that way in the mud
-         * -lash 
-         */
         if( !(cl = Skills[skill]["class"]) ){
             if(SKILL_ADVANCE) return level * 200;
             else return level * 600;
@@ -160,13 +133,7 @@ int GetMaxSkillPoints(string skill, int level){
             x *= level;
             }
         return (x * 400);
-        /* For example, a player with a primary skill level of 20 needs to accumulate
-         * 10,000 primary skill points to advance to the next primary skill level
-         * with SKILL_ADVANCE enabled.
-         * Otherwise 160,000 primary skill points would need to be accumulated.
-         * -lash
-         */
-       }
+        }
     }
 }
 
@@ -429,7 +396,6 @@ varargs void  eventTrainSkill(string skill, int pro, int con, int array a...){
     }
     val = (con - pro + (200*success) + 100)/8;
     AddSkillPoints(skill, (bonus * val * level * level) + 1);
-    //tell_player("lash","Skill is "+skill+" and points are "+(bonus * val * level * level) + 1);
 }
 
 /* ****************** abilities.c driver applies **************** */
