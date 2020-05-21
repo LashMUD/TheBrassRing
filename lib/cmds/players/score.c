@@ -1,13 +1,14 @@
-/*  /verbs/players/score.c
- *  from the Dead Souls Library http://www.dead-souls.net
- *  Displays a list of score and related info
- *  created by Blitz@Dead Souls
+/*    /verbs/players/score.c
+ *    from the Dead Souls Library http://www.dead-souls.net
+ *    Displays a list of score and related info
+ *    created by Blitz@Dead Souls
  *
- *  /lib/cmds/players
- *  2014/11/07 modified by Lash (ccoker)
- *  for The Brass Ring
- *  Output modification to look differently
- *  than the original
+ *    /lib/cmds/players
+ *    modified by Lash (ccoker)  
+ *    for use in The Brass Ring mud
+ *     - modified output to look differently
+ *       than in the original file
+ *    last modified 14/11/07
  *  
  */
 
