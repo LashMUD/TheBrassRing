@@ -4,9 +4,11 @@
  *    created by descartes of Borg 950603
  *    Version: @(#) meal.c 1.3@(#)
  *    Last modified: 97/01/03
- *    modified by Lash (ccoker) for use in The Brass Ring
+ *    
+ *    modified by Lash (ccoker) for use in
+ *    The Brass Ring mud
  *    - added functionality in eventDrink (possible bugfix)
- *    2014-12-13
+ *    last modified: 2014/12/13
  */
 
 #include <lib.h>
