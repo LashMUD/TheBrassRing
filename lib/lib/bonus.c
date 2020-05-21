@@ -1,12 +1,14 @@
-/* /lib/bonus.c
- * from the dead souls mudlib http://www.dead-souls.net
+/*    /lib/bonus.c
+ *    from the Dead Souls mud library
+ *    maintained by Cratylus http://www.dead-souls.net
  *
- * modified by Lash (ccoker) for use in The Brass Ring
- * bug fix: bonus object wasn't being destructed
- * 2014-12-12
- * added functionality for setting resistances
- * 2015-12-28
- *
+ *    modified by Lash (ccoker) for use in The Brass Ring
+ *     - bug fix: bonus object wasn't being destructed
+ *     - 2014-12-12
+ *     -added functionality for setting resistances
+ *     - 2015-12-28
+ *     - added check for resistance variables
+ *     last modified: 20/05/20
  */
 
 #include <lib.h>
@@ -23,8 +25,8 @@ mapping Points = ([]);
 int Duration = 15;
 string bonusname;
 object whom;
-string brl = " "; //bonus resistance level
-int brt = 0; //bonus resistance type
+string brl = " ";
+int brt = 0;
 
 void create(){
     item::create();
@@ -122,10 +124,6 @@ int SetBonuses(){
                 default : break;
             }
         }
-    /* see /lib/lib/genetics.c for definition
-     * of the following function 
-     * -lash (ccoker)
-     */
     if(brt !=0 && brl !=0)
     whom->SetResistance(brt,brl);
     
@@ -172,19 +170,6 @@ string GetBonusName(){
 string SetBonusName(string name){
     return bonusname = name;
 }
-
-/* reference lib/body.c and genetics.c 
- * resistance to damage types (/lib/lib/body.c) in
- * varargs int eventReceiveDamage(mixed agent, int type,
- *      int x, int internal, mixed limbs)
- * resistance to damage (x) is defined by level: 
- * low - damage x = (3*x)/4
- * medium - damage x /= 2
- * high - damage x /= 4
- * immune - damage x = 0
- * types are defined in /lib/include/damage_types.h
- * -lash (ccoker)
- */
 
 varargs string SetResistance(int type, string level){
     brt = type;
