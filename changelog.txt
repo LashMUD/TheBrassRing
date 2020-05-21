@@ -1,4 +1,19 @@
 Changelog (year-month-day)
+2020-05-21
+* several files have had minor editing changes related to file headers,
+  addition of file headers if not present, and in file comments removal that
+  were more of a distraction than a help 
+*/lib/secure/cfg preload.cfg
+ - remove from repo - mud specific
+*/lib/secure/daemon/autexec.c 
+ - remove from repo - mud specific
+*/lib/lib/props/factions.c 
+ -removed SetFactions() function - was not intialized properly and not required
+*/lib/lib/genetics.c 
+ - removed file revisions (restructuring) and distracting comments
+*/lib/power/npc/include/magic_user.h
+ -removed eventCurse() function declaration - not required since the actual curse
+  function is inherited   
 
 2020-05-16
 -added comments to some files for information
