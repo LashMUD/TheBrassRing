@@ -13,7 +13,12 @@ Changelog (year-month-day)
  - removed file revisions (restructuring) and distracting comments
 */lib/power/npc/include/magic_user.h
  -removed eventCurse() function declaration - not required since the actual curse
-  function is inherited   
+  function is inherited
+*/lib/powers/npc/curse.c
+ -added checks to make sure that if an object was cursed they could not be cursed again
+  if a user used the curse function without proper formatting the object cursed
+  would have the cursed flag removed but the skill or stat modification would
+  remain   
 
 2020-05-16
 -added comments to some files for information
