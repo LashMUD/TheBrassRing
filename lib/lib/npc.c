@@ -4,10 +4,15 @@
  *    created by Descartes of Borg 950323
  *    Version: @(#) npc.c 1.11@(#)
  *    Last Modified: 96/12/21
- *    Modified by Lash 11/10/31 (10/31/11) 
- *      addition of ActionsMap for npc's
- *      code copy and pasted from Dead Souls
- *      mudlib LIB_ROOM file
+ *     
+ *    modified by Lash (ccoker) for use in
+ *    The Brass Ring mud 
+ *     - addition of ActionsMap for npc's
+ *       code copy and pasted from Dead Souls
+ *       mudlib LIB_ROOM file
+ *     modified:  11/10/31
+ *     - added inherit LIB_FACTION
+ *     last modified: 20/05/20    
  */
 
 #include <lib.h>
@@ -35,7 +40,7 @@ inherit LIB_DOMESTICATE;
 inherit LIB_GUARD;
 inherit LIB_UNIQUENESS;
 inherit LIB_SHADOW_HOOK;
-inherit LIB_FACTIONS;
+inherit LIB_FACTIONS; // added by lash for use in The Brass Ring mud
 
 private int CustomXP, ActionChance, CombatActionChance, AutoStand;
 private mixed Encounter;
