@@ -1,11 +1,12 @@
-/*
- * /lib/secure/cmds/creators
- * based on ticktock.c from the dead souls mudlib
- * http://www.dead-souls.net
- * includes day and year output
- * 2015/12/02 modified by Lash (ccoker)
- * for use in the Brass Ring
- *
+/*    /lib/secure/cmds/creators/mudtime.c
+ *    from the Dead Souls mud library
+ *    maintained by Cratylus http://www.dead-souls.net
+ * 
+ *    modified by lash (ccoker) for use in
+ *    The Brass Ring mud
+ *     - based on the ticktock command
+ *       includes mudday and mudyear output
+ *    last modified: 2015/12/02 
  */
 
 #include <lib.h>
@@ -23,7 +24,7 @@ mixed cmd() {
     mudtime = SEASONS_D->GetMudTime();
     hours = mudtime[0];
     minutes = mudtime[1];
-
+    
     // if you want an odd (as in not even) number of hours in
     // a day, this may need fiddling with.
 
