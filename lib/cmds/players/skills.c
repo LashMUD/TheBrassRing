@@ -4,8 +4,13 @@
  *    created by Descartes of Borg 950409
  *    - Moved map function to GetLine for readability, added a max skill
  *      level display for each skill, grouped in classes. (Blitz 960122/0404)
- *    - modified by Lash (ccoker) so player  can see skills as they are
- *      affected by bonuses - for use in The Brass Ring
+ *     
+ *     modified by Lash (ccoker)
+ *     for use in The Brass Ring mud
+ *      - modifed string GetLine() function so
+ *        player  can see skills as they are
+ *        affected by bonuses
+ *     last modified: 20/05/20
  */
 
 #include <lib.h>
