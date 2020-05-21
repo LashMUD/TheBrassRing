@@ -1,11 +1,11 @@
-/* from the Dead Souls mudlib
- * maintained by Cratylus
- * www.dead-souls.net
+/*    from the Dead Souls mudlib
+ *    maintained by Cratylus http://www.dead-souls.net
  *
- * modified by lash (ccoker)
- * for use of skill advancement system
- * in The Brass Ring Mud
- * 20/05/16
+ *    modified by lash (ccoker) for use in
+ *    The Brass Ring mud
+ *     - added functions for use with the skill advancement system
+ *     - added this header
+ *    last modified 20/05/16
  */
 
 #include <objects.h>
