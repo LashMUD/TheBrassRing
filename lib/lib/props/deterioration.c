@@ -5,12 +5,14 @@
  *    Version: @(#) deterioration.c 1.1@(#)
  *    Last modified: 97/01/01
  *
- *    Bug fix for saving armor conditions:
- *    initialized DamagePoints variable to 0
- *    added GetMaxDamagePoints()
- *    ccoker (lash)
- *    2016-02-24
+ *    Modified by lash (ccoker) for use in
+ *    The Brass Ring mud    
+ *     - bug fix for saving armor conditions:
+ *       initialized DamagePoints variable to 0
+ *     - added function GetMaxDamagePoints()
+ *    last modified: 2016/02/24
  */
+
 #include <daemons.h>
 
 private int Broken          = 0;
@@ -87,7 +89,5 @@ int eventReceiveDamage(mixed agent, int type, int amt, int i, mixed array l){
         DamagePoints = MaxDamagePoints;
         eventDeteriorate(type);
     }
-    //tell_player("lash","Item got "+x+" amount of damage in deterioration.c");
     return x;
 }
-
