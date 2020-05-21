@@ -1,3 +1,15 @@
+/*    /lib/lib/lvs/level.c 
+ *    based on the Dead Souls mud library
+ *    maintained by cratylus http://www,dead-souls.net
+ * 
+ *    modified by lash (ccoker) for use in 
+ *    The Brass Ring mud
+ *     - added this header
+ *     - added functions for skill advancement system
+ *    last modified: 20/05/20
+ */ 
+
+
 #include <lib.h>
 #include <daemons.h>
 
@@ -21,10 +33,8 @@ int collect_moduli(int mod, int *range){
     if(neg){
         ret = ret - (ret*2);
     }
-    //write("ret is "+ret);
     return ret;
 }
-
 
 varargs int ChangeLevel(int i){
     mapping skills, stats, moduli = ([]);
@@ -35,16 +45,13 @@ varargs int ChangeLevel(int i){
 
     if(!i || i < 1){ 
         desired_level = current_level + 1;
-        //write("i is "+i);
     }
     else{
-    //write("else i is "+i);
-    desired_level = i;
+        desired_level = i;
     }
 
     for(i = 1; i < 5; i++){
         moduli[i] = collect_moduli(i, ({ current_level, desired_level }) );
-        //write("moduli[i] is "+moduli[i]);
     }
 
     skills = subject->GetSkillsMap();
@@ -71,12 +78,7 @@ varargs int ChangeLevel(int i){
             INSTANCES_D->SendWhoUpdate(this_object()->GetKeyName());
         }
     }
-    /* added by lash for skill advancement system
-     * note - skills only increase with player usage
-     * so no skill advancement as for XP_ADVANCE
-     * above. Instead they get customization points
-     * to increase stats (see /lib/lib/genetics.c file)
-     */
+    /* added by lash (ccoker) */
     if(SKILL_ADVANCE){
         subject->AddCustomizationPoints();
         subject->SetLevel(desired_level);
@@ -85,7 +87,5 @@ varargs int ChangeLevel(int i){
             INSTANCES_D->SendWhoUpdate(this_object()->GetKeyName());
         }
     }
-
     return 1;
 }
-/* end add */
