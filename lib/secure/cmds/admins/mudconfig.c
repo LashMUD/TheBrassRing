@@ -1,3 +1,15 @@
+/*     /lib/secure/cmds/adms/mudconfig.c
+ *     from the Dead Souls mud library
+ *     maintained by Cratylus http://www,dead-souls.net 
+ *
+ *     modified by lash (ccoker) for use in
+ *     The Brass Ring mud
+ *      - added this header
+ *      - added configuration options for the
+ *        skill advancement system
+ *      last modified 20/05/20
+ */
+
 #include <lib.h>
 #include <cfg.h>
 #include <save.h>
