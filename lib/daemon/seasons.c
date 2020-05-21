@@ -4,8 +4,11 @@
  *    created by Descartes of Borg 950508
  *    Version: @(#) seasons.c 1.7@(#)
  *    Last modified: 96/10/27
- *    modified moon functions by Lash (ccoker) 2012/12/02
- *    added function GetYearLength() 2015/12/17
+ *
+ *    modified by lash (ccoker) for use in
+ *    The Brass Ring mud
+ *     - modified moon functions by Lash (ccoker) 12/12/02
+ *     - added function GetYearLength() 15/12/17
  */
 
 #include <lib.h>
@@ -434,6 +437,7 @@ string GetPhaseName(mixed val) {
     if( stringp(val) ) {
         val = GetPhase(val);
     }
+    /* modified by lash (ccoker) */
     switch(val) {
         case 0: return "new";
         case 1: return "waxing crescent";
