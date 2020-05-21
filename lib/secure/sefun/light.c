@@ -2,6 +2,12 @@
  *    from Dead Souls
  *    light sefuns
  *    created by Descartes of Borg 940213
+ *
+ *    modified by lash (ccoker) for use in
+ *    The Brass Ring mud
+ *     - added code to let player know they can't
+ *       see due to being blinded
+ *    last modified: 20/05/16
  */
 
 #include <daemons.h>
