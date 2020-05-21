@@ -1,3 +1,13 @@
+/*    from the Dead Souls mud library
+ *    maintained by Cratylus http://www,dead-souls.net 
+ *
+ *    modified by lash (ccoker) for use in
+ *    The Brass Ring mud
+ *     - added SetResistance() function
+ *     - added this header
+ *    last modified: 20-05-20
+ */
+
 #include <lib.h>
 #include <damage_types.h>
 
@@ -50,14 +60,12 @@ int GetDuration(){
     return Duration;
 }
 
-/* brt = bonus resistance type
- * brl = bonus resistance level
- * reference lib/body.c, genetics.c, bonus.c
- */
+/* added by lash (ccoker) */
 varargs string SetResistance(int type, string level){
     brt = type;
     brl = level;
 }
+/* end add */
 
 mixed eventDrink(object who){
     object ob=new(LIB_BONUS);
