@@ -1,3 +1,13 @@
+/*    /lib/domains/town/npc/leo.c
+ *    from the Dead Souls mud library http://www.dead-souls.net
+ *
+ *    modified by lash (ccoker) for use in 
+ *    The Brass Ring mud
+ *     - modified so Leo adds a faction to the player
+ *      for completing The Orcslayer quest
+ *    last modified: 20/5/20
+ */
+
 #include <lib.h>
 
 inherit LIB_SENTIENT;
@@ -48,6 +58,7 @@ static void create() {
     SetLanguage("common", 100);
     SetDefaultLanguage("common");
     SetCustomXP(10);
+    AddFaction("order of the Arcane Sciences");
 }
 
 int CompleteQuest(object ob){
