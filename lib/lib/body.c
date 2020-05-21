@@ -5,8 +5,10 @@
  *    created by Descartes of Borg 950121
  *    Version: @(#) body.c 1.24@(#)
  *
- *    modified by lash (ccoker) for use in The Brass Ring mud
- *    added code for npc curse spell
+ *    modified by lash (ccoker) for use in
+ *    The Brass Ring mud
+ *     - added code for npc curse spell
+ *    last modified: 20/05/20
  */
 
 #include <lib.h>
