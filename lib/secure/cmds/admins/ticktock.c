@@ -1,12 +1,14 @@
-/* from the dead souls mudlib http://www.dead-souls.net
- * /lib/secure/cmds/admin
- * 2015/12/02 modified by Lash (ccoker)
- * for use in the Brass Ring
- * changed time variables to conform
- * to HOUR_LENGTH (1200) and DAY_LENGTH (24)
- * variables as specified in 
- * /lib/secure/include/config.h
- * and reflected in the help section
+/*    /lib/secure/cmds/admin 
+ *    from the dead souls mudlib http://www.dead-souls.net
+ *
+ *    modified by Lash (ccoker)
+ *    for use in the Brass Ring mud
+ *     - changed time variables to conform
+ *       to HOUR_LENGTH (1200) and DAY_LENGTH (24)
+ *       variables as specified in 
+ *       /lib/secure/include/config.h
+ *       and reflected in the help section
+ *    last modified: 2015/12/02  
  */
 
 #include <lib.h>
