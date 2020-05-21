@@ -1,3 +1,15 @@
+/*    /lib/secure/include/cfg.h
+ *    from the Dead Souls mud library
+ *    maintained by Cratylus http://ww.dead-souls.net
+ * 
+ *    modified by lash (ccoker) for use in
+ *    The Brass Ring mud
+ *     - added skills cfg file for use with
+ *       skill advancement system
+ *     - added this header
+ *    last modified 20/05/20
+ */
+
 #ifndef __CFG_H__
 #define __CFG_H__
 
