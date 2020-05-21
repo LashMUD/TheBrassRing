@@ -1,3 +1,15 @@
+/*    /lib/cmds/players/listfactions.c
+ *
+ *    a command for players to list
+ *    the factions to which they belong
+ *    based on the Dead Souls mud library
+ *    maintained by Cratylus http:www.dead-souls.net
+ * 
+ *    created by lash (ccoker)
+ *    for use in the The Brass Ring mud
+ *    last modified 20/19/05
+ */
+
 #include <lib.h>
 
 inherit LIB_DAEMON;
