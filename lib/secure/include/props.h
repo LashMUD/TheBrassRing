@@ -1,6 +1,10 @@
-/* from the dead souls mudlib http://www.dead-souls.net
- * 12/02/15 modified by Lash (ccoker
- * to include factions.c for The Brass Ring
+/*    from the Dead Souls mud library 
+ *    maintained by Cratylus http://www.dead-souls.net
+ *
+ *    modified by lash for use in
+ *    The Brass Ring mud
+ *    - addition to include factions.c
+ *    last modified: 12/02/15
  */
 
 #ifndef s_props_h
