@@ -1,48 +1,22 @@
+/*    /lib/powers/npc/curse.c
+ *    based on the Dead Souls mud library
+ *    maintained by Cratylus http:www.dead-souls.net
+ *
+ *    created by lash (ccoker) for use in
+ *    The Brass Ring mud
+ *     - functions to put a "curse" on an object
+ *    last modified: 20/05/20
+ */
+
 class curse{
     object who;
     int duration;
-    int modifier;
     string *skills;
     string *stats;
-    string amessage;
-    string emessage;
+    string endmsg;
 }
 
-class curse Cursed = 0;
-
-varargs mixed eventCurse(object who, int time, int howmuch, string *skaffected,
-  string *staffected, string textin, string textout)
-{ 
-    Cursed = new(class curse);
-      Cursed->who = who;
-      Cursed->duration = time;
-      Cursed->modifier = howmuch;
-      Cursed->skills = skaffected;
-      Cursed->stats = staffected;
-      Cursed->amessage = textin;
-      Cursed->emessage = textout;
-    
-    if(!arrayp(skaffected) || !arrayp(staffected)){
-        write("No argument to skills or stats affected");
-        return 0;
-     }
-        else{     
-            foreach(string sktype in skaffected){
-            who->AddSkillBonus(sktype, howmuch);
-            foreach(string sttype in staffected)
-            who->AddStatBonus(sttype, howmuch);
-        }
-    }
-    if(stringp(textin))
-    {
-        tell_player(who, textin);
-    }
-    else
-    {
-        who->eventPrint("\nYou feel very uncomfortable.\n");
-    }
-    return 1; 
-}
+    class curse Cursed = 0;
 
 int GetCursed(){
     if(Cursed){
@@ -53,25 +27,60 @@ int GetCursed(){
     }
 }
 
-void RemoveCurse(){
+varargs mixed eventCurse(object ob, int time, int degree, string *skil,
+  string *stat, string afmsg, string ndmsg)
+{
 
-    object who = Cursed->who;
-    string *skills = Cursed->skills;
-    string *stats = Cursed->stats;
-    string emess = Cursed->emessage;
-        
-    Cursed = 0;
-       
-    foreach(string sktype in skills){
-        who->RemoveSkillBonus(sktype);
+    if(ob->GetCursed()) return 0;    
+    
+    Cursed = new(class curse);
+    Cursed->who = ob;
+    Cursed->duration = time;
+    Cursed->skills = skil;
+    Cursed->stats = stat;
+    Cursed->endmsg = ndmsg;
+    
+    if(sizeof(skil)){
+        foreach(string sk in skil){
+            ob->AddSkillBonus(sk, degree);
+        }
+    if(sizeof(stat))
+        foreach(string st in stat){
+            ob->AddStatBonus(st, degree);
+         }
     }
-    foreach(string sttype in stats){
-        who->RemoveStatBonus(sttype);
-    }
-    if(stringp(emess)){
-        tell_player(who, emess);
+    if(stringp(afmsg)){
+        tell_player(ob, afmsg);
     }
     else{
-        tell_player(who, "\nYou feel well again.\n");
+        ob->eventPrint("\nYou feel very uncomfortable.\n");
     }
+    return 1; 
+}
+
+int RemoveCurse(){
+
+    object ob = Cursed->who;
+    string *skills = Cursed->skills;
+    string *stats = Cursed->stats;
+    string endmsg = Cursed->endmsg;
+    
+    Cursed = 0;
+
+    if(sizeof(skills)){
+        foreach(string skill in skills){
+            ob->RemoveSkillBonus(skill);
+         }
+    if(sizeof(stats))
+        foreach(string stat in stats){
+            ob->RemoveStatBonus(stat);
+         }
+    }
+    if(stringp(endmsg)){
+        tell_player(ob, endmsg);
+    }
+    else{
+        tell_player(ob, "\nYou feel well again.\n");
+    }
+    return 1;
 }
