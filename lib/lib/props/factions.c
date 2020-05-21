@@ -1,12 +1,15 @@
-/*    /lib/props/factions.c
- *    From the Dead Souls Mud Library
- *    The factions property
+/*    /lib/lib/props/factions.c
+ *    based on the Dead Souls Mud library
+ *    maintained by Cratylus http://ww.dead-souls.net
+ *    
  *    Based on /lib/props/properties.c
  *    Created by Descartes of Borg 961222
  *    Version: @(#) properties.c 1.1@(#)
  *    Last modified: 96/12/22
- *    ccoker modified for factions: 2015/12/08
- *
+ *    
+ *    created and modifed by lash (ccoker)
+ *    for use in The Brass Ring mud
+ *    last modified: 15-12-08
  */
 
 #include <lib.h>
@@ -124,12 +127,6 @@ mapping GetFactions(){
 
 string *GetFacs(){
     return keys(Factions);
-}
-
-/*function below mainly for NPC use*/
-mapping SetFactions(mapping facs){
-    if(sizeof(Factions)) return (Factions[facs] += facs);
-    else return (Factions = facs);
 }
 
 void CheckTimer(){
