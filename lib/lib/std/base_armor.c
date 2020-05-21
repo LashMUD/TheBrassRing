@@ -5,10 +5,11 @@
  *    Version: @(#) armor.c 1.9@(#)
  *    Last modified: 97/01/01
  *
- *    bug fix to save armor conditions
- *    added variable ({Protection}) to my_save array
- *    ccoker (Lash)
- *    2016-02-24
+ *    modified by lash (ccoker) for use in
+ *    The Brass Ring mud
+ *     - bug fix to save armor conditions
+ *       added variable ({Protection}) to my_save array
+ *    last modified: 16/02/24
  */
 
 #include <lib.h>
@@ -193,19 +194,15 @@ string GetItemCondition(){
     string *a_dam;
     cuts = dents = -1;
 
-    //write("\nIN GETITEM CONDITION");
-
     foreach(int type, int val in Protection){
         int x;
         if( BLADE & type || KNIFE & type ){
             x = to_float(val) / GetMaxProtection(type) * 100;
             if( cuts == -1 || x < cuts ) cuts = x;
-            //write("cuts is "+cuts);
         }
         else if( BLUNT & type ){
             x = to_float(val) / GetMaxProtection(type) * 100;
             if( dents == -1 || x > dents ) dents = x;
-            //write("dents is "+dents);
         }
     }
     if( cuts == -1 && dents == -1 ) return 0;
