@@ -1,10 +1,15 @@
-/*
-* Some info about some variables associated
-* with timekeeping in the Mud
-* version 1.0 2011/10/13
-* Added by Lash (ccoker) and modified 2015/12/03
-*/
-
+/*    /lib/secure/cmds/creators/timeinfo.c
+ *    based on the Dead Souls mud library
+ *    maintained by Cratylus http://www.dead-souls.net
+ * 
+ *    created by lash (ccoker) for use in
+ *    The Brass Ring mud
+ *     - Some info about some variables associated
+ *       with timekeeping in the Mud
+ *    modified: 11/10/13
+ *     - added more varables to the output
+ *    last modified: 20-05-20  
+ */
 
 #include <lib.h>
 #include <daemons.h>
