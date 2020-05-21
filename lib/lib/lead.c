@@ -3,8 +3,11 @@
  *    Provides lead support for mobile objects.
  *    Works closely with LIB_FOLLOW.
  *    Created by Rush 951028
- *    modified by Lash (ccoker) for 'pet' use
- *    in The Brass Ring 
+ *    
+ *    modified by Lash (ccoker) for use in
+ *    The Brass Ring mud
+ *     - added functions for pet use
+ *    last modified 20/05/20 
  */
 
 #include <lib.h>
@@ -118,13 +121,7 @@ int eventMoveFollowers(object dest){
         int pos = ob->GetPosition();
         follower = Followers[ob];
 
-        /* added by lash - this is a check to see if the follower of the player is
-         * present in player's Properties mapping as a "pet". If so, then we
-         * don't want the pet to be removed from the player's Followers mapping
-         * just because it is not in a 'stand' position. Note - need to add a
-         * check to see if the player is in combat with the pet, then the player
-         *  may actually want to 'evade' the pet
-         */
+        /* added by lash (ccoker) for pet objects */
         if(this_player()->GetProperty("pet") == ob && (ob->GetSleeping() || ob->GetParalyzed()
             || pos & badpos)) return 0;
         /* end add */              
@@ -139,11 +136,7 @@ int eventMoveFollowers(object dest){
         followChance += ob->GetSkillLevel("tracking");
         followChance += follower["bonus"];
         if( ob->eventFollow(dest, followChance) ) follower["lost"] = 0;
-        /* added by lash - as above, so below. A check to make sure the "pet" cannot be
-         * evaded by the player and removed from players Followers mapping. Note - need
-         * to add a check to see if the player is in combat with the pet, then the player
-         *  may actually want to 'evade' the pet
-         */
+        /* added by lash - per above */
         if(this_player()->GetProperty("pet") == ob ) return 0;
         /* end add */ 
         else if( follower["lost"]++ && eventEvade(ob) ){
