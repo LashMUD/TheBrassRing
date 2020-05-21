@@ -5,10 +5,12 @@
  *    Version: @(#) player.c 1.26@(#)
  *    Last Modified: 97/01/03
  *    
- *    added code for factions used in TBR and
- *    deleted some code relating to experience points
- *    not used in TBR -lash (ccoker)
- *    20/05/16
+ *    modified by lash (ccoker) for use in
+ *    The Brass Ring mud
+ *     - added code for factions used in TBR and
+ *       deleted some code relating to experience
+ *       points which are not used in TBR
+ *    last modified: 20/05/16
  */
 
 #include <lib.h>
