@@ -1,4 +1,12 @@
 Changelog (year-month-day)
+2020-05-28
+*/lib//lib/props/factions.c
+ - recoded so that it works as intended - redid SetFactions() function
+*/domains/town/npc/leo.c
+ - used new SetFactions() function
+*/lib/doc/The_Brass_Ring
+ - rewrote some of this help file - still needs work
+
 2020-05-21
 * several files have had minor editing changes related to file headers,
   addition of file headers if not present, and in file comments removal that
