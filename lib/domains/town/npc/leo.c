@@ -58,13 +58,13 @@ static void create() {
     SetLanguage("common", 100);
     SetDefaultLanguage("common");
     SetCustomXP(10);
-    AddFaction("order of the Arcane Sciences");
+    SetFactions(([ "Order of the Arcane Sciences" : ({100,100}), ]));
 }
 
 int CompleteQuest(object ob){
-    string *quests;
+    //string *quests;
     object sword = present("orcslayer", this_object());
-    quests = ob->GetQuests();
+    //quests = ob->GetQuests();
     if(!ob->GetQuest("Orc Slayer Quest")){
         ob->AddQuest("the Orc Slayer","Orc Slayer Quest");
         eventForce("say You have solved the Orc Slayer Quest. Congratulations!");
@@ -76,10 +76,10 @@ int CompleteQuest(object ob){
         reload("/domains/town/room/orc_fortress",0,1);
         reload("/domains/town/room/orc_temple",0,1);
     }
-    if(member_array("order of the Arcane Sciences",ob->GetFacs()) == -1){
+    if(member_array("Order of the Arcane Sciences",ob->GetFacs()) == -1){
         eventForce("say I hereby bestow upon you the prestigious Level of ONE "+
                         "in the Order of the Arcane Sciences!");
-        ob->AddFaction("order of the Arcane Sciences");
+        ob->AddFaction("Order of the Arcane Sciences");
     }
     return 1;
 }
@@ -94,7 +94,7 @@ int eventReceiveObject(object foo) {
     if(base_name(ob) == "/domains/town/weap/orcslayer"){
         this_object()->DisableActions(1);
         call_out("CompleteQuest", 0, player);
-        call_out("EnableActions", 300, 1);
+        call_out("EnableActions", 1, 1);
     }
     return ret;
 }
