@@ -80,6 +80,8 @@ mixed AddFactionTimer(string fac, int val){
     if( !stringp(fac) || !Factions[fac] )
         return;
     Factions[fac]["level_timer"] += val;
+    if( !val )
+        Factions[fac]["level_timer"] = SEASONS_D->GetTime();
     return Factions[fac]["level_timer"];
 }
 
@@ -107,6 +109,8 @@ mixed AddReputationTimer(string fac, int val){
     if( !stringp(fac) || !Factions[fac] )
         return;
     Factions[fac]["reputation_timer"] += val;
+    if( !val )
+        Factions[fac]["reputation_timer"] = SEASONS_D->GetTime();
     return Factions[fac]["reputation_timer"];
 }
 
