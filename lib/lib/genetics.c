@@ -8,7 +8,9 @@
  *    modified by lash (ccoker) for use in
  *    The Brass Ring mud
  *     - added functions for skill based leveling system
- *    last modified: 20/05/19
+ *     - added code to eventRestoreSight() function so blindness
+ *       can be removed without the 'amt' argument given
+ *    last modified: 20/06/02
  */
 
 #include <vision.h>
@@ -137,10 +139,19 @@ mixed eventRestoreSight(object who, int amt){
     if( !Blind ){
         return GetName() + " is not blind!";
     }
-    Blind->count -= amt;
-    if( Blind->count < 1 ){
+    /* added by lash so sight can be restored immediately */
+    if(!amt){
+        Blind->count = 0;
         RemoveBlindness();
         return 1;
+    }
+    /* end add */
+    else{
+        Blind->count -= amt;
+        if( Blind->count < 1 ){
+            RemoveBlindness();
+            return 1;
+        }
     }
     return 0;
 }
