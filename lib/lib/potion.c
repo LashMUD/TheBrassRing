@@ -5,7 +5,8 @@
  *    The Brass Ring mud
  *     - added SetResistance() function
  *     - added this header
- *    last modified: 20-05-20
+ *     - added mappimgs for functionality
+ *    last modified: 20/06/02
  */
 
 #include <lib.h>
@@ -15,10 +16,10 @@ inherit LIB_MEAL;
 
 mapping Skills = ([]);
 mapping Stats = ([]);
+mapping Resistance = ([]);
 mapping Points = ([]);
-string brl = " ";
-int brt = 0;
 int Duration;
+
 
 void create(){
     meal::create();
@@ -42,6 +43,15 @@ mapping GetSkills(){
     return copy(Skills);
 }
 
+mapping SetResistance(mapping arg){
+    Resistance = copy(arg);
+    return copy(Resistance);
+}
+
+mapping GetResistance(){
+    return copy(Resistance);
+}
+
 mapping SetPoints(mapping arg){
     Points = copy(arg);
     return copy(Points);
@@ -60,20 +70,13 @@ int GetDuration(){
     return Duration;
 }
 
-/* added by lash (ccoker) */
-varargs string SetResistance(int type, string level){
-    brt = type;
-    brl = level;
-}
-/* end add */
-
 mixed eventDrink(object who){
     object ob=new(LIB_BONUS);
     ob->SetPoints(Points); 
     ob->SetStats(Stats); 
-    ob->SetSkills(Skills); 
+    ob->SetSkills(Skills);
+    ob->SetResistance(Resistance);
     ob->SetBonusDuration(Duration);
-    ob->SetResistance(brt, brl);
     ob->eventMove(who);
     return meal::eventDrink(who);
 }
@@ -83,8 +86,8 @@ mixed eventEat(object who){
     ob->SetPoints(Points);
     ob->SetStats(Stats);
     ob->SetSkills(Skills);
+    ob->SetResistance(Resistance);
     ob->SetBonusDuration(Duration);
-    ob->SetResistance(brt, brl);
     ob->eventMove(who);
     return meal::eventEat(who);
 }
