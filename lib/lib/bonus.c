@@ -6,9 +6,9 @@
  *     - bug fix: bonus object wasn't being destructed
  *     - 2014-12-12
  *     -added functionality for setting resistances
- *     - 2015-12-28
- *     - added check for resistance variables
- *     last modified: 20/05/20
+ *     - 15/12/28
+ *     - changed functionality to use mappings
+ *     last modified: 20/06/02
  */
 
 #include <lib.h>
@@ -22,16 +22,15 @@ int SetBonuses();
 mapping Skills = ([]);
 mapping Stats = ([]);
 mapping Points = ([]);
+mapping Resistance = ([]);
 int Duration = 15;
 string bonusname;
 object whom;
-string brl = " ";
-int brt = 0;
 
 void create(){
     item::create();
     AddSave( ({ "Skills", "Stats", "Points", "Duration", "bonusname" }) );
-    SetInvis(1);
+    SetInvis(0);
     SetId("bonus_object");
     SetShort("bonus");
     SetLong("A bonus");
@@ -76,6 +75,15 @@ mapping GetSkills(){
     return copy(Skills);
 }
 
+mapping SetResistance(mapping arg){
+    Resistance = copy(arg);
+    return copy(Resistance);
+}
+
+mapping GetResistance(){
+    return copy(Resistance);
+}
+ 
 mapping SetPoints(mapping arg){
     Points = copy(arg);
     return copy(Points);
@@ -110,8 +118,19 @@ int SetBonuses(){
         foreach(string key, int val in Skills){
             whom->AddSkillBonus(key, val);
         }
+    if(sizeof(Resistance))
+        foreach(int val, string key in Resistance){
+            switch(key){
+                case "none" : whom->SetResistance(val, "none"); break;
+                case "low" : whom->SetResistance(val, "low"); break; 
+                case "medium" : whom->SetResistance(val, "medium"); break;
+                case "high" : whom->SetResistance(val, "high"); break;
+                case "immune" : whom->SetResistance(val, "immune"); break;
+                default : break;
+            }
+        }
     if(sizeof(Points))
-        foreach(string key, int val in Points){
+        foreach(int val, string key in Points){
             switch(key){
                 case "HP" : whom->AddHP(val);break;
                 case "XP" : whom->AddExperiencePoints(val);break;
@@ -124,13 +143,11 @@ int SetBonuses(){
                 default : break;
             }
         }
-    if(brt !=0 && brl !=0)
-    whom->SetResistance(brt,brl);
-    
     return 1;    
 }
 
 int RemoveBonuses(){
+    
     if(!whom && environment()) whom = environment();
     if(!whom || !living(whom)) return 0;
     if(sizeof(Stats))
@@ -141,8 +158,17 @@ int RemoveBonuses(){
         foreach(string key, int val in Skills){
             whom->RemoveSkillBonus(key);
         }
-    whom->SetResistance(brt,"none");
-    
+    if(sizeof(Resistance))
+        foreach(int val, string key in Resistance){
+            switch(key){
+                case "none" : whom->SetResistance(val, "none"); break;
+                case "low" : whom->SetResistance(val, "none"); break; 
+                case "medium" : whom->SetResistance(val, "none"); break;
+                case "high" : whom->SetResistance(val, "none"); break;
+                case "immune" : whom->SetResistance(val, "none"); break;
+                default : break;
+            }
+        }
     return 1;
 }
 
@@ -169,11 +195,6 @@ string GetBonusName(){
 
 string SetBonusName(string name){
     return bonusname = name;
-}
-
-varargs string SetResistance(int type, string level){
-    brt = type;
-    brl = level;    
 }
 
 mixed CanGet(object who){ return 0; }
