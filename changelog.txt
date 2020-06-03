@@ -1,4 +1,19 @@
 Changelog (year-month-day)
+2929-06-02
+*/lib/lib/bonus.c
+ - added mappings for functionality
+ - file flows better and the code is more robust
+ - apologies to Cratylus for my previous attempts and totally
+   butchering this file
+*/lib/lib/potion.c
+ - added mappings for functionality
+*/lib/lib/genetics.c
+ - changed code in function eventRestoreSight(object who, int amt) 
+   so sight can be restored immediately. Put in a check if 'amt' is not given
+   as an argument
+*/lib/domains/Etnar/Wyr/meals/4050_purple_potion.c
+ - changed code to fit with above file modifications
+
 2020-05-28
 */lib//lib/props/factions.c
  - recoded so that it works as intended - redid SetFactions() function
