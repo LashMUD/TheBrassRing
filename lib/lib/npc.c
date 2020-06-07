@@ -12,7 +12,7 @@
  *       mudlib LIB_ROOM file
  *     modified:  11/10/31
  *     - added inherit LIB_FACTION
- *     last modified: 20/05/20    
+ *     last modified: 20/06/07    
  */
 
 #include <lib.h>
@@ -159,8 +159,16 @@ static void heart_beat(){
     if( !GetInCombat() && sizeof(ActionsMap)){
         foreach(mixed key, mixed val in ActionsMap){
             if( val > random(100) ){
-                if(functionp(key)) evaluate(key);
-                else eventPrint(key);
+                if(functionp(key)){ 
+                    evaluate(key);
+                }
+                if( stringp(key) && key != "" && key[0] == '!' && key!= "!" ){
+                    key = key[1..];
+                    eventForce(key);
+                }
+                else if(stringp(key)){
+                    message("other_action", key, environment());
+                }
             }
         }
     }
