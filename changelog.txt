@@ -1,5 +1,11 @@
 Changelog (year-month-day)
-2929-06-02
+2020-06-07
+*/lib/lib/npc.c
+ - changed SetActionsMap() functionality so it works as intended
+ - added varargs type to eventRestoreSight()
+ - fixed a typo in the changelog (!)
+
+2020-06-02
 */lib/lib/bonus.c
  - added mappings for functionality
  - file flows better and the code is more robust
