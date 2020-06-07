@@ -135,7 +135,7 @@ mixed eventDeviateStat(string stat, int amount){
     return Stats[stat]["class"];
 }
 
-mixed eventRestoreSight(object who, int amt){
+varargs mixed eventRestoreSight(object who, int amt){
     if( !Blind ){
         return GetName() + " is not blind!";
     }
