@@ -7,10 +7,9 @@
  *    
  *    modified by lash (ccoker) for use in
  *    The Brass Ring mud
- *     - added code for factions used in TBR and
- *       deleted some code relating to experience
- *       points which are not used in TBR
- *    last modified: 20/05/16
+ *     - added code for factions used in TBR
+ *     - player should not be cursed or blinded after death regeneration
+ *     last modified: 20/06/13
  */
 
 #include <lib.h>
@@ -134,7 +133,7 @@ varargs mixed eventDisplayStatus(int simple){
     max_mp = GetMaxMagicPoints();
     sp = GetStaminaPoints();
     max_sp = GetMaxStaminaPoints();
-    /* deleted experience point code - not used in TBR */
+    xp = GetExperiencePoints();
     qp = GetQuestPoints();
 
     if( percent(hp, max_hp) < 20.0 )
@@ -229,7 +228,11 @@ varargs void eventRevive(int nopenalty){
     if(this_player()->GetPoison() > 0){
         this_player()->AddPoison(0 - this_player()->GetPoison());
     }
-    /* deleted experience point code - not used in TBR */
+    if(!nopenalty && newbiep(this_object())) {
+        nopenalty = 1;
+        write("As a newbie you don't incur an experience penalty"
+                " for this death.\n");
+    }
     if(!nopenalty){
         int expee, subexpee;
 #ifdef LIB_PLAYER_SKILL_LOSS
@@ -255,7 +258,9 @@ varargs void eventRevive(int nopenalty){
             }
         }
 #endif
-    /* deleted experience point code - not used in TBR */
+        expee = this_object()->GetExperiencePoints();
+        subexpee = to_int(expee * PERCENT_XP);
+        this_object()->AddExperienceDebt(subexpee);
     }
     NewBody(GetRace());
     eventCompleteHeal(GetMaxHealthPoints());
@@ -269,6 +274,8 @@ varargs void eventRevive(int nopenalty){
         shots = this_object()->GetLead("rifleshot_wounds");
         if(shots) this_object()->AddLead("rifleshot_wounds", -shots);
     }
+    if(this_object()->GetCursed()) this_object()->RemoveCurse();
+    if(this_object()->GetBlind()) this_object()->eventRestoreSight();
     if(creatorp()){
         string livingtitle = this_object()->GetLivingShort();
         if(!livingtitle) livingtitle = "$N the reborn";
