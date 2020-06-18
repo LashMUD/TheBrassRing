@@ -276,6 +276,7 @@ int eventCompleteMove(mixed dest){
 
 int eventDestruct(){
     mixed array worn = ({});
+    if(!valid_event(previous_object(), this_object())) return 0;
     if(room_environment() && room_environment()->GetPersistent()){
         if(!Equipped) Equipped = ([]);
         worn = this_object()->GetWorn();
