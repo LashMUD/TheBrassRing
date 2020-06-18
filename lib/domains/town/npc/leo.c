@@ -5,7 +5,7 @@
  *    The Brass Ring mud
  *     - modified so Leo adds a faction to the player
  *      for completing The Orcslayer quest
- *    last modified: 20/5/20
+ *    last modified: 20/06/08
  */
 
 #include <lib.h>
@@ -79,7 +79,7 @@ int CompleteQuest(object ob){
     if(member_array("Order of the Arcane Sciences",ob->GetFacs()) == -1){
         eventForce("say I hereby bestow upon you the prestigious Level of ONE "+
                         "in the Order of the Arcane Sciences!");
-        ob->AddFaction("Order of the Arcane Sciences");
+        ob->AddFactions(({"Order of the Arcane Sciences"}));
     }
     return 1;
 }
