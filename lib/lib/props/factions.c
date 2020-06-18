@@ -9,7 +9,7 @@
  *    
  *    created and modifed by lash (ccoker)
  *    for use in The Brass Ring mud
- *    last modified: 15-12-08
+ *    last modified: 20/06/08
  */
 
 #include <lib.h>
@@ -18,6 +18,7 @@
 mapping Factions    = ([]);
 void CheckTimer();
 
+//for npc's
 mapping SetFactions(mapping fac){
 
     string faction;
@@ -27,21 +28,28 @@ mapping SetFactions(mapping fac){
         Factions[faction] = ([ "faction level":stat[0],
             "reputation":stat[1] ]);
        }
-    return Factions;
+    return fac;
 }
 
-varargs mixed AddFaction(string fac){
+//for players
+mixed AddFactions(mapping fac){
 
     int flev = 1;
     int ltime = SEASONS_D->GetTime();
     int rlev = 1;
     int rtime = SEASONS_D->GetTime();
-    
-    if( !stringp(fac) ) return;
-    if( Factions[fac] ) return;
-    Factions[fac] = (["faction level":flev,"level_timer":ltime,
-        "reputation":rlev,"reputation_timer": rtime ]);
-    return Factions[fac];
+    string faction;
+
+    if(!arrayp(fac)){
+        write("ERROR: factions must be in an array ({\"a\",\"b\"})"); 
+        return;
+    }
+    foreach(faction in fac){
+        if(Factions[faction]) continue;
+        Factions[faction] = (["faction level":flev,"level_timer":ltime,
+            "reputation":rlev,"reputation_timer": rtime ]);
+    }
+    return 1;
 }
 
 mixed RemoveFaction(string fac){
