@@ -3,7 +3,7 @@
 #define DEFAULT_PROMPT           "> "
 #define HOST_IP                  "127.0.0.1"
 #define MUD_STATUS               "mudlib development"
-#define ADMIN_EMAIL              "n@n"
+#define ADMIN_EMAIL              "n@n.net"
 #define DEBUGGER                 "lash"
 #define LOCAL_NEWS_PREFIX        "nm"
 #define MUD_IS_LOCKED            1
@@ -14,8 +14,8 @@
 #define MINUTES_REBOOT_WARNING   20
 #define TIME_TO_RESET            3600
 #define RESET_ALL                0
-#define GMT_OFFSET               -32000
-#define LOCAL_TIME               0
+#define GMT_OFFSET               0
+#define LOCAL_TIME               1
 #define EXTRA_TIME_OFFSET        0
 #define MAX_LOG_SIZE             150000
 #define MAX_NET_DEAD_TIME        1800
