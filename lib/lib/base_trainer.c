@@ -101,7 +101,7 @@ string Expertise(){
             tmp = last_string_element(expertises2,",");
             expertises2 = replace_string(expertises2,tmp," and"+tmp);
         }
-        expertises2 = ". In terms of spells, I can teach you "+expertises2;
+        expertises2 = ".\n In terms of spells, I can teach you "+expertises2;
     }
 
     return expertises + expertises2;
