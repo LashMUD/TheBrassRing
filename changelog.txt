@@ -1,4 +1,11 @@
 Changelog (year-month-day)
+2020-06-18
+*/lib/lib/player.c
+ - added code so player is not still blinded or cursed after death regeneration
+*/lib/lib/props/factions.c
+ - modified AddFactions function so can add multiple factions through the 
+   function
+
 2020-06-07
 */lib/lib/npc.c
  - changed SetActionsMap() functionality so it works as intended
