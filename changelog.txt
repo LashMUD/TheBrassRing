@@ -1,5 +1,4 @@
 Changelog (year-month-day)
-testing
 2020-06-18
 */lib/lib/player.c
  - added code so player is not still blinded or cursed after death regeneration
