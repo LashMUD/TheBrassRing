@@ -95,10 +95,10 @@ static void RemoveBlindness(){
 varargs mixed eventBlind(object who, int amt, mixed end){
     Blind = new(class blindness);
     Blind->count = amt;
-    Blind->end = end;
+    mixed val = Blind->end;
     /* added by lash (ccoker) to customize messages sent to player */
     if( arrayp(end) ){
-        send_messages(end[1], end[0], this_object());
+        send_messages(val[0], val[1], this_object());
     }
     else if( functionp(end) && !(functionp(end) & FP_OWNER_DESTED) ){
         evaluate(end, this_object());
