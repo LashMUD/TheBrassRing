@@ -1,4 +1,10 @@
 Changelog (year-month-day)
+
+2020-06-25
+*/lib/lib/genetics.c 
+ - changed variables in eventBlind() function to emulate previous code from
+   original DS mudlib
+
 2020-06-18
 */lib/lib/player.c
  - added code so player is not still blinded or cursed after death regeneration
