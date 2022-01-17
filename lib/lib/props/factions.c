@@ -40,10 +40,6 @@ mixed AddFactions(mapping fac){
     int rtime = SEASONS_D->GetTime();
     string faction;
 
-    if(!arrayp(fac)){
-        write("ERROR: factions must be in an array ({\"a\",\"b\"})"); 
-        return;
-    }
     foreach(faction in fac){
         if(Factions[faction]) continue;
         Factions[faction] = (["faction level":flev,"level_timer":ltime,
@@ -52,12 +48,14 @@ mixed AddFactions(mapping fac){
     return 1;
 }
 
-mixed RemoveFaction(string fac){
-    if( !stringp(fac) || !Factions[fac]){
-        return;
+int RemoveFaction(string fac){
+    if( !stringp(fac) || !Factions[fac] || undefinedp(Factions[fac]) ){
+        return 0;
     }
-    map_delete(Factions, fac);
-    return !Factions[fac];
+    else{
+      map_delete(Factions, fac);
+    }
+    return Factions[fac];
 }
 
 mapping GetFactions(){
