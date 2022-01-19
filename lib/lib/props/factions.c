@@ -40,12 +40,21 @@ mixed AddFactions(mapping fac){
     int rtime = SEASONS_D->GetTime();
     string faction;
 
+    if(!arrayp(fac)){
+        return ("String(s) must be quoted in array format:({a, b, etc})");
+    }
+
     foreach(faction in fac){
         if(Factions[faction]) continue;
         Factions[faction] = (["faction level":flev,"level_timer":ltime,
             "reputation":rlev,"reputation_timer": rtime ]);
     }
     return 1;
+}
+
+mapping GetFactionsMap(){
+    if(!Factions) Factions = ([]);
+    return Factions;
 }
 
 int RemoveFaction(string fac){
@@ -55,12 +64,7 @@ int RemoveFaction(string fac){
     else{
       map_delete(Factions, fac);
     }
-    return Factions[fac];
-}
-
-mapping GetFactions(){
-    if(!Factions) Factions = ([]);
-    return Factions;
+    return 1;
 }
 
 string *GetFacs(){
