@@ -101,7 +101,8 @@ string Expertise(){
             tmp = last_string_element(expertises2,",");
             expertises2 = replace_string(expertises2,tmp," and"+tmp);
         }
-        expertises2 = ".\n In terms of spells, I can teach you "+expertises2;
+        /*separate skills from spells for a bit more clarity*/
+        expertises2 = ".\n\nIn terms of SPELLS, I can teach you "+expertises2;
     }
 
     return expertises + expertises2;
@@ -112,16 +113,16 @@ mapping GetStudents(){ return copy(Students); }
 /**** high-level events ****/
 
 int eventHelp(object who, string unused){
-    if(who) me->eventForce("speak I am not sure of what you are "
-            "asking, " + who->GetName() + ".");
+    /*if(who) me->eventForce("speak I am not sure of what you are "
+            "asking, " + who->GetName() + ".");*/
     if(sizeof( GetTrainingSkills() )){
-        me->eventForce("speak My area of training expertise covers " +
+        me->eventForce("speak I can help TRAIN you in the arts of " +
                 Expertise() + ".");
-        me->eventForce("speak You can \"ask "+me->GetKeyName()+" to train "
+        me->eventForce("speak You can \"ask "+me->GetShort()+" to train "
                 "<SKILL>\" if you have training points.");
-        if(sizeof(me->GetSpellBook()) && !GetNoSpells()){
-            me->eventForce("speak You can also \"ask "+me->GetKeyName()+
-                    " to teach <SPELL>.\"");
+       if(sizeof(me->GetSpellBook()) && !GetNoSpells()){
+            me->eventForce("speak You can also \"ask "+me->GetShort()+
+                    " to teach <SPELL>\"");
         }
     }
     return 1;
