@@ -122,7 +122,7 @@ int eventHelp(object who, string unused){
                 "<SKILL>\" if you have training points.");
        if(sizeof(me->GetSpellBook()) && !GetNoSpells()){
             me->eventForce("speak You can also \"ask "+me->GetShort()+
-                    " to teach <SPELL>\"");
+                    " to teach <SPELL>\" if you have the required magic skill.");
         }
     }
     return 1;
