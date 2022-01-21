@@ -206,7 +206,9 @@ int eventTrain(object who, string verb, string skill){
                 this_player()->GetSkills() ) == -1 ){
         me->eventForce("speak You do not appear to be the type "
                 "who would be skilled in " + skill + "!");
-        me->eventForce("speak I cannot train you in a skill you don't know at all. You may need to join a guild or a class that enables you to train in this skill.");
+        me->eventForce("speak I cannot train you in a skill you don't know at all. "+
+                "You may need to join a guild or a class that enables you to train "+
+                "in this skill.");
         return 0;
     }
     if( this_player()->GetTrainingPoints() < 1 ){
