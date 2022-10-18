@@ -37,8 +37,8 @@ static void create() {
     SetExits( ([
                 "south" : "/domains/Etnar/Wyr/room/rm_104",
                ] ));
-    AddExit("east","/domains/Etnar/Wyr/room/rm_101", (:acolyte_chamber:));
-    AddExit("west","/domains/Etnar/Wyr/room/rm_102", (:henli_chamber:));
+    AddExit("east","/domains/etnar/wyr/room/rm_101", (:acolyte_chamber:));
+    AddExit("west","/domains/etnar/wyr/room/rm_102", (:henli_chamber:));
 
 }
 
