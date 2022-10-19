@@ -119,7 +119,7 @@ int SetBonuses(){
             whom->AddSkillBonus(key, val);
         }
     if(sizeof(Resistance))
-        foreach(int val, string key in Resistance){
+        foreach(string key, int val in Resistance){
             switch(key){
                 case "none" : whom->SetResistance(val, "none"); break;
                 case "low" : whom->SetResistance(val, "low"); break; 
@@ -159,7 +159,7 @@ int RemoveBonuses(){
             whom->RemoveSkillBonus(key);
         }
     if(sizeof(Resistance))
-        foreach(int val, string key in Resistance){
+        foreach(string key, int val in Resistance){
             switch(key){
                 case "none" : whom->SetResistance(val, "none"); break;
                 case "low" : whom->SetResistance(val, "none"); break; 
