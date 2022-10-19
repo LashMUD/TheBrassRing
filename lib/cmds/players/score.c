@@ -48,13 +48,13 @@ mixed cmd(string arg) {
 
 varargs mixed eventScore(string arg) {
     string *str;
-    int birth, age, x, y, z, qp, xp;
+    int birth, age, b, x, y, z, qp, xp;
     string *tmp;
     mapping lev;
     object who;
     string prn, haben, be, poss;
-    string past, qual, cnj;
-
+    string past, qual, cnj, yrstr;
+    
     if(!arg || !creatorp(this_player()) || !(who = find_player(arg))){
         who = this_player();
         haben = "have";
@@ -89,9 +89,12 @@ varargs mixed eventScore(string arg) {
                 consolidate(sizeof(who->GetTitles()),
                     "one title") ) });
     birth = who->GetBirth();
+    b = query_year(birth);
+    if(b < 0) yrstr = (2037+b) + " Old Calendar";
+    else yrstr = b + "";
     age = ( query_year(time()) - query_year(birth) );
-    str += ({ sprintf("Birth Date        %d%s day of %s, year %d (%d years old)", query_date(birth), ordinal(query_date(birth)),
-                query_month(birth), query_year(birth), age) });
+    str += ({ sprintf("Birth Date        %d%s day of %s, year %s (%d years old)", query_date(birth), ordinal(query_date(birth)),
+                query_month(birth), yrstr, age) });
     if( who->GetWimpy() )
         str += ({ "Wimpy             On "+"("+who->GetWimpy()+"%)" }); 
         else str+= ({ "Wimpy             Off" });

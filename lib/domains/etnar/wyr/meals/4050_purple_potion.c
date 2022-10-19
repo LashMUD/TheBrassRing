@@ -4,7 +4,7 @@
  * http://www.dikumud.com
  *
  * Modified by Lash (Christopher Coker) for use with:
- *  -added mapping for finctionality
+ *  -added mapping for functionality
  *  -last modified 20/06/02 
  *
  * The Dead Souls Mud Library 
@@ -32,7 +32,7 @@ static void create() {
     SetMealAction((: potionfunc :));
     SetBaseCost("gold",500);
     SetNoCondition(1);
-    SetResistance( (["medium" : ALL_EXTERNAL_DAMAGE]) );
+    SetResistance( ([ALL_EXTERNAL_DAMAGE : "medium"]) );
     SetDuration(300);
     SetProperty("magic", "This potion cures blindnes and confers sanctuary.");
 }

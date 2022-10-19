@@ -227,7 +227,7 @@ void magic_missile(object ob){
     tell_player(target, "\n%^BOLD%^%^GREEN%^You stagger as a magic missile from "
         +capitalize(ob->GetKeyName())+" hits you.%^RESET%%^\n");
     tell_room(env, "\n"+capitalize(ob->GetKeyName())+" throws a magic missile at "
-        +target->GetKeyName()+" who staggers under the blow\n", ({ob, target}));
+        +target->GetKeyName()+" who staggers under the blow.\n", ({ob, target}));
     if (s_throw <= save){
         tell_room(env, "\n"+capitalize(target->GetShort())+" partially resists "
             +ob->GetKeyName()+"'s magic attack!\n", ({ ob, target }));
