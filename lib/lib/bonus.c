@@ -130,7 +130,7 @@ int SetBonuses(){
             }
         }
     if(sizeof(Points))
-        foreach(int val, string key in Points){
+        foreach(string key, int val in Points){
             switch(key){
                 case "HP" : whom->AddHP(val);break;
                 case "XP" : whom->AddExperiencePoints(val);break;
