@@ -1,23 +1,24 @@
 Setup - I currently use Linux Mint x64 as my operating system.
 
-1. download the dead souls mud library from http://dead-souls.net
+download the dead souls mud library from http://dead-souls.net
 
-2. compile dead souls per instructions and start the mud
+compile dead souls per instructions and start the mud
 
-3. connect and login as an admin character
+connect and login as an admin character
 
-4. logout and kill the mud processes: "startmud" and "driver"
+logout and kill the mud processes: "startmud" and "driver"
 
-5. replace the files in the ds3.9/lib directories with the files in this 
-   repository. BACKUP THE ORIGINAL FILES FIRST
+replace the files in the ds3.9/lib directories with the files in this 
+repository. BACKUP THE ORIGINAL FILES FIRST
 
-6. start the mud again - login as the admin character and issue the following 
-   commands:
-   mudconfig selectclass no
-   mudconfig selectskills yes
-   mudconfig xpadvancement no
-   mudconfig skilladvancement yes
-   warmboot
+start the mud again - login as the admin character and issue the following 
+commands:
 
-7. connect and create a test character - you should now be able to select primary,
+mudconfig selectclass no
+mudconfig selectskills yes
+mudconfig xpadvancement no
+mudconfig skilladvancement yes
+warmboot
+
+connect and create a test character - you should now be able to select primary,
    secondary and other skills for your test character 
