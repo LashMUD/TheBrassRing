@@ -26,4 +26,4 @@ mudconfig skilladvancement yes
 warmboot
 
 connect and create a test character - you should now be able to select primary,
-   secondary and other skills for your test character 
+secondary and other skills for your test character 
