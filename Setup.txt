@@ -18,6 +18,7 @@ mudconfig selectclass no
 mudconfig selectskills yes
 mudconfig xpadvancement no
 mudconfig skilladvancement yes
+mudconfig autoadvance yes
 warmboot
 
 connect and create a test character - you should now be able to select primary,
