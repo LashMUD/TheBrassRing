@@ -22,7 +22,7 @@ mudconfig autoadvance yes
 warmboot
 
 connect and create a test character - you should now be able to select primary,
-secondary and other skills for your test character. 
+secondary and minor skills for your test character. 
 
 If you don't want to use autoadvance see the modified dirk.c file in 
 /lib/domains/town/npc folder. Dirk is coded to advance players based on 
