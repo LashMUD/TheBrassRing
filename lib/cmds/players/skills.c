@@ -10,7 +10,8 @@
  *      - modifed string GetLine() function so
  *        player  can see skills as they are
  *        affected by bonuses
- *     last modified: 20/05/20
+ *      - changed ""Other skills" to "Minor skills"
+ *     last modified: 22/10/22
  */
 
 #include <lib.h>
@@ -66,7 +67,7 @@ mixed cmd(string args) {
     ret += format_page2(primes, x);
     ret += "\n%^BOLD%^%^BLUE%^Secondary skills:%^RESET%^\n";
     ret += format_page2(secs, x);
-    ret += "\n%^BOLD%^%^BLUE%^Other skills:%^RESET%^\n";
+    ret += "\n%^BOLD%^%^BLUE%^Minor skills:%^RESET%^\n";
     ret += format_page2(skills, x);
     this_player()->eventPage(explode(ret, "\n"));
     return 1;
