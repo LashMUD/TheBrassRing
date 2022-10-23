@@ -41,7 +41,6 @@ string GetName();
 mixed GetProperty(string key);
 string array AddChannel(mixed val);
 string array RemoveChannel(mixed val);
-mixed *RemoveNonTargets(mixed val);
 int eventForce(mixed args);
 int eventExecuteAttack(mixed target);
 int eventWeaponRound(mixed target, mixed val);
@@ -214,7 +213,6 @@ static int GetDamage(int power, string skill){
     if( x < 1 ){ // negative luck or cursed strength
         return 1;
     }
-    //tell_player("lash","x from GetDamage is "+x+" and this_object() is "+this_object()->GetShort());
     return x;
 }
 
@@ -394,13 +392,9 @@ varargs int SetAttack(mixed target, function callback, int type){
         }
 
         if(environment(target[0]) == this_object()){
-            //tell_player("lash", "round INTERNAL:target is "+target->GetShort()+" this_object() is "+this_object()->GetShort());
-            //tell_player("lash", "round INTERNAL");
             type = ROUND_INTERNAL;
         }
         if(environment(this_object()) == target[0]){
-             //tell_player("lash", "round EXTERNAL:target is "+target->GetShort()+" this_object() is "+this_object()->GetShort());
-            //tell_player("lash", "round EXTERNAL");
             type = ROUND_EXTERNAL;
         }
 
@@ -425,17 +419,11 @@ varargs int SetAttack(mixed target, function callback, int type){
 
 int CanWeapon(object target, string type, int hands, int num){
     string limb = target->GetRandomLimb(TargetLimb);
-    int chance = ( 7*GetSkillLevel(type+" attack") +
-                   2*GetStatLevel("coordination") +
-                   2*GetStatLevel("agility") +
-                     GetStatLevel("speed"))/16;
-    /*int chance = (7*GetSkillLevel(type+" attack") + 
-                  3*GetStatLevel("coordination"))/10;*/
+    int chance = (7*GetSkillLevel(type+" attack") + 
+            3*GetStatLevel("coordination"))/10;
     int div = 2;
     int x, y;
-  
-    //tell_player("lash","CanWeapon unmodified chance is "+chance+" this_object() is "+this_object()->GetShort());
-    
+
     if(hands > 1){  
         if(GetSkillLevel("multi-hand")){
             chance = (chance/2) + 
@@ -476,35 +464,51 @@ int CanWeapon(object target, string type, int hands, int num){
 int CanMelee(object target){
     //if(environment(target) == this_object() ||
     //environment(this_object()) == target) return 100;
-    /*if(!this_object()->GetMelee() && 
-            this_object()->GetClass() != "fighter"){*/
-    string limb = target->GetRandomLimb(TargetLimb);
-    int chance = ( 7*GetSkillLevel("melee attack") +
-                   2*GetStatLevel("coordination") +
-                   2*GetStatLevel("agility") +
-                     GetStatLevel("speed") )/16;
-        /*
-int chance = ( 6*this_object()->GetSkillLevel("melee attack") +
-                2*GetStatLevel("coordination") )/20;*/
-    int y = random(10);
-    int x;
+    if(!this_object()->GetMelee() && 
+            this_object()->GetClass() != "fighter"){
+        string limb = target->GetRandomLimb(TargetLimb);
+        int chance = ( 6*this_object()->GetSkillLevel("melee attack") +
+                2*GetStatLevel("coordination") )/20;
+        int y = random(10);
+        int x;
 
-    //tell_player("lash","CanMelee unmodified chance is "+chance+" target is "+target->GetShort());
-    
-    chance = GetCombatChance(chance/3);
-    x = random(chance);
-    if( x <= y ){
-        if( x > y/2 ){
-            TargetLimb = target->GetRandomLimb(0);
+        chance = GetCombatChance(chance/3);
+        x = random(chance);
+        if( x <= y ){
+            if( x > y/2 ){
+                TargetLimb = target->GetRandomLimb(0);
+            }
+            else {
+                TargetLimb = 0;
+            }
         }
         else {
-            TargetLimb = 0;
+            TargetLimb = limb;
         }
+        return chance;
     }
     else {
-        TargetLimb = limb;
+        string limb = target->GetRandomLimb(TargetLimb);
+        int chance = ( 7*this_object()->GetSkillLevel("melee attack") +
+                3*GetStatLevel("coordination") )/10;
+        int y = random(10);
+        int x;
+
+        chance = GetCombatChance(chance/2);
+        x = random(chance);
+        if( x <= y ){
+            if( x > y/2 ){
+                TargetLimb = target->GetRandomLimb(0);
+            }
+            else {
+                TargetLimb = 0;
+            }
+        }
+        else {
+            TargetLimb = limb;
+        }
+        return chance;
     }
-    return chance;
 }
 
 /*4. combat resolutionI */
@@ -562,10 +566,9 @@ static int Destruct(){
 
 /*  *****************   /lib/combat.c events  ***************** */
 /*1. set up attack */
-/*1.a set up attack - pre-attack */ 
+/*1.a set up attack - pre-attack */
 int eventPreAttack(object agent){
     object env = room_environment();
-    //tell_player("lash","eventPreAttack agent is "+agent->GetShort());
     if( agent == this_object() ){
         return 0;
     }
@@ -649,7 +652,6 @@ int eventExecuteAttack(mixed target){
     }  
     switch(type){
         case ROUND_UNDEFINED: case ROUND_EXTERNAL:
-            //tell_player("lash", "round UNDEFINED or EXTERNAL");
             if( functionp(f) && !(functionp(f) & FP_OWNER_DESTED) ){
                 return evaluate(f, target);
             }
@@ -661,23 +663,18 @@ int eventExecuteAttack(mixed target){
             }
 
         case ROUND_INTERNAL:
-            //tell_player("lash", "round INTERNAL");
             return eventMeleeRound(target, 0);
 
         case ROUND_MAGIC:
-            //tell_player("lash", "round MAGIC");
             return eventMagicRound(target, f);
 
         case ROUND_MELEE:
-            //tell_player("lash", "round MELEE");
             return eventMeleeRound(target, functionp(f) ? f : 0);
 
         case ROUND_WEAPON:
-            //tell_player("lash", "round WEAPON");
             return eventWeaponRound(target, functionp(f) ? f : GetWielded());
 
-        case ROUND_OTHER: /* biting (?) */
-            //tell_player("lash", "round OTHER");
+        case ROUND_OTHER:
             if( functionp(f) && !(functionp(f) & FP_OWNER_DESTED) ){
                 return evaluate(f);
             }
@@ -725,8 +722,8 @@ int eventMeleeRound(mixed target, function f){
 void eventMeleeAttack(object target, string limb){
     int pro, con, autohit;
     int chance, fail;
-    /*int canmelee = (this_object()->GetMelee() ||
-            this_object()->GetClass() == "fighter");*/
+    int canmelee = (this_object()->GetMelee() ||
+            this_object()->GetClass() == "fighter");
 
     if(AttacksPerHB > MAX_ATTACKS_PER_HB) return;
     if( target->GetDead() || Dead || target->GetDying() ){
@@ -737,6 +734,7 @@ void eventMeleeAttack(object target, string limb){
         eventBite(target);
         return;
     }
+
     if(environment(target) == this_object() ||
             environment(this_object()) == target){
         con = 0;
@@ -770,18 +768,12 @@ void eventMeleeAttack(object target, string limb){
         }
         if(!estatep(target)) eventTrainSkill("melee attack", pro, con, 1,
                 GetCombatBonus(target->GetLevel()));
-        /*if(canmelee) x = GetDamage(3*chance/4, "melee attack");
-        else*/
-        x = GetDamage(3*chance/4, "melee attack");
-        //tell_player("lash", "x1 is "+x);
+        if(canmelee) x = GetDamage(3*chance/4, "melee attack");
+        else x = GetDamage(3*chance/20, "melee attack");
         x -= encumbrance;
-        //tell_player("lash", "x2 is "+x);
-        //tell_player("lash","hp1 of target is "+target->GetHealthPoints());
         if(x < 0) x = 0;
         x = target->eventReceiveDamage(this_object(), BLUNT, x, 0,
                 TargetLimb);
-        //tell_player("lash","x3 from eventMeleeAttack is "+x+" and target is "+target->GetShort());
-        //tell_player("lash","hp2 of target is "+target->GetHealthPoints());
         SendMeleeMessages(target, (x > 0) ? x : 0, TargetLimb);
         if( target->GetDying() ){
         }
@@ -879,11 +871,9 @@ void eventWeaponAttack(object target, object weapon, int num){
         damage = (weapon->eventStrike(target) * pro)/(GetLevel()*2);
         damage = GetDamage(damage, weapon_type + " attack");
         damage -= encumbrance;
-        //tell_player("lash","DAMAGE from eventWeaponAttack() is "+damage+" and target limb is "+TargetLimb);
         if(damage < 0) damage = 0;
         actual_damage = target->eventReceiveDamage(this_object(), damage_type,
                 damage, 0, TargetLimb);
-        //tell_player("lash","ACTAUAL_DAMAGE from eventWeaponAttack() is "+actual_damage+" and target is "+target->GetShort());
         if( actual_damage < 0 ){
             actual_damage = 0;
         }
@@ -906,9 +896,6 @@ mixed eventBite(object target){
     int pro = CanMelee(target);
     int con = target->GetDefenseChance(target->GetSkillLevel("melee defense"));
     int x = random(pro);
-
-    //tell_player("lash","random(pro) from eventBite is "+x+" target is "+target->GetShort());
-    
     if(AttacksPerHB > MAX_ATTACKS_PER_HB) return 0;
     if(target->GetDead()) return 1;
     if(environment(target) == this_object() ||
@@ -920,12 +907,10 @@ mixed eventBite(object target){
         return 1;
     }
     if( !fail && TargetLimb ){
-        /* bite attack is successful and limb is targeted */
         if( target->eventReceiveAttack(x, "melee", this_object()) ){ 
             x = GetDamage(pro*2, "melee attack");
             x = target->eventReceiveDamage(this_object(), BITE, x, 0,
                     TargetLimb);
-            /* bite attack is successful but does little damage */
             if( x < 1 ){
                 target->eventPrint(possessive_noun(this_object()) + " bite "
                         "is nothing more than a pinch.");
@@ -935,7 +920,6 @@ mixed eventBite(object target){
                         "pinch.",
                         ({ target, this_object() }));
             }
-            /* bite attack does damage */
             else {
                 target->eventPrint(GetName() + " bites you in the " +
                         TargetLimb + "!");
@@ -949,7 +933,6 @@ mixed eventBite(object target){
             if(!estatep(target)) eventTrainSkill("melee attack", pro, con, 1,
                     GetCombatBonus(target->GetLevel()));
         }
-        /* bite attack is successful but no damage */
         else {
             target->eventPrint("You avoid " + possessive_noun(this_object()) +
                     " bite.");
@@ -962,14 +945,10 @@ mixed eventBite(object target){
                     GetCombatBonus(target->GetLevel()));
         }
     }
-    /* bite is not successful - attack fails */ 
     else {
-       /* this_object()->eventPrint("You flounder about like a buffoon.");
+        this_object()->eventPrint("You flounder about like a buffoon.");
         env->eventPrint(GetName() + " flounders about like a "
-                "buffoon.", this_object());*/
-        this_object()->eventPrint("You bite wildly at "+target->GetName()+".");
-        env->eventPrint(GetName() + " tries to bite but flounders about"
-                " like a buffoon.", this_object()); 
+                "buffoon.", this_object());
     }
     return 1;
 }
@@ -1079,8 +1058,6 @@ varargs int eventReceiveAttack(int speed, string def, object agent){
         }
     }
     if(fail) ret = 1;
-    //tell_player("lash","ret from eventReceiveAttack is "+ret);
-    //tell_player("lash","eventReceiveAttack agent is "+agent->GetShort());
     return ret;
 }
 
@@ -1089,8 +1066,6 @@ varargs int eventReceiveAttack(int speed, string def, object agent){
 varargs int eventReceiveDamage(mixed agent, int type, int x, int internal,
         mixed limbs){
     int hp,encumbrance;
-
-    //tell_player("lash","AGENT from eventReceiveDamage() is "+agent->GetShort());
 
     if(objectp(agent)){
         if(estatep(agent) && !estatep(this_object())) return 0;
@@ -1109,7 +1084,6 @@ varargs int eventReceiveDamage(mixed agent, int type, int x, int internal,
     if( Wimpy < percent(hp, GetMaxHealthPoints()) )
         return x;
     call_out((: eventWimpy :), 0);
-    //tell_player("lash","x from eventReceiveDamage is "+x);
     return x;
 }
 
@@ -1151,7 +1125,6 @@ varargs int eventDie(mixed agent){
     int x;
     if(this_object()->GetGodMode()) return 0;
 
-    //tell_player("lash","eventDie agent is "+agent->GetShort());
     if(Dead) return 1;
     Dead = 1;
 
@@ -1169,7 +1142,7 @@ varargs int eventDie(mixed agent){
     return 1;
 }
 
-/*6b. combat resolutionII - rewards */ 
+/*6b. combat resolutionII - rewards */
 
 void eventKillEnemy(object ob){
     int level;
