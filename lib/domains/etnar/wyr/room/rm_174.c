@@ -54,11 +54,9 @@ void time(){
                     
     if (hour >= 18 & minutes >= 0 & hour <=23 & minutes <=59 ) {
         if(present("bard")) {
-            //tell_player("lash","fostaine present");
             return;
         }
         if(!present("bard")) {
-           //tell_player("lash","fostaine NOT present");
            mon = new("domains/etnar/wyr/npc/fostaine_pyre");
            mon->eventMove(this_object());
            eventPrint("%^BOLD%^%^GREEN%^Fostaine Pyre%^RESET%^ the bard has arrived!");
@@ -67,20 +65,16 @@ void time(){
     }
     else if (hour == 12 & minutes == 34) {
         if(!sizeof(env)) {
-            //tell_player("lash", "not sizeof");
             return;
         }
         if(sizeof(env)){
-            //tell_player("lash", "not sizeof");
             foreach(object thing in env){
                 if(thing->GetShort() == "Fostaine Pyre"){
-                    //tell_player("lash", "mon is "+mon->GetShort());
                     mon = thing;
                     break;
                 }
             }
         }
-    //tell_player("lash", "Fostaine should be detructed");
     mon->eventForce("stand");
     mon->eventForce("bow");
     mon->eventForce("say Thank you all for coming to my little show! I must be on my way now.");
