@@ -68,7 +68,7 @@ int checkCombat(){
         tell_room(environment(this_object()), 
             "%^BOLD%^%^GREEN%^%^A Cityguard screams 'PROTECT THE "+
             "INNOCENT!  BANZAI!!! CHARGE!!! ARARARAGGGHH!'%^RESET%^", ({this_object()}));
-        eventForce("kill "+evil->GetShort());
+        this_object()->eventForce("kill "+evil->GetShort());
     }
     return 1;
     }
