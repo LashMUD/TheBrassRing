@@ -1,0 +1,179 @@
+/* /domains/etnar/wyr/npc/gate_guard_ab.c
+ * Albert Derby - a gate guard in the village of Wyr
+ * based on The Dead Souls Mud Library
+ * maintained by Cratylus http://www.dead-souls.net
+ * for use in The Brass Ring Mud
+ * last edited by lash 20/05/21
+ */
+
+#include <lib.h>
+
+inherit LIB_SENTIENT;
+
+int checkCombat();
+int Chat(string str);
+string rumors = " ";
+int x;
+
+int eventNews(object ob);
+
+static void create() {
+    sentient::create();
+
+    SetKeyName("Albert Derby");
+    SetId(({"gate guard", "guard"}));
+    //SetAdjectives(({"non-player", "non player"}));
+    SetShort("Albert Derby the Gate guard");
+    SetLong("Albert is of medium height for a human, with black hair and green eyes. ");
+    SetCanBite(0);
+    SetRace("human");
+    SetClass("fighter");
+    SetLevel(10);
+    SetMelee(1);
+    SetGender("male");
+    SetMorality(2500);
+    AddCurrency("gold", 500);
+    SetLanguage("common",100);
+    SetDefaultLanguage("common");
+    SetInventory( ([
+        "/domains/etnar/wyr/weap/longsword" : "wield sword",
+        "/domains/etnar/wyr/armor/leather_boots_hard" : "wear boots",
+        "/domains/etnar/wyr/armor/leather_pants_studded" : "wear pants",
+        "/domains/etnar/wyr/armor/leather_jerkin" : "wear jerkin",
+        "/domains/etnar/wyr/armor/leather_sleeves_studded" : "wear sleeves",
+        "/domains/etnar/wyr/armor/leather_gloves" : "wear gloves",
+    ] ));
+    SetAction(1, ({
+        "!say The trade routes are pretty sketchy these days.",
+    }) );
+    SetTalkResponses( ([  
+        "orgon" : ( :Chat("orgon"): ),
+        "guards" : ( :Chat("guards"): ),
+        "ashlyn" : ( :Chat("ashlyn"): ),
+        "vexwood" : ( :Chat("vexwood"): ),
+        "caravans" : ( :Chat("caravans"): ),
+        ({"kobolds", "kolbold"}) : ( :Chat("kobolds"): ),
+        ({"trade routes", "trade", "routes"}) : "Not safe these days. Reports "+
+            "of whole caravans gone missin'.",
+        ({"bandit", "falkner"}) : ( :Chat("bandit"): ),
+       
+    ]) );
+    SetFactions( ([ "The Strike of Balcor":({8,10}),
+    ]) );
+    AddRequestResponses( ([ 
+        "news": (: eventNews :) 
+    ]) );        
+}
+
+int Chat(string str){
+    object ob = this_player();
+    object env = environment(this_object());
+
+    if(!present("waltin", env)){
+        eventForce("say I don't know nothin' 'bout nothin'!\n"+
+                   "Where's Waltin? He should have been back by now!");
+        return 1;
+    }
+    switch(str){
+        case "bandit" :  
+           if(!inherits(LIB_NPC, ob)){
+               eventForce("say Yeah, this guy named Falkner, he's trying to "+
+                   "get some nasty kobolds to join his band and make "+
+                   "a name for himself!");
+                eventForce("laugh");
+                return 1;
+            }
+            else{
+                eventForce("say Ha! Falkner and his tribe of kobolds striking "+ 
+                    "fear into the hearts of many...");
+                eventForce("spit");
+                return 0;
+            };
+        break;
+        case "orgon" : 
+           if(!inherits(LIB_NPC, ob)){
+                eventForce("say The city up northwest. They sent some guards down here "+ 
+                    "for reinforcements while the new wall is being built. They "+ 
+                    "think they own the place");
+                return 1;
+            }
+            else{
+               eventForce("say Yeah, those Orgonians are pretty uppity.");
+                return 1;
+            };
+        break;
+        case "vexwood" :  
+            if(!inherits(LIB_NPC, ob)){
+                eventForce("say Vexwood forest off to the south. The old hero, "+
+                    "Eflam, had a keep there once. It's now in ruins. "+
+                    "Lots of unusual creatures in that wood.");  
+                return 1;
+            }
+            else{
+                 return 0;                
+            };
+        break;
+        case "ashlyn" : 
+            if(!inherits(LIB_NPC, ob)){
+                return 0;
+            }
+            else{
+                eventForce("say And that Innkeeper. What does she see in him anyways?");
+                return 1;                
+            };
+        break;
+        case "caravans" :
+            if(!inherits(LIB_NPC, ob)){
+                eventForce("say Traders travelling back and forth between Wyr and Orgon "+
+                    "in covered wagons and teams of mules. It's getting harder to hire "+
+                    "mercenaries for protection. I know I won't go, even though the pay "+
+                    "is pretty good.");
+                eventForce("shrug");
+                return 1;
+             }
+             else{
+                 return 0;
+             }
+        case "guards" :
+           if(!inherits(LIB_NPC, ob)){
+                eventForce("say They came from the city of Orgon up northwest. You know, "+
+                    "city types.");
+                eventForce("frown");
+                return 1;
+            }
+            else{
+                return 0;
+            };
+        case "kobolds" :
+           if(!inherits(LIB_NPC, ob)){
+                eventForce("say Small, scaly, little dog-like creatures. They've been "+
+                    "roaming the Vexwood for years. Ususally not more than just a nuisance. "+
+                    "They're nasty, dirty and short.");
+                eventForce("cackle");
+                return 1;
+            }
+            else{
+                return 0;
+            };
+        default : eventForce("say Don't know much about that.");
+        break;
+    }
+}
+
+int eventNews(){
+
+    x=random(5);
+    
+    //unguarded( (: rumors = read_file("/domains/etnar/wyr/text/rumors/albert/rumor"+x+".txt") :) );
+    unguarded( (: rumors = read_file("/domains/etnar/wyr/text/rumors/albert/rumors",x,1) :) );
+    eventForce("say "+rumors);
+    return 1;
+}
+
+    
+
+void init(){
+    ::init();
+}
+
+
