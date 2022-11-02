@@ -5,8 +5,15 @@
 // http://www.dead-souls.net
 
 #include <lib.h>
+#include <daemons.h>
 
 inherit LIB_ROOM;
+
+void time();
+
+int hour, minutes;
+int *time_of_day;
+object mon; 
 
 static void create() {
 
@@ -35,7 +42,59 @@ static void create() {
     SetExits( ([
         "northeast" : "/domains/etnar/wyr/room/rm_131",
         ] ));
+    set_heart_beat(1);
 }
+
+void time(){
+    object mon;
+    object *env = get_livings(this_object());
+    time_of_day = SEASONS_D->GetMudTime();
+    hour = time_of_day[0];
+    minutes = time_of_day[1];
+                    
+    if (hour >= 18 & minutes >= 0 & hour <=23 & minutes <=59 ) {
+        if(present("bard")) {
+            //tell_player("lash","fostaine present");
+            return;
+        }
+        if(!present("bard")) {
+           //tell_player("lash","fostaine NOT present");
+           mon = new("domains/etnar/wyr/npc/fostaine_pyre");
+           mon->eventMove(this_object());
+           eventPrint("%^BOLD%^%^GREEN%^Fostaine Pyre%^RESET%^ the bard has arrived!");
+           mon->eventForce("sit on stool");
+        }
+    }
+    else if (hour == 12 & minutes == 34) {
+        if(!sizeof(env)) {
+            //tell_player("lash", "not sizeof");
+            return;
+        }
+        if(sizeof(env)){
+            //tell_player("lash", "not sizeof");
+            foreach(object thing in env){
+                if(thing->GetShort() == "Fostaine Pyre"){
+                    //tell_player("lash", "mon is "+mon->GetShort());
+                    mon = thing;
+                    break;
+                }
+            }
+        }
+    //tell_player("lash", "Fostaine should be detructed");
+    mon->eventForce("stand");
+    mon->eventForce("bow");
+    mon->eventForce("say Thank you all for coming to my little show! I must be on my way now.");
+    mon->eventForce("wink");
+    eventPrint("With a flourish %^BOLD%^%^GREEN%^Fostaine Pyre%^RESET%^ leaves the room...");
+    mon->eventDestruct();
+    }
+}
+        
+void heart_beat(){
+    ::heart_beat();
+    time();
+}
+
 
 void init(){
    ::init();
