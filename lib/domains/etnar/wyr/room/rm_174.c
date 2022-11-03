@@ -74,8 +74,8 @@ void time(){
             //tell_player("lash", "sizeof true");
             foreach(object thing in env){
                 if(thing->GetShort() == "Fostaine Pyre"){
-                    //tell_player("lash", "mon is "+mon->GetShort());
                     mon = thing;
+                    //tell_player("lash", "mon is "+mon->GetShort());
                     break;
                 }
             }
