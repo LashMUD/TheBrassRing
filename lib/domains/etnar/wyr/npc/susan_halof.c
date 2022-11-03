@@ -26,7 +26,6 @@ void create(){
     SetAdjectives(({"whimsical","wise","aloof"}));
     SetFactions( ([ "House Halof" : ({20, 20}),
                     "Mystics Guild" : ({20,20}),
-                    "House Halof" : ({20,20}), 
     ]) );
     SetGender("female");
     SetRace("elf");
