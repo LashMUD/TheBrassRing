@@ -8,7 +8,7 @@ static void create() {
     SetId(({"goat"}));
     SetAdjectives(({"wooly", "non player"}));
     SetShort("Lulu the goat");
-    SetLong("A small rambunctious goat with a small bell hanging around its "
+    SetLong("A small, rambunctious goat with a small bell hanging around its "
         "neck wanders the yard munching on the grass. She wears a small "
         "nametag that reads 'LuLu'."
         );
