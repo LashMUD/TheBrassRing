@@ -24,7 +24,7 @@ static void create() {
     SetLong("   The lounge is smaller and more comfortable than the common room "
                "but still spacious. There are a few tables and chairs around. "
                "In the back wall behind a stage, there is a small fireplace with " 
-               "a sitting stool on it.");
+               "a sitting stool nearby.");
     SetItems( ([ 
                 "stage" : 
                     "The stage is a rough wooden platform about a foot above floor "
@@ -67,11 +67,11 @@ void time(){
     }
     else if (hour == 0 & minutes == 0) {
         if(!sizeof(env)) {
-            //tell_player("lash", "not sizeof");
+            tell_player("lash", "not sizeof");
             return;
         }
         if(sizeof(env)){
-            //tell_player("lash", "true sizeof");
+            tell_player("lash", "not sizeof");
             foreach(object thing in env){
                 if(thing->GetShort() == "Fostaine Pyre"){
                     //tell_player("lash", "mon is "+mon->GetShort());
@@ -80,7 +80,7 @@ void time(){
                 }
             }
         }
-    //tell_player("lash", "Fostaine should be detructed");
+    tell_player("lash", "Fostaine should be detructed");
     mon->eventForce("stand");
     mon->eventForce("bow");
     mon->eventForce("say Thank you all for coming to my little show! I must be on my way now.");
