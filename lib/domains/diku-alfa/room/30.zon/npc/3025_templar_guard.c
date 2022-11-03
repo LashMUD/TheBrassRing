@@ -40,7 +40,9 @@ static void create() {
     SetMorality(2000);
     AddCurrency("gold", 2000);
     SetProperty("no bump", 1);
-    SetFactions( (["Warlord of Balcor" : 1, "Knights of Izzy" : 1 ]) );
+    SetFactions( (["Warlord of Balcor" :({ 1,1 }), 
+                   "Knights of Izzy" : ({ 1,1 }) 
+    ]) );
     //SetGuard("north" , "The guard humiliates you, and blocks your way.");
 }
 
