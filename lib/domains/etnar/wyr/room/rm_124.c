@@ -24,7 +24,21 @@ static void create() {
         "up" : "Upstairs. You can see that the wooden stairs lead up to a "
              "doorway.",
         "down" : "",
-        "sign" : "A sign you can read.",
+        "sign" : "You can use these commands for trading:\n\n "
+
+                 "Items available type:       ask <vendor> to list\n " 
+                 "                            ask <vendor> to browse\n "
+                 "                            ask <vendor> to browse <item(s)>\n\n "
+
+                 "Buy an item type:           ask <vendor> to sell <item>/<item #>\n "
+                 "                             or\n "
+                 "                            buy <item>/<item #> from <vendor>\n\n " 
+                 
+                 "Value of item to sell type: ask <vendor> to appraise <item>\n\n "
+
+                 "Sell item to vendor type:   ask <vendor> to buy <item>\n "
+                 "                             or\n "
+                 "                            sell <item> to vendor\n\n "
          ] ));
     /*SetInventory( ([
         "/domains/etnar/wyr/npc/dirk" : 1,
@@ -40,7 +54,7 @@ static void create() {
 }
 
 mixed ReadSign(){
-    return (mixed)this_player()->eventPage("/domains/etnar/text/vendorsign.txt");
+    return (mixed)this_player()->eventPage("/domains/etnar/wyr/text/vendorsign.txt");
 }
 
 void init(){
