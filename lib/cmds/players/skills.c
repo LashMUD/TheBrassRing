@@ -41,7 +41,7 @@ mixed cmd(string args) {
         this_player()->GetLevel();
     if( (tmp = this_player()->GetClass()) )
         ret += " " + capitalize(tmp);
-    else ret += " Drifter";
+    else ret += " Adventurer";
     ret += " (" + this_player()->GetRace() + ")\n";
     scr = (this_player()->GetScreen())[0];
 
