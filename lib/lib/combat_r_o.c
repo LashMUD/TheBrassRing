@@ -41,6 +41,7 @@ string GetName();
 mixed GetProperty(string key);
 string array AddChannel(mixed val);
 string array RemoveChannel(mixed val);
+mixed *RemoveNonTargets(mixed val);
 int eventForce(mixed args);
 int eventExecuteAttack(mixed target);
 int eventWeaponRound(mixed target, mixed val);

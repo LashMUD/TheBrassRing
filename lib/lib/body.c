@@ -1998,7 +1998,7 @@ int GetHealRate(){
 
     heal = 1 - (GetPoison() / 2);
     heal += ( (GetDrink() + GetFood()) || 1 ) / 40;
-    if(GetSleeping()) mod++;
+    if(GetSleeping()) mod +=5;
     if(GetAlcohol() > 10) mod++;
     if(dude->GetStatLevel("strength") > 50) mod++;
     if(dude->GetStatLevel("durability") > 50) mod++;

@@ -58,7 +58,7 @@ static void eventRun() {
     catch( reload("/domains/Praxis/square.c",0,1));
     catch( reload("/domains/Ylsrim/room/tower",0,1));
     catch( reload("/domains/campus/room/slab",0,1));
-    //catch( reload("/domains/diku-alfa/room/30.zon/rm_3001.c",0,1));/*added by Lash for new domain*/
+    catch( reload("/domains/diku-alfa/room/30.zon/rm_3001.c",0,1));/*added by Lash for new domain*/
     catch( reload("/domains/etnar/wyr/room/rm_100.c",0,1));/*added by Lash for new domain*/
 
     //Put your start-on-boot stuff above

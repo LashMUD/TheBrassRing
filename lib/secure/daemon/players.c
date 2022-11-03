@@ -325,7 +325,7 @@ int CheckAdvance(object ob){
     int *mlevels = ({});
     int *psorted, *ssorted, *msorted;
 
-    level = this_player()->GetLevel() * 12;
+    level = this_player()->GetLevel() * 15;
     dlev = (ob->GetLevel())+1;
     
     if(SKILL_ADVANCE){
@@ -348,8 +348,9 @@ int CheckAdvance(object ob){
             mlevels += ({this_player()->GetBaseSkillLevel(str)});
         }
         mlevels = sort_array(mlevels,-1);
-        if((plevels[0] + plevels[1] + plevels[2] + slevels[0] + slevels[1] + 
-            mlevels[0]) >= level){
+        if((plevels[0] + plevels[1] + plevels[2] + plevels[3] +plevels[4]
+            + slevels[0] + slevels[1] + slevels[2] 
+            + mlevels[0] + mlevels[1] + mlevels[2] + mlevels[3] + mlevels [4]) >= level){
             if(AUTO_ADVANCE) AutoAdvance(ob, dlev);
             return 1;
         }

@@ -483,9 +483,8 @@ int CanMelee(object target){
                    2*GetStatLevel("coordination") +
                    2*GetStatLevel("agility") +
                      GetStatLevel("speed") )/16;
-        /*
-int chance = ( 6*this_object()->GetSkillLevel("melee attack") +
-                2*GetStatLevel("coordination") )/20;*/
+    /*int chance = ( 6*this_object()->GetSkillLevel("melee attack") +
+                     2*GetStatLevel("coordination") )/20;*/
     int y = random(10);
     int x;
 
