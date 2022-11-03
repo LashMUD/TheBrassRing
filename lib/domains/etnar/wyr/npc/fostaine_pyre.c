@@ -31,6 +31,9 @@ static void create() {
     SetDefaultLanguage("common");
     SetPolyglot(1);
     SetAutoStand(0);
+    SetFactions( ([ "House Pyre" : ({20,10}),
+                    "Fighters Guild" : ({20, 20}),
+    ]) );
 }
 
 void init(){
