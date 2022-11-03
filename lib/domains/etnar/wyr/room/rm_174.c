@@ -52,35 +52,40 @@ void time(){
     hour = time_of_day[0];
     minutes = time_of_day[1];
                     
-    if (hour >= 18 & minutes >= 0 & hour <=23 & minutes <=59 ) {
+    if (hour == 18  & minutes == 0 & hour <=23 & minutes <=59 ) {
         if(present("bard")) {
-            //tell_player("lash","fostaine present");
-            return;
+            if(sizeof(env)){
+                foreach(object thing in env){
+                    if(thing->GetShort() == "Fostaine Pyre"){
+                        mon = thing;
+                        break;
+                    }
+                }
+            }
+            if(!mon->GetInCombat()) {
+                mon->eventForce("sit on stool");
+                return;
+            }
         }
         if(!present("bard")) {
-           //tell_player("lash","fostaine NOT present");
-           mon = new("domains/etnar/wyr/npc/fostaine_pyre");
-           mon->eventMove(this_object());
-           eventPrint("%^BOLD%^%^GREEN%^Fostaine Pyre%^RESET%^ the bard has arrived!");
-           mon->eventForce("sit on stool");
+            mon = new("domains/etnar/wyr/npc/fostaine_pyre");
+            mon->eventMove(this_object());
+            eventPrint("%^BOLD%^%^GREEN%^Fostaine Pyre%^RESET%^ the bard has arrived!");
+            mon->eventForce("sit on stool");
         }
     }
-    else if (hour == 0 & minutes == 0) {
+    else if (hour == 14 & minutes == 0) {
         if(!sizeof(env)) {
-            //tell_player("lash", "not sizeof");
             return;
         }
         if(sizeof(env)){
-            //tell_player("lash", "sizeof true");
             foreach(object thing in env){
                 if(thing->GetShort() == "Fostaine Pyre"){
                     mon = thing;
-                    //tell_player("lash", "mon is "+mon->GetShort());
                     break;
                 }
             }
         }
-    //tell_player("lash", "Fostaine should be detructed");
     mon->eventForce("stand");
     mon->eventForce("bow");
     mon->eventForce("say Thank you all for coming to my little show! I must be on my way now.");
