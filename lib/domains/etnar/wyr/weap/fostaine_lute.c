@@ -22,8 +22,8 @@ void create(){
     SetAdjectives( ({"wooden", "stringed", "finely crafted"}) );
     SetId( ({"lute"}) );
     SetShort("a beautifully crafted lute");
-    SetLong("A beutifully crafted plucked string instrument with a neck and a "
-            "deep round back and a sound hole in the body. It is unfretted and "
+    SetLong("A beutifully crafted plucked string instrument with a neck, a "
+            "deep round back, and a sound hole in the body. It is unfretted and "
             "is played expertly by Fostaine Pyre when performing at the Cylops "
             "Inn.");
     SetClass(25);
@@ -31,7 +31,7 @@ void create(){
     SetDamageType(BLUNT);
     SetMass(10);
     SetBaseCost("gold", 10000);
-    SetVendorType(VT_WEAPON);
+    SetVendorType(VT_TREASURE);
 }
 
 void init(){
