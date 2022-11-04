@@ -20,7 +20,7 @@ static void create(){
     SetAdjectives(({"soft"}));
     SetShort("a pair of leather boots");
     SetLong("A pair of leather boots.");
-    SetBaseCost("copper",10);    
+    SetBaseCost("gold",10);    
     SetMass(30);
     SetDamagePoints(59);
     SetProtection(BLUNT,2);

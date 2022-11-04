@@ -24,7 +24,7 @@ static void create(){
     SetShort("a pair of leather sleeves");
     SetLong("A pair of leather sleeves.");
     SetMass(30);
-    SetBaseCost("copper",10);
+    SetBaseCost("gold",10);
     SetDamagePoints(46);
     SetProtection(BLUNT,2);
     SetProtection(BLADE,4);
