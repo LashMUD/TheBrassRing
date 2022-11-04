@@ -52,7 +52,7 @@ void time(){
     hour = time_of_day[0];
     minutes = time_of_day[1];
                     
-    if (hour == 18  & minutes == 0 & hour <=23 & minutes <=59 ) {
+    if (hour >= 18  & minutes >= 0 & hour <=23 & minutes <=59 ) {
         if(present("bard")) {
             if(sizeof(env)){
                 foreach(object thing in env){
@@ -74,7 +74,7 @@ void time(){
             mon->eventForce("sit on stool");
         }
     }
-    else if (hour == 14 & minutes == 0) {
+    else if (hour == 0 & minutes == 0) {
         if(!sizeof(env)) {
             return;
         }
