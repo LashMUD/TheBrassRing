@@ -1197,15 +1197,11 @@ void eventKillEnemy(object ob){
     else {
         this_object()->AddExperiencePoints(reward);
     }
-
-    if( member_array(ob, GetHostiles()) == -1 ){
+    if( member_array(ob, GetHostiles()) != -1 ){
         int x;
-
         if(!estatep(ob)) eventTrainSkill("murder", GetLevel(), level, 1,GetCombatBonus(level)); 
         x = ob->GetMorality();
-        if( x > 0 ) x = -x;
-        else if( GetMorality() > 200 ) x = 100;
-        else x = 0;
+        x = -x;
         eventMoralAct(x);
     }
 }
