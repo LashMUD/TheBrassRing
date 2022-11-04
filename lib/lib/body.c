@@ -8,7 +8,8 @@
  *    modified by lash (ccoker) for use in
  *    The Brass Ring mud
  *     - added code for npc curse spell
- *    last modified: 20/05/20
+ *     - buffed heal rate while sleeping
+ *    last modified: 11/04/2022
  */
 
 #include <lib.h>
@@ -1998,13 +1999,13 @@ int GetHealRate(){
 
     heal = 1 - (GetPoison() / 2);
     heal += ( (GetDrink() + GetFood()) || 1 ) / 40;
-    if(GetSleeping()) mod +=5;
+    if(GetSleeping()) mod+=5; //sleeping buff
     if(GetAlcohol() > 10) mod++;
     if(dude->GetStatLevel("strength") > 50) mod++;
     if(dude->GetStatLevel("durability") > 50) mod++;
     if(dude->GetStatLevel("luck") > random(100)) mod++;
-    if(dude->GetSkillLevel("faith") > 10) mod++;
-    mod =  heal * to_float(mod * 0.1);
+    if(dude->GetSkillLevel("faith") > 0) mod++;
+    //mod =  heal * to_float(mod * 0.1); NO - the most this will ever be is 1
     heal += mod;
     if(lead && interactive(dude)){
         if(lead < 5) heal /= (lead + 1);
