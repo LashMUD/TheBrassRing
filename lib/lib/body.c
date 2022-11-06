@@ -60,7 +60,6 @@ private static mapping Dimensions = ([]);
 private int firearms_wounds, Falling, FallCount = 1;
 string *ExtraChannels;
 mixed Agent;
-mixed GetProperty(string key);
 
 string GetRace();
 
