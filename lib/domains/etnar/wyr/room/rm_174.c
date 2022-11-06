@@ -35,6 +35,7 @@ static void create() {
         ] ));
     SetInventory(([
         "/domains/etnar/wyr/obj/bard_stool" : 1,
+        "domains/etnar/wyr/obj/trash" : 1,
         ]) );
     SetActionsMap( ([ 
                 "%^RED%^The fire crackles merrily.%^RESET%^" : 5,
@@ -52,32 +53,21 @@ void time(){
     hour = time_of_day[0];
     minutes = time_of_day[1];
                     
-    if ((hour >= 18  && minutes >= 0) && (hour <=23 && minutes <=59) ) {
-        if(present("bard")) {
-            if(sizeof(env)){
-                foreach(object thing in env){
-                    if(thing->GetShort() == "Fostaine Pyre"){
-                        mon = thing;
-                        break;
-                    }
-                }
-            }
-            if(!mon->GetInCombat()) {
-                mon->eventForce("sit on stool");
-                return;
-            }
-        }
+    if (hour == 18  & minutes == 0) {
+        if(present("bard")) return;
         if(!present("bard")) {
+            
             mon = new("domains/etnar/wyr/npc/fostaine_pyre");
             mon->eventMove(this_object());
             eventPrint("%^BOLD%^%^GREEN%^Fostaine Pyre%^RESET%^ the bard has arrived!");
             mon->eventForce("sit on stool");
+            mon->eventForce("inventory");
+            eventPrint("%^BOLD%^%^GREEN%^Fostaine Pyre%^RESET%^ pulls an expensive looking lute "
+                       "out of his oversized cloak.");
         }
     }
     else if (hour == 0 & minutes == 0) {
-        if(!sizeof(env)) {
-            return;
-        }
+        if(!sizeof(env)) return;
         if(sizeof(env)){
             foreach(object thing in env){
                 if(thing->GetShort() == "Fostaine Pyre"){
