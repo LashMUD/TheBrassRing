@@ -13,6 +13,11 @@
 inherit LIB_SENTIENT;
 
 int CheckWielded();
+void time();
+
+int hour, minutes;
+int *time_of_day;
+object mon;
 
 static void create() {
     sentient::create();
@@ -21,7 +26,7 @@ static void create() {
     SetAdjectives(({"non-player", "non player"}));
     SetShort("Fostaine Pyre");
     SetLong("Fostaine is a portly man with long curly hair sporting a thin moustache and goatee. "
-        "He is carrying a loot which he uses to entertain the clientel at the Cyclops Inn."
+        //"He usually carries a lute which he uses to entertain the clientel at the Cyclops Inn."
     );
     SetClass("bard");
     SetRace("human");
@@ -36,42 +41,53 @@ static void create() {
     SetInventory( ([
         "/domains/etnar/wyr/weap/fostaine_lute" : "1",
     ] ));
-    SetActionsMap( ([
-        ( ( :CheckWielded(): ) ) : 100,
-    ]) );
-    SetCombatAction(100, ({ (: CheckWielded :),
-    }) );
-         
     SetFactions( ([ "House Pyre" : ({20,20}),
                     "Fighters Guild" : ({20, 20}),
     ]) );
+    set_heart_beat(1);
 }
 
-int CheckWielded(){
-    if((!this_object()->GetInCombat()) && (present("lute",this_object()))){
-        this_object()->eventForce("unwield lute");
-        return 1;
-    }    
-    if(present("lute",this_object()) && this_object()->GetInCombat()){
-        this_object()->eventForce("wield lute");
-        return 1;
-    }
-    else{
-        if(this_object()->GetInCombat()){
-            new("/domains/etnar/wyr/weap/fostaine_lute")->eventMove(this_object());
-            tell_room(environment(),"%^BOLD%^%^RED%^Fostaine grabs his trusty lute "
-                "and wields it with terrible fury!%^RESET%^");
-            this_object()->eventForce("say Attack a Nobleman, will you?");
-            this_object()->eventForce("wield lute");
-            return 1;
+void time(){
+    object mon;
+    object env = environment();
+    time_of_day = SEASONS_D->GetMudTime();
+    hour = time_of_day[0];
+    minutes = time_of_day[1];
+
+    if ((hour >= 0  && minutes >= 1)/* && ((hour <= 23  & minutes <= 59))*/ ){
+        
+        if(env && env->GetShort() == "%^BOLD%^The Lounge%^RESET%^") {
+                        
+            if((!this_object()->GetInCombat()) && (present("lute",this_object()))) {
+                this_object()->eventForce("unwield lute");
+                this_object()->eventForce("sit on stool");
+                return;
+            }    
+            if((this_object()->GetInCombat()) && (present("lute",this_object()))) {
+                this_object()->eventForce("wield lute");
+                return;
+            }
+            if((this_object()->GetInCombat()) && (!present("lute",this_object()))) {
+                new("/domains/etnar/wyr/weap/fostaine_lute")->eventMove(this_object());
+                tell_room(environment(),"%^BOLD%^%^RED%^Fostaine grabs a trusty lute "
+                    "from his oversized cloak and wields it with terrible fury!%^RESET%^");
+                this_object()->eventForce("say Attack a Nobleman, will you?");
+                this_object()->eventForce("wield lute");
+                return;
+            }
         }
     }
-    if(!this_object()->GetInCombat()){
-        this_object()->eventForce("unwield lute");
+    if(env && env->GetShort() != "%^BOLD%^The Lounge%^RESET%^") {
+        this_object()->eventForce("say Oh no!, I must get back to The Lounge!"); 
+        this_object()->eventMove("/domains/etnar/wyr/room/rm_174");
     }
-    return 1;
-}
+}   
 
+void heart_beat(){
+    ::heart_beat();
+    if( !this_object()->GetInCombat()) SetAutoStand(0);
+    time();
+}
 void init(){
     ::init();
 }
