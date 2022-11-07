@@ -54,7 +54,7 @@ void time(){
     hour = time_of_day[0];
     minutes = time_of_day[1];
 
-    if ((hour >= 0  && minutes >= 1)/* && ((hour <= 23  & minutes <= 59))*/ ){
+    if ((hour >= 18  && minutes >= 1) && ((hour <= 23  & minutes <= 59)) ){
         
         if(env && env->GetShort() == "%^BOLD%^The Lounge%^RESET%^") {
                         
