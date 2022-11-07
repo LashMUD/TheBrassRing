@@ -79,6 +79,7 @@ void time(){
     mon->eventForce("stand");
     mon->eventForce("bow");
     mon->eventForce("say Thank you all for coming to my little show! I must be on my way now.");
+    mon->eventForce("put lute in bin");
     mon->eventForce("wink");
     eventPrint("With a flourish %^BOLD%^%^GREEN%^Fostaine Pyre%^RESET%^ leaves the room...");
     mon->eventDestruct();
