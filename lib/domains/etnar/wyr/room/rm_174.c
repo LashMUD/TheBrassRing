@@ -3,6 +3,7 @@
 // The Dead Souls Mud Library version 2 and above
 // developed by Cratylus
 // http://www.dead-souls.net
+// last edited by lash 22/11/07
 
 #include <lib.h>
 #include <daemons.h>
@@ -10,10 +11,9 @@
 inherit LIB_ROOM;
 
 void time();
-
 int hour, minutes;
 int *time_of_day;
-object mon; 
+object mon;  
 
 static void create() {
 
@@ -35,7 +35,8 @@ static void create() {
         ] ));
     SetInventory(([
         "/domains/etnar/wyr/obj/bard_stool" : 1,
-        "domains/etnar/wyr/obj/trash" : 1,
+        "/domains/etnar/wyr/obj/trash" : 1,
+        "domains/etnar/wyr/npc/fostaine_pyre" : 1,
         ]) );
     SetActionsMap( ([ 
                 "%^RED%^The fire crackles merrily.%^RESET%^" : 5,
@@ -48,49 +49,25 @@ static void create() {
 
 void time(){
     object mon;
-    object *env = get_livings(this_object());
     time_of_day = SEASONS_D->GetMudTime();
     hour = time_of_day[0];
     minutes = time_of_day[1];
                     
-    if (hour == 18  & minutes == 0) {
+    if (hour == 18 && minutes == 0) {
         if(present("bard")) return;
         if(!present("bard")) {
-            
             mon = new("domains/etnar/wyr/npc/fostaine_pyre");
             mon->eventMove(this_object());
             eventPrint("%^BOLD%^%^GREEN%^Fostaine Pyre%^RESET%^ the bard has arrived!");
-            mon->eventForce("sit on stool");
-            mon->eventForce("inventory");
-            eventPrint("%^BOLD%^%^GREEN%^Fostaine Pyre%^RESET%^ pulls an expensive looking lute "
-                       "out of his oversized cloak.");
+            return;
         }
-    }
-    else if (hour == 0 & minutes == 0) {
-        if(!sizeof(env)) return;
-        if(sizeof(env)){
-            foreach(object thing in env){
-                if(thing->GetShort() == "Fostaine Pyre"){
-                    mon = thing;
-                    break;
-                }
-            }
-        }
-    mon->eventForce("stand");
-    mon->eventForce("bow");
-    mon->eventForce("say Thank you all for coming to my little show! I must be on my way now.");
-    mon->eventForce("put lute in bin");
-    mon->eventForce("wink");
-    eventPrint("With a flourish %^BOLD%^%^GREEN%^Fostaine Pyre%^RESET%^ leaves the room...");
-    mon->eventDestruct();
     }
 }
-        
+
 void heart_beat(){
     ::heart_beat();
     time();
 }
-
 
 void init(){
    ::init();
