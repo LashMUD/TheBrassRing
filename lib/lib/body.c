@@ -438,7 +438,8 @@ void eventCheckHealing(){
     if(dude->GetInCombat()){
         if(dude->GetInvis()) dude->SetInvis(0);
         if(!interactive(dude) && !RACES_D->GetLimblessRace(dude->GetRace())){
-            dude->SetAutoStand(1);
+            //dude->SetAutoStand(1); NO!
+            dude->eventForce("stand");
         }
     }
 
