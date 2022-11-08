@@ -211,27 +211,6 @@ void heart_beat(){
     time();
 }
 
-/*void eventNews(object ob){
-
-    object env = environment(ob);
-    targets = filter(get_livings(env), ( :!$1->GetSleeping(): ));
-    targets -= ({ob});
-        
-    if(member_array("The Seekers of Erias",ob->GetFacs()) == -1){
-       eventForce("say Haven't heard a thing lately...");
-    }
-    else{
-        eventForce("tell "+ob->GetName()+" You won't be able to find Erias "
-            "unless you have one of these..");
-        eventForce("show brass ring to "+ob->GetName());
-        tell_room(targets, this_object()->GetShort()+" tells something to "+
-            ob->GetName()+".");
-        ob->AddReputationTimer("The Seekers of Erias");
-        ob->AddFactionTimer("The Seekers of Erias");
-        
-    }
-}*/
-
 void init(){
     ::init();
 }
