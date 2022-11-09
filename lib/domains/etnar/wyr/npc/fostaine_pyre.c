@@ -22,7 +22,6 @@ int minutes;
 
 static string open_path =  "IL.";
 static string close_path = "sbtwlf.";
-static string song1_path = "12345.";
 static string path;
 
 static int index;
