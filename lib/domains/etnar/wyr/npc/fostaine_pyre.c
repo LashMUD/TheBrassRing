@@ -70,17 +70,18 @@ int CheckWielded() {
    hour = time_of_day[0];
    minutes = time_of_day[1];   
    
-   if(!this_object()->GetInCombat()){
-       /*foreach(object enemy in env) {
-             if(this_object()->GetCurrentEnemy() != env){
-                 this_object()->SetAutostand(0);
+    if(!this_object()->GetInCombat()){
+        /*foreach(object enemy in env) {
+              if(this_object()->GetCurrentEnemy() != env){
+                  this_object()->SetAutostand(0);
               }
-         }*/    
+           }*/    
        this_object()->eventForce("unwield lute");
        if(this_object()->GetAutoStand() == 0) {
             this_object()->eventForce("sit on stool");
-   }
-   return 1;
+       }
+    }
+    return 1;
 }
 
 int WieldLute() {
