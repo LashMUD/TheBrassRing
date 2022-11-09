@@ -1,12 +1,14 @@
-/* /domains/etnar/wyr/npc/fostaine_pyre.c.
+/* 
+ */domains/etnar/wyr/npc/fostaine_pyre.c.
  * The bard in the village of Wyr
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
  * for use in The Brass Ring Mud
- * last edited by lash 22/11/07 year/month/day
  * this file works in conjunction with /domains/etnar/wyr/room/rm_174
  * where this object is created and moved into that room
  * at a specific time - this MUD is based on a 24 hour day cycle
+ * 
+ * last edited by lash 22/11/9 year/month/day
  */
 
 #include <lib.h>
