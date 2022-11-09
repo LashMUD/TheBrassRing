@@ -166,7 +166,6 @@ void actions(){
         }
         index++;    
     }
-    actions;
 }
 
 void time(){
@@ -184,6 +183,7 @@ void time(){
         path = close_path;
         index = 0;
     }
+    actions();
 }
 
 void heart_beat(){
