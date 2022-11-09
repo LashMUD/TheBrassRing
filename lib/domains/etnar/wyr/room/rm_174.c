@@ -1,9 +1,11 @@
-// Modified by Lash (Christopher Coker) for use with:
-//
-// The Dead Souls Mud Library version 2 and above
-// developed by Cratylus
-// http://www.dead-souls.net
-// last edited by lash 22/11/07
+/* Modified by Lash (Christopher Coker) for use with:
+ * The Dead Souls Mud Library version 2 and above
+ * developed by Cratylus
+ * http://www.dead-souls.net
+ * this file creates the Fostaine Pyre object at a specific time
+ * this MUD uses a 24 hr day cycle
+ * last edited by lash 22/11/9 year/month/day
+ */ 
 
 #include <lib.h>
 #include <daemons.h>
@@ -36,7 +38,6 @@ static void create() {
     SetInventory(([
         "/domains/etnar/wyr/obj/bard_stool" : 1,
         "/domains/etnar/wyr/obj/trash" : 1,
-        "domains/etnar/wyr/npc/fostaine_pyre" : 1,
         ]) );
     SetActionsMap( ([ 
                 "%^RED%^The fire crackles merrily.%^RESET%^" : 5,
@@ -53,7 +54,7 @@ void time(){
     hour = time_of_day[0];
     minutes = time_of_day[1];
                     
-    if (hour == 18 && minutes == 0) {
+    if (hour == 18 && minutes == 19) {
         if(present("bard")) return;
         if(!present("bard")) {
             mon = new("domains/etnar/wyr/npc/fostaine_pyre");

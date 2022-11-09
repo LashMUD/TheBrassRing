@@ -3,7 +3,10 @@
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
  * for use in The Brass Ring Mud
- * last edited by lash 22/11/07
+ * last edited by lash 22/11/07 year/month/day
+ * this file works in conjunction with /domains/etnar/wyr/room/rm_174
+ * where this object is created and moved into that room
+ * at a specific time - this MUD is based on a 24 hour day cycle
  */
 
 #include <lib.h>
@@ -18,7 +21,7 @@ int hour;
 int minutes;
 
 static string open_path =  "IL.";
-static string close_path = "sbtwf.";
+static string close_path = "sbtwlf.";
 static string song1_path = "12345.";
 static string path;
 
@@ -32,23 +35,25 @@ int CheckEnv() {
     hour = time_of_day[0];
     minutes = time_of_day[1];
 
-    //not supposed to be out of the lounge
-    if( (hour >= 18 && minutes >= 0 ) && (hour <=23 && minutes <= 54) && 
-            (env && env->GetShort() != "%^BOLD%^The Lounge%^RESET%^") ) {
-        this_object()->eventForce("say Oh no!, I must get back to The Lounge!"); 
+    //not supposed to be out of the lounge unless in combat
+    if( (hour >= 18 && minutes >= 0 ) && (hour <=23 && minutes <= 59) && 
+            (env && env->GetShort() != "%^BOLD%^The Lounge%^RESET%^") &&
+            this_object()->GetInCombat() !=1 ) {
+        this_object()->eventForce("say Oh no!, I must get back to The Lounge!");
+        tell_room(environment(this_object()),"Fostaine Pyre exits the room.", ({this_object()}));
         this_object()->eventMove("/domains/etnar/wyr/room/rm_174");
+        tell_room(environment(this_object()),"%^BOLD%^%^GREEN%^Fostaine Pyre%^RESET%^ the " 
+            "bard has arrived!", ({this_object()}));
     }
     //not supposed to be out after midnight
-    if( (hour <= 18 && minutes <= 0) || (hour >= 0 && minutes >= 5) ){
+    if( (hour < 18 && minutes <= 0) || (hour >= 23 && minutes >= 59) ){
         foreach(object thing in npc_env){
-            tell_player("lash", "in foreach");
             if(thing->GetKeyName() == "lute") {
                 thing->eventDestruct();
                 break;
             }
         }
         this_object()->eventDestruct();
-        tell_player("lash", "DESTRUCTION");
     }   
 }
 
@@ -71,8 +76,9 @@ int CheckWielded() {
            }
         }*/    
     this_object()->eventForce("unwield lute");
-    if(hour >= 11 && minutes <= 20) this_object()->eventForce("sit on stool");
-    //}
+    if(this_object()->GetAutoStand() == 0 && !this_object()->GetInCombat()) {
+        this_object()->eventForce("sit on stool");
+    }
     return 1;
 }
 
@@ -101,7 +107,7 @@ static void create() {
     );
     SetClass("bard");
     SetRace("human");
-    SetLevel(30);
+    SetLevel(21);
     SetGender("male");
     SetCanBite(0);
     SetMorality(1500);
@@ -109,6 +115,7 @@ static void create() {
     SetDefaultLanguage("common");
     SetPolyglot(1);
     SetAutoStand(0);
+    SetWimpy(30);
     SetInventory( ([
         "/domains/etnar/wyr/weap/fostaine_lute" : "-1",
     ] ));
@@ -125,15 +132,18 @@ static void create() {
 }
 
 void actions(){
-   if(movebool == 0) return;
-   if( (hour == 18 &&  minutes >= 2) || (hour == 0 && minutes >= 1) ){
+   if(movebool == 0){
+       return;
+   }
+   if( (hour == 18 &&  minutes >= 0) || (hour == 23 && minutes >= 58) ){
         switch (path[index]) {
            case 'I' : this_object()->eventForce("inventory");
                       break;
            case 'L' : tell_room(environment(this_object()), "%^BOLD%^%^GREEN%^Fostaine Pyre%^RESET%^ pulls an "
                       "expensive looking lute out of his oversized cloak.", ({this_object()}));
                       break;
-           case 's' : this_object()->eventForce("stand");
+           case 's' : this_object()->SetAutoStand(1);
+                      this_object()->eventForce("stand");
                       break;
            case 'b' : this_object()->eventForce("bow");
                       break;
@@ -142,44 +152,21 @@ void actions(){
                       break;
            case 'w' : this_object()->eventForce("wink");
                       break;
-           case 'f' : this_object()->eventForce("put lute in bin");
-                      tell_room(environment(this_object()),"With a flourish %^BOLD%^%^GREEN%^Fostaine "
-                      "Pyre%^RESET%^ leaves the room...", ({this_object()}));
+           case 'l' : this_object()->eventForce("put lute in bin");
+                      break;
+           case 'f' : tell_room(environment(this_object()),"With a flourish %^BOLD%^%^GREEN%^Fostaine "
+                      "Pyre leaves the room.");
                       this_object()->eventDestruct();
                       break;
-           case '.' : movebool = 0;
+           case '.' : movebool=0;
+                      break;
            default :  tell_room(environment(this_object()),"WHOOPS! Bug in fostaine pyre - please report",
                       ({this_object()}));
                       break;
         }
         index++;    
     }
-     if(hour == 21 &&  minutes >= 31) {
-         switch (path[index]) {
-         case '1' : tell_room(environment(this_object()),"%^BOLD%^%^GREEN%^Fostaine%^RESET%^ "
-                    "plucks his lute and sings 'Eflam was a warrior renowned'", ({this_object()}));
-                    break;
-         case '2' : tell_room(environment(this_object()),"%^BOLD%^%^GREEN%^Fostaine%^RESET%^ "
-                    "sings 'He walked the lands with his eyes to the sky and his ear to the ground'", 
-                    ({this_object()}));
-                    break;
-         case '3' : tell_room(environment(this_object()),"%^BOLD%^%^GREEN%^Fostaine%^RESET%^ "
-                    "sings 'With his sword, it cried and hued'", ({this_object()}));
-                    break;
-         case '4' : tell_room(environment(this_object()),"%^BOLD%^%^GREEN%^Fostaine%^RESET%^ "
-                    "sings 'As he rid the land of beings most cruel'", ({this_object()}));
-                    break;
-         case '5' : tell_room(environment(this_object()),"%^BOLD%^%^GREEN%^Fostaine%^RESET%^ "
-                    "sings 'But now Eflam is gone and we pray for the good'", ({this_object()}));
-                    break;
-         case '.' : movebool = 0;
-                    break;
-         default : tell_room(environment(this_object()),"WHOOPS! Bug in fostaine pyre - please report",
-                     ({this_object()}));
-                   break;
-         }
-         index++;
-    }
+    actions;
 }
 
 void time(){
@@ -187,23 +174,16 @@ void time(){
     hour = time_of_day[0];
     minutes = time_of_day[1];
 
-    if (hour == 18 && minutes == 1) {
+    if (hour == 18 && minutes == 0) {
         movebool = 1;
         path = open_path;
         index = 0;
     }
-    if (hour == 0 && minutes == 0) {
-        //this_object()->SetAutostand(1);
+    if (hour == 23 && minutes == 57) {
         movebool = 1;
         path = close_path;
         index = 0;
     }
-    if (hour == 21 && minutes == 30 ) {
-        movebool = 1;
-        path = song1_path;
-        index = 0;
-    }
-        actions();
 }
 
 void heart_beat(){
