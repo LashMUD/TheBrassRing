@@ -1,5 +1,5 @@
 /* 
- */domains/etnar/wyr/npc/fostaine_pyre.c.
+ * /domains/etnar/wyr/npc/fostaine_pyre.c.
  * The bard in the village of Wyr
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
