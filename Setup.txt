@@ -15,7 +15,7 @@ Additionally, files in this lib use an hour length of 1200 and
 a day length of 24. Time based functions in files that are in, or called
 by the heart_beat function, will need to be changed to adapt to the time
 style of your Dead Souls mudlib, or the set_day_length and set hour_length
-will be needed to be changed in /lib/secure/include/config.h 
+can be changed in /lib/secure/include/config.h 
 
 start the mud again - login as the admin character and issue the following 
 commands:
