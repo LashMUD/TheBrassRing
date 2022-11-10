@@ -37,9 +37,8 @@ int CheckEnv() {
     minutes = time_of_day[1];
 
     //not supposed to be out of the lounge unless in combat
-    if( (hour >= 18 && minutes >= 0 ) && (hour <=23 && minutes <= 59) && 
-            (env && env->GetShort() != "%^BOLD%^The Lounge%^RESET%^") &&
-            this_object()->GetInCombat() !=1 ) {
+    if( env && env->GetShort() != "%^BOLD%^The Lounge%^RESET%^" &&
+    this_object()->GetInCombat() == 0 ) {
         this_object()->eventForce("say Oh no!, I must get back to The Lounge!");
         tell_room(environment(this_object()),"Fostaine Pyre exits the room.", ({this_object()}));
         this_object()->eventMove("/domains/etnar/wyr/room/rm_174");
@@ -55,7 +54,8 @@ int CheckEnv() {
             }
         }
         this_object()->eventDestruct();
-    }   
+    }
+    //alternatively - this_object()->eventMove( load_object("/domains/etnar/room/furnace") );   
 }
 
 /* the commented sections here and elswhere are left to show
@@ -70,18 +70,18 @@ int CheckWielded() {
    hour = time_of_day[0];
    minutes = time_of_day[1];   
    
-    if(!this_object()->GetInCombat()){
-        /*foreach(object enemy in env) {
-              if(this_object()->GetCurrentEnemy() != env){
-                  this_object()->SetAutostand(0);
-              }
-           }*/    
+   if(!this_object()->GetInCombat()){
+       /*foreach(object enemy in env) {
+             if(this_object()->GetCurrentEnemy() != env){
+                 this_object()->SetAutostand(0);
+             }
+          }*/    
        this_object()->eventForce("unwield lute");
-       if(this_object()->GetAutoStand() == 0) {
-            this_object()->eventForce("sit on stool");
+       if(this_object()->GetAutoStand() == 0 && !this_object()->GetInCombat()) {
+           this_object()->eventForce("sit on stool");
        }
-    }
-    return 1;
+   }
+   return 1;
 }
 
 int WieldLute() {
