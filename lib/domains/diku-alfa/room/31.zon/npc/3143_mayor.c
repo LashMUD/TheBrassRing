@@ -11,13 +11,14 @@
 
 #include <lib.h>
 #include <daemons.h>
+#include <position.h>
 
 inherit LIB_SENTIENT;
 
 void time();
 
-static string open_path =  "W3a3003b33000c111d0d111Oe333333Oe22c222112212111a1S.";
-static string close_path = "W3a3003b33000c111d0d111CE333333CE22c222112212111a1S.";
+static string open_path =  "W3a3003b33000c111d0d111Oe333333Oe22c22211b2212111a1S.";
+static string close_path = "W3a3003b33000c111d0d111CE333333CE22c22211b2212111a1S.";
 static string path;
 
 static int index;
@@ -51,9 +52,11 @@ static void create() {
 }
 
 void wander(){
+    object env = environment();     
+
     if(movebool == 0) return;
     //eventForce("say hour "+hour+": minutes "+minutes);
-    if((hour == 4 && minutes >=30) | (hour == 20 && minutes >=30)){
+    if((hour == 4 && minutes >= 30) || (hour == 23 && minutes >= 52)){
         switch (path[index]) {
 
         case '0': eventForce("go north");
@@ -69,7 +72,8 @@ void wander(){
         break;
 
         case 'W':
-        tell_room(environment(this_object()), "The Mayor awakens and groans loudly.", ({this_object()}));
+        tell_room(environment(this_object()),"The Mayor awakens and groans loudly.", ({this_object()}));
+        this_object()->SetSleeping(0);
         eventForce("stand");
         break;
 
@@ -77,6 +81,7 @@ void wander(){
         eventForce("lie in chair");
         tell_room(environment(this_object()),"The Mayor instantly falls asleep.", ({this_object()}));
         eventForce("sleep");
+        this_object()->SetPosition(POSITION_LYING);
         break;
 
         case 'a':
@@ -85,6 +90,7 @@ void wander(){
         break;
 
         case 'b':
+        eventForce("look north");
         eventForce("say What a view! I must get something done about that dump!");
         break;
 
@@ -129,21 +135,30 @@ void wander(){
 }
 
 void time(){
+    object env = environment();
     time_of_day = SEASONS_D->GetMudTime();
     hour = time_of_day[0];
     minutes = time_of_day[1];
-            
-    if (hour == 4 & minutes == 29) {
-        movebool = 1;
-        path = open_path;
-        index = 0;
+
+    if(env && env->GetShort() == "the Mayor's Office") {
+        if( (hour >= 0 && minutes >= 0 && hour <= 4 && minutes < 29) ||
+        (hour >= 4 && minutes > 37 && hour <= 23 && minutes < 51) &&
+        !this_object()->GetSleeping() )  {
+             this_object()->eventForce("lie in chair");
+             this_object()->eventForce("sleep");
+        }
+        if (hour == 4 && minutes == 29) {
+            movebool = 1;
+            path = open_path;
+            index = 0;
+        }
+        if (hour == 23 && minutes == 51) {
+            movebool = 1;
+            path = close_path;
+            index = 0;
+        }
     }
-    else if (hour == 20 & minutes == 29) {
-        movebool = 1;
-        path = close_path;
-        index = 0;
-    }
-        wander();
+    wander();
 }
 
 void heart_beat(){
