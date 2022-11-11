@@ -48,6 +48,7 @@ static void create() {
     SetMorality(2250);
     SetUnique(1);
     SetPermitLoad(1);
+    SetSleeping(0);
     set_heart_beat(1);            
 }
 
@@ -55,8 +56,7 @@ void wander(){
     object env = environment();     
 
     if(movebool == 0) return;
-    //eventForce("say hour "+hour+": minutes "+minutes);
-    if((hour == 4 && minutes >= 30) || (hour == 23 && minutes >= 52)){
+    if((hour == 4 && minutes >= 30) || (hour == 0 && minutes >= 1)){
         switch (path[index]) {
 
         case '0': eventForce("go north");
@@ -73,15 +73,11 @@ void wander(){
 
         case 'W':
         tell_room(environment(this_object()),"The Mayor awakens and groans loudly.", ({this_object()}));
-        this_object()->SetSleeping(0);
         eventForce("stand");
         break;
 
         case 'S':
-        eventForce("lie in chair");
         tell_room(environment(this_object()),"The Mayor instantly falls asleep.", ({this_object()}));
-        eventForce("sleep");
-        this_object()->SetPosition(POSITION_LYING);
         break;
 
         case 'a':
@@ -139,20 +135,21 @@ void time(){
     time_of_day = SEASONS_D->GetMudTime();
     hour = time_of_day[0];
     minutes = time_of_day[1];
-
+  
     if(env && env->GetShort() == "the Mayor's Office") {
-        if( (hour >= 0 && minutes >= 0 && hour <= 4 && minutes < 29) ||
-        (hour >= 4 && minutes > 37 && hour <= 23 && minutes < 51) &&
-        !this_object()->GetSleeping() )  {
-             this_object()->eventForce("lie in chair");
-             this_object()->eventForce("sleep");
+        if( hour == 0 && minutes == 1 || hour == 4 && minutes == 30 ) {
+            this_object()->SetSleeping(0);
         }
-        if (hour == 4 && minutes == 29) {
+        else {
+            this_object()->eventForce("lie in chair");
+            eventForce("sleep"); 
+        }
+        if (hour == 4 && minutes == 29 ) {
             movebool = 1;
             path = open_path;
             index = 0;
         }
-        if (hour == 23 && minutes == 51) {
+        if (hour == 0 && minutes == 0) {
             movebool = 1;
             path = close_path;
             index = 0;

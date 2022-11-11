@@ -167,9 +167,7 @@ int eventNews(){
     int y;
     
     x=file_length("/domains/etnar/wyr/text/news/albert/news.txt");
-    //tell_player("lash", "x equals "+x);
     y=random(x);
-    //tell_player("lash", "y equals "+y);
     eventForce("speak "+read_file("/domains/etnar/wyr/text/news/albert/news.txt",y,1)); 
 
     return 1;

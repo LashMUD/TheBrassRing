@@ -45,20 +45,12 @@ int CheckEnv() {
         tell_room(environment(this_object()),"%^BOLD%^%^GREEN%^Fostaine Pyre%^RESET%^ the " 
             "bard has arrived!", ({this_object()}));
     }
-    //not supposed to be out after midnight
-    if( (hour < 18 && minutes <= 0) || (hour >= 23 && minutes >= 59) ){
-        foreach(object thing in npc_env){
-            if(thing->GetKeyName() == "lute") {
-                thing->eventDestruct();
-                break;
-            }
-        }
-        this_object()->eventDestruct();
-    }
-    //alternatively - this_object()->eventMove( load_object("/domains/etnar/room/furnace") );   
-}
+    //only supposed to be out between 6:00 pm and midnight
+    if( hour < 18 || hour == 24 ) 
+        this_object()->eventMove( load_object("/domains/etnar/room/furnace") );
+}   
 
-/* the commented sections here and elswhere are left to show
+/* the commented sections here are left to show
    what happens when the code in /lib/body.c has a GetInComabat()
    function that has a SetAutoStand(1);. the body.c for this mudlib
    changed this behavior to use this_object()->eventForce("stand"); instead
@@ -77,9 +69,8 @@ int CheckWielded() {
              }
           }*/    
        this_object()->eventForce("unwield lute");
-       if(this_object()->GetAutoStand() == 0 && !this_object()->GetInCombat()) {
+       if(this_object()->GetAutoStand() == 0 && !this_object()->GetInCombat()) 
            this_object()->eventForce("sit on stool");
-       }
    }
    return 1;
 }
@@ -180,7 +171,7 @@ void time(){
         path = open_path;
         index = 0;
     }
-    if (hour == 23 && minutes == 57) {
+    if (hour == 23 && minutes == 58) {
         movebool = 1;
         path = close_path;
         index = 0;

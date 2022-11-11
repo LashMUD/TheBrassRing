@@ -88,7 +88,6 @@ int RemoveProp(){
 
     if(ob && ob->GetProperty("pet", this_object())){
         ob->RemoveProperty("pet", this_object());
-        //tell_player(ob, "Property removed.");
         return 1;
    }
 }

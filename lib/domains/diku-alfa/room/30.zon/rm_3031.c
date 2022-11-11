@@ -83,8 +83,7 @@ int buy(string str, string name){
                  });
     
     sscanf(str, "%s %s", str, name);
-    //tell_player("lash", "name is "+name);
-    
+      
     if(!str){ 
         tell_player(this_player(), "\nThere is no such pet!\n");
     return 1;
@@ -167,16 +166,13 @@ int buy(string str, string name){
                 return 1;
             }
             ob = new("/domains/diku-alfa/room/30.zon/npc/3092_beagle");
-            //tell_player("lash", "name is "+name);
             if(!name){
-                //tell_player("lash", "strcmp ==0");
                 ob->SetId( ({"beagle", "dog", "pet"}) );
                 ob->SetShort( "a pet beagle" );
                 ob->SetLong("The Beagle looks like a fierce fighter.\n"+
                  "It belongs to "+this_player()->GetShort()+"\n");
             }
             if(name){
-                //tell_player("lash", "strcmp !=0");
                 ob->SetId( ({"beagle", "dog", "pet"}) );
                 ob->SetShort( "a pet beagle" );
                 ob->SetLong("The Beagle looks like a fierce fighter.\n"+
@@ -227,14 +223,12 @@ int buy(string str, string name){
             }
             ob = new("/domains/diku-alfa/room/30.zon/npc/3090_kitten");
             if(!name){
-                tell_player("lash", "name == 0\n");
                 ob->SetId( ({"kitten", "cat", "pet", name, capitalize(name)}) );
                 ob->SetShort( "a pet kitten named "+capitalize(name) );
                 ob->SetLong("The Puppy looks like a cute, little, fierce fighter.\n"+
                     "It belongs to "+this_player()->GetShort()+"\n");
             }
             if(name){
-               tell_player("lash", "name != 0\n");
                 ob->SetId( ({"kitten", "cat", "pet", name, capitalize(name)}) );
                 ob->SetShort( "a pet kitten named "+capitalize(name) );
                 ob->SetLong("The Puppy looks like a cute, little, fierce fighter.\n"+

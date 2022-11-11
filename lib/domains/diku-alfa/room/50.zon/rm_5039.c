@@ -51,7 +51,6 @@ mixed recite_scroll(string str){
 
     object array *pstuff, *rstuff, *ivy, *jar, *scroll, *people;
     
-    tell_player("lash","In recite_scroll and this_player() is "+this_player()->GetShort());   
     if(this_player()){
         pstuff = all_inventory(this_player());
         rstuff = all_inventory(this_object());
@@ -59,8 +58,8 @@ mixed recite_scroll(string str){
         scroll = filter(pstuff, (: answers_to("jhyfrdow", $1):) );
         ivy = filter(rstuff, (: answers_to("poison ivy", $1):) );
         people = filter(rstuff, (:living($1):) );
-        //jar = filter(rstuff, (: $1->GetShort("a dark red jar") && $1->GetFlaskUses() > 0 && $1->GetFlaskContents() == "blood" :) );
-        jar = filter(rstuff, (: answers_to("red jar", $1) && $1->GetFlaskUses() > 0 && $1->GetFlaskContents() == "blood" :)  );
+        jar = filter(rstuff, (: answers_to("red jar", $1) && 
+            $1->GetFlaskUses() > 0 && $1->GetFlaskContents() == "blood" :)  );
         }
             
     if(sizeof(scroll) <=0 || sizeof(ivy) <=0 || sizeof(jar) <=0 || sizeof(people) <=0 ){ 

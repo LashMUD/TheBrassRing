@@ -40,6 +40,7 @@ static void create() {
 int reset() {
     ::reset();
     if(present("the Mayor")) {
+        tell_player("lash", "\nmayor's Office RESET\n");
         present("the Mayor")->eventForce("lie in chair");
     return 0;
     }

@@ -56,7 +56,6 @@ int checkCombat(){
     
     /*find out if there are evil combatants in the surrounding environment*/
     if(sizeof(env)){
-        //tell_player("lash", "In cityguard env");
         foreach(object thing in env){
             if((thing->GetInCombat()) && (thing->GetMorality() < 700)){
             evil = thing;
@@ -64,7 +63,6 @@ int checkCombat(){
             }
          }
     if(evil){
-        //tell_player("lash", "EVIL is "+evil->GetShort());
         tell_room(environment(this_object()), 
             "%^BOLD%^%^GREEN%^%^A Cityguard screams 'PROTECT THE "+
             "INNOCENT!  BANZAI!!! CHARGE!!! ARARARAGGGHH!'%^RESET%^", ({this_object()}));

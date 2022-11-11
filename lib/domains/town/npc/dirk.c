@@ -179,8 +179,7 @@ int AdvanceDude(mixed arg){
     if(SKILL_ADVANCE){
         level = this_player()->GetLevel() * 12;
         dlev = (this_player()->GetLevel())+1;
-        //tell_player("lash", "level is "+level+" and dlev is "+dlev); 
-        
+                
         if(!this_player() || !playerp(this_player()) || !this_player()->GetSkills()) return 0;
         /* get and sort primary skills and levels */
         ptmp = this_player()->GetPrimarySkills();
@@ -201,8 +200,6 @@ int AdvanceDude(mixed arg){
         }
         mlevels = sort_array(mlevels,-1);
         totpoints = plevels[0] + plevels[1] + plevels[2] + slevels[0] + slevels[1] + mlevels[0];
-        //tell_player("lash","totpoints is "+totpoints);
-         
         }
         if(totpoints >= level){
                 this_object()->eventForce("say Congratulations! "
