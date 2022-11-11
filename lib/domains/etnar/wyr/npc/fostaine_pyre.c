@@ -46,7 +46,7 @@ int CheckEnv() {
             "bard has arrived!", ({this_object()}));
     }
     //only supposed to be out between 6:00 pm and midnight
-    if( hour < 18 || hour == 24 ) 
+    if( hour < 18 || (hour == 0 ) 
         this_object()->eventMove( load_object("/domains/etnar/room/furnace") );
 }   
 
