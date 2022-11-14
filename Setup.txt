@@ -25,6 +25,7 @@ mudconfig selectskills yes
 mudconfig xpadvancement no
 mudconfig skilladvancement yes
 mudconfig autoadvance yes
+then use admintool to add goat as a race
 warmboot
 
 connect and create a test character - you should now be able to select primary,
