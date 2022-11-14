@@ -1,4 +1,4 @@
-This the doamin for the continent of Etnar which is expected to have several
+This is the doamin for the continent of Etnar which is expected to have several
 regions. The village of Wyr and its surroundings is one of them. Other regions
 will be the lands of Q'in and Char.
 
