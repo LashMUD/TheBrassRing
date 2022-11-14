@@ -15,9 +15,8 @@ static void create() {
     SetAmbientLight(30);
     SetShort("%^BOLD%^The Road Through the Village of Wyr%^RESET%^");
     SetLong("   To the west are some small buildings used for stabling "
-        "horses. Northwards is a four-way intersection with a tall statue "
-        "dominating the view. The famous Cyclops Inn of Wyr is visible "
-        "towards the northwest. Southwards, the road continues but "
+        "horses. The famous Cyclops Inn of Wyr is visible aways off towards "
+        "the northwest. Southwards, the road continues but "
         "deteriorates to no more than a dirt road with tracks rutted into it "
         "from the wheels of passing wagons. Off to the southeast is the "
         "modest Town Hall." 
@@ -37,7 +36,7 @@ static void create() {
             "leaving nothing more than dirt tracks in the ground.",
         ] ));
     SetExits( ([
-    "north" : "/domains/etnar/wyr/room/rm_116",
+    "north" : "/domains/etnar/wyr/room/rm_195",
     "south" : "/domains/etnar/wyr/room/rm_114",
     "west" : "/domains/etnar/wyr/room/rm_149",
     ] ));

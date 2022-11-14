@@ -32,7 +32,7 @@ static void create() {
     SetCanBite(0);
     SetRace("human");
     SetClass("fighter");
-    SetLevel(10);
+    SetLevel(12);
     SetMelee(1);
     SetGender("male");
     SetMorality(2500);

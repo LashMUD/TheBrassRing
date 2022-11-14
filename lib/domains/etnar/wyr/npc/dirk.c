@@ -185,7 +185,7 @@ int AdvanceDude(mixed arg){
     if(SKILL_ADVANCE){
         level = this_player()->GetLevel() * 15;
         dlev = (this_player()->GetLevel())+1;
-              
+                
         if(!this_player() || !playerp(this_player()) || !this_player()->GetSkills()) return 0;
         /* get and sort primary skills and levels */
         ptmp = this_player()->GetPrimarySkills();

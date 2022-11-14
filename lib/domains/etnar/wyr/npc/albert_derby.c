@@ -26,7 +26,7 @@ static void create() {
     SetCanBite(0);
     SetRace("human");
     SetClass("fighter");
-    SetLevel(10);
+    SetLevel(14);
     SetMelee(1);
     SetGender("male");
     SetMorality(2500);
@@ -60,8 +60,8 @@ static void create() {
     ]) );
     SetFactions( ([ "The Strike of Balcor":({8,10}),
     ]) );
-
-} 
+}
+ 
 void init(){
     ::init();
 }

@@ -14,9 +14,9 @@ static void create() {
     SetClimate("outdoors");
     SetAmbientLight(30);
     SetShort("%^BOLD%^The Road Through the Village of Wyr%^RESET%^");
-    SetLong("   The road continues north and south and to the east there is a "
-        "heavily guarded bank - a large stone building. You see that the road "
-        "takes a bend southwards in the east and west directions."
+    SetLong("   The road continues north and south. To the west lies the "
+        "beginning of Farmer's Way. To the east there is a heavily guarded "
+        "bank - a large stone building."
         );
     SetItems( ([ 
         ({"bank", "building"}) : "A large stone building with a big iron "
@@ -28,7 +28,7 @@ static void create() {
         "north" : "/domains/etnar/wyr/room/rm_114",
         "east" : "/domains/etnar/wyr/room/rm_128",
         "south" : "/domains/etnar/wyr/room/rm_107",
-        //"west" : "/domains/etnar/wyr/room/rm_xxx", housing district
+        "west" : "/domains/etnar/wyr/room/rm_175",
         ] ));
 }
 

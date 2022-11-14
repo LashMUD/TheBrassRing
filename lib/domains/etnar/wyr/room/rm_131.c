@@ -47,7 +47,7 @@ static void create() {
                 "north" : "/domains/etnar/wyr/room/rm_132",
                 "east" : "/domains/etnar/wyr/room/rm_130",
                 "west" : "/domains/etnar/wyr/room/rm_171",
-                //"northwest" : "/domains/etnar/wyr/room/rm_172",
+                "northwest" : "/domains/etnar/wyr/room/rm_172",
                 "southwest" : "/domains/etnar/wyr/room/rm_174",
                ] ));
 }
