@@ -14,8 +14,8 @@ static void create() {
     room::create();
     SetClimate("outdoors");
     SetAmbientLight(30);
-    SetShort("%^BOLD%^The end of Farmer's Way.%^RESET%^");
-    SetLong("   You are at the end of Farmer's Way. Farmer Lane baranches off to"
+    SetShort("%^BOLD%^The End of Farmer's Way.%^RESET%^");
+    SetLong("   You are at the end of Farmer's Way. Farmer Lane baranches off to "
             "the southest and Pyre Avenue bramches off to the northeast."
         );
     SetItems( ([ 
