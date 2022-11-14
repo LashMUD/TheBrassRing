@@ -14,7 +14,7 @@ static void create() {
     room::create();
     SetClimate("outdoors");
     SetAmbientLight(30);
-    SetShort("%^BOLD%^The end of Pyre Avenue.%^RESET%^");
+    SetShort("%^BOLD%^The End of Pyre Avenue.%^RESET%^");
     SetLong("   You at the end of Pyre Avenue. Fostaine Pyre's lavish house is to the west "
             "and Albert Derby's house is to the south."
         );
