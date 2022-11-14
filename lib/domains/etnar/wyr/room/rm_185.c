@@ -14,7 +14,7 @@ static void create() {
     room::create();
     SetClimate("outdoors");
     SetAmbientLight(30);
-    SetShort("%^BOLD%^The end of Farmer Lanes.%^RESET%^");
+    SetShort("%^BOLD%^The End of Farmer Lanes.%^RESET%^");
     SetLong("   You are at the end of Farmer Lane.");
     SetItems( ([ 
         "west" : "Joe Farmer's Pharm house.",
