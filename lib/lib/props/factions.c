@@ -25,7 +25,7 @@ mapping SetFactions(mapping fac){
     int *stat;
     
     foreach(faction, stat in fac){
-        Factions[faction] = ([ "faction level":stat[0],
+        Factions[faction] = ([ "faction_level":stat[0],
             "reputation":stat[1] ]);
        }
     return fac;
@@ -46,7 +46,7 @@ mixed AddFactions(mapping fac){
 
     foreach(faction in fac){
         if(Factions[faction]) continue;
-        Factions[faction] = (["faction level":flev,"level_timer":ltime,
+        Factions[faction] = (["faction_level":flev,"level_timer":ltime,
             "reputation":rlev,"reputation_timer": rtime ]);
     }
     return 1;
