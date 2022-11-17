@@ -18,7 +18,7 @@ The Village of Wyr
                  |                                                 |
                 149 - - - - - - - - - - - - - - - - - - - - - - - 117
                                                                    |
-                           181 - 180 - 179 -178                   114 - 165
+                           181 - 180 - 179 -178              197- 114 - 165
                                   |     |      \                   |
            188 _  _ _ _          190   189      177 - 176 - 175 - 109 - 128 - 129
             |          \                       /                   |
@@ -47,7 +47,6 @@ The Village of Wyr
 * rooms still need to be developed   
 105 Entrance to Shrine
 115 out to the Wilderness and to the Bramblewood
-114 the sybil dewey's house
 124 Supply shop
 128 Bank
 130 Entrance to The Cyclops Inn
@@ -69,6 +68,7 @@ The Village of Wyr
 192 house
 193 ashlyn's hut
 196 well
+197 sybil dewey's house
 2000 out to the wilderness and Eflam's Keep 
 NOT SHOWN - room 158 is the store room for the teamsters
 Note: removed rooms 150 to 155; maybe use for store rooms for other shops
