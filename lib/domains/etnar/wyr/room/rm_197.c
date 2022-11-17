@@ -24,7 +24,7 @@ static void create() {
     SetInventory( ([
     ]) );
     SetExits( ([
-         "north" : "/domains/etnar/wyr/room/rm_184",
+         "east" : "/domains/etnar/wyr/room/rm_114",
          ] ));
 }
 
