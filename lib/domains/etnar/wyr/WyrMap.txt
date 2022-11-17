@@ -1,0 +1,92 @@
+       N
+       |
+     W---E
+       |
+       S
+  
+The Village of Wyr
+
+                                                                        169
+                                                                         |
+                142-141_         138                               *    168
+                 |      \         |           134-133-132          |     |
+          144 - 143      140-139-137-136-135_/         |          115   108
+                 |                                     |           |     |
+          145 - 146                                   131 - 130 - 116 - 123
+                 |                                                 |
+          148 - 147                                   193 - - - - 195 - - - 196
+                 |                                                 |
+                149 - - - - - - - - - - - - - - - - - - - - - - - 117
+                                                                   |
+                           181 - 180 - 179 -178                   114 - 165
+                                  |     |      \                   |
+           188 _  _ _ _          190   189      177 - 176 - 175 - 109 - 128 - 129
+            |          \                       /                   |
+           194 - 186 - 185 - 184 - 183  - - 182                    |      _126-127
+            |   _  _  _/      |     |                              |     /
+           187               191   192          102 - 100 - 101   107 - 124
+                                                 |     |           |     \_125
+                                                103   104 - 105 - 106    
+                                                                   |
+                                                            157 - 118 - 170-156
+                                                                   |
+                                                      159 - - - - 121
+                                                         \ 161     |
+                                                          \ |      |
+                                                       164-160-162 |  
+                                                            |     167
+                                                           163     |
+                                                                 2000
+                                                                   |              
+                                                                 2001              
+                                                                   |
+                                                                 2002
+                                                                   |
+                                          The edge of Haon-Dor - 6000 - To Midgaard (currently)
+
+* rooms still need to be developed   
+105 Entrance to Shrine
+115 out to the Wilderness and to the Bramblewood
+114 the sybil dewey's house
+124 Supply shop
+128 Bank
+130 Entrance to The Cyclops Inn
+133 Innkeepers room
+149 Stables
+157 Teamsters
+159 Guardhouse
+160-164 Jail cells
+165 Town Hall
+167 Village gate
+168 Magicians shop
+170 Blacksmith
+181 Fostaine Pyre's house
+186 farmer
+187-188 farmer's fields
+189 waltin kelly's house
+190 albert dewey's house
+191 house
+192 house
+193 ashlyn's hut
+196 well
+2000 out to the wilderness and Eflam's Keep 
+NOT SHOWN - room 158 is the store room for the teamsters
+Note: removed rooms 150 to 155; maybe use for store rooms for other shops
+
+The Cyclops Inn
+
+
+                         134-133-132
+                     173-172  |
+                            \ |
+                         171-131-130
+                            /
+                         174
+130 Entrance
+131 Common Room
+133 Blake Banner room
+134 Secret compartment
+171 Kitchen    
+172 Receptionist
+173 Room for rent
+174 The Lounge with bard
