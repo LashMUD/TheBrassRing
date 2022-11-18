@@ -4,17 +4,13 @@
  * http://www.dead-souls.net
  * this file creates the Fostaine Pyre object at a specific time
  * this MUD uses a 24 hr day cycle
- * last edited by lash 22/11/9 year/month/day
+ * last edited by lash 22/11/19 year/month/day
  */ 
 
 #include <lib.h>
 #include <daemons.h>
 
 inherit LIB_ROOM;
-
-void time();
-int hour, minutes;
-int *time_of_day;
 
 static void create() {
 
@@ -34,11 +30,6 @@ static void create() {
         "west" : "/domains/etnar/wyr/room/rm_173",
         "southwest" : "/domains/etnar/wyr/room/rm_131",
         ] ));
-    set_heart_beat(1);
-}
-
-void heart_beat(){
-    ::heart_beat();
 }
 
 void init(){
@@ -47,10 +38,8 @@ void init(){
 }
 
 int rent(string str) {
-    object ob = this_object();
-    int x = SEASONS_D->GetTime() + 20;
-    //x+=20; // 1 mud day 28800
-    
+    object ob = this_player();
+            
     if(!str || (str && str !="room")) {
         tell_player(this_player(), "\nRent what?\n");
         return 1;
@@ -60,13 +49,17 @@ int rent(string str) {
             tell_player(this_player(), "You don't have enough gold! Rooms are 20 gold pieces.\n");
             return 1;
         }
-    if(this_player()->GetProperty("Cyclops Inn") ) { 
-        tell_player(this_player(), "You have already rented a room here! Don't you remember?\n");
-        return 1;
+    foreach(string key in this_player()->GetRents()) { 
+        if(key == "The Cyclops Inn") {
+            tell_player(this_player(), "You have already rented a room here! "
+                "Don't you remember?\n");
+            return 1;
+        }
     }
-    tell_player(this_player(), "Thank you. Enjoy!\n");
+    tell_player(this_player(), "Thank you. Enjoy your stay in the west room!\n");
     this_player()->AddCurrency("gold", -20);
-    this_player()->AddProperty("Cyclops Inn", x);
+    this_player()->SetRent( ([ "The Cyclops Inn" : ({"/domains/etnar/wyr/room/rm_172",
+        "/domains/etnar/wyr/room/rm_173",SEASONS_D->GetTime(),SEASONS_D->GetTime()+28800}) ]) );
     }
     return 1;
-}       
+}      

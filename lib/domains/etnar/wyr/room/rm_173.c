@@ -12,11 +12,6 @@
 
 inherit LIB_ROOM;
 
-void time();
-int hour, minutes;
-int *time_of_day;
-object mon;  
-
 static void create() {
 
     room::create();
@@ -34,11 +29,6 @@ static void create() {
     SetExits( ([
         "east" : "/domains/etnar/wyr/room/rm_172",
         ] ));
-    set_heart_beat(1);
-}
-
-void heart_beat(){
-    ::heart_beat();
 }
 
 void init(){

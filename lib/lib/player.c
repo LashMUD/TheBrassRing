@@ -30,6 +30,7 @@
 inherit LIB_INTERACTIVE;
 inherit LIB_LIVING;
 inherit LIB_FACTIONS;
+inherit LIB_RENT;
 
 private string *Titles;
 string *Muffed = ({});
@@ -51,6 +52,7 @@ static void create(){
 static void heart_beat(){
     mixed heartping;
     int idle;
+    int rented;
 
     if(!interactive(this_object())) return;
 
@@ -65,8 +67,38 @@ static void heart_beat(){
             RemoveProperty("reply_time");
         }
     }
+    /*if(!GetProperty("rented")) return;
+    if(GetProperty("rented")) {
+        rented = GetProperty("rented");
+        rented--;
+        tell_player("lash", "rented is "+rented);
+        SetProperty("rented", rented);
+    }
+    if(rented <=0) {
+        object env = environment();
+        rented = 0;
+        if(GetSleeping() > 0) {
+            tell_player(this_player(), "Your rent has run out!");
+            RemoveProperty("rented");
+            tell_player(this_player(), "You are aware of being hauled off "
+                "to the reception by someone.");
+            tell_room(env, "\n""The bouncer picks up "+capitalize(GetKeyName())+" and hauls "
+                "them to the reception room.");
+            eventMove("/domains/etnar/wyr/room/rm_172");
+        }
+        if(this_player()->GetSleeping() <=0) {
+            RemoveProperty("rented");
+            tell_player(this_player(), "Your rented room at the Cyclops Inn has expired.");
+            tell_player(this_player(), "The bouncer escorts you to the reception.");
+            tell_room(env, "\n""The bouncer picks up "+capitalize(GetKeyName())+" and hauls "
+                "them to the reception room.");
+            eventMove("/domains/etnar/wyr/room/rm_172");
+            RemoveProperty("rented");
+        }
+    }*/
+    factions::CheckTimer();        
+    rent::CheckTimer();
     interactive::heart_beat();
-    factions::CheckTimer();
     living::heart_beat();
 
     if( IDLE_TIMEOUT && idle >= IDLE_TIMEOUT 
