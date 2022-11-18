@@ -7,7 +7,7 @@
  *    Version: @(#) properties.c 1.1@(#)
  *    Last modified: 96/12/22
  *    
- *    created and modifed by lash (ccoker)
+ *    created and modified by lash (ccoker)
  *    for use in The Brass Ring mud
  *    last modified: 22/11/18 year/month/day
  *    
@@ -30,7 +30,7 @@ mapping SetRent(mapping rent) {
     string *setting;
     
     foreach(place, setting in rent) {
-        //tell_player("lash", "\nin foreach room");
+        
         Rent[place] = ([ "renting_room" : setting[0], "effective_room" : setting[1],
         "rent_time" : setting[2], "rent_end" : setting[3] ]);
     }
@@ -43,7 +43,7 @@ mapping GetRentMap() {
     return Rent;
 }
 
-//removes a rented "place" maaping
+//removes a rented "place" mapping
 int RemoveRent(string place){
     if( !stringp(place) || !Rent[place] || undefinedp(Rent[place]) ){
         return 0;
@@ -67,7 +67,7 @@ mixed GetRent(string place){
         return Rent[place];
 }
 
-//returns the renting room (usualy a reception area of some sort)
+//returns the renting room (usually a reception area of some sort)
 mixed GetRentingRoom(string place){
     if( !stringp(place) || !Rent || !Rent[place])
         return;
@@ -116,7 +116,7 @@ void CheckTimer(){
                 this_player()->AddHP(5); 
             } 
             
-            //let the player know there rent has run out at a rented location
+            //let the player know their rent has run out at a rented location
             if( z >= y && this_player()->GetSleeping() >= 0 
                 && (strcmp(env, Rent[key]["effective_room"])) != 0) {
                 tell_player(this_player(), "\nYour rented room at "+key+
