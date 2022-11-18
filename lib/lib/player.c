@@ -9,7 +9,8 @@
  *    The Brass Ring mud
  *     - added code for factions used in TBR
  *     - player should not be cursed or blinded after death regeneration
- *     last modified: 20/06/13
+ *     - added timer checking for room renting
+ *     last modified: 22/11/18 year/month/day
  */
 
 #include <lib.h>
