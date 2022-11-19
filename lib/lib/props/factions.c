@@ -15,7 +15,7 @@
 #include <lib.h>
 #include <daemons.h>
 
-mapping Factions    = ([]);
+mapping Factions = ([]);
 void CheckTimer();
 
 //for npc's
@@ -41,7 +41,7 @@ mixed AddFactions(mapping fac){
     string faction;
 
     if(!arrayp(fac)){
-        return ("String(s) must be quoted in array format:({a, b, etc})");
+        SetErrorMessage("String(s) must be quoted in array format: AddFactions(({\"a\", \"b\", etc}))");
     }
 
     foreach(faction in fac){
@@ -51,12 +51,12 @@ mixed AddFactions(mapping fac){
     }
     return 1;
 }
-
+//returns mapping of Factions
 mapping GetFactionsMap(){
     if(!Factions) Factions = ([]);
     return Factions;
 }
-
+//removes faction "string" from Factions mapping
 int RemoveFaction(string fac){
     if( !stringp(fac) || !Factions[fac] || undefinedp(Factions[fac]) ){
         return 0;
@@ -66,18 +66,24 @@ int RemoveFaction(string fac){
     }
     return 1;
 }
-
+//returns array of factions in Factions mapping
 string *GetFacs(){
     return keys(Factions);
 }
-
+//returns the faction mapping of "string" faction in Factions mapping
 mixed GetFaction(string fac){
     if( !stringp(fac) )
         return;
     if (Factions && Factions[fac])
         return Factions[fac];
 }
-
+//returns the faction level of "string" faction in Factions mapping
+mixed GetFactionLevel(string fac){
+    if( !stringp(fac) || !Factions || !Factions[fac])
+        return;
+    return Factions[fac]["faction_level"];
+}
+//returns the faction level of "string" faction in Factions mapping
 mixed AddFactionLevel(string fac, int val){
     if( !stringp(fac) || !Factions[fac] ) 
         return;
@@ -85,7 +91,21 @@ mixed AddFactionLevel(string fac, int val){
     Factions[fac]["level_timer"] = SEASONS_D->GetTime();
     return Factions[fac]["faction_level"];
 }
-
+//sets the faction level of "string" faction in Factions mapping to val
+mixed SetFactionLevel(string fac, int val){
+    if( !stringp(fac) || !Factions[fac] ) 
+        return;
+    Factions[fac]["faction_level"] = val;
+    Factions[fac]["level_timer"] = SEASONS_D->GetTime();
+    return Factions[fac]["faction_level"];
+}
+//returns the faction timestamp set in "string" faction in Factions mapping 
+mixed GetFactionTimer(string fac){
+    if( !stringp(fac) || !Factions || !Factions[fac])
+        return;
+    return Factions[fac]["level_timer"];
+}
+//sets the faction "string" time stamp in the Factions mapping to the current time in the mud 
 mixed AddFactionTimer(string fac, int val){
     if( !stringp(fac) || !Factions[fac] )
         return;
@@ -94,19 +114,13 @@ mixed AddFactionTimer(string fac, int val){
         Factions[fac]["level_timer"] = SEASONS_D->GetTime();
     return Factions[fac]["level_timer"];
 }
-
-mixed GetFactionLevel(string fac){
+//returns the reutaion level of "string" faction in the Factions mapping 
+mixed GetReputationLevel(string fac){
     if( !stringp(fac) || !Factions || !Factions[fac])
         return;
-    return Factions[fac]["faction_level"];
+    return Factions[fac]["reputation"];
 }
-
-mixed GetFactionTimer(string fac){
-    if( !stringp(fac) || !Factions || !Factions[fac])
-        return;
-    return Factions[fac]["level_timer"];
-}
-
+//adds val to the reputation level in the "string" faction in Factions mapping
 mixed AddReputation(string fac, int val){
     if( !stringp(fac) || !Factions[fac] )
         return;
@@ -114,7 +128,21 @@ mixed AddReputation(string fac, int val){
     Factions[fac]["reputation_timer"] = SEASONS_D->GetTime();
     return Factions[fac]["reputation"];
 }
-
+//sets the reputation level for "string" faction in Factions mapping
+mixed SetReputation(string fac, int val){
+    if( !stringp(fac) || !Factions[fac] )
+        return;
+    Factions[fac]["reputation"] = val;
+    Factions[fac]["reputation_timer"] = SEASONS_D->GetTime();
+    return Factions[fac]["reputation"];
+}
+//returns the reputation time stamp in "string" faction in the Factions mapping
+mixed GetReputationTimer(string fac){
+    if( !stringp(fac) || !Factions || !Factions[fac])
+        return;
+    return Factions[fac]["reputation_timer"];
+}
+//sets the time stamp for "string" faction in the Factions mapping to the current time in the mud 
 mixed AddReputationTimer(string fac, int val){
     if( !stringp(fac) || !Factions[fac] )
         return;
@@ -123,19 +151,7 @@ mixed AddReputationTimer(string fac, int val){
         Factions[fac]["reputation_timer"] = SEASONS_D->GetTime();
     return Factions[fac]["reputation_timer"];
 }
-
-mixed GetReputationLevel(string fac){
-    if( !stringp(fac) || !Factions || !Factions[fac])
-        return;
-    return Factions[fac]["reputation"];
-}
-
-mixed GetReputationTimer(string fac){
-    if( !stringp(fac) || !Factions || !Factions[fac])
-        return;
-    return Factions[fac]["reputation_timer"];
-}
-
+//the following should be a daemon
 void CheckTimer(){
     string *str = keys(Factions);
     int x, y;
@@ -145,15 +161,36 @@ void CheckTimer(){
     if(!str) return;
         
     for(x=0; x<sizeof(str); x++){
-        if(this_player()->GetReputationLevel(str[x]) <= 0
-           && this_player()->GetFactionLevel(str[x])  >= 0
-           && SEASONS_D->GetTime() >= (this_player()->GetReputationTimer(str[x])+y))
-           this_player()->AddReputation(str[x], 0);
-        if (SEASONS_D->GetTime() >= (this_player()->GetReputationTimer(str[x])+y))
+        
+        //check reputation every 30 days, if no interaction with faction drop reputation by 1
+        if (SEASONS_D->GetTime() >= (this_player()->GetReputationTimer(str[x])+y)) {
            this_player()->AddReputation(str[x], -1);
+        }
+        //reputation level is between -10 and 10
+        if( this_player()->GetReputationLevel(str[x]) <= -10 ) {
+            this_player()->SetReputation(str[x], -10);
+        }
+        
+        if( this_player()->GetReputationLevel(str[x]) >= 10 )
+            this_player()->SetReputation(str[x], 10);
+        
+        /*check every year, if no interaction with faction for a mudyear drop faction level by 1.
+          if 0 kick out of faction*/          
         if (this_player()->GetFactionLevel(str[x])  >= 0
             && SEASONS_D->GetTime() >= (this_player()->GetFactionTimer(str[x])+
-                SEASONS_D->GetYearLength()))
+                SEASONS_D->GetYearLength())) {
             this_player()->AddFactionLevel(str[x], -1);
+        }
+        //faction level is 1 to 10
+        if( this_player()->GetFactionLevel(str[x]) >= 10 ) 
+            this_player()->SetFactionLevel(str[x], 10);
+        //kick the bum out for not participating in a faction in a timely manner
+        foreach(string faction in str) {
+            if( this_player()->GetFactionLevel(str[x]) <= 0 ) {
+                tell_player(this_player(), "\nYou have been derelict in fullfilling your duties "
+                    "to "+faction+" and have been kicked out of the faction!");
+                this_player()->RemoveFaction(faction);
+            }
+        }
     }
 }
