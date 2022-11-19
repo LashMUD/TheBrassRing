@@ -9,7 +9,7 @@
  *    
  *    created and modifed by lash (ccoker)
  *    for use in The Brass Ring mud
- *    last modified: 20/06/08
+ *    last modified: 22/11/19 year/month/day
  */
 
 #include <lib.h>
