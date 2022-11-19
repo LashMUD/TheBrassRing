@@ -131,7 +131,7 @@ void CheckTimer(){
                     " has expired.");
                 tell_player(this_player(), "You are aware of being hauled off "
                     "to the reception by someone.\n");
-                tell_room(env, "\n""The bouncer picks up "+
+                tell_room(env, "\nThe bouncer picks up "+
                     this_player()->GetShort()+" and hauls "
                     "them to the reception room.\n", this_player());
             this_player()->eventMove(Rent[key]["renting_room"]);
@@ -143,7 +143,7 @@ void CheckTimer(){
                 tell_player(this_player(), "\nYour rented room at "+key+
                     " has expired.");
                 tell_player(this_player(), "The bouncer escorts you to the reception.\n");
-                tell_room(env, "\n""The bouncer boisterously hauls "+
+                tell_room(env, "\nThe bouncer boisterously hauls "+
                     this_player()->GetShort()+" to the reception room.\n", this_player());
                 this_player()->eventMove(Rent[key]["renting_room"]);
                 this_player()->RemoveRent(key);
