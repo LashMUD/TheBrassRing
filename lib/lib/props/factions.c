@@ -41,7 +41,7 @@ mixed AddFactions(mapping fac){
     string faction;
 
     if(!arrayp(fac)){
-        SetErrorMessage("String(s) must be quoted in array format: AddFactions(({\"a\", \"b\", etc}))");
+        return ("String(s) must be quoted in array format: AddFactions(({\"a\", \"b\", etc}))");
     }
 
     foreach(faction in fac){
