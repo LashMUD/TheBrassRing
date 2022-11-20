@@ -83,7 +83,7 @@ mixed GetFactionLevel(string fac){
         return;
     return Factions[fac]["faction_level"];
 }
-//returns the faction level of "string" faction in Factions mapping
+//changes the faction level of "string" faction in Factions mapping by val
 mixed AddFactionLevel(string fac, int val){
     if( !stringp(fac) || !Factions[fac] ) 
         return;
@@ -91,7 +91,7 @@ mixed AddFactionLevel(string fac, int val){
     Factions[fac]["level_timer"] = SEASONS_D->GetTime();
     return Factions[fac]["faction_level"];
 }
-//sets the faction level of "string" faction in Factions mapping to val
+//adds val to the faction level in the "string" faction in Factions mapping
 mixed SetFactionLevel(string fac, int val){
     if( !stringp(fac) || !Factions[fac] ) 
         return;
@@ -114,7 +114,7 @@ mixed AddFactionTimer(string fac, int val){
         Factions[fac]["level_timer"] = SEASONS_D->GetTime();
     return Factions[fac]["level_timer"];
 }
-//returns the reutaion level of "string" faction in the Factions mapping 
+//returns the reputation level of "string" faction in the Factions mapping 
 mixed GetReputationLevel(string fac){
     if( !stringp(fac) || !Factions || !Factions[fac])
         return;
