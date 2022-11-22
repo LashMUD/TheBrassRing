@@ -13,7 +13,7 @@ void create(){
                 "no steal" : 1,
                 ]));
     SetMass(3);
-    SetBaseCost("silver",10);
+    SetBaseCost("gold",10);
     SetVendorType(VT_TREASURE);
     SetTitle("A Short History of Wyr");
     SetSource("/domains/etnar/wyr/books/wyrhistory");
