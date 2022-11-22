@@ -54,7 +54,7 @@ void time(){
     hour = time_of_day[0];
     minutes = time_of_day[1];
                     
-    if (hour == 18 && minutes == 19) {
+    if (hour == 18 && minutes == 0) {
         if(present("bard")) return;
         if(!present("bard")) {
             mon = new("domains/etnar/wyr/npc/fostaine_pyre");
