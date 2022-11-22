@@ -7,6 +7,7 @@
  */
 
 #include <lib.h>
+//#include <position.h>
 
 inherit LIB_SENTIENT;
 
@@ -27,12 +28,12 @@ static void create() {
     SetRace("human");
     SetClass("fighter");
     SetLevel(14);
-    SetMelee(1);
     SetGender("male");
     SetMorality(2500);
     AddCurrency("gold", 500);
     SetLanguage("common",100);
     SetDefaultLanguage("common");
+    SetWimpy(50);
     SetInventory( ([
         "/domains/etnar/wyr/weap/longsword" : "wield sword",
         "/domains/etnar/wyr/armor/leather_boots_hard" : "wear boots",
@@ -41,9 +42,6 @@ static void create() {
         "/domains/etnar/wyr/armor/leather_sleeves_studded" : "wear sleeves",
         "/domains/etnar/wyr/armor/leather_gloves" : "wear gloves",
     ] ));
-    SetAction(1, ({
-        "!say The trade routes are pretty sketchy these days.",
-    }) );
     SetTalkResponses( ([  
         "orgon" : ( :Chat("orgon"): ),
         "guards" : ( :Chat("guards"): ),
@@ -134,7 +132,8 @@ int Chat(string str){
                 return 1;
              }
              else{
-                 return 0;
+                 eventForce("say It's pretty sketchy these days.");
+                 return 1;
              }
         case "guards" :
            if(!inherits(LIB_NPC, ob)){
@@ -167,7 +166,9 @@ int eventNews(){
     int y;
     
     x=file_length("/domains/etnar/wyr/text/news/albert/news.txt");
+    //tell_player("lash", "x equals "+x);
     y=random(x);
+    //tell_player("lash", "y equals "+y);
     eventForce("speak "+read_file("/domains/etnar/wyr/text/news/albert/news.txt",y,1)); 
 
     return 1;
