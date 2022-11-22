@@ -50,6 +50,6 @@ varargs mixed cmd() {
 }
 
 string GetHelp(){
-    return ("Syntax: factions\n\n"
+    return ("Syntax: listfactions\n\n"
             "This command lists any factions you may be associated with.\n");
 }
