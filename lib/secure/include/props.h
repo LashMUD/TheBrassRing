@@ -33,6 +33,7 @@
 #define LIB_COST          DIR_PROPS "/cost"
 #define LIB_ADDSTUFF      DIR_PROPS "/addstuff"
 #define LIB_EXTRA_PARSE   DIR_PROPS "/extra_parse"
+#define LIB_RENT          DIR_PROPS "/rent"
 
 
 #endif /* s_props_h */
