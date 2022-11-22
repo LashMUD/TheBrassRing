@@ -27,6 +27,7 @@ static void create() {
         "east" : "You see the promenade.",
         "south" : "You see the park entrance",
         "west" : "You see the promenade.",
+        "north" : "You see the disgusting city dump across the river."
         ]) );
     SetInventory( ([
         "/domains/diku-alfa/room/31.zon/obj/3134_bench" : 1,
