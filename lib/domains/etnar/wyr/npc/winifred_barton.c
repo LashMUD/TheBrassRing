@@ -1,9 +1,10 @@
-/*
- * An acolyte in Henlis' shrine
+/* An acolyte for Henli in the shrine of Wyr
  * for use with:
  * The Dead Souls Mud Library
  * developed by Cratylus
  * http://www.dead-souls.net
+ *
+ * last modified by lash (ccoker) 22/11/23 year/month/day
  */
 
 #include <lib.h>
@@ -29,11 +30,12 @@ int WieldClub(){
 static void create() {
     sentient::create();
 
-    SetKeyName("the acolyte");
+    SetKeyName("Winifred Barton");
     SetId(({"winifred", "Winifred", "barton", "Barton", "acolyte"}));
     SetAdjectives(({"non-player", "non player"}));
     SetShort("Winifred Barton");
     SetLong("A pious young acolyte of Balcor, the wargod, stands before you. "
+        "Her curly brown hair is cropped short and contrasts her green eyes. " 
         "Winifred is earnest in her studies of the teachings of battlemastery. "
         "She wears light magenta robes depicting the image of Balcor holding "
         "a lightning bolt in his hand.");
@@ -49,7 +51,12 @@ static void create() {
     SetInventory( ([
         "/domains/etnar/wyr/weap/wooden_club" : "1",
         ] ));
-    SetAction(50, ({ (:CheckWielded:), }) );
+    SetActionsMap( ([
+        ( ( :CheckWielded(): ) ) : 50,
+        "!say I hope I gain favor in the eyes of Balcor." : 10,
+        "!say I can't wait to confront and convert Falkner to the ways of Balcor myself!" : 8,
+        "!say Henli should be ready to advance me with all the studying I've done!" : 5,
+        ]) );
     SetCombatAction(100, ({ (: WieldClub :),
         }) );
     SetFactions( ([ "The Strike of Balcor" : ({5, 5}),
