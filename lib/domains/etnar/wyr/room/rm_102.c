@@ -39,14 +39,14 @@ static void create() {
         ({"scratches", "scratch"}) : " Some faded lettering in the native "
              "language is etched in the stone. The words are appear to be "
              "gibberish.",
-        "chair" : " A very simple and not very comortable looking "
+        "chair" : " A very simple and not very comfortable looking "
             "construction.",
         ({"tomes", "tome"}) : " Most of the writings are in a language that is"
             "indecipherable. The readable text describes the teachings of "
-            "Balcor, the wargod.",
+            "Balcor, the war god.",
         ({"scroll", "scrolls"}) : " Many of the scrolls are so old that the "
             "writing has faded. Some are written in indecipherable One scroll "
-            "of note describes what appears tobe the beiginnings of a plan "
+            "of note describes what appears to be the beginnings of a plan "
             "for the construction of a huge monastery somewhere north of Wyr "
             "in the middle of a forest.",
         ({"edge", "worn", "worn edge"}) : " This portion of the tapestry "
