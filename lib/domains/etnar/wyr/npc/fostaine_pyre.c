@@ -8,7 +8,7 @@
  * where this object is created and moved into that room
  * at a specific time - this MUD is based on a 24 hour day cycle
  * 
- * last edited by lash 22/11/20 year/month/day
+ * last edited by lash 22/11/23 year/month/day
  */
 
 #include <lib.h>
@@ -46,7 +46,7 @@ int CheckEnv() {
             "bard has arrived!", ({this_object()}));
     }
     //only supposed to be out between 6:00 pm and midnight
-    if( hour < 18 || hour == 0)  
+    if( hour < 18 || (hour == 0 &&minutes == 1) )  
         this_object()->eventMove( load_object("/domains/etnar/room/furnace") );
 }   
 
@@ -125,19 +125,16 @@ static void create() {
 }
 
 void actions(){
-   object lute;
    if(movebool == 0){
        return;
    }
-   if( (hour == 18 &&  minutes >= 1) || (hour == 23 && minutes >= 58) ){
+   if( (hour == 18 &&  minutes == 1) || (hour == 24 && minutes == 49) ){
         switch (path[index]) {
            case 'I' : this_object()->eventForce("inventory");
                       break;
-           case 'L' : tell_room(environment(this_object()),
+           case 'L' : tell_room(environment(this_object()), 
                       "%^BOLD%^%^GREEN%^Fostaine Pyre%^RESET%^ pulls an "
                       "expensive looking lute out of his oversized cloak.", ({this_object()}));
-                      lute = new("/domains/etnar/wyr/weap/fostaine_lute"); 
-                      lute->eventMove(this_object());
                       break;
            case 's' : this_object()->SetAutoStand(1);
                       this_object()->eventForce("stand");
@@ -152,7 +149,7 @@ void actions(){
            case 'l' : this_object()->eventForce("put lute in bin");
                       break;
            case 'f' : tell_room(environment(this_object()),"With a flourish %^BOLD%^%^GREEN%^Fostaine "
-                      "Pyre leaves the room.");
+                      "Pyre%^RESET%^ leaves the room.");
                       this_object()->eventDestruct();
                       break;
            case '.' : movebool=0;
@@ -176,7 +173,7 @@ void time(){
         path = open_path;
         index = 0;
     }
-    if (hour == 23 && minutes == 58) {
+    if (hour == 24 && minutes == 48) {
         movebool = 1;
         path = close_path;
         index = 0;
