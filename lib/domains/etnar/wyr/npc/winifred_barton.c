@@ -1,5 +1,5 @@
 /*
- * Gate Guard for the village of Wyr
+ * An acolyte in Henlis' shrine
  * for use with:
  * The Dead Souls Mud Library
  * developed by Cratylus
