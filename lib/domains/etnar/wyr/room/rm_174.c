@@ -4,7 +4,7 @@
  * http://www.dead-souls.net
  * this file creates the Fostaine Pyre object at a specific time
  * this MUD uses a 24 hr day cycle
- * last edited by lash 22/11/9 year/month/day
+ * last edited by lash 22/11/30 year/month/day
  */ 
 
 #include <lib.h>
@@ -50,11 +50,12 @@ static void create() {
 
 void time(){
     object mon;
+
     time_of_day = SEASONS_D->GetMudTime();
     hour = time_of_day[0];
     minutes = time_of_day[1];
                     
-    if (hour == 18 && minutes == 0) {
+    if( (hour >= 18 && minutes >= 0) && uptime() > 0 && (hour <= 23 && minutes <= 58) ) {
         if(present("bard")) return;
         if(!present("bard")) {
             mon = new("domains/etnar/wyr/npc/fostaine_pyre");
@@ -64,7 +65,6 @@ void time(){
         }
     }
 }
-
 void heart_beat(){
     ::heart_beat();
     time();
