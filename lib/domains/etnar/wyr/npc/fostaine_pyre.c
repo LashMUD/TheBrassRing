@@ -8,7 +8,7 @@
  * where this object is created and moved into that room
  * at a specific time - this MUD is based on a 24 hour day cycle
  * 
- * last edited by lash 22/11/25 year/month/day
+ * last edited by lash 22/11/9 year/month/day
  */
 
 #include <lib.h>
