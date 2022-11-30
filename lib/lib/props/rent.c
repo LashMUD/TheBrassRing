@@ -113,7 +113,9 @@ void CheckTimer(){
         foreach(string key in this_player()->GetRents(str[x])) {
             if( z < y && this_player()->GetSleeping() > 0 
                 && (strcmp(env,  Rent[key]["effective_room"])) == 0) {
-                this_player()->AddHP(5); 
+                this_player()->AddHP(5);
+                this_player()->AddStaminaPoints(5);
+                this_player()->AddMagicPoints(5);   
             } 
             
             //let the player know their rent has run out at a rented location
@@ -134,8 +136,7 @@ void CheckTimer(){
                 tell_room(env, "\nThe bouncer picks up "+
                     this_player()->GetShort()+" and hauls "
                     "them to the reception room.\n", this_player());
-            this_player()->eventMove(Rent[key]["renting_room"]);
-            this_player()->RemoveRent(key);
+                this_player()->RemoveRent(key);
             }
             
             //if the player is not sleeping they are still escorted to the renting room (reception)
@@ -145,8 +146,7 @@ void CheckTimer(){
                 tell_player(this_player(), "The bouncer escorts you to the reception.\n");
                 tell_room(env, "\nThe bouncer boisterously hauls "+
                     this_player()->GetShort()+" to the reception room.\n", this_player());
-                this_player()->eventMove(Rent[key]["renting_room"]);
-                this_player()->RemoveRent(key);
+                    this_player()->RemoveRent(key);
             }
         }
     }   
