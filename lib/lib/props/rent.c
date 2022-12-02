@@ -98,7 +98,7 @@ mixed GetRentEnd(string place, int val){
 void CheckTimer(){
     string env = base_name(environment());
     string *str = this_player()->GetRents();
-    int rooms, x, y, z;
+    int x, y, z;
    
     if(!sizeof(str)) {
         return;
