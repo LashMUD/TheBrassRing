@@ -96,10 +96,9 @@ mixed GetRentEnd(string place, int val){
 }
 
 void CheckTimer(){
-    object ob = environment(this_player());
     string env = base_name(environment());
     string *str = this_player()->GetRents();
-    int x, y, z;
+    int rooms, x, y, z;
    
     if(!sizeof(str)) {
         return;
@@ -119,7 +118,7 @@ void CheckTimer(){
             } 
             
             //let the player know their rent has run out at a rented location
-            if( z >= y && this_player()->GetSleeping() >= 0 
+            if( z > y && this_player()->GetSleeping() >= 0 
                 && (strcmp(env, Rent[key]["effective_room"])) != 0) {
                 tell_player(this_player(), "\nYour rented room at "+key+
                     " has expired.\n");
@@ -127,8 +126,7 @@ void CheckTimer(){
             }
             
             //if the player is sleeping they are escorted to the renting room (reception)
-            if( z >= y && this_player()->GetSleeping() > 0 
-                && (strcmp(env,  Rent[key]["effective_room"])) == 0) {
+            else if( z > y && this_player()->GetSleeping() > 0 ) {
                 tell_player(this_player(), "\nYour rented room at "+key+
                     " has expired.");
                 tell_player(this_player(), "You are aware of being hauled off "
@@ -136,16 +134,18 @@ void CheckTimer(){
                 tell_room(env, "\nThe bouncer picks up "+
                     this_player()->GetShort()+" and hauls "
                     "them to the reception room.\n", this_player());
+                this_player()->eventMove(Rent[key]["renting_room"]);
                 this_player()->RemoveRent(key);
             }
             
             //if the player is not sleeping they are still escorted to the renting room (reception)
-            else if( z >= y && (strcmp(env,  Rent[key]["effective_room"])) == 0) {
+            else if( z > y && this_player()->GetSleeping() == 0 ) {
                 tell_player(this_player(), "\nYour rented room at "+key+
                     " has expired.");
                 tell_player(this_player(), "The bouncer escorts you to the reception.\n");
                 tell_room(env, "\nThe bouncer boisterously hauls "+
                     this_player()->GetShort()+" to the reception room.\n", this_player());
+                    this_player()->eventMove(Rent[key]["renting_room"]);
                     this_player()->RemoveRent(key);
             }
         }
