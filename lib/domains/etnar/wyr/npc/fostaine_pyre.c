@@ -137,7 +137,6 @@ void actions(){
                       "expensive looking lute out of his oversized cloak.", ({this_object()}));
                       break;
            case 's' : this_object()->SetAutoStand(1);
-                      this_object()->eventForce("stand");
                       break;
            case 'b' : this_object()->eventForce("bow");
                       break;
