@@ -56,6 +56,7 @@ void wander(){
     object env = environment();     
 
     if(movebool == 0) return;
+    //eventForce("say hour "+hour+": minutes "+minutes);
     if((hour == 4 && minutes >= 30) || (hour == 0 && minutes >= 1)){
         switch (path[index]) {
 
@@ -73,11 +74,14 @@ void wander(){
 
         case 'W':
         tell_room(environment(this_object()),"The Mayor awakens and groans loudly.", ({this_object()}));
+        this_object()->SetSleeping(0);
         eventForce("stand");
         break;
 
         case 'S':
+        eventForce("lie in chair");
         tell_room(environment(this_object()),"The Mayor instantly falls asleep.", ({this_object()}));
+        eventForce("sleep");
         break;
 
         case 'a':
@@ -137,12 +141,10 @@ void time(){
     minutes = time_of_day[1];
   
     if(env && env->GetShort() == "the Mayor's Office") {
-        if( hour == 0 && minutes == 1 || hour == 4 && minutes == 30 ) {
-            this_object()->SetSleeping(0);
-        }
-        else {
-            this_object()->eventForce("lie in chair");
-            eventForce("sleep"); 
+        if( (hour >= 0 && minutes > 1 && hour <= 4 && minutes < 29) 
+            || (hour >= 4 && minutes > 30 && this_object()->GetSleeping() == 0) ) {
+                this_object()->eventForce("lie in chair");
+                this_object()->eventForce("sleep");
         }
         if (hour == 4 && minutes == 29 ) {
             movebool = 1;
