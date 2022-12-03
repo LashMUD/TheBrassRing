@@ -37,15 +37,6 @@ static void create() {
         ]) );
 }
 
-int reset() {
-    ::reset();
-    if(present("the Mayor")) {
-        present("the Mayor")->eventForce("lie in chair");
-    return 0;
-    }
-    else return 1;
-}
-
 void init(){
     ::init();
 }
