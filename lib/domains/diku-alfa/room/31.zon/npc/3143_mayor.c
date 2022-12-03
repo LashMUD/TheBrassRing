@@ -142,8 +142,13 @@ void time(){
   
     if(env && env->GetShort() == "the Mayor's Office") {
         if( (hour >= 0 && minutes > 1 && hour <= 4 && minutes < 29) 
-            || (hour >= 4 && minutes > 30 && this_object()->GetSleeping() == 0) ) {
+            || (hour >= 4 && minutes > 30) 
+            && (this_object()->GetPosition() != 8) ) {
                 this_object()->eventForce("lie in chair");
+        }
+        if( (hour >= 0 && minutes > 1 && hour <= 4 && minutes < 29) 
+            || (hour >= 4 && minutes > 30) 
+            && (this_object()->GetSleeping() == 0) ) {
                 this_object()->eventForce("sleep");
         }
         if (hour == 4 && minutes == 29 ) {
