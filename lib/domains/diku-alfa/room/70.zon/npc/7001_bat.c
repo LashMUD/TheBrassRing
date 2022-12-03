@@ -26,7 +26,7 @@ static void create(){
     SetLong("The small fierce-looking bat is hanging from the ceiling, obviously\n"+
         "sleeping.");
     SetRace("bat");
-    SetClass("npc_melee"); 
+    SetClass("fighter"); 
     SetLevel(7);
     SetGender("neuter");
     SetPosition(POSITION_FLYING);

@@ -24,7 +24,7 @@ static void create(){
     SetShort("the Shadowy Morkoth");
     SetLong("The Morkoth is standing here, waiting for someone to KILL!");
     SetRace("primate"); //need new race 'morkoth'
-    SetClass("npc_melee");
+    SetClass("fighter");
     SetLevel(40);
     SetWimpy(30);
     SetGender("neuter");

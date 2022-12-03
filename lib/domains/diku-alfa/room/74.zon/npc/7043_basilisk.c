@@ -25,7 +25,7 @@ static void create(){
     SetShort("The Scaled Basilisk");
     SetLong("The scaled Basilisk crawls towards you slowly.");
     SetRace("snake"); //possible new race 'basilisk'
-    SetClass("npc_melee");
+    SetClass("fighter");
     SetLevel(73);
     SetGender("neuter");
     AddCurrency("gold" , 350);

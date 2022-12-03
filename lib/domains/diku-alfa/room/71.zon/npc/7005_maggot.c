@@ -22,7 +22,7 @@ static void create(){
     SetShort("the Maggot");
     SetLong("The Giant Maggot.");
     SetRace("insect");
-    SetClass("npc_melee");
+    SetClass("fighter");
     SetLevel(9);
     SetGender("male");
     AddCurrency("gold" , 2);

@@ -24,7 +24,7 @@ static void create(){
     SetShort("The Great Sewer Rat");
     SetLong("The Huge Hungry-looking Sewer Rat sits here.");
     SetRace("rodent");
-    SetClass("npc_melee"); 
+    SetClass("fighter"); 
     SetLevel(12);
     SetGender("male");
     SetMorality(-2500);    

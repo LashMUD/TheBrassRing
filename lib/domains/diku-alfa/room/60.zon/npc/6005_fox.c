@@ -21,8 +21,8 @@ static void create(){
     SetAdjectives(({"", ""}));
     SetShort("the Brown Fox");
     SetLong("A brown fox is here, looking for some rabbits to chew up.");
-    SetRace("dog"); 
-    SetClass("npc_melee");
+    SetRace("dog");
+    SetClass("fighter"); 
     SetLevel(5);
     SetMorality(125);
     SetGender("neuter");

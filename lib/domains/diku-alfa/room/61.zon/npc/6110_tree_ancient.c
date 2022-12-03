@@ -23,8 +23,8 @@ static void create(){
     SetLong("A huge, ancient tree towers above you. Its roots are\n"+
         "extremely big and large parts of them are above ground.\n"+
         "The enormous grey trunk shivers slightly, as if sighing deeply.");
-    SetRace("plant"); 
-    SetClass("npc_melee");
+    SetRace("plant");
+    SetClass("fighter"); 
     SetLevel(30);
     SetCanBite(0);
     SetMorality(0);

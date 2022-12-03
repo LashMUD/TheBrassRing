@@ -22,8 +22,8 @@ static void create(){
     SetShort("the Computer Bug");
     SetLong("A little, hairy computer bug is here, trying to mess things up.");
     SetRace("insect"); //check for appropriate race
-    SetClass("npc_melee");
     SetLevel(1);
+    SetClass("fighter");
     SetGender("neuter");
     SetMorality(-125);
     SetWander(5);

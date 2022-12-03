@@ -24,7 +24,7 @@ static void create(){
     SetShort("The Horrifying Mudmonster");
     SetLong("A horrifying Mudmonster is slowly evolving from the mud ...");
     SetRace("blob"); //check for appropriate race
-    SetClass("npc_melee");
+    SetClass("fighter");
     SetLevel(20);
     SetGender("neuter");
     SetMorality(-625);

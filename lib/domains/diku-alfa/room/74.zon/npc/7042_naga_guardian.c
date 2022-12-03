@@ -22,7 +22,7 @@ static void create(){
     SetShort("The Guardian Naga");
     SetLong("The Guardian Naga looks kindly at you.");
     SetRace("snake"); //possible new race 'naga'
-    SetClass("npc_melee");
+    SetClass("fighter");
     SetLevel(62);
     SetGender("female");
     AddCurrency("gold" , 100);

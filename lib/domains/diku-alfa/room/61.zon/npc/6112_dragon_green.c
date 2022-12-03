@@ -26,7 +26,7 @@ static void create(){
     SetShort("the Huge Green Dragon");
     SetLong("A huge green dragon is here, its narrow yellow eyes glowing with rage.");
     SetRace("dragon"); 
-    SetClass("npc_melee");
+    SetClass("fighter");
     SetLevel(20);
     SetInventory( ([
         "/domains/diku-alfa/room/61.zon/armor/6112_crown_iron" : 1,

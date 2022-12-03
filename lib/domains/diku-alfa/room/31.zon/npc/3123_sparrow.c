@@ -23,7 +23,7 @@ static void create() {
     SetShort("the Sparrow");
     SetLong("The sparrow looks like it is enjoying life.");
     SetRace("bird");
-    SetClass("npc_melee");
+    SetClass("fighter");
     SetLevel(1);
     SetPosition(POSITION_FLYING);
     SetGender("female");

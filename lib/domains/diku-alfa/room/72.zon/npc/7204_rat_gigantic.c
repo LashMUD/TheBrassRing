@@ -24,7 +24,7 @@ static void create(){
     SetShort("the Gigantic Rat");
     SetLong("There is a gigantic rat here, looking at you with a hungry look.");
     SetRace("rodent");
-    SetClass("npc_melee");
+    SetClass("fighter");
     SetLevel(12);
     SetGender("male");
     AddCurrency("gold" , 2513);

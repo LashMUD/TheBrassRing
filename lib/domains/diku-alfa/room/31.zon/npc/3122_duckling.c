@@ -24,7 +24,7 @@ static void create() {
     SetLong("The duckling is adorable, it looks most of all like a tiny furball.");
     SetPosition(POSITION_SWIMMING);
     SetRace("bird");
-    SetClass("npc_melee");
+    SetClass("fighter");
     SetLevel(1);
     SetGender("female");
     SetMorality(2500);

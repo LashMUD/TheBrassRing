@@ -22,7 +22,7 @@ static void create(){
     SetShort("the Fallow Deer");
     SetLong("A fallow deer is grazing peacefully here.");
     SetRace("deer");
-    SetClass("npc_melee"); 
+    SetClass("fighter");
     SetLevel(5);
     SetMorality(875);
     SetGender("female");

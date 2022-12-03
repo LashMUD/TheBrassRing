@@ -24,7 +24,7 @@ static void create(){
     SetShort("the Large, Grey Wolf");
     SetLong("A large, grey wolf is here, glaring hungrily at you.");
     SetRace("dog");
-    SetClass("npc_melee"); 
+    SetClass("fighter");
     SetLevel(8);
     SetMorality(-375);
     SetGender("neuter");

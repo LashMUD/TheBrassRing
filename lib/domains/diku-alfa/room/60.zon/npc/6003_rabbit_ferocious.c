@@ -13,7 +13,7 @@ static void create(){
     SetShort("the Ferocious Rabbit");
     SetLong("A ferocious rabbit is here, glaring hungrily at you.");
     SetRace("rodent");
-    SetClass("npc_melee"); 
+    SetClass("fighter");
     SetLevel(15);
     SetMorality(-375);
     SetWander(5);

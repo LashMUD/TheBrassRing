@@ -23,8 +23,8 @@ static void create(){
     SetAdjectives(({"", ""}));
     SetShort("the Large Black Wolf");
     SetLong("A large, black wolf is here, glaring hungrily at you.");
-    SetRace("dog"); 
-    SetClass("npc_melee");
+    SetRace("dog");
+    SetClass("fighter"); 
     SetLevel(10);
     SetMorality(-375);
     SetGender("neuter");

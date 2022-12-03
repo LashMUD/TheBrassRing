@@ -24,7 +24,7 @@ static void create(){
     SetShort("the Evil Chr-eff'n");
     SetLong("The chr-eff'n are crawling here, looking around with it's yellow eyes.");
     SetRace("human"); //need new race 'chr-eff'n'
-    SetClass("npc_melee");
+    SetClass("fighter");
     SetLevel(32);
     SetGender("neuter");
     SetWimpy(30);

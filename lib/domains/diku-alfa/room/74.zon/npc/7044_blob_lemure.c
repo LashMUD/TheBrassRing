@@ -25,7 +25,7 @@ static void create(){
     SetLong("The lemure blob slithers terribly precisely towards you for an\n"+
         "attack!");
     SetRace("blob"); //check for appropriate race
-    SertClass("npc_melee");
+    SertClass("fighter");
     SetLevel(50);
     SetGender("neuter");
     SetMorality(-1250);

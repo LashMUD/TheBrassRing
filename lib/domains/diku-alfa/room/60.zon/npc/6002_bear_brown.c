@@ -24,7 +24,7 @@ static void create(){
     SetShort("the Brown Bear");
     SetLong("A big, brown, angry-looking bear is here.");
     SetRace("bear");
-    SetClass("npc_melee"); 
+    SetClass("fighter");
     SetLevel(8);
     SetMorality(-125);
     SetGender("neuter");

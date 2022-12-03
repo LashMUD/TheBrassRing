@@ -22,7 +22,7 @@ static void create(){
     SetShort("The Giant Earth Beetle");
     SetLong("The Giant Mean-looking Earth Beetle.");
     SetRace("insect");
-    SetClass("npc_melee");
+    SetClass("fighter");
     SetLevel(12);
     SetGender("male");
     AddCurrency("gold" , 1000);

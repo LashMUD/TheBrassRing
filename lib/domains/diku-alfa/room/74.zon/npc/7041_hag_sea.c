@@ -24,7 +24,7 @@ static void create(){
     SetShort("The Sea Hag");
     SetLong("The Sea Hag is swimming around here");
     SetRace("dryad"); //possible new race 'hag'
-    SetClass("npc_melee");
+    SetClass("fighter");
     SetLevel(54);
     SetGender("female");
     SetMorality(-2000);

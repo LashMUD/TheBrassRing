@@ -25,7 +25,7 @@ static void create(){
     SetShort("Jones \"Cruncher\" the Ettin");
     SetLong("Jones is standing here glaring at you.");
     SetRace("giant"); //possible new race 'ettin'
-    SetClass("npc_melee")
+    SetClass("fighter")
     SetLevel(85);
     SetGender("male");
     AddCurrency("gold" , 60);

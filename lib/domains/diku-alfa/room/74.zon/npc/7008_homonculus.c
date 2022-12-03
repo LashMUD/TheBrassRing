@@ -21,8 +21,8 @@ static void create(){
     SetAdjectives(({"", ""}));
     SetShort("the Creature Homonculus");
     SetLong("The Creature Homonculus is here, looking at you with an evil look.");
-    SetRace("goblin"); //need new race 'homonculuc'
-    SetClass("npc_melee");
+    SetRace("goblin"); //need new race 'homonculus'
+    SetClass("fighter");
     SetLevel(30);
     SetGender("neuter");
     SetMorality(-1950);

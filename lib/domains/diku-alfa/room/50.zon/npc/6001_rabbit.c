@@ -16,14 +16,14 @@ inherit LIB_SENTIENT;
 static void create(){
     sentient::create();
 
-    SetKeyName("ofcal rabbit");
+    SetKeyName("rabbit");
     SetId(({"cute", "rabbit"}));
     SetAdjectives(({"", ""}));
     SetShort("the Cute Rabbit");
     SetLong("A cute rabbit is here.");
     SetRace("rodent");
-    SetClass("npc_melee");
     SetLevel(1);
+    SetClass("fighter");
     SetMorality(0);
     SetGender("neuter");
     SetWander(5);

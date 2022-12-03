@@ -23,8 +23,8 @@ static void create(){
     SetAdjectives(({"", ""}));
     SetShort("the Ferocious Warg");
     SetLong("A ferocious warg is here, snarling angrily at you.");
-    SetRace("dog"); 
-    SetClass("npc_melee");
+    SetRace("dog");
+    SetClass("fighter"); 
     SetLevel(12);
     SetMorality(-875);
     SetGender("neuter");

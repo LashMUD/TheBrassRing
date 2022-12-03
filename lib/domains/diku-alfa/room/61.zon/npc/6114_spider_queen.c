@@ -25,7 +25,7 @@ static void create(){
     SetShort("the Queen Spider");
     SetLong("The huge, bulky Queen Spider is here.");
     SetRace("arachnid");
-    SetClass("npc_melee");
+    SetClass("fighter");
     SetLevel(20);
     SetInventory( ([
         "/domains/diku-alfa/room/61.zon/obj/6113_sceptre_iron" : 1,

@@ -24,8 +24,8 @@ static void create(){
     SetAdjectives(({"", ""}));
     SetShort("the Huge Poisonous Spider");
     SetLong("A huge, poisonous spider is here.");
-    SetRace("arachnid"); 
-    SetClass("npc_melee");
+    SetRace("arachnid");
+    SetClass("fighter"); 
     SetLevel(8);
     SetMorality(-875);
     SetGender("neuter");

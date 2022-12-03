@@ -18,13 +18,13 @@ void CheckNPC();
 static void create(){
     sentient::create();
 
-    SetKeyName("sewer rat");
+    SetKeyName("great Sewer Rat");
     SetId(({"rat", "sewer"}));
     SetAdjectives(({"", ""}));
     SetShort("The Great Sewer Rat");
     SetLong("The Huge Hungry-looking Sewer Rat sits here.");
     SetRace("rodent");
-    SetClass("npc_melee"); 
+    SetClass("fighter"); 
     SetLevel(12);
     SetGender("male");
     SetMorality(-2500);    

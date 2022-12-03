@@ -23,7 +23,7 @@ static void create() {
     SetShort("a Swan");
     SetLong("The white swan is very elegant.");
     SetRace("bird");
-    SetClass("npc_melee");
+    SetClass("fighter");
     SetLevel(1);
     SetPosition(POSITION_SWIMMING);
     SetGender("female");

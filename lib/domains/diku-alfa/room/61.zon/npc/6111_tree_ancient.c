@@ -24,8 +24,8 @@ static void create(){
         "extremely big and large parts of them are above ground.\n"+
         "The enormous grey trunk shivers slightly, as if sighing deeply.");
     SetRace("plant"); //check for appropriate race
+    SetClass("fighter");
     SetLevel(30);
-    SetClass("npc_melee");
     SetCanBite(0);
     SetMorality(0);
     SetGender("neuter");

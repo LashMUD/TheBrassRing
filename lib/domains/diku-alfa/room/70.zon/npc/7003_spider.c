@@ -24,7 +24,7 @@ static void create(){
     SetShort("The Small Spider");
     SetLong("The small hairy Spider.");
     SetRace("arachnid");
-    SetClass("npc_melee");
+    SetClass("fighter");
     SetLevel(1); 
     SetGender("male");
     SetMorality(-1750);

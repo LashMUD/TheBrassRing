@@ -24,7 +24,7 @@ static void create(){
     SetShort("The Red Dragon");
     SetLong("The Red, fierce-looking, Dragon stares at you angrily.");
     SetRace("dragon");
-    SetClass("npc_melee");
+    SetClass("fighter");
     SetLevel(100);
     SetGender("neuter");
     SetInventory( ([

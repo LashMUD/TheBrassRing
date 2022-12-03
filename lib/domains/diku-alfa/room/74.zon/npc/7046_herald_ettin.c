@@ -25,7 +25,7 @@ static void create(){
     SetLong("Herald is standing here looking confused at you.");
     SetRace("giant"); //check for appropriate race
     SetLevel(75);
-    SetClass("npc_melee");
+    SetClass("fighter");
     SetGender("male");
     AddCurrency("gold" , 40);
     SetMorality(500);

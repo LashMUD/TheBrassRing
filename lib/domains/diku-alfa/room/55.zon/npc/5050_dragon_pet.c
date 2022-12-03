@@ -13,7 +13,7 @@ static void create(){
     SetLong("Ravan's pet dragon is bouncing around here flapping her cute wings.");
     SetPosition(POSITION_FLYING);
     SetRace("dragon");
-    SetClass("npc_melee"); 
+    SetClass("fighter");
     SetLevel(1);
     SetMorality(2500);
     SetGender("female");

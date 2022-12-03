@@ -18,13 +18,13 @@ void CheckNPC();
 static void create(){
     sentient::create();
 
-    SetKeyName("aggressive mudmonster");
+    SetKeyName("sewer_mudmonster");
     SetId(({"mud", "monster", "mudmonster"}));
     SetAdjectives(({"", ""}));
     SetShort("The Horrifying Mudmonster");
     SetLong("A horrifying Mudmonster is slowly evolving from the mud ...");
     SetRace("blob"); //check for appropriate race
-    SetClass("npc_melee");
+    SetClass("fighter");
     SetLevel(20);
     SetGender("neuter");
     SetMorality(-625);
