@@ -48,7 +48,6 @@ static void create() {
     SetMorality(2250);
     SetUnique(1);
     SetPermitLoad(1);
-    SetSleeping(0);
     set_heart_beat(1);            
 }
 
@@ -56,7 +55,7 @@ void wander(){
     object env = environment();     
 
     if(movebool == 0) return;
-    //eventForce("say hour "+hour+": minutes "+minutes);
+    
     if((hour == 4 && minutes >= 30) || (hour == 0 && minutes >= 1)){
         switch (path[index]) {
 
@@ -141,18 +140,22 @@ void time(){
     minutes = time_of_day[1];
   
     if(env && env->GetShort() == "the Mayor's Office") {
-        if( (hour >= 0 && minutes > 1 && hour <= 4 && minutes < 29) 
-            || (hour >= 4 && minutes > 30) 
-            && this_object()->GetPosition() != 8
-            || this_object()->GetInCombat() <= 0 )  {
-                this_object()->eventForce("lie in chair");
+        if( (hour >= 0 && minutes > 1 && hour <= 4 && minutes < 29 
+            || hour >= 4 && minutes > 30) 
+            && (this_object()->GetPosition() == 8
+            && this_object()->GetInCombat() == 0) )  {
+                return;
         }
-        if( (hour >= 0 && minutes > 1 && hour <= 4 && minutes < 29) 
-            || (hour >= 4 && minutes > 30) 
-            && this_object()->GetSleeping() == 0
-            || this_object()->GetInCombat() <= 0 ) {
-                this_object()->eventForce("sleep");
+        else this_object()->eventForce("lie in chair");
+        
+        if( (hour >= 0 && minutes > 1 && hour <= 4 && minutes < 29 
+            || hour >= 4 && minutes > 30) 
+            && (this_object()->GetSleeping() != 0
+            && this_object()->GetInCombat() == 0) ) {
+            return;
         }
+        else this_object()->eventForce("sleep");
+        
         if (hour == 4 && minutes == 29 ) {
             movebool = 1;
             path = open_path;
