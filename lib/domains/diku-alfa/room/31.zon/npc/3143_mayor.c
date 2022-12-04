@@ -1,13 +1,16 @@
-// Based on Diku MUD Alfa.  Program and Concept created by
-// Sebastian Hammer, Michael Seifert, Hans Henrik Staerfeldt,
-// Tom Madsen, and Katja Nyboe.
-// http://www.dikumud.com
-//
-// Modified by Lash (Christopher Coker) for use with:
-//
-// The Dead Souls Mud Library version 2
-// developed by Cratylus
-// http://www.dead-souls.net
+/* Based on Diku MUD Alfa.  Program and Concept created by
+ *   Sebastian Hammer, Michael Seifert, Hans Henrik Staerfeldt,
+ *   Tom Madsen, and Katja Nyboe.
+ *   http://www.dikumud.com
+ *
+ *   Modified by Lash (Christopher Coker) for use with:
+ *
+ *   The Dead Souls Mud Library version 2
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
+ * 
+ *   last modified 22/12/04 year/month/day 
+ */
 
 #include <lib.h>
 #include <daemons.h>
