@@ -41,7 +41,7 @@ mixed AddFactions(mapping fac){
     string faction;
 
     if(!arrayp(fac)){
-        return ("String(s) must be quoted in array format: AddFactions(({\"a\", \"b\", etc}))");
+        error("String(s) must be quoted in array format: AddFactions(({\"a\", \"b\", etc}))\n");
     }
 
     foreach(faction in fac){
@@ -91,7 +91,7 @@ mixed AddFactionLevel(string fac, int val){
     Factions[fac]["level_timer"] = SEASONS_D->GetTime();
     return Factions[fac]["faction_level"];
 }
-//adds val to the faction level in the "string" faction in Factions mapping
+//sets val to the faction level in the "string" faction in Factions mapping
 mixed SetFactionLevel(string fac, int val){
     if( !stringp(fac) || !Factions[fac] ) 
         return;
@@ -128,7 +128,7 @@ mixed AddReputation(string fac, int val){
     Factions[fac]["reputation_timer"] = SEASONS_D->GetTime();
     return Factions[fac]["reputation"];
 }
-//sets the reputation level for "string" faction in Factions mapping
+//sets val for the reputation level for "string" faction in Factions mapping
 mixed SetReputation(string fac, int val){
     if( !stringp(fac) || !Factions[fac] )
         return;
