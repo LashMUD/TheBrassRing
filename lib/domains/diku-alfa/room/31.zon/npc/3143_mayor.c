@@ -14,7 +14,6 @@
 
 #include <lib.h>
 #include <daemons.h>
-#include <position.h>
 
 inherit LIB_SENTIENT;
 
@@ -55,11 +54,9 @@ static void create() {
 }
 
 void wander(){
-    object env = environment();     
-
     if(movebool == 0) return;
     
-    if((hour == 4 && minutes >= 30) || (hour == 0 && minutes >= 1)){
+    if((hour == 4 && minutes >= 30) || (hour == 20 && minutes >=30)){
         switch (path[index]) {
 
         case '0': eventForce("go north");
@@ -75,7 +72,7 @@ void wander(){
         break;
 
         case 'W':
-        tell_room(environment(this_object()),"The Mayor awakens and groans loudly.", ({this_object()}));
+        tell_room(environment(this_object()), "The Mayor awakens and groans loudly.", ({this_object()}));
         this_object()->SetSleeping(0);
         eventForce("stand");
         break;
@@ -137,38 +134,33 @@ void wander(){
 }
 
 void time(){
-    object env = environment();
+    object env = environment(this_object());
     time_of_day = SEASONS_D->GetMudTime();
     hour = time_of_day[0];
     minutes = time_of_day[1];
-  
-    if(env && env->GetShort() == "the Mayor's Office") {
-        if( (hour >= 0 && minutes > 1 && hour <= 4 && minutes < 29 
-            || hour >= 4 && minutes > 30) 
-            && (this_object()->GetPosition() == 8
-            && this_object()->GetInCombat() == 0) )  {
-                return;
-        }
-        else this_object()->eventForce("lie in chair");
-        
-        if( (hour >= 0 && minutes > 1 && hour <= 4 && minutes < 29 
-            || hour >= 4 && minutes > 30) 
-            && (this_object()->GetSleeping() != 0
-            && this_object()->GetInCombat() == 0) ) {
-            return;
-        }
-        else this_object()->eventForce("sleep");
-        
-        if (hour == 4 && minutes == 29 ) {
-            movebool = 1;
-            path = open_path;
-            index = 0;
-        }
-        if (hour == 0 && minutes == 0) {
-            movebool = 1;
-            path = close_path;
-            index = 0;
-        }
+
+    if( env && env->GetShort() == "the Mayor's Office" 
+           && movebool == 0
+           && this_object()->GetPosition() != 8
+           && !this_object()->GetInCombat() ) {
+        this_object()->eventForce("lie in chair");
+    }
+    if(env && env->GetShort() == "the Mayor's Office" 
+           && movebool == 0
+           && this_object()->GetPosition() == 8
+           && !this_object()->GetInCombat() ) {
+        this_object()->eventForce("sleep");
+    }
+            
+    if (hour == 4 && minutes == 29) {
+        movebool = 1;
+        path = open_path;
+        index = 0;
+    }
+    else if (hour == 20 && minutes == 29) {
+        movebool = 1;
+        path = close_path;
+        index = 0;
     }
     wander();
 }
