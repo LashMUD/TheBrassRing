@@ -17,6 +17,11 @@ by the heart_beat function, will need to be changed to adapt to the time
 style of your Dead Souls mudlib, or the set_day_length and set hour_length
 can be changed in /lib/secure/include/config.h 
 
+Edit /lib/secure/include/config.h as follows:
+
+#define ADMIN_EMAIL              "n@n.net" to your email address
+#define DEBUGGER                 "lash" to your admin name
+
 start the mud again - login as the admin character and issue the following 
 commands:
 
