@@ -61,13 +61,19 @@ void CheckPoison(object ob){
         ob = this_object()->GetCurrentEnemy();     
         chance = random(32)-this_object()->GetLevel();
         
-        if(chance == 0){
-            tell_room(env, "The Snake sinks its fangs into "+ob->GetShort()+"!", ({this_object(), ob}) );
-            tell_object(ob, "The Snake sinks its fangs into you!");
-            ob->AddPoison(5);
+        if(this_object()->GetInCombat()){
+        ob = this_object()->GetCurrentEnemy();
+        if(ob->GetPoison() > 0) return;     
+        else { 
+            chance = random(32)-this_object()->GetLevel();
+            if(chance == 0){
+                tell_room(env, "%^BOLD%^%^GREEN%^The Snake sinks its fangs into "+ob->GetShort()+"!%^RESET%^\n", ({this_object(), ob}) );
+                tell_object(ob, "%^BOLD%^%^GREEN%^The Snake sinks its fangs into you!%^RESET%^\n");
+                ob->AddPoison(5);
+            }
         }
     }
-}
+}    
 
 void Scavenge(){
 

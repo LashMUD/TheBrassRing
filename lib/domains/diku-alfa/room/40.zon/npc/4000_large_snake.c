@@ -58,7 +58,6 @@ void CheckPoison(object ob){
         if(ob->GetPoison() > 0) return;     
         else { 
             chance = random(32)-this_object()->GetLevel();
-            tell_player("lash", "chance is "+chance);
             if(chance == 0){
             tell_room(env, "%^BOLD%^%^GREEN%^The Snake sinks its fangs into "+ob->GetShort()+"!%^RESET%^\n", ({this_object(), ob}) );
             tell_object(ob, "%^BOLD%^%^GREEN%^The Snake sinks its fangs into you!%^RESET%^\n");
