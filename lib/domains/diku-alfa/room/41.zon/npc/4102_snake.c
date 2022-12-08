@@ -25,7 +25,7 @@ static void create() {
     SetShort("A large green snake, looks like a guardian for an evil force");
     SetLong("You see an evil creature.");
     SetRace("viper");
-    SetLevel(10);
+    SetLevel(30);
     SetMelee(1);
     SetGender("male");
     SetMorality(-1750);
@@ -63,7 +63,7 @@ void CheckPoison(object ob){
         if(chance == 0){
             tell_room(env, "The Snake sinks its fangs into "+ob->GetShort()+"!", ({this_object(), ob}) );
             tell_object(ob, "The Snake sinks its fangs into you!");
-            ob->AddPoison(25);
+            ob->AddPoison(5);
         }
     }
 }

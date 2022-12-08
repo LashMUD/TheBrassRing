@@ -60,7 +60,7 @@ void CheckPoison(object ob){
         if(chance == 0){
             tell_room(env, "The Snake sinks its fangs into"+ob->GetShort()+"!", ({this_object(), ob}) );
             tell_object(ob, "The Snake sinks its fangs into you!");
-            ob->AddPoison(25);
+            ob->AddPoison(5);
         }
     }
 }    

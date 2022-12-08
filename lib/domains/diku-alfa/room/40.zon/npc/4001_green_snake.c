@@ -25,7 +25,7 @@ static void create() {
         "It looks harmless.");
     SetRace("viper"); //To add poison
     SetClass("fighter");
-    SetLevel(50);
+    SetLevel(8);
     SetGender("neuter");
     SetMorality(-250);
     SetCombatAction(100, (:CheckPoison:));
@@ -47,7 +47,7 @@ void CheckPoison(object ob){
         if(chance == 0){
             tell_room(env, "%^BOLD%^%^GREEN%^The Snake sinks its fangs into "+ob->GetShort()+"!%^RESET%^\n", ({this_object(), ob}) );
             tell_object(ob, "%^BOLD%^%^GREEN%^The Snake sinks its fangs into you!%^RESET%^\n");
-            ob->AddPoison(25);
+            ob->AddPoison(4);
         }
     }
 }    

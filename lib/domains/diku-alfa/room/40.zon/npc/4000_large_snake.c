@@ -26,7 +26,7 @@ static void create() {
         "It looks hungry.");
     SetRace("viper"); //To add poison
     SetClass("fighter");
-    SetLevel(20);
+    SetLevel(11);
     SetGender("neuter");
     SetMorality(-500);
     SetEncounter( (:CheckNPC:) );
@@ -44,7 +44,7 @@ void init(){
 void CheckNPC(object ob){
  
  object env=environment(this_object());
- if(ob && !inherits(LIB_NPC, ob)){
+ if(ob && !inherits(LIB_NPC, ob) && !adminp(ob)){
          eventForce("kill " +ob->GetKeyName());
  }
 }
@@ -54,12 +54,16 @@ void CheckPoison(object ob){
     object env = environment(this_object());
 
     if(this_object()->GetInCombat()){
-        ob = this_object()->GetCurrentEnemy();     
-        chance = random(32)-this_object()->GetLevel();
-        if(chance == 0){
+        ob = this_object()->GetCurrentEnemy();
+        if(ob->GetPoison() > 0) return;     
+        else { 
+            chance = random(32)-this_object()->GetLevel();
+            tell_player("lash", "chance is "+chance);
+            if(chance == 0){
             tell_room(env, "%^BOLD%^%^GREEN%^The Snake sinks its fangs into "+ob->GetShort()+"!%^RESET%^\n", ({this_object(), ob}) );
             tell_object(ob, "%^BOLD%^%^GREEN%^The Snake sinks its fangs into you!%^RESET%^\n");
-            ob->AddPoison(50);
+            ob->AddPoison(8);
+            }
         }
     }
 }    
