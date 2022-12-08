@@ -22,7 +22,7 @@ static void create(){
     SetKeyName("spider Queen");
     SetId(({"spider", "Queen", "queen"}));
     SetAdjectives(({"", ""}));
-    SetShort("the Queen Spider");
+    SetShort("Queen Spider");
     SetLong("The huge, bulky Queen Spider is here.");
     SetRace("arachnid");
     SetClass("fighter");
@@ -61,14 +61,15 @@ void CheckPoison(object ob){
         else { 
             chance = random(32)-this_object()->GetLevel();
             if(chance == 0){
-                tell_room(env, "%^BOLD%^%^GREEN%^The Snake sinks its fangs into "+ob->GetShort()+"!%^RESET%^\n", ({this_object(), ob}) );
-                tell_object(ob, "%^BOLD%^%^GREEN%^The Snake sinks its fangs into you!%^RESET%^\n");
+                tell_room(env, "%^BOLD%^%^GREEN%^The "+this_object()->GetShort()+
+                    " sinks its fangs into "+ob->GetShort()+"!%^RESET%^\n", ({this_object(), ob}) );
+                tell_object(ob, "%^BOLD%^%^GREEN%^The "+this_object()->GetShort()+
+                    " sinks its fangs into you!%^RESET%^\n");
                 ob->AddPoison(10);
             }
         }
     }
 }    
-
 
 /* Extra Information Original Diku Output 
 FEMALE MOB - Name : queen spider [R-Number111], In room [3001] V-Number [6114]

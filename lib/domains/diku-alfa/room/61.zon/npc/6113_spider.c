@@ -22,7 +22,7 @@ static void create(){
     SetKeyName("huge poisonous spider");
     SetId(({"spider", "huge"}));
     SetAdjectives(({"", ""}));
-    SetShort("the Huge Poisonous Spider");
+    SetShort("Huge Poisonous Spider");
     SetLong("A huge, poisonous spider is here.");
     SetRace("arachnid");
     SetClass("fighter"); 
@@ -57,8 +57,10 @@ void CheckPoison(object ob){
         else { 
             chance = random(32)-this_object()->GetLevel();
             if(chance == 0){
-                tell_room(env, "%^BOLD%^%^GREEN%^The Snake sinks its fangs into "+ob->GetShort()+"!%^RESET%^\n", ({this_object(), ob}) );
-                tell_object(ob, "%^BOLD%^%^GREEN%^The Snake sinks its fangs into you!%^RESET%^\n");
+                tell_room(env, "%^BOLD%^%^GREEN%^The "+this_object()->GetShort()+
+                    " sinks its fangs into "+ob->GetShort()+"!%^RESET%^\n", ({this_object(), ob}) );
+                tell_object(ob, "%^BOLD%^%^GREEN%^The "+this_object()->GetShort()+
+                    " sinks its fangs into you!%^RESET%^\n");
                 ob->AddPoison(5);
             }
         }
