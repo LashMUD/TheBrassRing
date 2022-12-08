@@ -54,10 +54,6 @@ void CheckPoison(object ob){
     object env = environment(this_object());
 
     if(this_object()->GetInCombat()){
-        ob = this_object()->GetCurrentEnemy();     
-        chance = random(32)-this_object()->GetLevel();
-        
-        if(this_object()->GetInCombat()){
         ob = this_object()->GetCurrentEnemy();
         if(ob->GetPoison() > 0) return;     
         else { 
