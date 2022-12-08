@@ -56,11 +56,10 @@ void CheckPoison(object ob){
     int chance; 
     object env = environment(this_object());
 
-    if(this_object()->GetInCombat()){
-        ob = this_object()->GetCurrentEnemy();     
-        chance = random(32)-this_object()->GetLevel();
+    ob = this_object()->GetCurrentEnemy();     
+    chance = random(32)-this_object()->GetLevel();
         
-        if(this_object()->GetInCombat()){
+    if(this_object()->GetInCombat()){
         ob = this_object()->GetCurrentEnemy();
         if(ob->GetPoison() > 0) return;     
         else { 
