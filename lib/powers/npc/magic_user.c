@@ -200,7 +200,7 @@ void energy_drain(object ob){
         target->eventReceiveDamage(ob, MAGIC, dam, 1,);
         tell_player(target, "\n%^BOLD%^%^GREEN%^Your life energy is drained!%^RESET%^\n");
         tell_room(env, "\n"+capitalize(ob->GetShort())+" drains "
-            +target->GetKeyname()+" - what a waste of energy !\n", ({ob, target}));
+            +capitalize(target->GetKeyName())+" - what a waste of energy !\n", ({ob, target}));
     }
 }
 
@@ -295,10 +295,10 @@ void lightning_bolt (object ob){
     range = dam_each[level] - dam_each[level]/2;
     roll = random(range);
     dam = dam_each[level]/2 + roll;
-    tell_player(target, "\n%^BOLD%^%^GREEN%^You are hit by lightning by "
+    tell_player(target, "\n%^BOLD%^%^GREEN%^You are hit by lightning from "
         +capitalize(ob->GetKeyName())+", ouch.%^RESET%^\n");
     tell_room(env, "\n"+capitalize(target->GetKeyName())+" screams in pain as lightning from "
-        +capitalize(ob->GetKeyName())+" penetrates "+nominative(target)+".\n", ({ob, target}));
+        +capitalize(ob->GetKeyName())+" penetrates "+objective(target)+".\n", ({ob, target}));
     if (s_throw <= save){
         tell_room(env, "\n"+capitalize(target->GetShort())+" partially resists "
             +ob->GetKeyName()+"'s magic attack!\n", ({ ob, target }));
