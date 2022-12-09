@@ -9,7 +9,7 @@
  *    
  *    created and modified by lash (ccoker)
  *    for use in The Brass Ring mud
- *    last modified: 22/11/18 year/month/day
+ *    last modified: 22/12/09 year/month/day
  *    
  *     EXAMPLE for using SetRent in a file:
  *     this_player()->SetRent( ([ "The Cyclops Inn" : ({"/domains/etnar/wyr/room/rm_172",
@@ -109,45 +109,43 @@ void CheckTimer(){
         z = SEASONS_D->GetTime();
         
         //player gets something for the money they spent to rent the room
-        foreach(string key in this_player()->GetRents(str[x])) {
-            if( z < y && this_player()->GetSleeping() > 0 
-                && (strcmp(env,  Rent[key]["effective_room"])) == 0) {
-                this_player()->AddHP(5);
-                this_player()->AddStaminaPoints(5);
-                this_player()->AddMagicPoints(5);   
-            } 
+        if( z < y && this_player()->GetSleeping() > 0 
+            && (strcmp(env,  Rent[str[x]]["effective_room"])) == 0) {
+            this_player()->AddHP(5);
+            this_player()->AddStaminaPoints(5);
+            this_player()->AddMagicPoints(5);   
+        } 
             
-            //let the player know their rent has run out at a rented location
-            if( z > y && this_player()->GetSleeping() >= 0 
-                && (strcmp(env, Rent[key]["effective_room"])) != 0) {
-                tell_player(this_player(), "\nYour rented room at "+key+
-                    " has expired.\n");
-                this_player()->RemoveRent(key);
-            }
+        //let the player know their rent has run out at a rented location
+        if( z > y && this_player()->GetSleeping() >= 0 
+            && (strcmp(env, Rent[str[x]]["effective_room"])) != 0) {
+            tell_player(this_player(), "\nYour rented room at "+(str[x])+
+                " has expired.\n");
+            this_player()->RemoveRent(str[x]);
+        }
             
-            //if the player is sleeping they are escorted to the renting room (reception)
-            else if( z > y && this_player()->GetSleeping() > 0 ) {
-                tell_player(this_player(), "\nYour rented room at "+key+
-                    " has expired.");
-                tell_player(this_player(), "You are aware of being hauled off "
-                    "to the reception by someone.\n");
-                tell_room(env, "\nThe bouncer picks up "+
-                    this_player()->GetShort()+" and hauls "
-                    "them to the reception room.\n", this_player());
-                this_player()->eventMove(Rent[key]["renting_room"]);
-                this_player()->RemoveRent(key);
-            }
+        //if the player is sleeping they are escorted to the renting room (reception)
+        else if( z > y && this_player()->GetSleeping() > 0 ) {
+            tell_player(this_player(), "\nYour rented room at "+(str[x])+
+                " has expired.");
+            tell_player(this_player(), "You are aware of being hauled off "
+                "to the reception by someone.\n");
+            tell_room(env, "\nThe bouncer picks up "+
+                this_player()->GetShort()+" and hauls "
+                "them to the reception room.\n", this_player());
+            this_player()->eventMove(Rent[str[x]]["renting_room"]);
+            this_player()->RemoveRent(str[x]);
+        }
             
-            //if the player is not sleeping they are still escorted to the renting room (reception)
-            else if( z > y && this_player()->GetSleeping() == 0 ) {
-                tell_player(this_player(), "\nYour rented room at "+key+
-                    " has expired.");
-                tell_player(this_player(), "The bouncer escorts you to the reception.\n");
-                tell_room(env, "\nThe bouncer boisterously hauls "+
-                    this_player()->GetShort()+" to the reception room.\n", this_player());
-                    this_player()->eventMove(Rent[key]["renting_room"]);
-                    this_player()->RemoveRent(key);
-            }
+        //if the player is not sleeping they are still escorted to the renting room (reception)
+        else if( z > y && this_player()->GetSleeping() == 0 ) {
+            tell_player(this_player(), "\nYour rented room at "+(str[x])+
+                " has expired.");
+            tell_player(this_player(), "The bouncer escorts you to the reception.\n");
+            tell_room(env, "\nThe bouncer boisterously hauls "+
+                this_player()->GetShort()+" to the reception room.\n", this_player());
+                this_player()->eventMove(Rent[str[x]]["renting_room"]);
+                this_player()->RemoveRent(str[x]);
         }
     }   
 }       
