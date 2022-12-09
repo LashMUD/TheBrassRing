@@ -21,9 +21,9 @@ static void create() {
     SetAdjectives(({""}));
     SetShort("a Duck");
     SetLong("The duck is quite fat and quaking happily. It looks like it is enjoying life.");
-    SetRace("bird");\
+    SetRace("bird");
     SetClass("fighter");
-    SetLevel(1);
+    SetLevel(5);
     SetGender("female");
     SetMorality(2500);
     SetWander(5);
