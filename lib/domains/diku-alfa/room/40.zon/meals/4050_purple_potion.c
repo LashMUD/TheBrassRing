@@ -4,10 +4,13 @@
  * http://www.dikumud.com
  *
  * Modified by Lash (Christopher Coker) for use with:
- *
- * The Dead Souls Mud Library version 2
+ * The Dead Souls Mud Library 
  * developed by Cratylus
  * http://www.dead-souls.net
+ *  -added mapping for functionality
+ *  -had to switch variables in SetResistance()
+ *  -last modified 22/12/09 
+ *
  */
 
 #include <lib.h>
@@ -30,7 +33,7 @@ static void create() {
     SetMealAction((: potionfunc :));
     SetBaseCost("gold",500);
     SetNoCondition(1);
-    SetResistance( ([ALL_EXTERNAL_DAMAGE : "medium"]) );
+    SetResistance( ([ ALL_EXTERNAL_DAMAGE : "medium"]) );
     SetDuration(300);
     SetProperty("magic", "This potion cures blindnes and confers sanctuary.");
 }
@@ -41,8 +44,8 @@ void init(){
 
 int potionfunc(){
     object ob = this_player();
-    
-    if(ob && ob->GetBlind()) ob->SetBlind(0);    
+  
+    if(ob && ob->GetBlind()) ob->eventRestoreSight(); 
 }
 
 /* Extra Information Original Diku Output
