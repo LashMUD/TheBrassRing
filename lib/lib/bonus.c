@@ -31,7 +31,7 @@ object whom;
 void create(){
     item::create();
     AddSave( ({ "Skills", "Stats", "Points", "Duration", "Resistance", "bonusname" }) );
-    SetInvis(0);
+    SetInvis(1);
     SetId("bonus_object");
     SetShort("bonus");
     SetLong("A bonus");
