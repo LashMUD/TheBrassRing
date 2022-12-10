@@ -4,12 +4,13 @@
  * http://www.dikumud.com
  *
  * Modified by Lash (Christopher Coker) for use with:
- *  -added mapping for functionality
- *  -last modified 20/06/02 
- *
  * The Dead Souls Mud Library 
  * developed by Cratylus
  * http://www.dead-souls.net
+ *  -added mapping for functionality
+ *  -had to switch variables in SetResistance()
+ *  -last modified 22/12/09 
+ *
  */
 
 #include <lib.h>
@@ -32,7 +33,7 @@ static void create() {
     SetMealAction((: potionfunc :));
     SetBaseCost("gold",500);
     SetNoCondition(1);
-    SetResistance( ([ALL_EXTERNAL_DAMAGE : "medium"]) );
+    SetResistance( ([ ALL_EXTERNAL_DAMAGE : "medium"]) );
     SetDuration(300);
     SetProperty("magic", "This potion cures blindnes and confers sanctuary.");
 }
