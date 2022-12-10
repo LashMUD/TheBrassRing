@@ -5,10 +5,11 @@
  *    modified by Lash (ccoker) for use in The Brass Ring
  *     - bug fix: bonus object wasn't being destructed
  *     - 2014-12-12
- *     -added functionality for setting resistances
+ *     - added functionality for setting resistances
  *     - 15/12/28
  *     - changed functionality to use mappings
- *     last modified: 20/06/02
+ *     - had to switch variables in SetResistance()
+ *     last modified: 22/12/09
  */
 
 #include <lib.h>
@@ -119,7 +120,7 @@ int SetBonuses(){
             whom->AddSkillBonus(key, val);
         }
     if(sizeof(Resistance))
-        foreach(string key, int val in Resistance){
+        foreach(int val, string key in Resistance){
             switch(key){
                 case "none" : whom->SetResistance(val, "none"); break;
                 case "low" : whom->SetResistance(val, "low"); break; 
@@ -159,7 +160,7 @@ int RemoveBonuses(){
             whom->RemoveSkillBonus(key);
         }
     if(sizeof(Resistance))
-        foreach(string key, int val in Resistance){
+        foreach(int val, string key in Resistance){
             switch(key){
                 case "none" : whom->SetResistance(val, "none"); break;
                 case "low" : whom->SetResistance(val, "none"); break; 
