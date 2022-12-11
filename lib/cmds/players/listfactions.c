@@ -7,7 +7,7 @@
  * 
  *    created by lash (ccoker)
  *    for use in the The Brass Ring mud
- *    last modified 20/19/05
+ *    last modified 22/12/10 year/month/day
  */
 
 #include <lib.h>
@@ -25,26 +25,26 @@ varargs mixed cmd() {
         write("You belong to no factions.");
         return 1;
     }
-    str = ({"\nYou have been noted by the following factions:\n"});
+    if(sizeof(ob->GetFacs()) > 1) {  
+        str = ({"\nYou have been noted by the following factions:\n"});
+        } else {
+        str = ({"\nYou have been noted by the following faction:\n"});
+        }
     foreach(string key in ob->GetFacs()){
         fac = capitalize(key);
         x = ob->GetFactionLevel(key);
         y = ob->GetReputationLevel(key);
-        if(!x){
-            str += ({ sprintf("%s\n   Reputation %d\n",fac,y) });
-        }else
-        if(!x  && y<=0){
-            str += ({ sprintf("%s\n   Level %d\n",fac,x) });
-        }else
-        if(x>=1 && y<=0){
-            str += ({ sprintf("%s\n   Level %d\n",fac,x) });
-        }
-        else{
-            str += ({ sprintf("%s\n   Level %d\n   Reputation  %d \n",fac,x,y) });
-        }
+        
+        str += ({ sprintf("%s\n   Level       %d\n   Reputation  %d \n",fac,x,y) });
+        
         z++;
     }
-    str += ({"A total of "+z+" factions have interest in you\n"});
+    if(sizeof(ob->GetFacs()) > 1) {  
+        str += ({"A total of "+z+" factions have interest in you\n"});
+        }
+    else {
+        str += ({"A total of "+z+" faction has interest in you\n"});
+    }
     this_player()->eventPage(str, "factions");
     return 1;
 }
