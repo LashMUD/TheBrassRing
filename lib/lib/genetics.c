@@ -47,25 +47,18 @@ static void create(){
     Resistance["none"] = ALL_DAMAGE;
 }
 
-/* added by lash (ccoker) for skill based leveling system */
-void AddCustomizationPoints(){
-     int w, x, y, z;
-     string *stats;
-     string str;
-
-     /* don't blow away players custom stat points if not used */
-     w = this_player()->GetCustomStats();
-      
-     stats = this_player()->GetStats();
-        foreach(str in stats){
-            x += this_player()->GetBaseStatLevel(str);
-            y++;
-        }
-        if(x <= ((y*100)-15)){
-            z = random(15)+1+w;
-        }else{ z = random(x)+1;
-        }
-     Custom = ([ "stats" : z, "deviations" : 0, "deviating" : 0, ]);
+/* added by lash (ccoker) for skill based leveling system
+ * allows players to increase their character's stats
+ * for customizing their character as they prefer
+ */
+void AddCustomizationPoints(int x){
+     if(!x) {
+         x = random(3)+3; //change as you see fit
+         Custom["stats"] += x;
+     }
+     else { 
+        Custom["stats"] += x;
+    }
 }
 
 int GetBlind(){
@@ -321,6 +314,7 @@ string GetResistanceKey(string key){
 
 int GetCustomStats(){ return Custom["stats"]; }
 int GetCustomDeviations(){ return Custom["deviations"]; }
+mixed GetCustom(){ return (Custom); }
 int GetDeviating(){ return Custom["deviating"]; }
 int SetDeviating(int x){ return (Custom["deviating"] = (x ? 1 : 0)); }
 
