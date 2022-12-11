@@ -10,7 +10,9 @@
  *     - added functions for skill based leveling system
  *     - added code to eventRestoreSight() function so blindness
  *       can be removed without the 'amt' argument given
- *    last modified: 20/06/02
+ *     - simplified AddCustomizationPoints()
+ *
+ *    last modified: 22/12/11 year/month/day
  */
 
 #include <vision.h>
