@@ -92,8 +92,7 @@ varargs int ChangeLevel(int i){
         }
     }
     /*decreasing stats for level loss*/
-    if(SKILL_ADVANCE && (desired_level <= current_level)) {
-        tell_player("lash", "desired_level is "+desired_level+" and current_level is "+current_level);
+    if(SKILL_ADVANCE && (desired_level < current_level)) {
         foreach(mixed key, mixed val in stats){
             if(stats[key]["class"] > 3) stats[key]["class"] = 4;
             subject->SetStat(key,
