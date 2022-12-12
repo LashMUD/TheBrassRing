@@ -14,6 +14,8 @@
 
 inherit LIB_ROOM;
 
+int ReadSign();
+
 static void create() {
     room::create();
     
@@ -27,7 +29,7 @@ static void create() {
 	"You feel you can hear the cry of help from a thousand silent voices all coming\n"+
 	"from an even darker hole in the mountain to the north marking the entrance to\n"+
 	"a cave (or a grave :-).");
-SetItems( ([ 
+    SetItems( ([ 
         "north" : "",
         "south" : "",
         "bushes" : "Small crippled bushes desperately trying to grow south.",
@@ -36,25 +38,32 @@ SetItems( ([
 	"*                                                                     *\n"+
 	"* ******************************************************************* *\n"+
 	"* *                                                                 * *\n"+
-	"* *                    The Mines of Moravia                           * *\n"+
+	"* *                    The Mines of Moravia                         * *\n"+
 	"* *                                                                 * *\n"+
 	"* *                  Enter at your own risk.                        * *\n"+
 	"* *                 Bring your own tombstone.                       * *\n"+
 	"* *                                                                 * *\n"+
 	"* *   Welcome to the mines of Moravia.. At present there are only   * *\n"+
-	"* *   4 levels. The plan is to build 20... If you ever get there  * *\n"+
+	"* *   4 levels. The plan is to build 20... If you ever get there    * *\n"+
 	"* *                                                                 * *\n"+
-	"* *     Are you below level 3 Don't enter..                         * *\n"+
-	"* *     Are you below level 8 Don't enter alone..unless you're blue * *\n"+
+	"* *   Are you below level 3 Don't enter..                           * *\n"+
+	"* *   Are you below level 8 Don't enter alone..unless you're green  * *\n"+
 	"* *                                                                 * *\n"+
 	"* ******************************************************************* *\n"+
 	"*                                                                     *\n"+
 	"***********************************************************************",
         ] ));
-SetExits( ([
+    SetExits( ([
          "north" : "/domains/diku-alfa/room/40.zon/rm_4010",
          "south" : "/domains/diku-alfa/room/40.zon/rm_4001",
         ] ));
+    SetRead( ([
+        "sign" : (:ReadSign:),
+        ]) );
+}
+
+mixed ReadSign(){
+    return (mixed)this_player()->eventPage("/domains/diku-alfa/room/40.zon/txt/mountain_sign.txt");
 }
 
 void init(){
