@@ -48,7 +48,7 @@ static void create() {
                       
         ]) ); 
     SetTalkResponses( ([  
-        "we are under attack" : ( :GoHelp: ),
+        "we are under attack!" : ( :GoHelp: ),
         "waltin" : "Waltin is a good man, but lacks ambition.",
         ]) );
     SetRequestResponses( ([
@@ -91,7 +91,6 @@ int checkCombat() {
         foreach(object thing in npc) {
             if( (thing->GetKeyName() == "waltin kelley" && thing->GetInCombat()) 
                 || (thing->GetKeyName() == "albert derby" && thing->GetInCombat()) ) {
-                tell_player("lash", "thing is "+thing->GetShort());
                 enemy = thing->GetCurrentEnemy();
                 break;
             }

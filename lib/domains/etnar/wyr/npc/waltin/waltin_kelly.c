@@ -55,6 +55,8 @@ static void create() {
         "!say I say there's something funny about Ashlyn. She keeps to "+
             "herself too much.",                
     }));
+    SetCombatAction(30, ({"yell We are under attack!"})
+        );
     SetTalkResponses( ([  
         ({"trade routes","trade","routes"}) : "The raids on the caravans are "+
             "getting worse and worse.",
