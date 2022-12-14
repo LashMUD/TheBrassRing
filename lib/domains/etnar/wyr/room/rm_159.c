@@ -18,8 +18,8 @@ static void create() {
     SetLong("   This small stone structure was obviously built for "
         "functionality. There is very little in the way of creature "
         "comforts. A small table and chair are present as well as a "
-        "banner hanging on the back wall. A stone stairway to the left "
-        "leads down.");
+        "banner hanging on the back wall. A note is pinned to the east "
+        "wall. A stone stairway to the left leads down.");
     SetItems( ([ 
         "east" : "The village road winds north and south. The gates lie "
             "towards the south.", 
@@ -29,6 +29,8 @@ static void create() {
             "wields a lightning bolt instead of a sword.",
         ({"stairs", "stair", "stairway"}) : "A stairway, roughly hewn from the "
             "stone foundation, leads straight down into the depths below.",
+        "note" : "\nPlease help me find my husband Irwin. He went missing days ago! "
+                 "\n-Sybil Klakner-\n",
         ] ));
     SetInventory( ([
         "/domains/etnar/wyr/virtual/dummy_chair" : 1,
