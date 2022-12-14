@@ -16,7 +16,7 @@ void create(){
     SetKeyName("scroll");
     SetId(({"scroll of recall", "recall", "scroll"}));
     SetAdjectives(({"none"}));
-    SetShort("a scroll of recall");
+    SetShort("a scroll of recall to Wyr");
     SetLong("The scroll has written a formulae of 'Word of Recall' upon it. "
             "read 'recall on scroll' and you will be transported to a four "
             "way intersection in the village of Wyr." );
