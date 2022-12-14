@@ -9,7 +9,7 @@ void create(){
     SetKeyName("scroll");
     SetId(({"scroll of recall", "recall"}));
     SetAdjectives(({"none"}));
-    SetShort("a scroll of recall to Midgaard.");
+    SetShort("a scroll of recall to Midgaard");
     SetLong("The scroll has written a formulae of 'Word of Recall' upon it.\n"+
             "read 'recall on scroll'" );
     SetMass(1);
