@@ -6,8 +6,14 @@
  */
 
 #include <lib.h>
+#include <daemons.h>
 
 inherit LIB_ROOM;
+
+void haunting();
+void time();
+int hour, minutes;
+int *time_of_day;
 
 static void create() {
     room::create();
@@ -24,7 +30,7 @@ static void create() {
         "south" : "A small room with a table, a chair, and a small bookcase.",
         "west" : "A small kitchen is beyond the entrance.",
         ({"carpet", "rug"}) : "Probably the most expensive thing in the house. "
-            "The rug has red floral design woven into it.",
+            "The rug has a red floral design woven into it.",
         ({"sofa", "couch"}) : "Well worn with some threads starting show.",
         "fireplace" : "Though not very big a fire here would be enough to heat "
             "the whole house.",
@@ -33,14 +39,50 @@ static void create() {
             "three wooden shelves. The middle shelf has a small cloth doll sitting "
             "against the back of the cabinet.",
         ({"doll", "cloth doll"}) : "A raggedy doll with buttons for eyes and a nice "
-            "little yellow dress. It smiles sweetly at you.",  
+            "little yellow dress. It smiles sweetly at you.",
+        "trinkets" : "Little nick-nacks that are near worthless.",  
         ] ));
     SetInventory( ([
+        "/domains/etnar/wyr/npc/sybil/sybil_klaknor" : 1,
+        "/domains/etnar/wyr/virtual/dummy_sofa" : 1,
     ]) );
     SetExits( ([
          "east" : "/domains/etnar/wyr/room/rm_114",
          ] ));
     SetDoor("east", "/domains/etnar/wyr/doors/114_197");
+    set_heart_beat(1);
+}
+
+void haunting() {
+    
+    object cab;
+    time_of_day = SEASONS_D->GetMudTime();
+    hour = time_of_day[0];
+    minutes = time_of_day[1];
+    
+                    
+    if( hour >= 0 && hour < 3 ) {
+        
+        AddItem("cabinet", "Through the glass doors you can see some trinkets sitting on "
+                "three wooden shelves. The middle shelf has a small cloth doll standing "
+                "against the glass door.");
+        AddItem("doll", "A raggedy doll with buttons for eyes and a nice "
+            "little yellow dress. It is banging softly on the glass cabinet door trying to get out.");
+        AddItem("cloth doll", "A raggedy doll with buttons for eyes and a nice "
+            "little yellow dress. It is banging softly on the glass cabinet door trying to get out.");
+        
+        SetActionsMap( ([ 
+            "You here a banging on the cabinet door." : 1,
+            "The dolls' eyes emit a %^BOLD%^%^RED%^red%^RESET%^ glow." : 1,
+            "The dolls' head slowly spins around." : 1,
+            "You hear a soft sobbing eminating from the cabinet." : 1,
+            ]) );
+    }
+}
+
+void heart_beat(){
+    ::heart_beat();
+    haunting();
 }
 
 void init(){
