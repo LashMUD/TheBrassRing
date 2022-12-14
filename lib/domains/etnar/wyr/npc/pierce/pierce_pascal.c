@@ -65,7 +65,7 @@ void GoHelp(){
     if( env && !this_object()->GetInCombat()
             && env->GetShort() == "%^BOLD%^Outside the Guardhouse%^RESET%^" ) {
         this_object()->eventForce("say Not again! We're a peaceful village!");
-        this_object()->eventForce("yell %^BOLD%^%^CYAN%^I'm gonna get you sucka'%^RESET%^!");
+        this_object()->eventForce("yell %^BOLD%^%^CYAN%^You better be gone before I get there!%^RESET%^!");
         this_object()->eventForce("go south");
         checkCombat();
     }
@@ -74,7 +74,7 @@ void GoHelp(){
 int checkCombat() {
 
     object env = environment();
-    object array *enemy = ({});
+    object enemy;
     object array *npc = ({});
 
     npc = filter(get_livings(environment(this_object())), 
