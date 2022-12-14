@@ -22,7 +22,7 @@ static void create() {
         "long" : "\nA barred metal cell door opening to the north jail cell.",
         "lockable" : 1 ]) );
 
-    SetClosed(0);
+    SetClosed(1);
     SetLocked(0);
     SetKeys("north", ({ "key_wjk" }));
     SetKeys("south", ({ "key_wjk" }));

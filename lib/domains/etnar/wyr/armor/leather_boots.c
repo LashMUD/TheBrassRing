@@ -21,13 +21,13 @@ static void create(){
     SetShort("a pair of leather boots");
     SetLong("A pair of leather boots.");
     SetBaseCost("gold",10);    
-    SetMass(30);
-    SetDamagePoints(59);
+    SetMass(5);
+    SetDamagePoints(500);
     SetProtection(BLUNT,2);
     SetProtection(BLADE,4);
     SetProtection(KNIFE,4);
     SetArmorType(A_CUSTOM);
-     SetRestrictLimbs(({"left foot", "right foot"}));
+    SetRestrictLimbs(({"left foot", "right foot"}));
 }
 
 void init(){

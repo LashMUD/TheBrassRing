@@ -8,7 +8,7 @@
  * developed by Cratylus
  * http://www.dead-souls.net
  *  -added mapping for functionality
- *  -had to switch variables in SetResistance()
+ *  - had to switch variables in SetResistance()
  *  -last modified 22/12/09 
  *
  */

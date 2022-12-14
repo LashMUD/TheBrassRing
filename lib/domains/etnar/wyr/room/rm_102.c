@@ -1,8 +1,9 @@
-// Modified by Lash (Christopher Coker) for use with:
-//
-// The Dead Souls Mud Library version 2 and above
-// developed by Cratylus
-// http://www.dead-souls.net
+/*   Modified by lash (ccoker) for use with:
+ *
+ *   The Dead Souls Mud Library
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
+ */
 
 #include <lib.h>
 
@@ -53,7 +54,7 @@ static void create() {
             "looks like it gets handled quite often.", 
         ] ));
     SetInventory( ([
-        "/domains/etnar/wyr/npc/henli_zigil" : 1,
+        "/domains/etnar/wyr/npc/henli/henli_zigil" : 1,
         "/domains/etnar/wyr/obj/tapestry" : 1,
         ]) );
     revealed = 0;

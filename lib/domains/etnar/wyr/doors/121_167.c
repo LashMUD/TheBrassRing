@@ -26,8 +26,8 @@ static void create() {
 
     SetClosed(0);
     SetLocked(0);
-    SetKeys("north", ({ "key_wgks" }));
-    SetKeys("south", ({ "key_wgks" }));
+    SetKeys("north", ({ "key_wgk" }));
+    SetKeys("south", ({ "key_wgk" }));
 }
 
 void init(){

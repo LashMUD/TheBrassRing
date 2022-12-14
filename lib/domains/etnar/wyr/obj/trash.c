@@ -1,3 +1,8 @@
+/*   From the The Dead Souls Mud Library
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
+ */
+
 #include <lib.h>
 
 inherit LIB_STORAGE;
@@ -11,7 +16,7 @@ void create() {
     SetLong("This is a blue trash can, marked with "+
             "the letters \"/dev/null\".");
     SetMass(274);
-    SetBaseCost("silver",50);
+    SetBaseCost("gold",50);
     SetMaxCarry(999999);
 }
 

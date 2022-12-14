@@ -1,8 +1,9 @@
-// Modified by Lash (Christopher Coker) for use with:
-//
-// The Dead Souls Mud Library version 2 and above
-// developed by Cratylus
-// http://www.dead-souls.net
+/*   Modified by lash (ccoker) for use with:
+ *
+ *   The Dead Souls Mud Library
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
+ */
 
 #include <lib.h>
 
@@ -13,7 +14,7 @@ static void create() {
     room::create();
     SetClimate("outdoors");
     SetAmbientLight(30);
-    SetShort("%^BOLD%^The Road Through the Village of Wyr%^RESET%^");
+    SetShort("%^BOLD%^Junction of Farmer's Way%^RESET%^");
     SetLong("   The road continues north and south. To the west lies the "
         "beginning of Farmer's Way. To the east there is a heavily guarded "
         "bank - a large stone building."

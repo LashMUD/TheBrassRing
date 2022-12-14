@@ -1,8 +1,9 @@
-// Modified by Lash (Christopher Coker) for use with:
-//
-// The Dead Souls Mud Library version 2 and above
-// developed by Cratylus
-// http://www.dead-souls.net
+/*   Modified by lash (ccoker) for use with:
+ *
+ *   The Dead Souls Mud Library
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
+ */
 
 #include <lib.h>
 
@@ -13,7 +14,7 @@ static void create() {
     room::create();
     SetClimate("outdoors");
     SetAmbientLight(30);
-    SetShort("%^BOLD%^The Road Through the Village of Wyr%^RESET%^");
+    SetShort("%^BOLD%^Blacksmith and Teamster's%^RESET%^");
     SetLong("   You are walking on a well developed road in Wyr. To the west "
         "is a small building, the village teamster in Wyr. You can hear the "
         "grunts and growls of animals emanating from the building. To the "

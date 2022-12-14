@@ -1,8 +1,9 @@
-// Modified by Lash (Christopher Coker) for use with:
-//
-// The Dead Souls Mud Library version 2 and above
-// developed by Cratylus
-// http://www.dead-souls.net
+/*   Modified by lash (ccoker) for use with:
+ *
+ *   The Dead Souls Mud Library
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
+ */
 
 #include <lib.h>
 
@@ -57,5 +58,5 @@ mixed ReadSign() {
 }
 
 void init(){
-   ::init();
+    ::init();
 }

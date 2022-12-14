@@ -1,8 +1,9 @@
-// Modified by Lash (Christopher Coker) for use with:
-//
-// The Dead Souls Mud Library version 2 and above
-// developed by Cratylus
-// http://www.dead-souls.net
+/*   Modified by lash (ccoker) for use with:
+ *
+ *   The Dead Souls Mud Library
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
+ */
 
 #include <lib.h>
 
@@ -14,7 +15,7 @@ static void create() {
     room::create();
     SetClimate("outdoors");
     SetAmbientLight(30);
-    SetShort("%^BOLD%^On Pyre Avenue.%^RESET%^");
+    SetShort("%^BOLD%^On Pyre Avenue%^RESET%^");
     SetLong("   You are on Pyre Avenue. It continues east and west. To the south is "
             "Waltin Kelly's house."
         );
@@ -30,6 +31,7 @@ static void create() {
          "west" : "/domains/etnar/wyr/room/rm_180",
          "south" : "/domains/etnar/wyr/room/rm_189",
          ] ));
+    SetDoor("south", "/domains/etnar/wyr/doors/179_189");
 }
 
 void init(){

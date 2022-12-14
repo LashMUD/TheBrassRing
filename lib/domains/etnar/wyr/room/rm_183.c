@@ -1,8 +1,9 @@
-// Modified by Lash (Christopher Coker) for use with:
-//
-// The Dead Souls Mud Library version 2 and above
-// developed by Cratylus
-// http://www.dead-souls.net
+/*   Modified by lash (ccoker) for use with:
+ *
+ *   The Dead Souls Mud Library
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
+ */
 
 #include <lib.h>
 
@@ -14,8 +15,8 @@ static void create() {
     room::create();
     SetClimate("outdoors");
     SetAmbientLight(30);
-    SetShort("%^BOLD%^Farmer Lane.%^RESET%^");
-    SetLong("   You are on Farmer Lane. Off to the west is Joe Farmer's" 
+    SetShort("%^BOLD%^Farmer Lane%^RESET%^");
+    SetLong("   You are on Farmer Lane. Off to the west is Joe Farmer's " 
             "Pharm House and south is a regular house.");
     SetItems( ([ 
         "west" : "The lane continues to Joe Farmer's Pharm house.",

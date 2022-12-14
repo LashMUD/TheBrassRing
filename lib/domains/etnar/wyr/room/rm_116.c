@@ -1,8 +1,9 @@
-// Modified by Lash (Christopher Coker) for use with:
-//
-// The Dead Souls Mud Library version 2 and above
-// developed by Cratylus
-// http://www.dead-souls.net
+/*   Modified by lash (ccoker) for use with:
+ *
+ *   The Dead Souls Mud Library
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
+ */
 
 #include <lib.h>
 
@@ -15,9 +16,10 @@ static void create() {
     SetShort("%^BOLD%^A Four Way Intersection%^RESET%^");
     SetLong("   To the west there is a large wooden building. Smoke pours "
         "forth from the chimney and there are sounds of merriment coming from "
-        "within. There is a sign above the door. To the east the road dead "
-        "ends where there is a small humble looking abode. To the north the "
-        "road continues leading out of the village."
+        "within. There is a sign above the door. A large statue stands in the "
+        "middle of the intersection. To the east the road dead ends where there "
+        "is a small humble looking abode. To the north the road continues leading "
+        "out of the village."
         );
     SetItems( ([
         ({"wooden building", "wooden", "building"}) : " The famous Cyclops "
@@ -42,7 +44,7 @@ static void create() {
             "he holds in his right hand. The ears are slightly pointed and "
             "the eyes are yellow gemstones. The baseplate had some lettering "
             "carved but all that can be made out now is:"
-            "\n"
+            "\n\n"
             "                         E LAM\n"
             "\n"
             "                  ROT  TE T R OF   E SOUTH\n",

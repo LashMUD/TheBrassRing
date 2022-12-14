@@ -1,8 +1,9 @@
-// Modified by Lash (Christopher Coker) for use with:
-//
-// The Dead Souls Mud Library version 2 and above
-// developed by Cratylus
-// http://www.dead-souls.net
+/*   Modified by lash (ccoker) for use with:
+ *
+ *   The Dead Souls Mud Library
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
+ */
 
 #include <lib.h>
 
@@ -21,19 +22,22 @@ static void create() {
         "a large curtain covering a doorway. A youthful clerk stands here to "
         "assist you.");
     SetItems( ([ 
-        ({"curtain", "curtains"}) : " An ancient and mysterious black silk curtain blocks the "
-            "entrance to a small room. The fabric is covered with gold glowing "
-            "runes.",
-        ({"books","book" "bottles", "bottle", "potions", "potion", "spell",
-            "ingredients", "ingredient"}) : " These are some of the items "
+        ({ "curtain", "curtains" }) : " An ancient and mysterious black silk curtain blocks the "+
+            "entrance to a small room. The fabric is covered with gold glowing "+
+            "runes.\n",
+        ({ "books", "book", "bottles", "bottle", "potions", "potion", 
+           "spell ingredients", "ingredient" }) : " These are some of the items "
             "that the clerk is willing to sell.\n"
             "Type 'list' for further information.",
         ({"runes", "rune"}) : "The runes are indecipherable.\n"
         ] ));
-     SetRead( ([
+    SetInventory( ([
+        "/domains/etnar/wyr/npc/emma/emma_kirkland" : 1,
+        ]) ); 
+    SetRead( ([
             ({"runes", "rune"}) : (:ReadRunes:),
         ]) );  
-     SetExits( ([
+    SetExits( ([
         "north" : "/domains/etnar/wyr/room/rm_169",
         "south" : "/domains/etnar/wyr/room/rm_108",
         ] ));

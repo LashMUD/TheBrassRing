@@ -1,8 +1,9 @@
-// Modified by Lash (Christopher Coker) for use with:
-//
-// The Dead Souls Mud Library version 2 and above
-// developed by Cratylus
-// http://www.dead-souls.net
+/*   Modified by lash (ccoker) for use with:
+ *
+ *   The Dead Souls Mud Library
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
+ */
 
 #include <lib.h>
 
@@ -23,7 +24,7 @@ static void create() {
     SetItems( ([ 
     ]) );
     SetInventory( ([
-        "/domains/etnar/wyr/npc/caltan_dowini" : 1,
+        "/domains/etnar/wyr/npc/caltan/caltan_dowini" : 1,
     ]) );
     SetExits( ([
         "west" : "/domains/etnar/wyr/room/rm_170", //through a door

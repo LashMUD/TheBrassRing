@@ -1,8 +1,8 @@
-/* Modified by Lash (Christopher Coker) for use with:
+/*   Modified by lash (ccoker) for use with:
  *
- * The Dead Souls Mud Library
- * developed by Cratylus
- * http://www.dead-souls.net
+ *   The Dead Souls Mud Library
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
  */
 
 #include <lib.h>
@@ -35,8 +35,8 @@ static void create() {
            "fancy but certainly functional.",             
         ] ));
     SetInventory( ([
-        "/domains/etnar/wyr/npc/waltin_kelly" : 1,
-        "/domains/etnar/wyr/npc/albert_derby" : 1,
+        "/domains/etnar/wyr/npc/waltin/waltin_kelly" : 1,
+        "/domains/etnar/wyr/npc/albert/albert_derby" : 1,
         ]) );
     SetExits( ([
                 "north" : "/domains/etnar/wyr/room/rm_121",

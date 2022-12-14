@@ -1,11 +1,9 @@
-/* Modified by Lash (Christopher Coker) for use with:
- * The Dead Souls Mud Library version 2 and above
- * developed by Cratylus
- * http://www.dead-souls.net
- * this file creates the Fostaine Pyre object at a specific time
- * this MUD uses a 24 hr day cycle
- * last edited by lash 22/11/30 year/month/day
- */ 
+/*   Modified by lash (ccoker) for use with:
+ *
+ *   The Dead Souls Mud Library
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
+ */
 
 #include <lib.h>
 #include <daemons.h>
@@ -58,7 +56,7 @@ void time(){
     if( (hour >= 18 && minutes >= 0) && uptime() > 0 && (hour <= 23 && minutes <= 58) ) {
         if(present("bard")) return;
         if(!present("bard")) {
-            mon = new("domains/etnar/wyr/npc/fostaine_pyre");
+            mon = new("domains/etnar/wyr/npc/fostaine/fostaine_pyre");
             mon->eventMove(this_object());
             eventPrint("%^BOLD%^%^GREEN%^Fostaine Pyre%^RESET%^ the bard has arrived!");
             return;

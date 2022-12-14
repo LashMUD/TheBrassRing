@@ -1,8 +1,9 @@
-// Modified by Lash (Christopher Coker) for use with:
-//
-// The Dead Souls Mud Library version 2 and above
-// developed by Cratylus
-// http://www.dead-souls.net
+/*   Modified by lash (ccoker) for use with:
+ *
+ *   The Dead Souls Mud Library
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
+ */
 
 #include <lib.h>
 
@@ -13,7 +14,7 @@ static void create() {
     room::create();
     SetClimate("outdoors");
     SetAmbientLight(30);
-    SetShort("%^BOLD%^The Road Through the Village of Wyr%^RESET%^");
+    SetShort("%^BOLD%^By the Shrine%^RESET%^");
     SetLong("   To your west is the small Shrine that serves the community "
         "in Wyr. Further north, and off to the east of the road, stands a "
         "small two storied building. The road takes a bend further south."

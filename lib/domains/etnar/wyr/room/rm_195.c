@@ -1,8 +1,9 @@
-// Modified by Lash (Christopher Coker) for use with:
-//
-// The Dead Souls Mud Library version 2 and above
-// developed by Cratylus
-// http://www.dead-souls.net
+/*   Modified by lash (ccoker) for use with:
+ *
+ *   The Dead Souls Mud Library
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
+ */
 
 #include <lib.h>
 
@@ -13,7 +14,7 @@ static void create() {
     room::create();
     SetClimate("outdoors");
     SetAmbientLight(30);
-    SetShort("%^BOLD%^The Road Through the Village of Wyr%^RESET%^");
+    SetShort("%^BOLD%^Near the Well%^RESET%^");
     SetLong("   A modest but well-kept house can be seen to the west. "
         "Northwards is a four-way intersection with a tall statue "
         "dominating the view. The famous Cyclops Inn of Wyr is visible "
@@ -33,7 +34,7 @@ static void create() {
             "rests here. It has light blue painted wooden walls and nicely tiled roof.", 
         "road"  : " The flagstones become broken and eventually fade out "
             "leaving nothing more than dirt tracks in the ground.",
-        ({"east", "well"}) : "There is a citern built here with water gushing from the "
+        ({"east", "well"}) : " There is a cistern built here with water gushing from the "
             "top and draining into some grates below.",
         ] ));
     SetExits( ([

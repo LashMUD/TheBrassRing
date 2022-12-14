@@ -1,8 +1,9 @@
-// Modified by Lash (Christopher Coker) for use with:
-//
-// The Dead Souls Mud Library version 2 and above
-// developed by Cratylus
-// http://www.dead-souls.net
+/*   Modified by lash (ccoker) for use with:
+ *
+ *   The Dead Souls Mud Library
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
+ */
 
 #include <lib.h>
 
@@ -14,7 +15,7 @@ static void create() {
     room::create();
     SetClimate("outdoors");
     SetAmbientLight(30);
-    SetShort("%^BOLD%^The End of Farmer's Way.%^RESET%^");
+    SetShort("%^BOLD%^The End of Farmer's Way%^RESET%^");
     SetLong("   You are at the end of Farmer's Way. Farmer Lane baranches off to "
             "the southest and Pyre Avenue bramches off to the northeast."
         );

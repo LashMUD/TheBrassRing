@@ -1,8 +1,9 @@
-// Modified by Lash (Christopher Coker) for use with:
-//
-// The Dead Souls Mud Library version 2 and above
-// developed by Cratylus
-// http://www.dead-souls.net
+/*   Modified by lash (ccoker) for use with:
+ *
+ *   The Dead Souls Mud Library
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
+ */
 
 #include <lib.h>
 
@@ -14,7 +15,7 @@ static void create() {
     room::create();
     SetClimate("indoors");
     SetAmbientLight(30);
-    SetShort("%^BOLD%^Sybil Dewey's House%^RESET%^");
+    SetShort("%^BOLD%^Sybil Klaknor's House%^RESET%^");
     SetLong("   The main room of the house.");
     SetItems( ([ 
         "west" : "kitchen",
@@ -26,6 +27,7 @@ static void create() {
     SetExits( ([
          "east" : "/domains/etnar/wyr/room/rm_114",
          ] ));
+    SetDoor("east", "/domains/etnar/wyr/doors/114_197");
 }
 
 void init(){

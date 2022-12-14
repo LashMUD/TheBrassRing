@@ -1,8 +1,9 @@
-// Modified by Lash (Christopher Coker) for use with:
-//
-// The Dead Souls Mud Library version 2 and above
-// developed by Cratylus
-// http://www.dead-souls.net
+/*   Modified by lash (ccoker) for use with:
+ *
+ *   The Dead Souls Mud Library
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
+ */
 
 #include <lib.h>
 
@@ -32,7 +33,7 @@ static void create() {
                 "first message: read 1\nTo post a message: post <message title>\n");
     ob->eventMove(this_object());
     SetItems( ([ 
-        "west" : "",
+        "west" : "The main Road through the Village of Wyr running north and south.",
         ] ));
     SetExits( ([
         "west" : "/domains/etnar/wyr/room/rm_114",

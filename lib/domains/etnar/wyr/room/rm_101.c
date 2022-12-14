@@ -1,8 +1,9 @@
-// Modified by Lash (Christopher Coker) for use with:
-//
-// The Dead Souls Mud Library version 2 and above
-// developed by Cratylus
-// http://www.dead-souls.net
+/*   Modified by lash (ccoker) for use with:
+ *
+ *   The Dead Souls Mud Library
+ *   developed by Cratylus
+ *   http://www.dead-souls.net
+ */
 
 #include <lib.h>
 
@@ -35,7 +36,7 @@ static void create() {
             "they contain uninteresting notes relating to theology teachings.",
         ]) );
     SetInventory( ([
-        "/domains/etnar/wyr/npc/acolyte" : 1,
+        "/domains/etnar/wyr/npc/winifred/winifred_barton" : 1,
         ]) );
     AddExit("west","/domains/etnar/wyr/room/rm_100", (:shrine_room:));
 }
