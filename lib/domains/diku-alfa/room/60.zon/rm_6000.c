@@ -36,7 +36,7 @@ static void create() {
     SetExits( ([
         "east" : "/domains/diku-alfa/room/30.zon/rm_3052",
         "west" : "/domains/diku-alfa/room/60.zon/rm_6001",
-        "north" : "/domains/etnar/wyr/room/rm_2002",
+        "north" : "/domains/etnar/wyr/wyr/room/rm_2002",
         ] ));
 }
 
