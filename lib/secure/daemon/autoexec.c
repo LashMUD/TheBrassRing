@@ -58,8 +58,10 @@ static void eventRun() {
     catch( reload("/domains/Praxis/square.c",0,1));
     catch( reload("/domains/Ylsrim/room/tower",0,1));
     catch( reload("/domains/campus/room/slab",0,1));
-    catch( reload("/domains/diku-alfa/room/30.zon/rm_3001.c",0,1));/*added by Lash for new domain*/
-    catch( reload("/domains/etnar/wyr/room/rm_100.c",0,1));/*added by Lash for new domain*/
+    catch( reload("/domains/diku-alfa/room/30.zon/rm_3001.c",0,1));/*start room*/
+    catch( reload("/domains/diku-alfa/room/31.zon/rm_3138.c",0,1));/*mayor's office*/
+    catch( reload("/domains/etnar/wyr/wyr/room/rm_174.c",0,1));/*the lounge with the bard*/
+
 
     //Put your start-on-boot stuff above
 
