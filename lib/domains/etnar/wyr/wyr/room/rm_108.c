@@ -34,7 +34,7 @@ static void create() {
             "steps lead up and inside.",
         ] ));
     SetInventory(([
-        "/domains/etnar/wyr/npc/lulu" : 1,
+        "/domains/etnar/wyr/wyr/npc/lulu" : 1,
         ]) );
     SetExits( ([
         "south" : "/domains/etnar/wyr/wyr/room/rm_123", 
