@@ -7,10 +7,12 @@
  */
 
 #include <lib.h>
-//#include <position.h>
 
 inherit LIB_SENTIENT;
 
+//object env = environment();
+int counter;
+void checkPrank();
 int checkCombat();
 int checkPlacement();
 void GoHelp();
@@ -34,7 +36,7 @@ static void create() {
     SetLanguage("common",100);
     SetDefaultLanguage("common");
     SetInventory( ([
-        "/domains/etnar/wyr/wyr/npc/pierce/falunite_sword" : "1",
+        "/domains/etnar/wyr/wyr/npc/pierce/falunite_sword" : "wield sword",
         "/domains/etnar/wyr/wyr/npc/pierce/l_steel_boot" : "wear boot",
         "/domains/etnar/wyr/wyr/npc/pierce/r_steel_boot" : "wear boot",
         "/domains/etnar/wyr/wyr/npc/pierce/r_steel_gauntlet" : "wear gauntlet",
@@ -44,7 +46,7 @@ static void create() {
         "/domains/etnar/wyr/wyr/npc/pierce/l_steelgreave" : "wear greave on left leg",
         "/domains/etnar/wyr/wyr/npc/pierce/r_steelgreave" : "wear greave on right leg",
         ] ));
-    SetActionsMap( ([ ( ( :checkPlacement(): ) ) : 10,
+    SetActionsMap( ([ ( ( :checkPlacement(): ) ) : 1,
                       
         ]) ); 
     SetTalkResponses( ([  
@@ -65,7 +67,7 @@ void GoHelp(){
     if( env && !this_object()->GetInCombat()
             && env->GetShort() == "%^BOLD%^Outside the Guardhouse%^RESET%^" ) {
         this_object()->eventForce("say Not again! We're a peaceful village!");
-        this_object()->eventForce("yell %^BOLD%^%^CYAN%^You better be gone before I get there!%^RESET%^!");
+        this_object()->eventForce("yell %^BOLD%^%^CYAN%^You better be gone before I get there%^RESET%^!");
         this_object()->eventForce("go south");
         checkCombat();
     }
@@ -81,10 +83,7 @@ int checkCombat() {
         (: $1->GetInCombat() :));
     
     if( !sizeof(npc) ) {
-        this_object()->eventForce("say Another false alarm! Damn pranksters!");
-        this_object()->eventForce("frown");
-        this_object()->eventForce("look");
-        this_object()->eventForce("go north"); 
+        counter = 0;
         return 0;
     }
     else {
@@ -100,6 +99,28 @@ int checkCombat() {
     return 1;
 }
 
+void checkPrank() {
+
+    object env = environment();
+    //tell_player("lash", "environment is "+env->GetShort());   
+
+    if( env && env->GetShort() ==  "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^"
+            && !this_object()->GetInCombat() )
+    counter++;
+    //tell_player("lash", "counter is "+counter);
+    switch (counter) {
+        case 1 : this_object()->eventForce("look");
+                 break;
+        case 2 : this_object()->eventForce("say Another false alarm! Damn pranksters!");
+                 break;
+        case 3 : this_object()->eventForce("frown");
+                 break;
+        case 4 : this_object()->eventForce("go north");
+                 break;
+    }
+    if( counter >= 4 ) counter = 0;
+}
+
 int checkPlacement() {
 
     object env = environment();
@@ -113,6 +134,11 @@ int checkPlacement() {
     }
 }
 
+void heart_beat(){
+    ::heart_beat();
+    checkPrank();
+}
+    
 void init(){
     ::init();
 }
