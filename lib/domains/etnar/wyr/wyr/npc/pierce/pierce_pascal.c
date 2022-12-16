@@ -94,6 +94,7 @@ int checkCombat() {
                 break;
             }
         }
+        this_object()->eventForce("say attacking my guards, eh? This will show you!");
         this_object()->eventForce("kill "+enemy->GetKeyName());
     }
     return 1;
@@ -102,12 +103,10 @@ int checkCombat() {
 void checkPrank() {
 
     object env = environment();
-    //tell_player("lash", "environment is "+env->GetShort());   
-
+    
     if( env && env->GetShort() ==  "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^"
             && !this_object()->GetInCombat() )
     counter++;
-    //tell_player("lash", "counter is "+counter);
     switch (counter) {
         case 1 : this_object()->eventForce("look");
                  break;
