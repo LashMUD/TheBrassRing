@@ -94,7 +94,7 @@ int checkCombat() {
                 break;
             }
         }
-        this_object()->eventForce("say attacking my guards, eh? This will show you!");
+        this_object()->eventForce("say attacking my guards, eh? I'll will show you!");
         this_object()->eventForce("kill "+enemy->GetKeyName());
     }
     return 1;
