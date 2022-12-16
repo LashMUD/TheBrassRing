@@ -99,7 +99,7 @@ varargs int ChangeLevel(int i){
                     stats[key]["level"] + moduli[stats[key]["class"]],
                     stats[key]["class"]);
         }
-        /* if they player foolishly retained custom stat points
+        /* if the player foolishly retained custom stat points
          * over levels they lose half as a penalty
          */  
         if(subject->GetCustomStats() >= 2) {
