@@ -3,7 +3,7 @@
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
  * for use in The Brass Ring Mud
- * last edited by lash 20/05/21
+ * last edited by lash 22/12/17
  */
 
 #include <lib.h>
@@ -53,6 +53,8 @@ static void create() {
             "of whole caravans gone missin'.",
         ({"bandit", "falkner"}) : ( :Chat("bandit"): ),
     ]) );
+    SetActionsMap( ([ ( :checkCombat: ) : 50,
+        ]) );
     SetCombatAction(30, ({"yell We are under attack!"})
         );
     SetRequestResponses( ([
@@ -64,6 +66,30 @@ static void create() {
  
 void init(){
     ::init();
+}
+
+int checkCombat(){
+    object enemy;
+    object array env;
+    env = (get_livings(environment(this_object())));
+    
+    if(!this_object()->GetInCombat()) {
+        /*find out if there are any kobold combatants in the surrounding environment*/
+        if(sizeof(env)) {
+            foreach(object thing in env) {
+                if((thing->GetInCombat()) && thing->GetKeyName() == "waltin kelley" ) {
+                    enemy = thing->GetCurrentEnemy();
+                    break;
+                }
+            }
+        }
+    
+        if( enemy ){
+            this_object()->eventForce("say Really? I've got your back Waltin!"); 
+            this_object()->eventForce("kill "+enemy->GetKeyName());
+        }
+        return 1;
+    }
 }
 
 int Chat(string str){
