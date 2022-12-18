@@ -35,7 +35,7 @@ static void create() {
            "fancy but certainly functional.",             
         ] ));
     SetInventory( ([
-        "/domains/etnar/wyr/wyr/npc/waltin/waltin_kelly" : 1,
+        "/domains/etnar/wyr/wyr/npc/waltin/waltin_kelley" : 1,
         "/domains/etnar/wyr/wyr/npc/albert/albert_derby" : 1,
         ]) );
     SetExits( ([
