@@ -168,7 +168,6 @@ void checkPrank()
                          pcounter+=4;
                          break;
                 case 2 : eventForce("look");
-                         DisposeCorpse();
                          break;
                 case 3 : eventForce("say Another false alarm! Damn pranksters!");
                          break;
