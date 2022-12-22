@@ -113,7 +113,7 @@ int Chat(string str)
            if(!inherits(LIB_NPC, ob))
            {
                eventForce("say Yeah, this guy named Falkner, he's trying to "+
-                   "get some nasty shitheads to join his band and make "+
+                   "get some nasty kobolds to join his band and make "+
                    "a name for himself!");
                 eventForce("laugh");
                 return 1;
