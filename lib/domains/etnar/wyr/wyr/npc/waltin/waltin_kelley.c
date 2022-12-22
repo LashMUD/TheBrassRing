@@ -3,7 +3,7 @@
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
  * for use in The Brass Ring Mud
- * last edited by lash 22/12/17 year/month/day
+ * last edited by lash 22/12/22 year/month/day
  */
 
 #include <lib.h>
@@ -11,13 +11,15 @@
 
 inherit LIB_SENTIENT;
 
+void checkChat();
 int checkCombat();
 void time();
 static int index;
 static int movebool = 0;
-int hour, minutes;
+int hour;
 int *time_of_day;
 object array *targets;
+int counter = 0;
 
 void eventNews(object ob);
 
@@ -47,14 +49,9 @@ static void create() {
         "/domains/etnar/wyr/wyr/npc/waltin/leather_gloves" : "wear gloves",
         "/domains/etnar/wyr/wyr/npc/waltin/key_wyr_south_gate" : 1,
         "/domains/etnar/wyr/wyr/npc/waltin/key_waltin_house" : 1,
-    ] ));
-    SetAction(3, ({
-        "!say I wish those guards from Orgon would go back to where they "+
-            "came from!",
-        "!say What about that bandit that's hiding out in the Vexwood?",
-        "!say I say there's something funny about Ashlyn. She keeps to "+
-            "herself too much.",                
-    }));
+        ] ));
+    SetAction(3, ({ ( :checkChat: )
+        }));
     SetActionsMap( ([ ( :checkCombat: ) : 50,
         ]) );
     SetCombatAction(30, ({"yell We are under attack!"})
@@ -65,7 +62,7 @@ static void create() {
         "forest" : "I have a wife and children to support...I don't go "+
             "into the forest these days!",
         "ashlyn" : "Pretty mysterious. She comes down about once a month to "+
-            "see Blake, the proprieter of the Cyclops Inn here in town, but "+
+            "see Blake, the proprietor of the Cyclops Inn here in town, but "+
             "talks to no one else. She could do a lot better.",
     ]) );
     AddRequestResponses( ([ 
@@ -74,6 +71,46 @@ static void create() {
     SetFactions( ([ "The Strike of Balcor":({10,10}),
     ]) );
 }
+
+checkChat() {
+
+    int x = random(3);
+    object env = environment(this_object());
+    object *things;
+    things = all_inventory(env);
+
+    if(env) 
+    {
+       foreach(object thing in things)
+       {
+           if (thing && base_name(thing) == LIB_CORPSE && thing->GetKeyName() == "albert derby" )
+           {
+              eventForce("say Albert's dead!");
+              eventForce("cry");
+              eventForce("look at albert");
+              return;
+           }
+       }           
+    }
+    if( !present("albert") ) eventForce("say where's Albert?");
+        return;
+    
+    switch (x) {
+        case 0 : this_object()->eventForce("say I wish those guards from Orgon would go "
+                  "back to where they came from!");
+                 break;
+        case 1 : this_object()->eventForce("say What about that bandit that's hiding out "
+                  "in the Vexwood?");
+                 break;
+        case 2 : this_object()->eventForce("say I think there's something funny about Ashlyn. "
+                  "She keeps to herself too much.");
+                 break;
+        default : eventPrint("bug in waltin - please report");
+                  break;
+    }
+} 
+
+    
 
 int checkCombat(){
     object enemy;
@@ -125,15 +162,14 @@ void eventNews(object ob){
 void time(){
     time_of_day = SEASONS_D->GetMudTime();
     hour = time_of_day[0];
-    minutes = time_of_day[1];
-
-   if (hour == 4 & minutes == 59) {
-        eventForce("unlock gate with small key");
+   
+   if(hour == 5) {
+        eventForce("unlock gate with a small shiny key");
         eventForce("open gate");
     }
-    else if (hour == 23 & minutes == 59) {
+    else if(hour == 0) {
         eventForce("close gate");
-        eventForce("lock gate with small key");
+        eventForce("lock gate with a small shiny key");
     }
 }
 
