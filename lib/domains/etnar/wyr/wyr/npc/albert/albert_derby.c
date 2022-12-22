@@ -3,7 +3,7 @@
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
  * for use in The Brass Ring Mud
- * last edited by lash 22/12/22 year/month/day
+ * last edited by lash 22/12/19
  */
 
 #include <lib.h>
@@ -33,6 +33,7 @@ static void create() {
     AddCurrency("gold", 500);
     SetLanguage("common",100);
     SetDefaultLanguage("common");
+    //SetWimpy(30);
     SetInventory( ([
         "/domains/etnar/wyr/wyr/npc/albert/longsword" : "wield sword",
         "/domains/etnar/wyr/wyr/npc/albert/leather_boots_hard" : "wear boots",
@@ -99,7 +100,7 @@ int Chat(string str)
     object *things;
     things = all_inventory(env);
 
-    if( !present("waltin") )
+    if( !present("waltin") && !present("pierce") )
     {
         eventForce("say I ain't sayin' nothin' 'bout nothin'!\nWhere's "
             "Waltin? He should have been back by now!");
