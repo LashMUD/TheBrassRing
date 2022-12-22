@@ -3,7 +3,7 @@
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
  * for use in The Brass Ring Mud
- * last edited by lash 22/12/19
+ * last edited by lash 22/12/22
  */
 
 #include <lib.h>
