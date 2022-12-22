@@ -58,7 +58,6 @@ static void create() {
         ]) ); 
     SetTalkResponses( ([  
         "we are under attack!" : ( :GoHelp: ),
-        //"waltin" : "Waltin is a good man, but lacks ambition.",
         ]) );
     SetRequestResponses( ([
         
@@ -77,7 +76,6 @@ void Setpcounter() {
         && env->GetShort() != "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^"
         && !this_object()->GetInCombat() ) { 
             pcounter = 0;
-            //tell_player("lash", "pcounter in Setpcounter() is "+pcounter);
     }
 
 }
@@ -97,7 +95,6 @@ void checkCombat() {
         foreach(object thing in npc) {
             if( (thing->GetKeyName() == "waltin kelley" && thing->GetInCombat()) 
                 || (thing->GetKeyName() == "albert derby" && thing->GetInCombat()) ) {
-                //tell_player("lash", "\nthing is "+thing->GetKeyName()+"\n");
                 enemy = thing->GetCurrentEnemy();
                 break;
             }
@@ -108,7 +105,7 @@ void checkCombat() {
 }
 
 /* gate is a dummy object - don't know how
- * to checked if locked or not, so check every hour
+ * to check if locked or not, so check every hour
  */
 CheckGate() {
     
@@ -121,7 +118,7 @@ CheckGate() {
         eventForce("lock gate with a small shiny key");
     }
      if (hour == 5) {
-        eventForce("lock gate with a small shiny key");
+        eventForce("unlock gate with a small shiny key");
         eventForce("open gate");
      }
 }
@@ -135,7 +132,6 @@ void checkPrank()
     //pranksters = get_livings(env); forces pierces routines to quit
     pranksters = all_inventory(env);
             
-    //tell_player("lash", "pcounter start of checkPrank() is "+pcounter);
     if(pcounter > 15) DisposeCorpse();
     if( sizeof(pranksters) )
     {
@@ -144,12 +140,10 @@ void checkPrank()
             if( thing->GetKeyName() == "albert derby" )
             {
                 albert = thing;
-                //tell_player("lash", "\nthing is "+thing->GetKeyName()+"\n");
             }
             if( thing->GetKeyName() == "waltin kelley" )
             {
                 waltin = thing;
-                //tell_player("lash", "\nthing is "+thing->GetKeyName()+"\n");
             }
         }
     }
@@ -167,9 +161,7 @@ void checkPrank()
             && !waltin->GetInCombat() )
             
         { 
-            //tell_player("lash", "pcounter in checkPrank() before addition and both present is "+pcounter);
             pcounter++;
-            //tell_player("lash", "pcounter in checkPrank() after addition and both present is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : if( waltin->GetCurrentEnemy() != 0 || albert->GetCurrentEnemy() != 0)
@@ -213,9 +205,7 @@ void checkPrank()
             && !waltin->GetInCombat() ) 
             
         {  
-            //tell_player("lash","pcounter in checkPrank() before addition and albert dead is "+pcounter);
             pcounter++;
-            tell_player("lash","pcounter in checkPrank() after addition and albert dead is "+pcounter);
             switch (pcounter)
             {
                 case 1 : eventForce("look");
@@ -268,11 +258,7 @@ void checkPrank()
         if( base_name(albert) == LIB_CORPSE
             && !present("waltin") ) 
         {  
-            /*tell_player("lash","pcounter in checkPrank() before addition and albert dead "
-                  "and waltin not present is "+pcounter);*/
             pcounter++;
-            /*tell_player("lash","pcounter in checkPrank() after addition and albert dead "
-                  "and waltin not present is "+pcounter);*/
             switch (pcounter)
             {
                 case 1 : eventForce("look");
@@ -302,9 +288,7 @@ void checkPrank()
             && !albert->GetInCombat() ) 
                
         {
-            //tell_player("lash","pcounter in checkPrank() before addition and waltin dead is "+pcounter);
             pcounter++;
-            tell_player("lash","pcounter in checkPrank() after addition and waltin dead is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : eventForce("look");
@@ -354,11 +338,7 @@ void checkPrank()
         if( base_name(waltin) == LIB_CORPSE
             && !present("albert") ) 
         {  
-            //tell_player("lash","pcounter in checkPrank() before addition and waltin dead "
-            //      "and albert not present is "+pcounter);
             pcounter++;
-            tell_player("lash","pcounter in checkPrank() after addition and waltin dead "
-                  "and waltin not present is "+pcounter);
             switch (pcounter)
             {
                 case 1 : eventForce("look");
@@ -414,8 +394,7 @@ void checkPrank()
             && !present("albert") ) 
         {
             pcounter++;
-            //tell_player("lash","pcounter in checkPrank() after addition and albert absent is "+pcounter);
-             switch (pcounter) 
+            switch (pcounter) 
             {
                 case 1 : eventForce("look");
                          break;
@@ -445,9 +424,7 @@ void checkPrank()
             && base_name( waltin ) != LIB_CORPSE
             && base_name( albert) != LIB_CORPSE  )
         {
-            //tell_player("lash","pcounter in checkPrank() before addition and both absent is "+pcounter);
             pcounter++;
-            //tell_player("lash","pcounter in checkPrank() after addition and both absent is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : eventForce("look");
@@ -473,9 +450,7 @@ void checkPrank()
             &&  base_name(waltin) == LIB_CORPSE )
               
         {
-            //tell_player("lash","pcounter in checkPrank() before addition and both dead is "+pcounter);
             pcounter++;
-            tell_player("lash","pcounter in checkPrank() after addition and both dead is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : eventForce("look");
@@ -538,7 +513,6 @@ void GoHelp() {
         && !this_object()->GetInCombat() )
     {     
         hcounter++;
-        //tell_player("lash", "hcounter in GoHelp before addition is "+hcounter);
         switch (hcounter) 
         {
             case 1 : eventForce("say Not again! We're a peaceful village!");
@@ -560,7 +534,6 @@ void GoHelp() {
         if( hcounter > 5 ) {
             hcounter = 0;
         }
-        //tell_player("lash", "hcounter in GoHelp after addition is "+hcounter);
         call_out((: GoHelp :), 2); 
     }
     
@@ -571,14 +544,11 @@ void DisposeCorpse() {
     object waltin;
     object env = environment();    
 
-    //tell_player("lash", "in DisposeCorpse");
     if( env->GetShort() == "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^"
         && pcounter >=15 ) 
     {
-    //tell_player("lash", "pcounter in DisposeCorpse before addition is "+pcounter);
     pcounter++;
-    tell_player("lash", "pcounter in DisposeCorpse after addition is "+pcounter);
-        switch (pcounter) 
+    switch (pcounter) 
         {
             case 16 : eventForce("get corpse");
                       break;
@@ -594,7 +564,7 @@ void DisposeCorpse() {
             case 21 : eventForce("go north");
                        break;
             default : eventPrint("error in pascal");
-                          break;           
+                      break;           
         }
     }
 }
