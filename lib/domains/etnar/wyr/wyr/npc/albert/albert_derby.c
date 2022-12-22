@@ -3,7 +3,7 @@
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
  * for use in The Brass Ring Mud
- * last edited by lash 22/12/17
+ * last edited by lash 22/12/22 year/month/day
  */
 
 #include <lib.h>
@@ -33,7 +33,6 @@ static void create() {
     AddCurrency("gold", 500);
     SetLanguage("common",100);
     SetDefaultLanguage("common");
-    SetWimpy(30);
     SetInventory( ([
         "/domains/etnar/wyr/wyr/npc/albert/longsword" : "wield sword",
         "/domains/etnar/wyr/wyr/npc/albert/leather_boots_hard" : "wear boots",
@@ -52,8 +51,9 @@ static void create() {
         ({"trade routes", "trade", "routes"}) : "Not safe these days. Reports "+
             "of whole caravans gone missin'.",
         ({"bandit", "falkner"}) : ( :Chat("bandit"): ),
+        "waltin" : ( :Chat("waltin"): ),
     ]) );
-    SetActionsMap( ([ ( :checkCombat: ) : 50,
+    SetActionsMap( ([ ( :checkCombat: ) : 100,
         ]) );
     SetCombatAction(30, ({"yell We are under attack!"})
         );
@@ -74,7 +74,7 @@ int checkCombat(){
     env = (get_livings(environment(this_object())));
     
     if(!this_object()->GetInCombat()) {
-        /*find out if there are any kobold combatants in the surrounding environment*/
+        /*find out if there are any combatants in the surrounding environment*/
         if(sizeof(env)) {
             foreach(object thing in env) {
                 if((thing->GetInCombat()) && thing->GetKeyName() == "waltin kelley" ) {
@@ -92,102 +92,125 @@ int checkCombat(){
     }
 }
 
-int Chat(string str){
+int Chat(string str)
+{
     object ob = this_player();
     object env = environment(this_object());
+    object *things;
+    things = all_inventory(env);
 
-    if(!present("waltin", env)){
-        eventForce("say I don't know nothin' 'bout nothin'!\n"+
-                   "Where's Waltin? He should have been back by now!");
+    if( !present("waltin") )
+    {
+        eventForce("say I ain't sayin' nothin' 'bout nothin'!\nWhere's "
+            "Waltin? He should have been back by now!");
         return 1;
     }
-    switch(str){
+    
+    switch(str)
+    {
         case "bandit" :  
-           if(!inherits(LIB_NPC, ob)){
+           if(!inherits(LIB_NPC, ob))
+           {
                eventForce("say Yeah, this guy named Falkner, he's trying to "+
-                   "get some nasty kobolds to join his band and make "+
+                   "get some nasty shitheads to join his band and make "+
                    "a name for himself!");
                 eventForce("laugh");
                 return 1;
             }
-            else{
+            else
+            {
                 eventForce("say Ha! Falkner and his tribe of kobolds striking "+ 
                     "fear into the hearts of many...");
                 eventForce("spit");
-                return 0;
+                return 1;
             };
         break;
         case "orgon" : 
-           if(!inherits(LIB_NPC, ob)){
+           if(!inherits(LIB_NPC, ob))
+           {
                 eventForce("say The city up northwest. They sent some guards down here "+ 
                     "for reinforcements while the new wall is being built. They "+ 
                     "think they own the place");
                 return 1;
             }
-            else{
+            else
+            {
                eventForce("say Yeah, those Orgonians are pretty uppity.");
                 return 0;
             };
         break;
         case "vexwood" :  
-            if(!inherits(LIB_NPC, ob)){
+            if(!inherits(LIB_NPC, ob))
+            {
                 eventForce("say Vexwood forest off to the south. The old hero, "+
                     "Eflam, had a keep there once. It's now in ruins. "+
                     "Lots of unusual creatures in that wood.");  
                 return 1;
 
             }
-            else{
+            else
+            {
                  return 0;                
             };
         break;
         case "ashlyn" : 
-            if(!inherits(LIB_NPC, ob)){
+            if(!inherits(LIB_NPC, ob))
+            {
                 return 0;
             }
-            else{
+            else
+            {
                 eventForce("say And that Innkeeper. What does she see in him anyways?");
                 return 1;                
             };
         break;
         case "caravans" :
-            if(!inherits(LIB_NPC, ob)){
-                eventForce("say Traders travelling back and forth between Wyr and Orgon "+
+            if(!inherits(LIB_NPC, ob))
+            {
+                eventForce("say Traders traveling back and forth between Wyr and Orgon "+
                     "in covered wagons and teams of mules. It's getting harder to hire "+
                     "mercenaries for protection. I know I won't go, even though the pay "+
                     "is pretty good.");
                 eventForce("shrug");
                 return 1;
-             }
-             else{
+            }
+            else
+            {
                  eventForce("say It's pretty sketchy these days.");
                  return 1;
-             }
+            }
+        break;
         case "guards" :
-           if(!inherits(LIB_NPC, ob)){
+           if(!inherits(LIB_NPC, ob))
+           {
                 eventForce("say They came from the city of Orgon up northwest. You know, "+
                     "city types.");
                 eventForce("frown");
                 return 1;
-            }
-            else{
+           }
+           else
+           {
                 return 0;
-            };
+           };
+        break;
         case "kobolds" :
-           if(!inherits(LIB_NPC, ob)){
+           if(!inherits(LIB_NPC, ob))
+           {
                 eventForce("say Small, scaly, little dog-like creatures. They've been "+
-                    "roaming the Vexwood for years. Ususally not more than just a nuisance. "+
+                    "roaming the Vexwood for years. Usually not more than just a nuisance. "+
                     "They're nasty, brutish, and short.");
                 eventForce("cackle");
                 return 1;
-            }
-            else{
+           }
+           else
+           {
                 return 0;
-            };
-        default : eventForce("say Don't know much about that.");
+           }
         break;
-        };
+        default : break;    
+    }
 }
+
 
 int eventNews(){
     int x;
