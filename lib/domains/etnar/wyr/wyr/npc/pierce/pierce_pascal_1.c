@@ -243,7 +243,6 @@ void checkPrank()
                           break;
                 case 11 : eventForce("say I'm going to miss Albert. He was one "
                              "of the good ones!");
-                          pcounter = 15;
                           break;
                 case 12 : eventForce("get corpse");
                           pcounter = 15;
