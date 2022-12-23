@@ -246,6 +246,7 @@ void checkPrank()
                           break;
                 case 12 : eventForce("get corpse");
                           pcounter = 15;
+                          DisposeCorpse();
                           break;
                 default : eventPrint("error in pascal");
                           break;
@@ -273,6 +274,7 @@ void checkPrank()
                              "of the good ones!");
                 case 7 : eventForce("get albert");
                           pcounter = 15;
+                          DisposeCorpse();
                           break;
                 default : eventPrint("error in pascal");
                           break;
@@ -326,6 +328,7 @@ void checkPrank()
                          break;
                 case 9 : eventForce("get waltin");
                          pcounter = 15;
+                         DisposeCorpse();
                          break;
                 default : eventPrint("error in pascal");
                           break; 
@@ -354,7 +357,8 @@ void checkPrank()
                 case 7 : eventForce("say Mister Kelley, you were a good man, " 
                               "but only a mediocre gate guard.");
                          eventForce("get waltin");
-                         pcounter = 15;  
+                         pcounter = 15;
+                         DisposeCorpse();  
                          break;
                 default : eventPrint("error in pascal");
                           break;   
@@ -467,6 +471,7 @@ void checkPrank()
                 case 7 : eventForce("get waltin");
                          eventForce("get albert");
                          pcounter = 15;
+                         DisposeCorpse();
                          break;
                 default : eventPrint("error in pascal");
                           break;
@@ -561,6 +566,8 @@ void DisposeCorpse() {
                       break;
             case 21 : eventForce("go north");
                        break;
+            case 22 : if( env->GetShort() == "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^")
+                      eventForce("go north");
             default : eventPrint("error in pascal");
                       break;           
         }
