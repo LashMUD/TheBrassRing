@@ -233,17 +233,24 @@ void checkPrank()
                 case 7 : eventForce("say you know Albert, keep on looking for "
                              +capitalize(albert->GetCurrentEnemy()->GetKeyName()) );
                          break;
-                case 8 : if(present(albert->GetCurrentEnemy()->GetKeyName()) 
-                            || present(waltin->GetCurrentEnemy()->GetKeyName())) 
+                case 8 : if( present(albert->GetCurrentEnemy()->GetKeyName()) ) 
                          {
-                             eventForce("say they're here now!");
+                             eventForce("say there's that "+albert->GetCurrentEnemy()->GetKeyName()+ 
+                             " ! Get'em!");
                              eventForce( "kill "+albert->GetCurrentEnemy()->GetKeyName() );
                          }
                          break;
-                case 9 : eventForce("unlock gate with key");
+                case 10 : if( present(waltin->GetCurrentEnemy()->GetKeyName()) ) 
+                         {
+                             eventForce("say there's that "+waltin->GetCurrentEnemy()->GetKeyName()+ 
+                             " ! Get'em!");
+                             eventForce( "kill "+waltin->GetCurrentEnemy()->GetKeyName() );
+                         }
+                         break;
+                case 10 : eventForce("unlock gate with key");
                          eventForce("open gate");
                          break;
-                case 10 : eventForce("go north");
+                case 11 : eventForce("go north");
                           break;
                 default : eventPrint("error in pascal");
                           break;
@@ -282,7 +289,7 @@ void checkPrank()
                           pcounter = 10;
                           break;
                 case 7 : if(waltin->GetCurrentEnemy())
-                         waltin->eventForce("say I think Albert got killed by "
+                         waltin->eventForce("say Last person I was fighting was "
                              +waltin->GetCurrentEnemy()->GetShort());
                          break;
                 case 8 : if(waltin->GetCurrentEnemy())
@@ -291,14 +298,12 @@ void checkPrank()
                          break;
                 case 9 : if( present(waltin->GetCurrentEnemy()->GetKeyName())) 
                          eventForce("say they're here now!");
+                         eventForce( "kill "+waltin->GetCurrentEnemy()->GetKeyName() );
                          break;
-                case 10 : if( present(waltin->GetCurrentEnemy()->GetKeyName()))
-                          eventForce( "kill "+albert->GetCurrentEnemy()->GetKeyName() );
-                          break;
-                case 11 : eventForce("say I'm going to miss Albert. He was one "
+                case 10 : eventForce("say I'm going to miss Albert. He was one "
                              "of the good ones!");
                           break;
-                case 12 : eventForce("get corpse");
+                case 11 : eventForce("get corpse");
                           pcounter = 15;
                           break;
                 default : eventPrint("error in pascal");
@@ -376,8 +381,8 @@ void checkPrank()
                          break;
                 case 8 : eventForce("look at sky");
                          break;
-                case 9 : eventForce("say Mister Kelley, you were a good man, " 
-                              "but only a mediocre gate guard.");
+                case 9 : eventForce("say Waltin, you were a good man, but only a mediocre" 
+                             "gate guard.");
                          break;
                 case 10 : eventForce("get waltin");
                           pcounter = 15;
