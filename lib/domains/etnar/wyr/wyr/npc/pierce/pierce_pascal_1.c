@@ -329,7 +329,6 @@ void checkPrank()
                              "of the good ones!");
                 case 7 : eventForce("get albert");
                           pcounter = 15;
-                          DisposeCorpse();
                           break;
                 default : eventPrint("error in pascal");
                           break;
