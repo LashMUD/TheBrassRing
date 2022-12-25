@@ -1,4 +1,4 @@
-This is the doamin for the continent of Etnar which is expected to have several
+This is the domain for the continent of Etnar which is expected to have several
 regions. The village of Wyr and its surroundings is one of them. Other regions
 will be the lands of Q'in and Char.
 
@@ -6,7 +6,7 @@ Wyr is the main village I am currently working on and will be updated and
 changed frequently. Other places in the region will include:
 
 *The Bramblewood Forest containing:
- * a ruined monestary to explore with a quest
+ * a ruined monastery to explore with a quest
  * logging parties
  * the Three Sisters mountains with an area to explore
  * the ruins of the Morganheifer Mansion
