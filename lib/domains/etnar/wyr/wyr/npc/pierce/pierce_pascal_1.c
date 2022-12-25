@@ -1,9 +1,9 @@
 /* /domains/etnar/wyr/wyr/npc/gate_guard_ab.c
- * Albert Derby - a gate guard in the village of Wyr
+ * pierce pascal captain of the wyr militia in the village of Wyr
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
  * for use in The Brass Ring Mud
- * last edited by lash 22/12/22 year/month/day
+ * last edited by lash 22/12/25 year/month/day
  */
 
 #include <lib.h>
@@ -19,6 +19,7 @@ int DisposeCorpse();
 void checkPlacement();
 void GoHelp(string msg);
 object *pranksters = ({});
+string *npcees = ({});
 void eventNews(); //added later
 int pcounter = 0; //prank counter
 int hcounter = 0; //help counter
@@ -30,9 +31,10 @@ static void create() {
     sentient::create();
     SetKeyName("Pierce Pascal");
     SetId(({"guard", "captain", "pierce", "pascal"}));
-    //SetAdjectives(({"non-player", "non player"}));
-    SetShort("Pierce Pascal the Captain of the Wyr militia");
-    SetLong("Pierce is tall with short brown hair and hazel eyes. ");
+    SetAdjectives(({"non-player", "non player"}));
+    SetShort("Pierce Pascal");
+    SetLong("Pierce is the Captain of the Wyr militia.\nHe is tall with "
+            "short brown hair and hazel eyes. ");
     SetCanBite(0);
     SetRace("human");
     SetClass("fighter");
@@ -64,6 +66,7 @@ static void create() {
         ]) );
     SetFactions( ([ "The Strike of Balcor":({10,10}),
         ]) );
+   SetUnique(1);
    set_heart_beat(1);
 }
 
@@ -76,8 +79,43 @@ void Setpcounter() {
         && env->GetShort() != "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^"
         && !this_object()->GetInCombat() ) { 
             pcounter = 0;
+            npcees = ({});
     }
 
+}
+
+//used a call_out in conjunction with SetTalkResponses()
+void GoHelp() {
+
+    object env = environment();
+        
+    if( env->GetShort() == "%^BOLD%^Outside the Guardhouse%^RESET%^"
+        && !this_object()->GetInCombat() )
+    {     
+        hcounter++;
+        switch (hcounter) 
+        {
+            case 1 : eventForce("say Not again! We're a peaceful village!");
+                     break;
+            case 2 : eventForce("yell %^BOLD%^%^CYAN%^You better be gone before "
+                         "I get there%^RESET%^!");
+                     break;
+            case 3 : eventForce("unlock gate with key");
+                     break;
+            case 4 : eventForce("open gate");
+                     break;
+            case 5 : eventForce("go south");
+                     checkCombat();
+                     break;
+            default : eventPrint("error in pascal");
+                      break;
+        }
+        
+        if( hcounter > 5 ) {
+            hcounter = 0;
+        }
+        call_out((: GoHelp :), 2); 
+    }
 }
 
 void checkCombat() {
@@ -112,15 +150,28 @@ CheckGate() {
     object env = environment();
     time_of_day = SEASONS_D->GetMudTime();
     hour = time_of_day[0];
+    minutes = time_of_day[1];
 
-    if (hour == 0 || hour == 1 || hour ==2 || hour == 3 || hour ==4) {
+    if (hour == 0 && minutes == 1 
+        || hour == 1 && minutes == 0
+        || hour == 2 && minutes == 0
+        || hour == 3 && minutes == 0 
+        || hour == 4 && minutes == 0
+       )
+    {
         eventForce("close gate");
         eventForce("lock gate with a small shiny key");
     }
-     if (hour == 5) {
+     if (hour == 5 && minutes == 0) {
         eventForce("unlock gate with a small shiny key");
         eventForce("open gate");
      }
+}
+
+mixed GetNpcees() {
+    
+    if( sizeof(npcees) )
+        return npcees;
 }
 
 void checkPrank()
@@ -129,14 +180,14 @@ void checkPrank()
     object albert;
     object waltin;
     object env = environment();
-    //pranksters = get_livings(env); forces pierces routines to quit
     pranksters = all_inventory(env);
-            
+                  
     if(pcounter > 15) DisposeCorpse();
     if( sizeof(pranksters) )
     {
         foreach(object thing in pranksters)
         {
+            npcees += ({ thing->GetKeyName() });
             if( thing->GetKeyName() == "albert derby" )
             {
                 albert = thing;
@@ -152,15 +203,16 @@ void checkPrank()
     if( env->GetShort() == "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^" 
         && !this_object()->GetInCombat() ) 
     {
-        //albert and waltin are present and not corpses
+        //case 1: albert and waltin are present, not corpses, and not in combat
         if( present("albert")
             && present("waltin")
             && base_name(albert) != LIB_CORPSE 
             && base_name(waltin) != LIB_CORPSE 
             && !albert->GetInCombat() 
-            && !waltin->GetInCombat() )
+            && !waltin->GetInCombat() 
+          )
             
-        { 
+        {
             pcounter++;
             switch (pcounter) 
             {
@@ -176,34 +228,36 @@ void checkPrank()
                 case 5 : eventForce("go north");
                          break;
                 case 6 : eventForce("say Waltin! Keep on looking for "
-                                 +capitalize(waltin->GetCurrentEnemy()->GetKeyName()) );
-                         eventForce("say you know Albert, keep on looking for "
-                                 +capitalize(albert->GetCurrentEnemy()->GetKeyName()) );
+                             +capitalize(waltin->GetCurrentEnemy()->GetKeyName()) );
                          break;
-                case 7 : if(present(albert->GetCurrentEnemy()->GetKeyName()) 
+                case 7 : eventForce("say you know Albert, keep on looking for "
+                             +capitalize(albert->GetCurrentEnemy()->GetKeyName()) );
+                         break;
+                case 8 : if(present(albert->GetCurrentEnemy()->GetKeyName()) 
                             || present(waltin->GetCurrentEnemy()->GetKeyName())) 
                          {
                              eventForce("say they're here now!");
                              eventForce( "kill "+albert->GetCurrentEnemy()->GetKeyName() );
                          }
                          break;
-                case 8 : eventForce("unlock gate with key");
+                case 9 : eventForce("unlock gate with key");
                          eventForce("open gate");
                          break;
-                case 9 : eventForce("go north");
-                         break;
+                case 10 : eventForce("go north");
+                          break;
                 default : eventPrint("error in pascal");
                           break;
             }             
         }
        
-        //albert is a corpse and waltin is not a corpse and present and not in combat
+        //case 2: albert is a corpse, waltin is present, not a corpse, and not in combat
         if( base_name(albert) == LIB_CORPSE
-            && base_name(waltin) != LIB_CORPSE
             && present("waltin")
-            && !waltin->GetInCombat() ) 
+            && base_name(waltin) != LIB_CORPSE
+            && !waltin->GetInCombat() 
+          ) 
             
-        {  
+        {
             pcounter++;
             switch (pcounter)
             {
@@ -229,7 +283,7 @@ void checkPrank()
                           break;
                 case 7 : if(waltin->GetCurrentEnemy())
                          waltin->eventForce("say I think Albert got killed by "
-                                 +waltin->GetCurrentEnemy()->GetShort());
+                             +waltin->GetCurrentEnemy()->GetShort());
                          break;
                 case 8 : if(waltin->GetCurrentEnemy())
                          eventForce("say Well keep an eye out for this "
@@ -246,17 +300,18 @@ void checkPrank()
                           break;
                 case 12 : eventForce("get corpse");
                           pcounter = 15;
-                          DisposeCorpse();
                           break;
                 default : eventPrint("error in pascal");
                           break;
             }
         }
 
-        //albert is a corpse and waltin is not present
+        //case 3: albert is a corpse and waltin is not present
         if( base_name(albert) == LIB_CORPSE
-            && !present("waltin") ) 
-        {  
+            && !present("waltin")
+            && member_array("waltin kelly", npcees) == -1
+          ) 
+        {
             pcounter++;
             switch (pcounter)
             {
@@ -281,12 +336,12 @@ void checkPrank()
             }
         } 
     
-        //waltin is a corpse and albert is not a corpse and present and not in combat
+        //case 4: waltin is a corpse, albert is present, not a corpse, and not in combat
         if( base_name(waltin) == LIB_CORPSE
-            && base_name(albert) != LIB_CORPSE 
             && present("albert")
-            && !albert->GetInCombat() ) 
-               
+            && base_name(albert) != LIB_CORPSE 
+            && !albert->GetInCombat()
+          ) 
         {
             pcounter++;
             switch (pcounter) 
@@ -301,44 +356,43 @@ void checkPrank()
                          break;
                 case 5 : if(!albert->GetCurrentEnemy())
                          {
-                             albert->eventForce("say It happened so fast I didn't have time to "
-                                 "even get in the fight!");
-                          }
-                         else {
-                             albert->eventForce("say we were fighting "
-                                 +albert->GetCurrentEnemy()->GetShort());
+                         albert->eventForce("say It happened so fast I didn't have time to "
+                             "even get in the fight!");
                          }
-                         if( present(albert->GetCurrentEnemy()->GetKeyName())) 
+                         else {
+                         albert->eventForce("say we were fighting "
+                             +albert->GetCurrentEnemy()->GetShort());
+                         }
+                         break;
+                case 6 : if( present(albert->GetCurrentEnemy()->GetKeyName()) ) 
                          {
                              eventForce("say they're here now!");
                              eventForce( "kill "+albert->GetCurrentEnemy()->GetKeyName() );
                          }
                          break;
-                case 6 : if( !present(albert->GetCurrentEnemy()) ) 
-                         {
-                             eventForce("say Well, it looks like you chased "
-                                 +albert->GetCurrentEnemy()->GetShort()+" %^BOLD%^%^CYAN%^off. " 
-                                 "Good job. Let me know if they come back to the area%^RESET%^");
-                         }
+                case 7 : if( !present(albert->GetCurrentEnemy()) ) 
+                         eventForce("say Well, it looks like you chased "
+                             +albert->GetCurrentEnemy()->GetShort()+" %^BOLD%^%^CYAN%^off. " 
+                             "Good job. Let me know if they come back to the area%^RESET%^");
                          break;
-                case 7 : eventForce("look at sky");
+                case 8 : eventForce("look at sky");
                          break;
-                case 8 : eventForce("say Mister Kelley, you were a good man, " 
+                case 9 : eventForce("say Mister Kelley, you were a good man, " 
                               "but only a mediocre gate guard.");
                          break;
-                case 9 : eventForce("get waltin");
-                         pcounter = 15;
-                         DisposeCorpse();
-                         break;
+                case 10 : eventForce("get waltin");
+                          pcounter = 15;
                 default : eventPrint("error in pascal");
                           break; 
             }
         }
     
-        //waltin is a corpse and albert is not present
+        //case 5: waltin is a corpse and albert is not present
         if( base_name(waltin) == LIB_CORPSE
-            && !present("albert") ) 
-        {  
+            && !present("albert")
+            && member_array("albert derby", npcees) == -1
+          ) 
+        {
             pcounter++;
             switch (pcounter)
             {
@@ -356,22 +410,25 @@ void checkPrank()
                          break;
                 case 7 : eventForce("say Mister Kelley, you were a good man, " 
                               "but only a mediocre gate guard.");
-                         eventForce("get waltin");
-                         pcounter = 15;
-                         DisposeCorpse();  
+                         break;
+                case 8 : eventForce("get waltin");
+                         pcounter = 15;  
                          break;
                 default : eventPrint("error in pascal");
                           break;   
             }
         }
-        //albert present and waltin is not present
-        if( present("albert") 
-            && !present("waltin") ) 
+        //case 6: albert is present, not a corpse, not in combat, and waltin is not present
+        if( present("albert")
+            && base_name(albert) != LIB_CORPSE 
+            && !albert->GetInCombat()
+            && member_array("waltin kelley", npcees) == -1
+          )
         {
             pcounter++;
-             switch (pcounter) 
+            switch (pcounter) 
             {
-                case 1 : eventForce("look");
+                case 1 :eventForce("look");
                          break;
                 case 2 : eventForce("frown");
                          break;
@@ -391,9 +448,12 @@ void checkPrank()
             }         
         }
 
-        //waltin present and albert is not present
-        if( present("waltin") 
-            && !present("albert") ) 
+        //case 7: waltin is present, not a corpse, not in combat, and albert is not present
+        if( present("waltin")
+            && base_name(waltin) != LIB_CORPSE 
+            && !waltin->GetInCombat()
+            && member_array("albert derby", npcees) == -1
+          ) 
         {
             pcounter++;
             switch (pcounter) 
@@ -420,11 +480,12 @@ void checkPrank()
             }         
         }
         
-        //albert and waltin are not present and not corpses
+        //case 8: albert is not present and waltin is not present 
         if( !present("albert")
-            && !present("waltin") 
-            && base_name( waltin ) != LIB_CORPSE
-            && base_name( albert) != LIB_CORPSE  )
+            && member_array("albert derby", npcees) == -1
+            && !present("waltin")
+            && member_array("waltin kelley", npcees) == -1
+          )
         {
             pcounter++;
             switch (pcounter) 
@@ -447,10 +508,10 @@ void checkPrank()
             }         
         }
     
-        //albert and waltin are corpses
+        //case 9: albert and waltin are corpses
         if( base_name(albert) == LIB_CORPSE 
-            &&  base_name(waltin) == LIB_CORPSE )
-              
+            && base_name(waltin) == LIB_CORPSE 
+          )
         {
             pcounter++;
             switch (pcounter) 
@@ -464,20 +525,47 @@ void checkPrank()
                          break; 
                 case 4 : eventForce("say by the hand of Balcor I shall slay your assailants!");
                          break;
-                case 5 : eventForce("say I shall ask Henil the High Priest to pray for your souls.");
+                case 5 : eventForce("say I will ask Henli the High Priest to pray for your souls.");
                          break;
                 case 6 : eventForce("say the trash bin will have to be your final resting place.");
                          break;
                 case 7 : eventForce("get waltin");
                          eventForce("get albert");
                          pcounter = 15;
-                         DisposeCorpse();
                          break;
                 default : eventPrint("error in pascal");
                           break;
             }
         }
     }   
+}
+
+void DisposeCorpse() {
+
+    object env = environment();    
+
+    if( env->GetShort() == "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^"
+        && pcounter >= 15 ) 
+    {
+    pcounter++;
+    switch (pcounter) 
+        {
+            case 16 : eventForce("say see you in the halls of Balcor!");
+                      break;
+            case 17 : eventForce("put corpse in trash");
+                      break;
+            case 18 : eventForce("put corpse in trash");
+                      break;
+            case 19 : eventForce("unlock gate with key");
+                      break;
+            case 20 : eventForce("open gate");
+                      break;
+            case 21 : eventForce("go north");
+                      break;
+            default : eventForce("go north");
+                      break;           
+        }
+    }
 }    
 
 void checkPlacement() {
@@ -505,71 +593,4 @@ void heart_beat(){
     
 void init(){
     ::init();
-}
-
-//used a call_out in conjunction with SetTalkResponses()
-void GoHelp() {
-
-    object env = environment();
-     
-    if( env->GetShort() == "%^BOLD%^Outside the Guardhouse%^RESET%^"
-        && !this_object()->GetInCombat() )
-    {     
-        hcounter++;
-        switch (hcounter) 
-        {
-            case 1 : eventForce("say Not again! We're a peaceful village!");
-                     break;
-            case 2 : eventForce("yell %^BOLD%^%^CYAN%^You better be gone before "
-                         "I get there%^RESET%^!");
-                     break;
-            case 3 : eventForce("unlock gate with key");
-                     break;
-            case 4 : eventForce("open gate");
-                     break;
-            case 5 : eventForce("go south");
-                     checkCombat();
-                     break;
-            default : eventPrint("error in pascal");
-                      break;
-        }
-        
-        if( hcounter > 5 ) {
-            hcounter = 0;
-        }
-        call_out((: GoHelp :), 2); 
-    }
-    
-}
-void DisposeCorpse() {
-
-    object albert;
-    object waltin;
-    object env = environment();    
-
-    if( env->GetShort() == "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^"
-        && pcounter >=15 ) 
-    {
-    pcounter++;
-    switch (pcounter) 
-        {
-            case 16 : eventForce("get corpse");
-                      break;
-            case 17 : eventForce("put corpse in trash");
-                      break;
-            case 18 : eventForce("put corpse in trash");
-                      break;
-            case 19 : eventForce("say see you in the halls of Balcor!");
-                      break;
-            case 20 : eventForce("unlock gate with key");
-                      eventForce("open gate");
-                      break;
-            case 21 : eventForce("go north");
-                       break;
-            case 22 : if( env->GetShort() == "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^")
-                      eventForce("go north");
-            default : eventPrint("error in pascal");
-                      break;           
-        }
-    }
 }
