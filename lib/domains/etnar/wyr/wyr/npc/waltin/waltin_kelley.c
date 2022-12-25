@@ -3,7 +3,7 @@
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
  * for use in The Brass Ring Mud
- * last edited by lash 22/12/22 year/month/day
+ * last edited by lash 22/12/25 year/month/day
  */
 
 #include <lib.h>
@@ -92,7 +92,7 @@ checkChat() {
            }
        }           
     }
-    if( !present("albert") ) eventForce("say where's Albert?");
+    if( !present("albert") && !present("pierce") ) eventForce("say where's Albert?");
         return;
     
     switch (x) {
