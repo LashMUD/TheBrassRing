@@ -5,7 +5,7 @@
  *    created by lash (ccoker) for use in
  *    The Brass Ring mud
  *     - functions to put a "curse" on an object
- *    last modified: 20/05/20
+ *    last modified: 22/12/25 year/month/day
  */
 
 class curse{
