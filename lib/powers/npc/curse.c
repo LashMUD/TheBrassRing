@@ -53,7 +53,7 @@ varargs mixed eventCurse(object ob, int time, int degree, string *skil,
         tell_player(ob, afmsg);
     }
     else{
-        ob->eventPrint("\nYou feel very uncomfortable.\n");
+        tell_player(ob, "\nYou feel very uncomfortable.\n");
     }
     return 1; 
 }
