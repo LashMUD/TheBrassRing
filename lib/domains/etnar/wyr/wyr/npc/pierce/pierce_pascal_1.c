@@ -309,7 +309,7 @@ void checkPrank()
         //case 3: albert is a corpse and waltin is not present
         if( base_name(albert) == LIB_CORPSE
             && !present("waltin")
-            && member_array("waltin kelly", npcees) == -1
+            && member_array("waltin kelley", npcees) == -1
           ) 
         {
             pcounter++;
