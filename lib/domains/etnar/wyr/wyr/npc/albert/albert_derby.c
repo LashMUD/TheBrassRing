@@ -14,8 +14,7 @@ inherit LIB_SENTIENT;
 int checkCombat();
 int Chat(string str);
 int eventNews();
-string str = " ";
-int x;
+string str = "";
 
 static void create() {
     sentient::create();
