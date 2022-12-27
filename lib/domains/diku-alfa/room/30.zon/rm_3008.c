@@ -10,6 +10,7 @@
 // http://www.dead-souls.net
 
 #include <lib.h>
+#include <daemons.h>
 
 inherit LIB_ROOM;
 
@@ -25,12 +26,9 @@ static void create() {
         "entrance hall. There is a small sign on the counter.");
     SetItems ( ([
         "sign" : "Rooms are expensive but good! You may:\n\n"+
-                 "   Offer - get an offer on a room - Time is in real life days.\n"+
-                 "   Rent  - Rent a room (saves your stuff, and quits the game),\n"+
-                 "           minimum charge is one day.\n\n"+
-                 "                          MY WAY OR THE HIGHWAY\n"+
-                 "                             PAY YOUR RENT!\n"+
-                 "                WE WON'T THINK TWICE BEFORE KICKING YOU OUT.",
+                 "   rent room - rooms are 50 gold pieces for a day.\n"
+                 "               You will get fast healing when you\n"
+                 "               sleep in the room to the east.\n",
         "down" : "You see the entrance hall.",
         ]) );
     SetRead ( ([
@@ -38,6 +36,7 @@ static void create() {
         ]) );    
     SetExits( ([
         "down" : "/domains/diku-alfa/room/30.zon/rm_3006",
+        "east" : "/domains/diku-alfa/room/30.zon/rm_3008_1",
         ]) );
     SetInventory( ([
         "/domains/diku-alfa/room/30.zon/npc/3005_receptionist" : 1,
@@ -50,7 +49,36 @@ mixed ReadSign(){
 
 void init(){
     ::init();
+        add_action("rent","rent");
 }
+
+int rent(string str) {
+    object ob = this_player();
+            
+    if(!str || (str && str !="room")) {
+        tell_player(this_player(), "\nRent what?\n");
+        return 1;
+    }
+    if(str && str =="room") {
+        if(this_player()->GetCurrency("gold") < 50) {
+            tell_player(this_player(), "You don't have enough gold! Rooms are 50 gold pieces.\n");
+            return 1;
+        }
+    foreach(string key in this_player()->GetRents()) { 
+        if(key == "The Grunting Boar") {
+            tell_player(this_player(), "You have already rented a room here! "
+                "Don't you remember?\n");
+            return 1;
+        }
+    }
+    tell_player(this_player(), "Thank you. Enjoy your stay in the east room!\n");
+    this_player()->AddCurrency("gold", -50);
+    this_player()->SetRent( ([ "The Grunting Boar" : ({"/domains/diku-alfa/room/30.zon/rm_3008",
+        "/domains/diku-alfa/room/30.zon/rm_3008_1",SEASONS_D->GetTime(),SEASONS_D->GetTime()+28800}) ]) );
+    }
+    return 1;
+}      
+
 
 /* Extra Information Original Diku Output 
 Room name: The Reception, Of zone : 1. V-Number : 3008, R-number : 14
