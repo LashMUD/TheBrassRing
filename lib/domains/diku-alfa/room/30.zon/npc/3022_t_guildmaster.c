@@ -170,6 +170,8 @@ int AdvanceDude(mixed arg){
     }
 
     if(SKILL_ADVANCE){
+        /*total number of skill points required 
+          to advance to the next level - change as you see fit */
         level = this_player()->GetLevel() * 15;
         dlev = (this_player()->GetLevel())+1;
                 
@@ -194,9 +196,9 @@ int AdvanceDude(mixed arg){
             mlevels += ({this_player()->GetBaseSkillLevel(str)});
         }
         mlevels = sort_array(mlevels,-1);
-        totpoints = plevels[0] + plevels[1] + plevels[2] + plevels[3] + plevels[4] +
+        totpoints = plevels[0] + plevels[1] + plevels[2] + plevels[3] + plevels[4] + plevels[5] +
                     slevels[0] + slevels[1] + slevels[2] +
-                    mlevels[0] + mlevels[1] + mlevels[2] + mlevels [3] + mlevels [4];
+                    mlevels[0] + mlevels[1] + mlevels[2] + mlevels[3];
         }                
         if(totpoints >= level){
             this_object()->eventForce("say Congratulations! "
