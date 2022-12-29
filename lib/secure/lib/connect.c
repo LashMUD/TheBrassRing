@@ -66,6 +66,7 @@ static void cmdHelpClass(string args);
 static void InputClass(string str);
 static void eventSelectClass();
 
+static void PickSkillsorClass();
 static void eventSkillSelectionInstructions();
 static void eventSelectPrimarySkills();
 static void InputPrimarySkills(string str);
@@ -726,11 +727,14 @@ static void cmdPick(string args) {
             eventSelectClass();
             return;
         }            
+        if(SKILL_SELECTION && CLASS_SELECTION){
+           PickSkillsorClass();
+           return;
+        }
         if(SKILL_SELECTION){
             eventSkillSelectionInstructions();
-            //eventSelectPrimarySkills();
             return;
-        }
+        }    
         eventCompleteChar();
     }
     if(AUTO_WIZ == 2) InputCre("creator");
@@ -746,7 +750,7 @@ static void cmdPick(string args) {
 }
 
 static void eventSelectClass(){
-    receive("\n\nYou must now pick a class.\n");
+    receive("\n\nYou must now pick a class or choose to pick your own skills.\n");
     receive("Picking a class influences what skills your character "
             "will have.\n");
     receive("\nYou may issue the following commands:\n");
@@ -757,7 +761,8 @@ static void eventSelectClass(){
     receive("\tpick CLASS - pick a particular class for yourself\n");
     receive("\n\tValid classes: ");
     receive(implode(sort_array(CLASSES_D->GetClasses(1), 1), " "));
-    receive("\nClass: \n");
+    receive("\n\ttyping \"skills\" - will put you in skill selection mode.\n");
+    receive("\nPick a class or type \"skills\" to pick your own skills: \n");
     input_to((: InputClass :), I_NOESC);
 }
 
@@ -789,6 +794,10 @@ static void InputClass(string str){
 
         case "pick":
             cmdPickClass(args);
+        return;
+
+        case "skills" :
+            eventSkillSelectionInstructions();
         return;
 
         default:
@@ -847,11 +856,19 @@ static void cmdPickClass(string args) {
     eventCompleteChar();
 }
 
+static void PickSkillsorClass() {
+
+    receive("\n\nYou may select to pick your own skills to customize your\n"
+        "character or pick a pregenerated class.\nPress return to continue.\n");
+        input_to((: eventSelectClass :), I_NOESC);
+}
+
+
 static void eventSkillSelectionInstructions(){
     receive("\n\nChoose the skill sets that will define your character.\n"
             "Available are:\n"
             "    6 PRIMARY skill slots\n"
-            "    3 SECONDARY skill slots\n"
+            "    4 SECONDARY skill slots\n"
             "    4 MINOR skill slots\n\n"
             "The more you use a skill the faster your level will increase.\n"
             "Think about your character concept and choose wisely.\n");
@@ -859,6 +876,7 @@ static void eventSkillSelectionInstructions(){
             "skills, as well as a list of skills you have already chosen. The\n"
             "following commands will be available to you:\n\n");
     receive("\thelp - shows the help menu for SKILLS\n"
+            "\ttype \"skills overview\" in the help section to see how skills work\n"
             "\tpick SKILL - pick a particular SKILL for yourself\n\n"
             "Press return to begin skill selection.");
     input_to((: eventSelectPrimarySkills :), I_NOESC);
@@ -959,7 +977,7 @@ static void eventSelectSecondarySkills(){
     string csskills = format_page(sort_array(stmp, 1), 3);
     SkillPick = 2; 
           
-    receive("\nPick "+(3-x)+" SECONDARY Skills.\n");
+    receive("\nPick "+(4-x)+" SECONDARY Skills.\n");
     receive("\nYou have chosen the following PRIMARY Skills:\n");
     receive(cpskills);
     receive("\nYou have chosen the following SECONDARY Skills:\n");
@@ -1031,10 +1049,10 @@ static void cmdPickSecondarySkills(string args) {
         input_to((: InputSecondarySkills :), I_NOESC);
         return;
     }
-    if(sizeof(stmp) < 3){
+    if(sizeof(stmp) < 4){
         stmp+=({args});
         Skills -=({args});
-        if(sizeof(stmp) == 3){
+        if(sizeof(stmp) == 4){
             eventSelectMinorSkills();
         }else{ eventSelectSecondarySkills();
         }
@@ -1237,7 +1255,11 @@ void InputCre(string str){
         eventSelectClass();
         return;
     }
-    if(!CLASS_SELECTION){
+    if(SKILL_SELECTION && CLASS_SELECTION){
+           PickSkillsorClass();
+           return;
+    }
+    if(SKILL_SELECTION){
         eventSelectPrimarySkills();
         return;
     }
@@ -1271,7 +1293,7 @@ void eventCompleteChar(){
     }
     if(yescre) Player->SetPrompt("cwd");
     else Player->SetPrompt("status");
-    if(trabajo && !ptmp) Player->ChangeClass(trabajo);
+    if(trabajo) Player->ChangeClass(trabajo);
     if(ptmp && !trabajo){
         string str;
         receive("\nCharacter Summary\n");
@@ -1283,7 +1305,7 @@ void eventCompleteChar(){
         }
         receive("\n");
     }
-    if(stmp && !trabajo){
+    if(ptmp && !trabajo){
         string str;
         receive("\nSECONDARY Skills picked:\n");
         foreach(str in stmp){
@@ -1292,7 +1314,7 @@ void eventCompleteChar(){
         }
         receive("\n");
     }
-    if(mtmp && !trabajo){
+    if(ptmp && !trabajo){
         string str;
         receive("\nMINOR Skills picked:\n");
         foreach(str in mtmp){

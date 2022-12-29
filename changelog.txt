@@ -1,4 +1,60 @@
 Changelog (year-month-day)
+22-12-29
+*changed directory structure for wyr
+ added more rooms and npc's
+
+*added all skills to be added for level change
+ - need 15 skill points for level change per level
+   1st level need 15 total skill points
+   10th level need 150 total skill points and so on
+
+*/lib/domains/town/npc/dirk.c
+ - added leveling based on skills to dirk.c
+
+*/lib/domains/etnar/wyr/wyr/npc/albert/albert_derby
+ - added code for npc's getting rumors from a list in a file
+
+*/lib/domains/diku-alfa/room/30.zon/npc/3024_sorcerer_guard
+ - added npc spell use to sorcerer in mages guild in Midgaard
+
+*/lib/include/combat_messages.h
+ - changed combat messages so hit type is bolded red for player attacking
+
+*/lib/secure/cmds/players
+ - moved mudtime command so players can use it
+
+*/lib/cmds/players
+ - skills command changed so Minor Skills is shown - not Other Skills
+
+*/lib/lib/body.c
+ - modified int GetHealRate() function for sleeping buff
+
+*/lib/lib/player.c
+ - changed SetClass() to adventurer for skill based leveling
+   there is no "adventurer" class just used for aesthetics
+ - changed "Drifter" to "Adventurer" in commands and other files to be consistent:
+   /lib/secure/daemon/finger.c
+   /lib/secure/obj/medtric.c
+   /lib/cmds/players/kills.c
+   /lib/cmds/players/skills.c
+   /lib/cmds/players/stat.c 
+   /lib/cmds/players/stats.c 
+
+*/lib/lib/props/rent.c
+ - created rent property so player can rent rooms at Inns and get healing buffs 
+
+*/lib/secure/connect.c
+ - changed so that if classselection and skillselection are in use
+   the player can choose to use one of the pregenerated classes in
+   /lib/secure/cfg/classes or select their own skills
+
+*/lib/secure/cfg/classes
+ - added bard class for Fostaine Pyre npc in wyr
+ - redid all classes so they can be used for skill system advancement
+
+*/lib/doc/help/skills
+ - added help files for skills
+
 2020-06-25
 */lib/lib/genetics.c 
  - changed variables in eventBlind() function to emulate previous code from
@@ -49,7 +105,7 @@ Changelog (year-month-day)
 */lib/secure/daemon/autexec.c 
  - remove from repo - mud specific
 */lib/lib/props/factions.c 
- -removed SetFactions() function - was not intialized properly and not required
+ -removed SetFactions() function - was not initialized properly and not required
 */lib/lib/genetics.c 
  - removed file revisions (restructuring) and distracting comments
 */lib/power/npc/include/magic_user.h
@@ -85,7 +141,7 @@ Changelog (year-month-day)
 */lib/secure/cmds/creators
  -updated timeinfo command:
    reports ctime(0) value (Wed Dec 31 19:00:00 1969)
-   reports elpsed time in seconds of current mud since time(0)
+   reports elapsed time in seconds of current mud since time(0)
    reports DAY_ONE value of current mud
    reports DAY_ONE value of Dead Souls mud (original global.h file)
 
@@ -119,7 +175,7 @@ Migrating files to ds3.9 mudlib as required
    interestingly, the message output has to be coded in reverse of what I thought
    was intuitive - the end[1] message is returned when blinded and the end[0]
    message is returned after the timer for blindness expires. wtf?
-*/lib/damon/seasons.c
+*/lib/daemon/seasons.c
  -changed varargs int GetYearLength(int x) to int GetYearLength(). I don't know
    what I was thinking, if at all.
 
@@ -133,7 +189,7 @@ Migrating files to ds3.9 mudlib as required
 
 2016-03-07
 */lib/secure/daemon/players.c
- -changed levelling requirements using the GetBaseSkillLevel() function
+ -changed leveling requirements using the GetBaseSkillLevel() function
    so that leveling does not take into account skill bonuses if present
  -In /lib/lib/lvs/abilities.c the GetSkillLevel() function is set up to
    return base and bonus skill levels

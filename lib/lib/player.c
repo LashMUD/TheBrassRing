@@ -330,7 +330,7 @@ int Setup(){
     string oldparties = PARTY_D->GetOldParties();
     if( !interactive::Setup() ) return 0;
     /* changed by lash (ccoker) for skill_advance option */
-    if( !GetClass() && CLASS_SELECTION ) SetClass("explorer");
+    if( !GetClass() && CLASS_SELECTION ) SetClass("adventurer");
     RemoveExtraChannels(oldparties);
     foreach(string oldparty in oldparties){
         RemoveChannel(oldparty);
