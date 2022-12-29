@@ -1,10 +1,10 @@
 /* Modified by Lash (Christopher Coker) for use with:
- * The Dead Souls Mud Library version 2 and above
+ * The Dead Souls Mud Library
  * developed by Cratylus
  * http://www.dead-souls.net
- * this file creates the Fostaine Pyre object at a specific time
- * this MUD uses a 24 hr day cycle
- * last edited by lash 22/11/9 year/month/day
+ * the room rented at the grinting boar inn
+ * 
+ * last edited by lash 22/12/29 year/month/day
  */ 
 
 #include <lib.h>
