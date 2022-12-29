@@ -1186,7 +1186,6 @@ static void cmdHelpSkills(string str){
         
     }
     else{
-        tell_player("lash", "in else");
         help = read_file( "/doc/help/skills/"+cmd);
         receive("\n"+help+"\n");
         receive("Press enter to return to skill selction.\n");
