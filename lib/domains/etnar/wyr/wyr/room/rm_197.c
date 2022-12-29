@@ -40,11 +40,12 @@ static void create() {
             "against the back of the cabinet.",
         ({"doll", "cloth doll"}) : "A raggedy doll with buttons for eyes and a nice "
             "little yellow dress. It smiles sweetly at you.",
-        "trinkets" : "Little nick-nacks that are near worthless.",  
+        "trinkets" : "Little nick-nacks that are near worthless.",
         ] ));
     SetInventory( ([
         "/domains/etnar/wyr/wyr/npc/sybil/sybil_klaknor" : 1,
         "/domains/etnar/wyr/wyr/virtual/dummy_sofa" : 1,
+        "/domains/etnar/wyr/wyr/virtual/dummy_cabinet" : 1,
     ]) );
     SetExits( ([
          "east" : "/domains/etnar/wyr/wyr/room/rm_114",

@@ -16,7 +16,7 @@ static void create() {
     room::create();
     SetClimate("indoors");
     SetAmbientLight(30);
-    SetShort("%^BOLD%^The Town Hall%^RESET%^");
+    SetShort("%^BOLD%^The Village Hall%^RESET%^");
     SetLong("   You enter the Town Hall. Although modest in size, the place "
         "is very busy. A huge bulletin board dominates the room and you can "
         "see townspeople busily writing or reading messages. This board "

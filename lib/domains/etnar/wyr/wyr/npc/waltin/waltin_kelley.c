@@ -16,7 +16,7 @@ int checkCombat();
 void time();
 static int index;
 static int movebool = 0;
-int hour;
+int hour, minutes;
 int *time_of_day;
 object array *targets;
 int counter = 0;
