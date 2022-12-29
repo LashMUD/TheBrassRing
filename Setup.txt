@@ -22,20 +22,27 @@ Edit /lib/secure/include/config.h as follows:
 #define ADMIN_EMAIL              "n@n.net" to your email address
 #define DEBUGGER                 "lash" to your admin name
 
-start the mud again - login as the admin character and issue the following 
+start the mud again - login as the admin character and you may issue the following 
 commands:
 
-mudconfig selectclass no
+mudconfig selectclass no or yes
+ if yes the player can choose a pregenerated class or select their own skills
+ if no then they select their own skills by default
+
 mudconfig selectskills yes
+
 mudconfig xpadvancement no
+ player still gains xp - may use in future to trade in for perks
+
 mudconfig skilladvancement yes
+
 mudconfig autoadvance yes
-then use admintool to add goat as a race
+ if no then see the modified dirk.c file in /lib/domains/town/npc folder.
+ Dirk is coded to advance players based on skill point levels.
+
+use admintool to add goat as a race
+
 warmboot
 
 connect and create a test character - you should now be able to select primary,
-secondary and minor skills for your test character. 
-
-If you don't want to use autoadvance see the modified dirk.c file in 
-/lib/domains/town/npc folder. Dirk is coded to advance players based on 
-skill point levels.
+secondary and minor skills for your test character.
