@@ -41,6 +41,9 @@ mudconfig autoadvance yes
  Dirk is coded to advance players based on skill point levels.
 
 use admintool to add goat as a race
+use admintool to remove and then add all classes
+ in order to use a pregenerated class the classes had to be reconfigured to work
+ with the skill advancement system - change to suit what you want
 
 warmboot
 
