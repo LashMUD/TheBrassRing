@@ -44,7 +44,6 @@ static private int rescue, yescre, anyterm;
 static private string *ip_permitted = ({}), instname, telopt_user;
 static private string array anyterms = ({"97.107.133.86", "127.0.0.1"});
 static private string *Skills;
-static private string *tskills = ({});
 static private string *ptmp = ({});
 static private string *stmp = ({});
 static private string *mtmp = ({});
