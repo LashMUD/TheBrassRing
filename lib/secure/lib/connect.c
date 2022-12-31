@@ -1164,6 +1164,7 @@ static void cmdHelpSkills(string str){
     if(args == "overview" || cmd == "overview") {
         receive("Press enter to continue.\n");
         input_to((: eventOverview :), I_NOESC);
+        return;
     }
 
     if( sscanf(str, "%s %s", cmd, args) == 2){
