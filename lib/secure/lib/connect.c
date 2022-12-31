@@ -1200,7 +1200,6 @@ static void eventOverview(string str) {
     string help;
  
     f = function(string str) {
-        string hskills = format_page(sort_array(Skills, 1), 4);
         receive("\n\nPress enter to continue.\n\n");
         if(SkillPick == 1)
             input_to((: eventSelectPrimarySkills :), I_NOESC);
@@ -1216,13 +1215,6 @@ static void eventOverview(string str) {
             "Error reading help file.\n";
         eventPage(explode(help, "\n"), MSG_HELP, f);
         return;
-}
-
-
-static private string *GetSkills(){
-    string *ret;
-    ret = Skills;
-    return ret;
 }
 
 int eventCre(string str){
