@@ -79,7 +79,6 @@ static void InputMinorSkills(string str);
 static void cmdPickMinorSkills(string args);
 static void cmdHelpSkills(string args);
 static void eventOverview(string str);
-static private string *GetSkills();
 static private int SkillPick = 0;
 
 int CheckIp(){
