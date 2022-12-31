@@ -538,7 +538,7 @@ string GetHelpByIndex(string index, string topic) {
                      help += read_file(DIR_SKILL_HELP + "/" + topic);
                  return help;
              }
-             Error = "No such class exists.";
+             Error = "No such skill exists.";
              return 0;
 
         default:
