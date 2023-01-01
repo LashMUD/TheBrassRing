@@ -32,7 +32,7 @@ static void create() {
         ({"runes", "rune"}) : "The runes are indecipherable.\n"
         ] ));
     SetInventory( ([
-        "/domains/etnar/wyr/npc/emma/emma_kirkland" : 1,
+        "/domains/etnar/wyr/wyr/npc/emma/emma_kirkland" : 1,
         ]) ); 
     SetRead( ([
             ({"runes", "rune"}) : (:ReadRunes:),
