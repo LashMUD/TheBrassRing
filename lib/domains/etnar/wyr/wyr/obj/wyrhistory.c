@@ -23,7 +23,7 @@ void create(){
     SetBaseCost("gold",10);
     SetVendorType(VT_TREASURE);
     SetTitle("A Short History of Wyr");
-    SetSource("/domains/etnar/wyr/books/wyrhistory");
+    SetSource("/domains/etnar/wyr/wyr/books/wyrhistory");
     SetDefaultRead("Try \"read chapter 1 in book\"");
 
 }
