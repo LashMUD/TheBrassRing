@@ -116,7 +116,7 @@ static private void LoadIndices() {
         Indices["classes"] = tmp;
     else Indices["classes"] = ({});
 
-    if( tmp = SKILLS_D->GetSkills() )
+    if( tmp = get_dir(DIR_SKILL_HELP + "/") )
         Indices["skills"] = tmp;
     else Indices["skills"] = ({});
 
@@ -327,9 +327,9 @@ string GetHelpByIndex(string index, string topic) {
             return help;
 
         case "player documents": case "creator documents":
-        case "law": case "lpc":
+        case "law": case "lpc": case "skills":
             switch(index) {
-                case "player documents":
+                case "player documents": 
                     if( topic == "soul" ) {
                         help = SOUL_D->GetHelp("soul");
                         help = "Index: %^GREEN%^" + index + "%^RESET%^\n" +
@@ -352,6 +352,10 @@ string GetHelpByIndex(string index, string topic) {
                     if( !file_exists(file) )
                         file = DIR_CONSTRUCTS_HELP "/" + topic;
                     break;
+                
+                case "skills":
+                     file = DIR_SKILL_HELP "/" + topic;
+                     break;
             }
             if( !file_exists(file) ) {
                 Error = "No such " + index[0..<2] + " is available.";
@@ -529,17 +533,6 @@ string GetHelpByIndex(string index, string topic) {
             }
             Error = "No such class exists.";
             return 0;
-
-        case "skills":
-             if( help = SKILLS_D->GetHelp(topic) ) {
-                 help = "Index: %^GREEN%^" + index + "%^RESET%^\n" +
-                     "Topic: %^GREEN%^" + topic + "%^RESET%^\n\n" + help;
-                 if( file_exists(DIR_SKILL_HELP + "/" + topic) )
-                     help += read_file(DIR_SKILL_HELP + "/" + topic);
-                 return help;
-             }
-             Error = "No such skill exists.";
-             return 0;
 
         default:
             Error = "No help exists for the index " + index + ".";
