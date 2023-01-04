@@ -4,7 +4,7 @@
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
  * for use in The Brass Ring Mud
- * last edited by lash 23/01/04 year/month/day
+ * last edited by lash 12/01/04 year/month/day
  */
 
 #include <lib.h>
@@ -150,8 +150,11 @@ void checkCombat() {
 
 void GetVars() {
 
+    //object env = environment();
     pranksters = get_livings(environment());
      
+    tell_player("lash", "in getvars()");
+             
     if(pcounter > 15) DisposeCorpse();
     if( sizeof(pranksters) )
     {
@@ -228,6 +231,7 @@ void checkPrank()
             
         {
             pcounter++;
+            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : if( waltin->GetCurrentEnemy() != 0 || albert->GetCurrentEnemy() != 0)
@@ -404,24 +408,18 @@ void checkPrank()
                              +albert->GetCurrentEnemy()->GetKeyName());
                          }
                          break;
-                case 6 : if( present(albert->GetCurrentEnemy()->GetKeyName()) ) 
-                         {
-                             eventForce("say they're here now!");
-                             eventForce( "kill "+albert->GetCurrentEnemy()->GetKeyName() );
-                         }
-                         break;
-                case 7 : if( !present(albert->GetCurrentEnemy()) ) 
+                case 6 : if( !present(albert->GetCurrentEnemy()) ) 
                          eventForce("say Well, it looks like you chased "
                              +albert->GetCurrentEnemy()->GetKeyName()+" %^BOLD%^%^CYAN%^off. " 
                              "Good job. Let me know if they come back to the area%^RESET%^");
                          break;
-                case 8 : eventForce("look at sky");
+                case 7 : eventForce("look at sky");
                          break;
-                case 9 : eventForce("say Waltin, you were a good man, but only a mediocre " 
+                case 8 : eventForce("say Waltin, you were a good man, but only a mediocre " 
                              "gate guard.");
                          break;
-                case 10 : eventForce("get waltin");
-                          pcounter = 15;
+                case 9 : eventForce("get waltin");
+                         pcounter = 15;
                 default : eventPrint("error in pascal");
                           break; 
             }
