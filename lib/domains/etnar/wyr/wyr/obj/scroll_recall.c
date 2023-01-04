@@ -37,7 +37,7 @@ void init(){
 void read_scroll(){
     
     tell_player(this_player(), "\nThe scroll crumbles into dust...\n");
-    this_player()->eventMoveLiving("/domains/etnar/wyr/room/rm_116",
+    this_player()->eventMoveLiving("/domains/etnar/wyr/wyr/room/rm_116",
                                    this_player()->GetName()+" disappears!", 
                                    this_player()->GetName()+" appears in the middle of the intersection.");
     this_object()->eventDestruct();

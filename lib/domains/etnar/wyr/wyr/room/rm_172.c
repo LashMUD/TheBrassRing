@@ -10,6 +10,8 @@
 
 inherit LIB_ROOM;
 
+int ReadSign();
+
 static void create() {
 
     room::create();
@@ -18,8 +20,15 @@ static void create() {
     SetShort("%^BOLD%^The Reception%^RESET%^");
     SetLong("   This is the reception where you can rent a room for your conveniance. "
             "As of now this is just a placeholder.");
-    SetItems( ([ 
+    SetItems( ([
+        "sign" : "\nA room to rent! You may:\n"
+                 "    rent room - rooms are 20 gold pieces for a day.\n"
+                 "                You will get fast healing when you\n"
+                 "                sleep in the room to the west.\n\n",
         ] ));
+    SetRead ( ([
+        ({"sign", "small", "small sign"}) : (:ReadSign:)
+        ]) );  
     SetInventory(([
         ]) );
     SetActionsMap( ([ 
@@ -28,6 +37,10 @@ static void create() {
         "west" : "/domains/etnar/wyr/wyr/room/rm_173",
         "southeast" : "/domains/etnar/wyr/wyr/room/rm_131",
         ] ));
+}
+
+mixed ReadSign(){
+    return (mixed)this_player()->eventPage("/domains/etnar/wyr/wyr/text/reception.txt");
 }
 
 void init(){

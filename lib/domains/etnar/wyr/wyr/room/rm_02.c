@@ -18,8 +18,8 @@ static void create() {
     SetShort("The Wizard's Lounge");
     SetLong("  Say! Isn't this a nifty room?\n"+
         "You are standing in the workroom of the mighty Lash!\n"+
-        "You can \"enter shrine\" to go to the Shrine Room in Wyr or "
-        "\"enter altar\" to go to the Temple Altar in Midgaard.");
+        "You can type \"shrine\" to go to the Shrine Room in Wyr or "
+        "\"altar\" to go to the Temple Altar in Midgaard.");
     SetItems( ([
         "altar" : "The Midgaard Temple altar room",
         "shrine" : "The Shrine Room of Balcor",
