@@ -150,11 +150,8 @@ void checkCombat() {
 
 void GetVars() {
 
-    //object env = environment();
     pranksters = get_livings(environment());
      
-    tell_player("lash", "in getvars()");
-             
     if(pcounter > 15) DisposeCorpse();
     if( sizeof(pranksters) )
     {
@@ -231,7 +228,6 @@ void checkPrank()
             
         {
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : if( waltin->GetCurrentEnemy() != 0 || albert->GetCurrentEnemy() != 0)
