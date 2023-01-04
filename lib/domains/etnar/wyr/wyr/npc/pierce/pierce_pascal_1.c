@@ -4,7 +4,7 @@
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
  * for use in The Brass Ring Mud
- * last edited by lash 22/12/25 year/month/day
+ * last edited by lash 12/01/04 year/month/day
  */
 
 #include <lib.h>
@@ -14,11 +14,14 @@ inherit LIB_SENTIENT;
 
 void Setpcounter();
 void checkCombat();
+void GetVars();
 void checkPrank();
 void CheckGate();
 int DisposeCorpse();
 void checkPlacement();
 void GoHelp(string msg);
+object albert;
+object waltin;
 object *pranksters = ({});
 string *npcees = ({});
 void eventNews(); //added later
@@ -81,6 +84,7 @@ void Setpcounter() {
         && !this_object()->GetInCombat() ) { 
             pcounter = 0;
             npcees = ({});
+            pranksters = ({});
     }
 
 }
@@ -106,6 +110,7 @@ void GoHelp() {
             case 4 : eventForce("open gate");
                      break;
             case 5 : eventForce("go south");
+                     GetVars();
                      checkCombat();
                      break;
             default : eventPrint("error in pascal");
@@ -143,6 +148,31 @@ void checkCombat() {
     }
 }
 
+void GetVars() {
+
+    //object env = environment();
+    pranksters = get_livings(environment());
+     
+    tell_player("lash", "in getvars()");
+             
+    if(pcounter > 15) DisposeCorpse();
+    if( sizeof(pranksters) )
+    {
+        foreach(object thing in pranksters)
+        {
+            npcees += ({ thing->GetKeyName() });
+            if( thing->GetKeyName() == "albert derby" )
+            {
+                albert = thing;
+            }
+            if( thing->GetKeyName() == "waltin kelley" )
+            {
+                waltin = thing;
+            }
+        }
+    }
+}
+
 /* gate is a dummy object - don't know how
  * to check if locked or not, so check every hour
  */
@@ -169,6 +199,12 @@ CheckGate() {
      }
 }
 
+mixed GetPranksters() {
+    
+    if( sizeof(pranksters) )
+        return pranksters;
+}
+
 mixed GetNpcees() {
     
     if( sizeof(npcees) )
@@ -178,27 +214,7 @@ mixed GetNpcees() {
 void checkPrank()
 {
 
-    object albert;
-    object waltin;
     object env = environment();
-    pranksters = all_inventory(env);
-                  
-    if(pcounter > 15) DisposeCorpse();
-    if( sizeof(pranksters) )
-    {
-        foreach(object thing in pranksters)
-        {
-            npcees += ({ thing->GetKeyName() });
-            if( thing->GetKeyName() == "albert derby" )
-            {
-                albert = thing;
-            }
-            if( thing->GetKeyName() == "waltin kelley" )
-            {
-                waltin = thing;
-            }
-        }
-    }
 
     //pierce is in the correct room, and not in combat
     if( env->GetShort() == "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^" 
@@ -215,6 +231,7 @@ void checkPrank()
             
         {
             pcounter++;
+            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : if( waltin->GetCurrentEnemy() != 0 || albert->GetCurrentEnemy() != 0)
@@ -234,20 +251,40 @@ void checkPrank()
                 case 7 : eventForce("say you know Albert, keep on looking for "
                              +capitalize(albert->GetCurrentEnemy()->GetKeyName()) );
                          break;
-                case 8 : if( present(albert->GetCurrentEnemy()->GetKeyName()) ) 
-                         {
-                             eventForce("say there's that "+
-                                 capitalize(albert->GetCurrentEnemy()->GetKeyName())+ 
-                             " ! Get'em!");
-                             eventForce( "kill "+albert->GetCurrentEnemy()->GetKeyName() );
+                case 8 : npcees = ({});
+                         GetVars();
+                         if( present(albert->GetCurrentEnemy()->GetKeyName())
+                             && member_array(albert->GetCurrentEnemy()->GetKeyName(), npcees) == -1 ) 
+                         {    
+                             eventForce("say Hey Albert, looks like "
+                                 +capitalize(albert->GetCurrentEnemy()->GetKeyName())+ 
+                                 " won't be bothering anyone anymore!");
+                             eventForce("get "+albert->GetCurrentEnemy()->GetKeyName());
+                             eventForce("put corpse on table");
+                             if( albert->GetCurrentEnemy()->GetKeyName() ==  waltin->GetCurrentEnemy()->GetKeyName() ) 
+                             {
+                               albert->SetCurrentEnemy();
+                               waltin->SetCurrentEnemy();
+                             }
+                             else  albert->SetCurrentEnemy();
                          }
                          break;
-                case 10 : if( present(waltin->GetCurrentEnemy()->GetKeyName()) ) 
+                case 9 : npcees = ({});
+                         GetVars();
+                         if( present(waltin->GetCurrentEnemy()->GetKeyName())
+                             && member_array(waltin->GetCurrentEnemy()->GetKeyName(), npcees) == -1 ) 
                          {
-                             eventForce("say there's that "+
-                                 capitalize(waltin->GetCurrentEnemy()->GetKeyName())+ 
-                             " ! Get'em!");
-                             eventForce( "kill "+waltin->GetCurrentEnemy()->GetKeyName() );
+                             eventForce("say Hey Waltin, looks like "
+                                 +capitalize(waltin->GetCurrentEnemy()->GetKeyName())+ 
+                                 " won't be bothering anyone anymore!");
+                             eventForce("get "+waltin->GetCurrentEnemy()->GetKeyName());
+                             eventForce("put corpse on table");
+                             if( waltin->GetCurrentEnemy()->GetKeyName() ==  albert->GetCurrentEnemy()->GetKeyName() ) 
+                             {
+                               waltin->SetCurrentEnemy();
+                               albert->SetCurrentEnemy();
+                             }
+                             else  waltin->SetCurrentEnemy();
                          }
                          break;
                 case 10 : eventForce("unlock gate with key");
@@ -293,11 +330,11 @@ void checkPrank()
                           break;
                 case 7 : if(waltin->GetCurrentEnemy())
                          waltin->eventForce("say Last person I was fighting was "
-                             +waltin->GetCurrentEnemy()->GetShort());
+                             +waltin->GetCurrentEnemy()->GetKeyName());
                          break;
                 case 8 : if(waltin->GetCurrentEnemy())
                          eventForce("say Well keep an eye out for this "
-                             +waltin->GetCurrentEnemy()->GetShort());
+                             +waltin->GetCurrentEnemy()->GetKeyName());
                          break;
                 case 9 : if( present(waltin->GetCurrentEnemy()->GetKeyName())) 
                          eventForce("say they're here now!");
@@ -368,7 +405,7 @@ void checkPrank()
                          }
                          else {
                          albert->eventForce("say we were fighting "
-                             +albert->GetCurrentEnemy()->GetShort());
+                             +albert->GetCurrentEnemy()->GetKeyName());
                          }
                          break;
                 case 6 : if( present(albert->GetCurrentEnemy()->GetKeyName()) ) 
@@ -379,12 +416,12 @@ void checkPrank()
                          break;
                 case 7 : if( !present(albert->GetCurrentEnemy()) ) 
                          eventForce("say Well, it looks like you chased "
-                             +albert->GetCurrentEnemy()->GetShort()+" %^BOLD%^%^CYAN%^off. " 
+                             +albert->GetCurrentEnemy()->GetKeyName()+" %^BOLD%^%^CYAN%^off. " 
                              "Good job. Let me know if they come back to the area%^RESET%^");
                          break;
                 case 8 : eventForce("look at sky");
                          break;
-                case 9 : eventForce("say Waltin, you were a good man, but only a mediocre" 
+                case 9 : eventForce("say Waltin, you were a good man, but only a mediocre " 
                              "gate guard.");
                          break;
                 case 10 : eventForce("get waltin");
@@ -537,7 +574,8 @@ void checkPrank()
                 case 6 : eventForce("say the trash bin will have to be your final resting place.");
                          break;
                 case 7 : eventForce("get waltin");
-                         eventForce("get albert");
+                         break;
+                case 8 : eventForce("get albert");
                          pcounter = 15;
                          break;
                 default : eventPrint("error in pascal");
