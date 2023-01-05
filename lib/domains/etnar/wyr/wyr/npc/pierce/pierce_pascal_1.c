@@ -4,7 +4,7 @@
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
  * for use in The Brass Ring Mud
- * last edited by lash 12/01/04 year/month/day
+ * last edited by lash 23/01/04 year/month/day
  */
 
 #include <lib.h>
@@ -150,12 +150,8 @@ void checkCombat() {
 
 void GetVars() {
 
-    //object env = environment();
-    pranksters = get_livings(environment());
+    pranksters = all_inventory(environment());
      
-    tell_player("lash", "in getvars()");
-             
-    if(pcounter > 15) DisposeCorpse();
     if( sizeof(pranksters) )
     {
         foreach(object thing in pranksters)
@@ -216,6 +212,8 @@ void checkPrank()
 
     object env = environment();
 
+    if(pcounter > 15) DisposeCorpse();
+
     //pierce is in the correct room, and not in combat
     if( env->GetShort() == "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^" 
         && !this_object()->GetInCombat() ) 
@@ -231,7 +229,6 @@ void checkPrank()
             
         {
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : if( waltin->GetCurrentEnemy() != 0 || albert->GetCurrentEnemy() != 0)
