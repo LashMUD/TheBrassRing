@@ -222,9 +222,7 @@ void checkPrank()
           )
             
         {
-            tell_player("lash", "Case 1");
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : if( waltin->GetCurrentEnemy() != 0
@@ -306,9 +304,7 @@ void checkPrank()
           ) 
             
         {
-            tell_player("lash", "Case 2");
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter)
             {
                 case 1 : eventForce("look");
@@ -374,9 +370,7 @@ void checkPrank()
             && member_array("waltin kelly", npcees) == -1
           ) 
         {
-            tell_player("lash", "case 3");  
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter)
             {
                 case 1 : eventForce("look");
@@ -406,9 +400,7 @@ void checkPrank()
             && !albert->GetInCombat()
           ) 
         {
-            tell_player("lash", "Case 4");
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : if(albert->GetCurrentEnemy()) pcounter = 2;
@@ -476,9 +468,7 @@ void checkPrank()
             && member_array("albert derby", npcees) == -1
           ) 
         {
-            tell_player("lash", "case 5");  
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter)
             {
                 case 1 : eventForce("look");
@@ -510,9 +500,7 @@ void checkPrank()
             && member_array("waltin kelley", npcees) == -1
           )
         {
-            tell_player("lash", "Case 6");
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 :eventForce("look");
@@ -559,9 +547,7 @@ void checkPrank()
             && member_array("albert derby", npcees) == -1
           ) 
         {
-            tell_player("lash", "case 7");
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : eventForce("look");
@@ -593,9 +579,7 @@ void checkPrank()
             && member_array("waltin kelley", npcees) == -1
           )
         {
-            tell_player("lash", "case 8");
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : eventForce("look");
@@ -622,9 +606,7 @@ void checkPrank()
             
           )
         {
-            tell_player("lash", "case 9");
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : eventForce("look");
@@ -659,7 +641,6 @@ void DisposeCorpse() {
         && ccounter >= 1 ) 
     {
     ccounter++;
-    tell_player("lash", "ccounter is "+ccounter);
     switch (ccounter) 
         {
             case 2 : eventForce("say see you in the halls of Balcor!");
