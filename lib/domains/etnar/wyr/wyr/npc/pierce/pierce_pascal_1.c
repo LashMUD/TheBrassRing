@@ -1,5 +1,6 @@
-/* /domains/etnar/wyr/wyr/npc/gate_guard_ab.c
- * Albert Derby - a gate guard in the village of Wyr
+/* /domains/etnar/wyr/wyr/npc/pierce_pascal.c
+ * alternative pierce pascal captain of the wyr 
+ * militia in the village of Wyr
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
  * for use in The Brass Ring Mud
