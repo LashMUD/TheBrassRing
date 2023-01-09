@@ -31,7 +31,7 @@ static void create() {
     SetMorality(2250);    
     AddCurrency("gold", 2000);
     SetLocalCurrency("gold");
-    SetStorageRoom("/domains/diku-alfa/room/30.zon/rm_3049-2");
+    SetStorageRoom("/domains/diku-alfa/room/30.zon/rm_3049_2");
     SetMaxItems(50);
     SetVendorType(VT_BOAT);
     SetProperty("no bump", 1);

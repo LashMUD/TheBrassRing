@@ -34,7 +34,7 @@ static void create() {
     AddCurrency("gold", 10000);
     SetSkill("bargaining", 1);
     SetLocalCurrency("gold");
-    SetStorageRoom("/domains/diku-alfa/room/30.zon/rm_3011-2");
+    SetStorageRoom("/domains/diku-alfa/room/30.zon/rm_3011_2");
     SetMaxItems(1000);
     SetVendorType(VT_WEAPON);
     SetProperty("no bump", 1);
