@@ -3,7 +3,7 @@
  *    combat events and data
  *    created by Descartes of Borg 950124
  *    Version: @(#) combat.c 1.40@(#)
- *    Last modified: 96/11/17
+ *    Last modified by lash: 23/01/09 year/month/day
  */
 
 #include <lib.h>
@@ -428,26 +428,20 @@ int CanWeapon(object target, string type, int hands, int num){
                   3*GetStatLevel("coordination"))/10;*/
     int div = 2;
     int x, y;
-  
-    if(hands > 1){  
-        if(GetSkillLevel("multi-hand")){
-            chance = (chance/2) + 
-                (GetSkillLevel("multi-hand")/25)*(chance/2);
-        }
-        else { /* If you are really strong you can use multihand a bit */
-            chance *= GetStatLevel("strength")/100;
-            div += (hands-1);
-        }
+
+    /* penalty if not multi-hand skill*/
+    if( hands > 1  && !GetSkill("multi-hand") ){
+        chance = (chance/2);
+        /* If you are really strong you can use multihand a bit */
+        chance *= GetStatLevel("strength")/20;
+        div += (hands-1);
     }
-    if(num > 1){
-        if(GetSkillLevel("multi-weapon")){
-            chance = (chance/2) + 
-                (GetSkillLevel("multi-weapon")/25)*(chance/2);
-        }    
-        else { /* If you are really coordinated you can use multiweap a bit */
-            chance *= GetStatLevel("coordination")/100;
-            div += (num-1);
-        }
+    /* no penalty if not multi-weapon skill */
+    if(num > 1 && !GetSkill("multi-weapon")){
+        chance = (chance/2);
+        /* If you are really coordinated you can use multiweap a bit */ 
+        chance *= GetStatLevel("coordination")/20;
+        div += (num-1);
     }
     chance = GetCombatChance(chance/div);
     x = random(chance);
@@ -480,7 +474,7 @@ int CanMelee(object target){
                      2*GetStatLevel("coordination") )/20;*/
     int y = random(10);
     int x;
-
+    
     chance = GetCombatChance(chance/3);
     x = random(chance);
     if( x <= y ){
@@ -635,7 +629,9 @@ int eventExecuteAttack(mixed target){
     }
     if(this_object()->GetClass() != "fighter"){
         this_object()->AddStaminaPoints(-1);
-    }  
+    }
+    //this_object()->AddStaminaPoints(-1);
+  
     switch(type){
         case ROUND_UNDEFINED: case ROUND_EXTERNAL:
             if( functionp(f) && !(functionp(f) & FP_OWNER_DESTED) ){
@@ -827,7 +823,7 @@ void eventWeaponAttack(object target, object weapon, int num){
                 " defense"));
     if( !TargetLimb ){ // If the thing stood still, I still missed
         if(!estatep(target) && !fail) eventTrainSkill(weapon_type + " attack", pro, 0, 0, bonus);
-        if( hands > 1 ){
+        if( hands > 1 || GetSkill("multi-hand") ){
             if(!estatep(target) && !fail) eventTrainSkill("multi-hand", pro, 0, 0, bonus);
         }
         if( num > 1 ){
@@ -838,7 +834,7 @@ void eventWeaponAttack(object target, object weapon, int num){
     else if( fail || !target->eventReceiveAttack(power, weapon_type, this_object()) ){
         // Target avoided the attack
         if(!estatep(target) && !fail) eventTrainSkill(weapon_type + " attack", pro, con, 0, bonus);
-        if( hands > 1 ){
+        if( hands > 1 || GetSkill("multi-hand") ){
             if(!estatep(target) && !fail) eventTrainSkill("multi-hand", pro, con, 0, bonus);
         }
         if( num > 1 ){
