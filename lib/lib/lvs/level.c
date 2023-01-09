@@ -7,7 +7,7 @@
  *     - added this header
  *     - added functions for skill advancement system
  *     - refined skill based adjustments for level changes
- *    last modified: 22/12/11 year/month/day
+ *    last modified: 23/01/09 year/month/day
  */ 
 
 
@@ -58,15 +58,13 @@ varargs int ChangeLevel(int i){
     skills = subject->GetSkillsMap();
     stats = subject->GetStatsMap();
 
-    
+    if(XP_ADVANCE){
     foreach(mixed key, mixed val in skills){
         if(skills[key]["class"] > 3) skills[key]["class"] = 4;
         subject->SetSkill(key, 
                 skills[key]["level"] + moduli[skills[key]["class"]],
                 skills[key]["class"]);
         }
-    
-    if(XP_ADVANCE){
         foreach(mixed key, mixed val in stats){
             if(stats[key]["class"] > 3) stats[key]["class"] = 4;
             subject->SetStat(key,
