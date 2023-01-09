@@ -33,7 +33,7 @@ static void create() {
     AddCurrency("gold" , 8000);
     SetLocalCurrency("gold");
     SetGender("male");
-    SetStorageRoom("/domains/diku-alfa/room/55.zon/rm_5555-2");
+    SetStorageRoom("/domains/diku-alfa/room/55.zon/rm_5555_2");
     SetMaxItems(300);
     SetProperty("no bump", 1);
     SetAttackable(0);

@@ -31,7 +31,7 @@ static void create(){
     AddCurrency("gold" , 100);
     SetSkill("bargaining", 1);
     SetLocalCurrency("gold");
-    SetStorageRoom("/domains/diku-alfa/room/55.zon/rm_5556-2");
+    SetStorageRoom("/domains/diku-alfa/room/55.zon/rm_5556_2");
     SetMaxItems(300);
     SetLanguage("common", 100);
     SetDefaultLanguage("common");
