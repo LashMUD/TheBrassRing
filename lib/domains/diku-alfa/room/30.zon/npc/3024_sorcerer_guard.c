@@ -5,7 +5,7 @@
 //
 // Modified by Lash (Christopher Coker) for use with:
 //
-// The Dead Souls Mud Library version 2
+// The Dead Souls Mud Library
 // developed by Cratylus
 // http://www.dead-souls.net
 
@@ -41,6 +41,7 @@ static void create() {
     SetMorality(2000);
     AddCurrency("gold", 2000); 
     SetProperty("no bump", 1);
+    SetCombatAction(75, ( :Spells: ));
     //SetGuard("south" , "The guard humiliates you, and blocks your way.");
 }
 
