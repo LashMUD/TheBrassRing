@@ -3,7 +3,7 @@
  *    combat events and data
  *    created by Descartes of Borg 950124
  *    Version: @(#) combat.c 1.40@(#)
- *    Last modified by lash: 23/01/09 year/month/day
+ *    Last modified: 96/11/17
  */
 
 #include <lib.h>
@@ -433,14 +433,14 @@ int CanWeapon(object target, string type, int hands, int num){
     if( hands > 1  && !GetSkill("multi-hand") ){
         chance = (chance/2);
         /* If you are really strong you can use multihand a bit */
-        chance *= GetStatLevel("strength")/20;
+        chance *= GetStatLevel("strength")/100;
         div += (hands-1);
     }
     /* no penalty if not multi-weapon skill */
     if(num > 1 && !GetSkill("multi-weapon")){
         chance = (chance/2);
         /* If you are really coordinated you can use multiweap a bit */ 
-        chance *= GetStatLevel("coordination")/20;
+        chance *= GetStatLevel("coordination")/100;
         div += (num-1);
     }
     chance = GetCombatChance(chance/div);
