@@ -21,11 +21,12 @@ static void create() {
     SetShort("The Weaponsmith's Storage Room");
     SetLong("This is where the wares of the weaponsmith are kept.");
     SetInventory( ([        
-        "/domains/diku-alfa/room/30.zon/weap/3020_dagger" : 100,
-        "/domains/diku-alfa/room/30.zon/weap/3021_smallsword" : 100,
-        "/domains/diku-alfa/room/30.zon/weap/3022_longsword" : 100,
-        "/domains/diku-alfa/room/30.zon/weap/3023_woodenclub" : 100,
-        "/domains/diku-alfa/room/30.zon/weap/3024_warhammer" : 100,
+        "/domains/diku-alfa/room/30.zon/weap/3020_dagger" : 10,
+        "/domains/diku-alfa/room/30.zon/weap/3021_smallsword" : 10,
+        "/domains/diku-alfa/room/30.zon/weap/3022_longsword" : 10,
+        "/domains/diku-alfa/room/30.zon/weap/3023_woodenclub" : 10,
+        "/domains/diku-alfa/room/30.zon/weap/3024_warhammer" : 10,
+        "/domains/diku-alfa/room/30.zon/weap/longsword_two_handed" : 10,
         ]) );
     SetNoClean(1);
     SetExits( ([
