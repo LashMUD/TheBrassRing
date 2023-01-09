@@ -4,7 +4,7 @@
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
  * for use in The Brass Ring Mud
- * last edited by lash 23/01/06 year/month/day
+ * last edited by lash 23/01/09 year/month/day
  */
 
 #include <lib.h>
@@ -34,8 +34,9 @@ static void create() {
     SetKeyName("Pierce Pascal");
     SetId(({"guard", "captain", "pierce", "pascal"}));
     SetAdjectives(({"non-player", "non player"}));
-    SetShort("Pierce Pascal the Captain of the Wyr militia");
-    SetLong("Pierce is tall with short brown hair and hazel eyes. ");
+    SetShort("Pierce Pascal");
+    SetLong("Pierce is tall with short brown hair and hazel eyes. "
+            "He is the Captain of the Wyr militia.");
     SetCanBite(0);
     SetRace("human");
     SetClass("fighter");
@@ -46,7 +47,7 @@ static void create() {
     SetLanguage("common",100);
     SetDefaultLanguage("common");
     SetInventory( ([
-        "/domains/etnar/wyr/wyr/npc/pierce/falunite_sword" : "wield sword",
+        "/domains/etnar/wyr/wyr/npc/pierce/silver_sword" : "wield sword",
         "/domains/etnar/wyr/wyr/npc/pierce/l_steel_boot" : "wear boot",
         "/domains/etnar/wyr/wyr/npc/pierce/r_steel_boot" : "wear boot",
         "/domains/etnar/wyr/wyr/npc/pierce/r_steel_gauntlet" : "wear gauntlet",
@@ -189,7 +190,8 @@ void checkPrank()
     object albert;
     object waltin;
     object env = environment();
-    pranksters = all_inventory(env);
+
+    if(env) pranksters = all_inventory(env);
 
     if( ccounter > 0 ) DisposeCorpse();                  
 
@@ -210,7 +212,8 @@ void checkPrank()
     }
 
     //pierce is in the correct room, and not in combat
-    if( env->GetShort() == "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^" 
+    if( env 
+        && env->GetShort() == "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^" 
         && !this_object()->GetInCombat() ) 
     {
         //case 1: albert and waltin are present, not corpses, and not in combat
@@ -223,7 +226,9 @@ void checkPrank()
           )
             
         {
+            tell_player("lash", "Case 1");
             pcounter++;
+            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : if( waltin->GetCurrentEnemy() != 0
@@ -241,7 +246,7 @@ void checkPrank()
                 case 6 : eventForce("say Waltin! Keep on looking for "
                              +capitalize(waltin->GetCurrentEnemy()));
                          break;
-                case 7 : eventForce("say you know, Albert, keep on looking for "
+                case 7 : eventForce("say you know, Albert, keep a lookout for "
                              +capitalize(albert->GetCurrentEnemy()) );
                          break;
                 case 8 : pranksters = get_livings(env);
@@ -305,7 +310,9 @@ void checkPrank()
           ) 
             
         {
+            tell_player("lash", "Case 2");
             pcounter++;
+            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter)
             {
                 case 1 : eventForce("look");
@@ -371,7 +378,9 @@ void checkPrank()
             && member_array("waltin kelly", npcees) == -1
           ) 
         {
+            tell_player("lash", "case 3");  
             pcounter++;
+            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter)
             {
                 case 1 : eventForce("look");
@@ -401,7 +410,9 @@ void checkPrank()
             && !albert->GetInCombat()
           ) 
         {
+            tell_player("lash", "Case 4");
             pcounter++;
+            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : if(albert->GetCurrentEnemy()) pcounter = 2;
@@ -429,6 +440,7 @@ void checkPrank()
                              eventForce("say Well, it looks like you chased "
                                  +capitalize(albert->GetCurrentEnemy()->GetKeyName())+" %^BOLD%^%^CYAN%^off. " 
                                  "Good job. Let me know if they come back to the area%^RESET%^");
+                         pcounter = 9;
                          break;
                 case 7 : pranksters = get_livings(env);
                          if( albert->GetCurrentEnemy() 
@@ -469,7 +481,9 @@ void checkPrank()
             && member_array("albert derby", npcees) == -1
           ) 
         {
+            tell_player("lash", "case 5");  
             pcounter++;
+            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter)
             {
                 case 1 : eventForce("look");
@@ -501,7 +515,9 @@ void checkPrank()
             && member_array("waltin kelley", npcees) == -1
           )
         {
+            tell_player("lash", "Case 6");
             pcounter++;
+            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 :eventForce("look");
@@ -548,7 +564,9 @@ void checkPrank()
             && member_array("albert derby", npcees) == -1
           ) 
         {
+            tell_player("lash", "case 7");
             pcounter++;
+            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : eventForce("look");
@@ -580,7 +598,9 @@ void checkPrank()
             && member_array("waltin kelley", npcees) == -1
           )
         {
+            tell_player("lash", "case 8");
             pcounter++;
+            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : eventForce("look");
@@ -607,7 +627,9 @@ void checkPrank()
             
           )
         {
+            tell_player("lash", "case 9");
             pcounter++;
+            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : eventForce("look");
@@ -642,6 +664,7 @@ void DisposeCorpse() {
         && ccounter >= 1 ) 
     {
     ccounter++;
+    tell_player("lash", "ccounter is "+ccounter);
     switch (ccounter) 
         {
             case 2 : eventForce("say see you in the halls of Balcor!");
