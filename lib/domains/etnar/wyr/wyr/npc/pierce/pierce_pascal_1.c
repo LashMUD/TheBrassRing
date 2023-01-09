@@ -92,7 +92,7 @@ void GoHelp() {
 
     object env = environment();
         
-    if( env->GetShort() == "%^BOLD%^Outside the Guardhouse%^RESET%^"
+    if( env && env->GetShort() == "%^BOLD%^Outside the Guardhouse%^RESET%^"
         && !this_object()->GetInCombat() )
     {     
         hcounter++;
@@ -660,7 +660,8 @@ void DisposeCorpse() {
 
     object env = environment();    
 
-    if( env->GetShort() == "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^"
+    if( env 
+        && env->GetShort() == "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^"
         && ccounter >= 1 ) 
     {
     ccounter++;
@@ -688,7 +689,8 @@ void checkPlacement() {
 
     object env = environment();
 
-    if( !this_object()->GetInCombat()
+    if( env 
+        && !this_object()->GetInCombat()
         && env->GetShort() != "%^BOLD%^Outside the Guardhouse%^RESET%^"
         && env->GetShort() != "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^") 
     { 
