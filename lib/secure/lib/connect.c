@@ -8,7 +8,7 @@
  *    modified by lash (ccoker) for use in
  *    The Brass Ring mud
  *     - added code for skill advancemnet system
- *    last modified: 20/05/16
+ *    last modified: 23/01/09 year/month/day
  */
 
 #include <lib.h>
@@ -129,6 +129,7 @@ static void create(int binary) {
     NetDead = 0;
     Skills = filter(explode(read_file(CFG_SKILLS), "\n"),
              (: $1 && $1 != "" && $1[0] != '#' :));
+    Skills -= ({ "skills" });
     if(ENABLE_INSTANCES){
         instname = INSTANCES_D->GetMyInstanceName();
     }
