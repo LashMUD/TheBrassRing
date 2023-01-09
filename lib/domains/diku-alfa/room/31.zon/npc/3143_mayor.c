@@ -9,7 +9,7 @@
  *   developed by Cratylus
  *   http://www.dead-souls.net
  * 
- *   last modified 22/12/04 year/month/day 
+ *   last modified 23/02/09 year/month/day 
  */
 
 #include <lib.h>
@@ -157,7 +157,7 @@ void time(){
         path = open_path;
         index = 0;
     }
-    else if (hour == 20 && minutes == 29) {
+    else if (hour == 23 && minutes == 29) {
         movebool = 1;
         path = close_path;
         index = 0;
