@@ -436,7 +436,7 @@ int CanWeapon(object target, string type, int hands, int num){
         chance *= GetStatLevel("strength")/100;
         div += (hands-1);
     }
-    /* no penalty if not multi-weapon skill */
+    /* penalty if not multi-weapon skill */
     if(num > 1 && !GetSkill("multi-weapon")){
         chance = (chance/2);
         /* If you are really coordinated you can use multiweap a bit */ 
