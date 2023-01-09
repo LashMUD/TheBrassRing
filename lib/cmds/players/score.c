@@ -8,7 +8,7 @@
  *    for use in The Brass Ring mud
  *     - modified output to look differently
  *       than in the original file
- *    last modified 14/11/07
+ *    last modified 23/01/09 to show xp's
  *  
  */
 
@@ -80,6 +80,7 @@ varargs mixed eventScore(string arg) {
     str += ({ sprintf("Level             Level %d %s%s %s",
               who->GetLevel(), ( who->GetUndead() ? "undead " : ""), capitalize(who->GetRace() || "nothing"),
               capitalize(who->GetClass() || "commoner")) });
+    str += ({ "XP                "+who->GetExperiencePoints() }); 
     str += ({ "Money             "+who->GetCurrency("gold")+" Gold Coins" });
     str += ({ "Morality          "+who->GetMoralityDescription()+" "+"("+who->GetMorality()+")" });               
     str += ({ "Faith             "+(who->GetReligion() ||"Agnostic") + "\nNative Town       "+who->GetTown() });
@@ -127,15 +128,7 @@ varargs mixed eventScore(string arg) {
             if(qp > 0) tmp += ({"Quest Points      "+capitalize(prn)+" require"+cnj+" "+
                     comma(qp)+" more quest points to advance."});
         }
-        if(XP_ADVANCE){
-            xp = lev["xp"] - xp;
-            if(xp > 0) tmp += ({"Advancement       "+capitalize(prn)+" require"+cnj+" "+
-                    comma(xp)+" more experience points to advance."});
-            if(!sizeof(tmp)) tmp = ({"Advancement       "+capitalize(prn)+" "+qual+
-                    " to advance a level."});
-            str += tmp; 
-            }    
-        }
+    }
     if( x = who->GetTrainingPoints() < 1 ) {
         y = who->GetLevel() + 1 + (x / -4);
         str += ({ "Training points   "+(who == this_player() ? "Available" :
