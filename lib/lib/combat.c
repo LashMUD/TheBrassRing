@@ -825,7 +825,7 @@ void eventWeaponAttack(object target, object weapon, int num){
         if(!estatep(target) && !fail) eventTrainSkill(weapon_type + " attack", pro, 0, 0, bonus);
         
         /* using two weapons, one in each or more hands at least, is still treated as multi-hand */
-        if( hands > 1 && (num > 1 && GetSkill("multi-hand")) ){
+        if( hands > 1 || (num > 1 && GetSkill("multi-hand")) ){
             if(!estatep(target) && !fail) eventTrainSkill("multi-hand", pro, 0, 0, bonus);
         }
 
@@ -840,7 +840,7 @@ void eventWeaponAttack(object target, object weapon, int num){
         if(!estatep(target) && !fail) eventTrainSkill(weapon_type + " attack", pro, con, 0, bonus);
         
         /* using two weapons, one in each or more hands at least, is still treated as multi-hand */
-        if( hands > 1 && (num > 1 && GetSkill("multi-hand")) ){
+        if( hands > 1 || (num > 1 && GetSkill("multi-hand")) ){
             if(!estatep(target) && !fail) eventTrainSkill("multi-hand", pro, 0, 0, bonus);
         }
 
