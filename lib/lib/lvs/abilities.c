@@ -115,18 +115,26 @@ int GetMaxSkillPoints(string skill, int level){
         int cl, x;
         
         if( !(cl = Skills[skill]["class"]) ){
-            if(SKILL_ADVANCE) return level * 200;
-            else return level * 600;
+            if(SKILL_ADVANCE)
+            {
+            return level * 500;
+            }
+            else 
+            {
+            return level * 600;
+            }
         }
         if( cl > 4 ){
             cl = 4;
         }
         if( cl < 1 ){
-            cl = 4;
+            cl = 1;
         }
         x = level;
         if(SKILL_ADVANCE){
-            return level * cl * 500;
+            if(cl == 1) return level * cl * 500;
+            if(cl == 2) return level * cl * 300;
+            if(cl == 3) return level * cl * 234;
         }
         else{
             while( cl-- ){
