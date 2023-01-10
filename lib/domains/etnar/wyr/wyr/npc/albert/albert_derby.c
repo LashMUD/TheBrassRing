@@ -32,7 +32,6 @@ static void create() {
     AddCurrency("gold", 500);
     SetLanguage("common",100);
     SetDefaultLanguage("common");
-    //SetWimpy(30);
     SetInventory( ([
         "/domains/etnar/wyr/wyr/npc/albert/longsword" : "wield sword",
         "/domains/etnar/wyr/wyr/npc/albert/leather_boots_hard" : "wear boots",
@@ -47,7 +46,7 @@ static void create() {
         "ashlyn" : ( :Chat("ashlyn"): ),
         "vexwood" : ( :Chat("vexwood"): ),
         "caravans" : ( :Chat("caravans"): ),
-        ({"kobolds", "kolbold"}) : ( :Chat("kobolds"): ),
+        ({"goblin", "goblins"}) : ( :Chat("goblins"): ),
         ({"trade routes", "trade", "routes"}) : "Not safe these days. Reports "+
             "of whole caravans gone missin'.",
         ({"bandit", "falkner"}) : ( :Chat("bandit"): ),
@@ -112,14 +111,14 @@ int Chat(string str)
            if(!inherits(LIB_NPC, ob))
            {
                eventForce("say Yeah, this guy named Falkner, he's trying to "+
-                   "get some nasty kobolds to join his band and make "+
+                   "get some nasty goblins to join his band and make "+
                    "a name for himself!");
                 eventForce("laugh");
                 return 1;
             }
             else
             {
-                eventForce("say Ha! Falkner and his tribe of kobolds striking "+ 
+                eventForce("say Ha! Falkner and his tribe of goblins striking "+ 
                     "fear into the hearts of many...");
                 eventForce("spit");
                 return 1;
@@ -193,11 +192,11 @@ int Chat(string str)
                 return 0;
            };
         break;
-        case "kobolds" :
+        case "goblins" :
            if(!inherits(LIB_NPC, ob))
            {
-                eventForce("say Small, scaly, little dog-like creatures. They've been "+
-                    "roaming the Vexwood for years. Usually not more than just a nuisance. "+
+                eventForce("say Small little green buggers. They've been roaming "+
+                    "the Vexwood for years. Usually not more than just a nuisance. "+
                     "They're nasty, brutish, and short.");
                 eventForce("cackle");
                 return 1;
