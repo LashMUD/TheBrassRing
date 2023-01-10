@@ -3,7 +3,7 @@
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
  * for use in The Brass Ring Mud
- * last edited by lash 22/12/25 year/month/day
+ * last edited by lash 23/01/10 year/month/day
  */
 
 #include <lib.h>
@@ -20,6 +20,7 @@ int hour, minutes;
 int *time_of_day;
 object array *targets;
 int counter = 0;
+int x = 0;
 
 void eventNews(object ob);
 
@@ -72,45 +73,56 @@ static void create() {
     ]) );
 }
 
-checkChat() {
+checkChat()
+{
 
-    int x = random(3);
     object env = environment(this_object());
     object *things;
     things = all_inventory(env);
 
+    if( env && !present("albert") && !present("pierce") )
+    { 
+        { 
+            eventForce("say where's Albert?");
+            return;
+        }
+    }
+    
     if(env) 
     {
-       foreach(object thing in things)
-       {
-           if (thing && base_name(thing) == LIB_CORPSE && thing->GetKeyName() == "albert derby" )
-           {
-              eventForce("say Albert's dead!");
-              eventForce("cry");
-              eventForce("look at albert");
-              return;
-           }
-       }           
+        foreach(object thing in things)
+        {
+            if (thing && base_name(thing) == LIB_CORPSE && thing->GetKeyName() == "albert derby" )
+            {
+                 eventForce("say Albert's dead!");
+                 eventForce("cry");
+                 eventForce("look at albert");
+                 return;
+            }
+        }
     }
-    if( !present("albert") && !present("pierce") ) eventForce("say where's Albert?");
-        return;
-    
-    switch (x) {
-        case 0 : this_object()->eventForce("say I wish those guards from Orgon would go "
-                  "back to where they came from!");
-                 break;
-        case 1 : this_object()->eventForce("say What about that bandit that's hiding out "
-                  "in the Vexwood?");
-                 break;
-        case 2 : this_object()->eventForce("say I think there's something funny about Ashlyn. "
-                  "She keeps to herself too much.");
-                 break;
-        default : eventPrint("bug in waltin - please report");
-                  break;
+    if(env)
+    { 
+        switch (x) 
+        {
+                case 0 : this_object()->eventForce("say I wish those guards from Orgon would go "
+                          "back to where they came from!");
+                         x++;
+                         break;
+                case 1 : this_object()->eventForce("say What about that bandit that's hiding out "
+                         "in the Vexwood?");
+                         x++;
+                         break;
+                case 2 : this_object()->eventForce("say I think there's something funny about Ashlyn. "
+                         "She keeps to herself too much.");
+                         x = 0;
+                         break;
+                default : eventPrint("bug in waltin - please report");
+                          x = 0;
+                          break;
+        }
     }
-} 
-
-    
+}
 
 int checkCombat(){
     object enemy;
@@ -118,7 +130,7 @@ int checkCombat(){
     env = (get_livings(environment(this_object())));
     
     if(!this_object()->GetInCombat()) {
-        /*find out if there are any kobold combatants in the surrounding environment*/
+        /*find out if there are any enemy combatants in the surrounding environment*/
         if(sizeof(env)) {
             foreach(object thing in env) {
                 if((thing->GetInCombat()) && thing->GetKeyName() == "albert derby" ) {
