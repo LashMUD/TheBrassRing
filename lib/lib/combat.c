@@ -823,9 +823,13 @@ void eventWeaponAttack(object target, object weapon, int num){
                 " defense"));
     if( !TargetLimb ){ // If the thing stood still, I still missed
         if(!estatep(target) && !fail) eventTrainSkill(weapon_type + " attack", pro, 0, 0, bonus);
-        if( hands > 1 ){
+        
+        /* using two weapons, one in each or more hands at least, is still treated as multi-hand */
+        if( hands > 1 && (num > 1 && GetSkill("multi-hand")) ){
             if(!estatep(target) && !fail) eventTrainSkill("multi-hand", pro, 0, 0, bonus);
         }
+
+        
         if( num > 1 ){
             if(!estatep(target) && !fail) eventTrainSkill("multi-weapon", pro, 0, 0, bonus);
         }
@@ -834,9 +838,13 @@ void eventWeaponAttack(object target, object weapon, int num){
     else if( fail || !target->eventReceiveAttack(power, weapon_type, this_object()) ){
         // Target avoided the attack
         if(!estatep(target) && !fail) eventTrainSkill(weapon_type + " attack", pro, con, 0, bonus);
-        if( hands > 1  ){
-            if(!estatep(target) && !fail) eventTrainSkill("multi-hand", pro, con, 0, bonus);
+        
+        /* using two weapons, one in each or more hands at least, is still treated as multi-hand */
+        if( hands > 1 && (num > 1 && GetSkill("multi-hand")) ){
+            if(!estatep(target) && !fail) eventTrainSkill("multi-hand", pro, 0, 0, bonus);
         }
+
+        
         if( num > 1 ){
             if(!estatep(target) && !fail) eventTrainSkill("multi-weapon", pro, con, 0, bonus);
         }
