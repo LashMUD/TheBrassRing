@@ -8,7 +8,7 @@
  *    Modified by lash (ccoker) for use in 
  *    The Brass Ring mud
  *     - added functions for skill advancement system
- *    last modifed: 20/05/12
+ *    last modifed: 23/01/10
  */
 
 #include <daemons.h>
@@ -134,7 +134,7 @@ int GetMaxSkillPoints(string skill, int level){
         if(SKILL_ADVANCE){
             if(cl == 1) return level * cl * 500;
             if(cl == 2) return level * cl * 300;
-            if(cl == 3) return level * cl * 234;
+            if(cl == 3) return level * cl * 233;
         }
         else{
             while( cl-- ){
