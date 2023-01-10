@@ -78,7 +78,8 @@ void Setpcounter() {
 
     if( env 
         && env->GetShort() != "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^"
-        && !this_object()->GetInCombat() ) {
+        && !this_object()->GetInCombat() ) 
+    {
             ccounter = 0; 
             pcounter = 0;
             pranksters = ({});
@@ -129,19 +130,23 @@ void checkCombat() {
     npc = filter(get_livings(environment(this_object())), 
         (: $1->GetInCombat() :));
     
-    if( !sizeof(npc) ) {
+    if( !sizeof(npc) )
+    {
         return;
     }
-    else {
-        foreach(object thing in npc) {
+    else 
+    {
+        foreach(object thing in npc) 
+        {
             if( (thing->GetKeyName() == "waltin kelley" && thing->GetInCombat()) 
-                || (thing->GetKeyName() == "albert derby" && thing->GetInCombat()) ) {
+                || (thing->GetKeyName() == "albert derby" && thing->GetInCombat()) ) 
+            {
                 enemy = thing->GetCurrentEnemy();
                 break;
             }
         }
         eventForce("say attacking my guards, eh? I'll show you!");
-        eventForce("kill "+enemy->GetKeyName());
+        if( present(enemy) ) eventForce("kill "+enemy->GetKeyName());
     }
 }
 
