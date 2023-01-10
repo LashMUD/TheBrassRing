@@ -4,7 +4,7 @@
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
  * for use in The Brass Ring Mud
- * last edited by lash 23/01/09 year/month/day
+ * last edited by lash 23/01/10 year/month/day
  */
 
 #include <lib.h>
@@ -226,13 +226,11 @@ void checkPrank()
           )
             
         {
-            tell_player("lash", "Case 1");
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
-                case 1 : if( waltin->GetCurrentEnemy() != 0
-                             || albert->GetCurrentEnemy() != 0) 
+                case 1 : if( waltin->GetCurrentEnemy()
+                             || albert->GetCurrentEnemy() ) 
                              pcounter = 5;
                          break;
                 case 2 : eventForce("look");
@@ -259,6 +257,7 @@ void checkPrank()
                                  " won't be bothering anyone anymore!");
                              eventForce("cackle");
                          }
+                         else pcounter = 13;
                          break;
                 case 9 : eventForce("get "+albert->GetCurrentEnemy()->GetKeyName());
                          break;
@@ -281,6 +280,7 @@ void checkPrank()
                                  " won't be bothering anyone anymore!");
                              eventForce("cackle");
                           }
+                          else pcounter = 13;
                           break;
                 case 12 : eventForce("get "+waltin->GetCurrentEnemy());
                           break;
@@ -310,9 +310,7 @@ void checkPrank()
           ) 
             
         {
-            tell_player("lash", "Case 2");
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter)
             {
                 case 1 : eventForce("look");
@@ -378,9 +376,7 @@ void checkPrank()
             && member_array("waltin kelly", npcees) == -1
           ) 
         {
-            tell_player("lash", "case 3");  
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter)
             {
                 case 1 : eventForce("look");
@@ -410,9 +406,7 @@ void checkPrank()
             && !albert->GetInCombat()
           ) 
         {
-            tell_player("lash", "Case 4");
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : if(albert->GetCurrentEnemy()) pcounter = 2;
@@ -481,9 +475,7 @@ void checkPrank()
             && member_array("albert derby", npcees) == -1
           ) 
         {
-            tell_player("lash", "case 5");  
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter)
             {
                 case 1 : eventForce("look");
@@ -515,9 +507,7 @@ void checkPrank()
             && member_array("waltin kelley", npcees) == -1
           )
         {
-            tell_player("lash", "Case 6");
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 :eventForce("look");
@@ -564,9 +554,7 @@ void checkPrank()
             && member_array("albert derby", npcees) == -1
           ) 
         {
-            tell_player("lash", "case 7");
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : eventForce("look");
@@ -598,9 +586,7 @@ void checkPrank()
             && member_array("waltin kelley", npcees) == -1
           )
         {
-            tell_player("lash", "case 8");
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : eventForce("look");
@@ -627,9 +613,7 @@ void checkPrank()
             
           )
         {
-            tell_player("lash", "case 9");
             pcounter++;
-            tell_player("lash", "pcounter is "+pcounter);
             switch (pcounter) 
             {
                 case 1 : eventForce("look");
@@ -665,7 +649,6 @@ void DisposeCorpse() {
         && ccounter >= 1 ) 
     {
     ccounter++;
-    tell_player("lash", "ccounter is "+ccounter);
     switch (ccounter) 
         {
             case 2 : eventForce("say see you in the halls of Balcor!");
