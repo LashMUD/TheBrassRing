@@ -657,16 +657,18 @@ void DisposeCorpse() {
     ccounter++;
     switch (ccounter) 
         {
-            case 2 : eventForce("say see you in the halls of Balcor!");
+            case 2 :
                      break;
-            case 3 : eventForce("put corpse in trash");
+            case 3 : eventForce("say see you in the halls of Balcor!");
+                     break;
+            case 4 : eventForce("put corpse in trash");
                      eventForce("put corpse in trash");
                      break;
-            case 4 : eventForce("unlock gate with key");
+            case 5 : eventForce("unlock gate with key");
                      break;
-            case 5 : eventForce("open gate");
+            case 6 : eventForce("open gate");
                      break;
-            case 6 : eventForce("go north");
+            case 7 : eventForce("go north");
                      break;
             default : eventForce("go north");
                       break;           
