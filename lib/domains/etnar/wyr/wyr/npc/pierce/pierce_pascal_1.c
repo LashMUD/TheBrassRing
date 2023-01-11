@@ -4,7 +4,7 @@
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
  * for use in The Brass Ring Mud
- * last edited by lash 23/01/10 year/month/day
+ * last edited by lash 23/01/11 year/month/day
  */
 
 #include <lib.h>
@@ -396,6 +396,7 @@ void checkPrank()
                          break;
                 case 6 : eventForce("say I'm going to miss Albert. He was one "
                              "of the good ones!");
+                         break;
                 case 7 : eventForce("get albert");
                           ccounter = 1;
                           break;
