@@ -35,7 +35,7 @@ static void create() {
     SetItems( ([ 
         "west" : "The main Road through the Village of Wyr running north and south.",
         ] ));
-    SetInventory( ([ "domains/etnar/wyr/wyr/npc/bugg/bugg" : 1,
+    SetInventory( ([ 
         ]) );
     SetExits( ([
         "west" : "/domains/etnar/wyr/wyr/room/rm_114",
