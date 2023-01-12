@@ -38,6 +38,7 @@ static void create() {
         "/domains/etnar/wyr/wyr/npc/waltin/waltin_kelley" : 1,
         "/domains/etnar/wyr/wyr/npc/albert/albert_derby" : 1,
         "/domains/etnar/wyr/wyr/obj/trash" : 1,
+        "/domains/etnar/wyr/wyr/obj/corpse_table" : 1,
         ]) );
     SetExits( ([
                 "north" : "/domains/etnar/wyr/wyr/room/rm_121",

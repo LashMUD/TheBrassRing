@@ -36,7 +36,7 @@ static void create() {
                 "east" : "/domains/etnar/wyr/wyr/room/rm_105", 
                 //this needs to be a door
         ] ));
-    SetDoor("east", "/domains/etnar/wyr/wyr/doors/104_105");
+    SetDoor("east", "/domains/etnar/wyr/wyr/room/doors/104_105");
 }
 
 void init(){

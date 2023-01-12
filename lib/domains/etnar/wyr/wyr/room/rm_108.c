@@ -40,7 +40,7 @@ static void create() {
         "south" : "/domains/etnar/wyr/wyr/room/rm_123", 
         "north" : "/domains/etnar/wyr/wyr/room/rm_168",
         ] ));
-    SetDoor("south", "/domains/etnar/wyr/wyr/doors/108_123");
+    SetDoor("south", "/domains/etnar/wyr/wyr/room/doors/108_123");
 }
 
 void init(){

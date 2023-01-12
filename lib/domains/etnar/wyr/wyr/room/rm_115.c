@@ -26,7 +26,7 @@ static void create() {
                     "leaning on the hilt of a huge sword.",
         ] ));
     SetExits( ([
-        //"north" : "/domains/etnar/wyr/room/rm_xxx", out to the wilderness
+        //"north" : "/domains/etnar/wyr/wyr/room/rm_xxx", out to the wilderness
         "south" : "/domains/etnar/wyr/wyr/room/rm_116",
         ] ));
 }

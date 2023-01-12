@@ -87,7 +87,6 @@ int eventPoem(){
      this_object()->eventForce("speak That was the land of Elysa Serindor before it bacame "+
            "the land of Gast.");
      this_object()->eventForce("smile sadly");
-     
      return 1;
 }
     

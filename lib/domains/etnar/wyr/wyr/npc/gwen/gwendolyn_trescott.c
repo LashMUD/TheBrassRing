@@ -22,7 +22,7 @@ int WieldClub(){
         tell_room(environment(),"%^BOLD%^%^RED%^Gwendolyn usheaths her dagger"
             "and wields it with terrible fury!%^RESET%^");
         this_object()->eventForce("say By The hand of Balcor, I shall slay you!");
-        this_object()->eventForce("wield club");
+        this_object()->eventForce("wield dagger");
     }
     return 1;
 }

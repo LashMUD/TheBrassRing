@@ -19,9 +19,9 @@ void checkPrank();
 void CheckGate();
 int DisposeCorpse();
 void checkPlacement();
+void eventNews(); //added later
 object *pranksters = ({});
 string *npcees = ({});
-void eventNews(); //added later
 int pcounter = 0; //prank counter
 int hcounter = 0; //help counter
 int ccounter = 0; //corpse counter
@@ -64,7 +64,6 @@ static void create() {
         "we are under attack!" : ( :GoHelp: ),
         ]) );
     SetRequestResponses( ([
-        
         ]) );
     SetFactions( ([ "The Strike of Balcor":({10,10}),
         ]) );

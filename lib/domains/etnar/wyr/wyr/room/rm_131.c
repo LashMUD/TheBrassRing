@@ -23,8 +23,9 @@ static void create() {
             "chimney. The room structure does not look very stable, and four large "
             "pillars have been erected to hold the ceiling in place. The smell of "
             "beer and smoke permeate the air. To the north is a back room, and there "
-            "is a pair of double doors to the west. To the east lies the entrance to "
-            "the inn.");
+            "is a pair of double doors to the west. To the northwest is the reception "
+            "where you can rent a room to sleep in and southwest is the lounge. To the "
+            "east lies the entrance to the inn.");
     SetItems( ([ 
                 "north" : "A pair of double doors. A sign is posted here.",
                 "east" : "The entrance to the Cyclops Inn.",
@@ -49,7 +50,7 @@ static void create() {
                 "east" : "/domains/etnar/wyr/wyr/room/rm_130",
                 "west" : "/domains/etnar/wyr/wyr/room/rm_171",
                 "northwest" : "/domains/etnar/wyr/wyr/room/rm_172",
-                "southwest" : "/domains/etnar/wyr/wyr/room/rm_174",
+                "southwest" : "/domains/etnar/wyr/wyr/rm_174",
                ] ));
 }
 

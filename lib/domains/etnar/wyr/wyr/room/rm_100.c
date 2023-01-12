@@ -1,4 +1,4 @@
-/*    /lib/domains/etnar/wyr/room/rm_100.c
+/*    /lib/domains/etnar/wyr/wyr/room/rm_100.c
  *    based on the Dead Souls mud library
  *    maintained by Cratylus http:www.dead-souls.net
  *

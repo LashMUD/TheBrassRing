@@ -20,7 +20,7 @@ static void create() {
     SetAdjectives( ({ "long", "sharp" }));
     SetShort("a long sword");
     SetLong("A long sword.");
-    SetClass(10);
+    SetClass(20);
     SetDamageType(BLADE);
     SetWeaponType("blade");
     SetMass(80);

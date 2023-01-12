@@ -28,9 +28,9 @@ void create(){
 }
 
 int eventStrike(object target) {
-    string *races = ({ "kobold", "orc", "goblin", "bugbear", "troll" });
-    if( member_array(target->GetRace(), races) ) return item::eventStrike(target);
-    message("environment", "Gwendolyn's dagger glows blue as it hits its mark.",
+    string *races = ({ "kobold", "orc", "goblin", "bugbear", "troll", "hobgoblin" });
+    if( member_array(target->GetRace(), races) == -1 ) return item::eventStrike(target);
+    message("environment", "Gwendolyn's dagger %^BOLD%^%^BLUE%^glows blue%^RESET%^ as it hits its mark.",
             environment(target));
     return item::eventStrike(target) + random(20)+1;
 }

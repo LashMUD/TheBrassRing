@@ -13,7 +13,7 @@ static void create() {
     room::create();
     SetClimate("outdoors");
     SetAmbientLight(30);
-    SetShort("%^BOLD%^A Four Way Intersection%^RESET%^");
+    SetShort("%^BOLD%^The Village Square%^RESET%^");
     SetLong("   To the west there is a large wooden building. Smoke pours "
         "forth from the chimney and there are sounds of merriment coming from "
         "within. There is a sign above the door. A large statue stands in the "

@@ -1,10 +1,3 @@
-/*   Modified by lash (ccoker) for use with:
- *
- *   The Dead Souls Mud Library
- *   developed by Cratylus
- *   http://www.dead-souls.net
- */
-
 #include <lib.h>
 
 inherit LIB_DOOR;

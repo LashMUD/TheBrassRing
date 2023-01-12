@@ -33,7 +33,7 @@ static void create() {
         ]) );
     SetInventory( ([
         "/domains/diku-alfa/room/31.zon/obj/key_3133" : 1,
-        "/domains/etnar/wyr/wyr/obj/chest" : 1,
+        "/domains/etnar/wyr/wyr//obj/chest" : 1,
         ]) );
     SetExits( ([
         "altar" : "/domains/diku-alfa/room/30.zon/rm_3054",

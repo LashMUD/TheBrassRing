@@ -29,7 +29,7 @@ static void create() {
     SetCanBite(0);
     SetRace("human");
     SetClass("fighter");
-    SetLevel(25);
+    SetLevel(20);
     SetGender("male");
     SetMorality(2500);
     AddCurrency("gold", random(30)+1);
@@ -106,6 +106,7 @@ void checkPrank() {
     
     if( env && env->GetShort() ==  "%^BOLD%^Outside the South Gates of the Village of Wyr%^RESET%^"
             && !this_object()->GetInCombat() )
+    {
     counter++;
     switch (counter) {
         case 1 : this_object()->eventForce("look");
@@ -125,7 +126,8 @@ int checkPlacement() {
     object env = environment();
 
     if( env && !this_object()->GetInCombat()
-            && env->GetShort() != "%^BOLD%^Outside the Guardhouse%^RESET%^" ) { 
+            && env->GetShort() != "%^BOLD%^Outside the Guardhouse%^RESET%^" )
+    { 
         this_object()->eventForce("say I've got to get back to my post.");
         tell_room(environment(this_object()),"Pierce Pascal exits.", ({this_object()}));
         this_object()->eventMove("/domains/etnar/wyr/wyr/room/rm_121");

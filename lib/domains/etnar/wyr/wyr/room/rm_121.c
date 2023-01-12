@@ -31,6 +31,7 @@ static void create() {
         ]) );
     SetExits( ([
         "north" : "/domains/etnar/wyr/wyr/room/rm_118",
+        "east" : "/domains/etnar/wyr/wyr/room/rm_226",
         "south" : "/domains/etnar/wyr/wyr/room/rm_167",
         "west" : "/domains/etnar/wyr/wyr/room/rm_159",
         ] ));
