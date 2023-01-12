@@ -16,7 +16,7 @@ static void create() {
     SetKeyName("table");
     SetId("table");
     SetAdjectives("wooden");
-    SetShort("big wooden table in the shape of a coffin");
+    SetShort("a big wooden table in the shape of a coffin");
     SetLong("This is the corpse table where Pierce Pascal lays out the victims of his guards.");
     SetInvis(1);
     SetMaxCarry(10000);

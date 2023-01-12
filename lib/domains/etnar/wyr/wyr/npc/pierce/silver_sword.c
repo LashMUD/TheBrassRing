@@ -18,10 +18,10 @@ static void create() {
     SetKeyName("long sword");
     SetId( ({"longsword", "long sword", "sword" }) );
     SetAdjectives( ({ "long", "sharp" }));
-    SetShort("a Falunite long sword");
+    SetShort("a silver long sword");
     SetLong("A sharp double edged long sword with a leather wound hilt and "
-        "deep red blade");
-    SetClass(54);
+        "shiny silver blade");
+    SetClass(24);
     SetDamageType(BLADE);
     SetWeaponType("blade");
     SetMass(12);
