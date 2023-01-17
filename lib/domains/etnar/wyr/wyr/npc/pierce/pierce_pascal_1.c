@@ -4,7 +4,7 @@
  * based on The Dead Souls Mud Library
  * maintained by Cratylus http://www.dead-souls.net
  * for use in The Brass Ring Mud
- * last edited by lash 23/01/11 year/month/day
+ * last edited by lash 23/01/16 year/month/day
  */
 
 #include <lib.h>
@@ -194,10 +194,10 @@ void checkPrank()
     object albert;
     object waltin;
     object env = environment();
+    
+    if( ccounter > 0 ) DisposeCorpse(); 
 
     if(env) pranksters = all_inventory(env);
-
-    if( ccounter > 0 ) DisposeCorpse();                  
 
     if( sizeof(pranksters) )
     {
@@ -368,6 +368,7 @@ void checkPrank()
                           break;
                 case 13 : eventForce("get albert");
                           ccounter = 1;
+                          DisposeCorpse();
                           break;
                 default : eventPrint("error in Pascal");
                           break;
@@ -398,6 +399,7 @@ void checkPrank()
                          break;
                 case 7 : eventForce("get albert");
                           ccounter = 1;
+                          DisposeCorpse();
                           break;
                 default : eventPrint("error in pascal");
                           break;
@@ -469,6 +471,7 @@ void checkPrank()
                           break;
                 case 12 : eventForce("get waltin");
                           ccounter = 1;
+                          DisposeCorpse();
                 default : eventPrint("error in Pascal");
                           break; 
             }
@@ -499,7 +502,8 @@ void checkPrank()
                               "but only a mediocre gate guard.");
                          break;
                 case 8 : eventForce("get waltin");
-                         ccounter = 1;  
+                         ccounter = 1;
+                         DisposeCorpse();  
                          break;
                 default : eventPrint("error in pascal");
                           break;   
@@ -637,6 +641,7 @@ void checkPrank()
                 case 7 : eventForce("get waltin");
                          eventForce("get albert");
                          ccounter = 1;
+                         DisposeCorpse();
                          break;
                 default : eventPrint("error in pascal");
                           break;
