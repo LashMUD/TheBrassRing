@@ -225,7 +225,7 @@ void checkPrank()
             && present("waltin")
             && base_name(albert) != LIB_CORPSE 
             && base_name(waltin) != LIB_CORPSE 
-            && !albert->GetInCombat() 
+            && !albert->GetInCombat()
             && !waltin->GetInCombat() 
           )
             
