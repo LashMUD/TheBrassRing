@@ -10,7 +10,8 @@
  *     - added code for factions used in TBR
  *     - player should not be cursed or blinded after death regeneration
  *     - added timer checking for room renting
- *     last modified: 22/11/18 year/month/day
+ *     - added checks for faction and rent timers
+ *     last modified: 23/01/18 year/month/day
  */
 
 #include <lib.h>
@@ -68,8 +69,8 @@ static void heart_beat(){
             RemoveProperty("reply_time");
         }
     }
-    factions::CheckTimer();        
-    rent::CheckTimer();
+    if( sizeof(GetFacs()) ) factions::CheckTimer();        
+    if( sizeof(GetFacs()) ) rent::CheckTimer();
     interactive::heart_beat();
     living::heart_beat();
 
