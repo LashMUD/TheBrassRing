@@ -11,7 +11,7 @@
  *     - player should not be cursed or blinded after death regeneration
  *     - added timer checking for room renting
  *     - added checks for faction and rent timers
- *     last modified: 23/01/18 year/month/day
+ *     last modified: 23/01/24 year/month/day
  */
 
 #include <lib.h>
@@ -70,7 +70,7 @@ static void heart_beat(){
         }
     }
     if( sizeof(GetFacs()) ) factions::CheckTimer();        
-    if( sizeof(GetFacs()) ) rent::CheckTimer();
+    if( sizeof(GetRents()) ) rent::CheckTimer();
     interactive::heart_beat();
     living::heart_beat();
 
